@@ -34,6 +34,4 @@ declare module mdTable {
         templateUrl?: string
     }
 
-
-
 }

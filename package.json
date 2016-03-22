@@ -8,7 +8,7 @@
   },
   "author": "Alexander Kondaurov",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "html-loader": "^0.4.3",
     "ts-loader": "^0.8.1",
     "typescript": "^1.8.7",

@@ -1,7 +1,7 @@
 import {StrField} from "../crud/table/fieldTypes/StrField";
 import {CrudTableConfig} from "../crud/table/CrudTableConfig";
 
-export const table: CrudTableConfig = new CrudTableConfig("Таблицы", "/pureRest/resource")
+export const table: CrudTableConfig = new CrudTableConfig("Таблицы", "/pureRest/resource", "1:god")
     .setFields([{
         name: "name",
         title: 'Название',

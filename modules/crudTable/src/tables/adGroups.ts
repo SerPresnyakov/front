@@ -5,13 +5,13 @@ import {CrudTableConfig} from "../crud/table/CrudTableConfig";
 import {TableRel} from "../crud/table/TableRel";
 
 export const table: CrudTableConfig =
-    new CrudTableConfig("Группы объявлений", "/api/direct/bannerGroup?token=1:god&include=region,brand")
+    new CrudTableConfig("Группы объявлений", "/api/direct/bannerGroup", "1:god")
         .setFields([{
             name: "id",
             title: "ID",
             fieldType: new IntField(),
             nullable: false
-        },{
+        }, {
             name: "name",
             title: "Название",
             fieldType: new StrField(),

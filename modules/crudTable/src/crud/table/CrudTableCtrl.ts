@@ -27,7 +27,7 @@ export class CrudTableCtrl {
 
     init(config: CrudTableConfig) {
         this.config = config;
-        this.source = new DAO(this.config.sourceName, this.config.url, this.inj);
+        this.source = new DAO(this.config.token, this.config.sourceName, this.config.url, this.inj);
         this.pager = new Pager(1, 15);
         this.refreshPage()
     }

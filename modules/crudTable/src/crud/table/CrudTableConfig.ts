@@ -9,7 +9,8 @@ export class CrudTableConfig {
 
     constructor(
         public sourceName: string,
-        public url: string
+        public url: string,
+        public token: string
     ) {}
 
     setFields(fields: TableField[]): CrudTableConfig {
@@ -25,7 +26,5 @@ export class CrudTableConfig {
     getRel(fieldName: string): TableRel {
         return this.rels.find((r) => r.field == fieldName)
     }
-
-
 
 }

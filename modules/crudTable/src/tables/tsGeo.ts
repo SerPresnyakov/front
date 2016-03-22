@@ -5,7 +5,7 @@ import {StrField} from "../crud/table/fieldTypes/StrField";
 import {TableField} from "../crud/table/TableField";
 
 export const table: CrudTableConfig =
-    new CrudTableConfig("GEO", "/pureRest/tsGeo")
+    new CrudTableConfig("GEO", "/pureRest/tsGeo", "1:god")
         .setFields([
             {
                 name: "brandId",

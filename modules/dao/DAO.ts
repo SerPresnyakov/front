@@ -15,6 +15,7 @@ export class DAO {
     $q: ng.IQService;
 
     constructor(
+        protected token: string,
         protected sourceName: string,
         protected restUrl: string,
         protected inj: ng.auto.IInjectorService
@@ -26,7 +27,9 @@ export class DAO {
     getPage(page:Page): ng.IPromise<iPageResponse> {
         let result = this.$q.defer<iPageResponse>();
         this.$http
-            .get(this.restUrl, {params: page})
+            .get(this.restUrl, {params: page, headers: {
+                token: this.token
+            }})
             .then((res: ng.IHttpPromiseCallbackArg<iPageResponse>) => result.resolve(res.data))
             .catch((err) => { console.error(err); result.reject(err.data); });
 
@@ -40,7 +43,9 @@ export class DAO {
     getOne(id: number):ng.IPromise<any[]> {
       let params = {};
       return this.$http
-          .get(`${this.restUrl}/${id}`,{params: params})
+          .get(`${this.restUrl}/${id}`,{params: params, headers: {
+              token: this.token
+          }})
           .then((res) => res.data)
     }
 
@@ -48,7 +53,9 @@ export class DAO {
         let result = this.$q.defer<number>();
 
         this.$http
-            .post(`${this.restUrl}`, doc)
+            .post(`${this.restUrl}`, doc, {headers: {
+                token: this.token
+            }})
             .then((res: ng.IHttpPromiseCallbackArg<number>) => {
                 return result.resolve(res.data);
             })
@@ -65,7 +72,9 @@ export class DAO {
         let result = this.$q.defer<boolean>();
 
         this.$http
-            .delete(`${this.restUrl}/${id}`)
+            .delete(`${this.restUrl}/${id}`, {headers: {
+                token: this.token
+            }})
             .then((res: ng.IHttpPromiseCallbackArg<boolean>) => {
                 result.resolve(res.data);
             })
@@ -79,7 +88,9 @@ export class DAO {
 
     patch(id: number, doc: Object): ng.IPromise<boolean> {
         let result = this.$q.defer<boolean>();
-        this.$http.put(`${this.restUrl}/${id}`, doc)
+        this.$http.put(`${this.restUrl}/${id}`, doc, {headers: {
+                token: this.token
+            }})
             .then((res: ng.IHttpPromiseCallbackArg<boolean>) => {
                 if (res.data) {
                     result.resolve(res.data);

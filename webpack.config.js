@@ -1,11 +1,12 @@
 var path = require("path");
 
+var root = __dirname + "/modules/crudTable";
+
 module.exports = {
-    context: __dirname + "/app/src",
-    entry: "./App",
+    entry: root + "/src/App",
     output: {
         filename: "[name].bundle.js",
-        path: __dirname + "/app/js"
+        path: root + "/js"
     },
     resolve: {
         extensions: ["", ".webpack.js", ".web.js", ".js", ".ts"]

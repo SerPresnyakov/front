@@ -6,4 +6,4 @@ build
 npm-debug.log
 typings
 .tscache
-app/js
+**/*.bundle.js

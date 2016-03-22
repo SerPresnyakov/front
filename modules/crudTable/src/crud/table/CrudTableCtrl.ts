@@ -1,12 +1,13 @@
 import {CrudTableConfig} from "./CrudTableConfig";
-import {Source} from "../source/Source";
-import {Pager} from "../source/Pager";
+
+import {DAO} from "../../../../dao/DAO";
+import {Pager} from "../../../../dao/Pager";
+import {Page} from "../../../../dao/Page";
 
 import {getDialog as autocompleteDialog} from "./autocompleteDialog/Cmpn"
 import {getDialog as createDialog} from "./createDialog/Cmpn"
 
 import {StrField} from "./fieldTypes/StrField";
-import {Page} from "../source/Page";
 import {TableField} from "./TableField";
 
 export class CrudTableCtrl {
@@ -15,7 +16,7 @@ export class CrudTableCtrl {
 
     config: CrudTableConfig;
 
-    source: Source;
+    source: DAO;
     pager: Pager;
 
     constructor(
@@ -26,7 +27,7 @@ export class CrudTableCtrl {
 
     init(config: CrudTableConfig) {
         this.config = config;
-        this.source = new Source(this.config.sourceName, this.config.url, this.inj);
+        this.source = new DAO(this.config.sourceName, this.config.url, this.inj);
         this.pager = new Pager(1, 15);
         this.refreshPage()
     }

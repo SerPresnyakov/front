@@ -8,7 +8,7 @@ export class AngularModule {
 
   getModuleName(): string { return this.module.name }
 
-  registerStates(states: IRegisterMeta<ng.ui.IState>[]) {
+  registerStates(states: iRegisterMeta<ng.ui.IState>[]) {
     this.module.config(["$stateProvider", (stateProvider: ng.ui.IStateProvider) => {
         states.forEach(state => {
           console.debug(`Регистрируем состояние '${state.name}' в модуле ${this.getModuleName()}`);
@@ -17,24 +17,24 @@ export class AngularModule {
       }])
   }
 
-  registerComponent(components: IRegisterMeta<ng.IComponentOptions>[]) {
+  registerComponent(components: iRegisterMeta<ng.IComponentOptions>[]) {
     components.forEach(component => {
       console.debug(`Регистрируем компонент '${component.name}' в модуле ${this.getModuleName()}`);
       this.module.component(component.name, component.config)
     });
   }
 
-  registerDirective(directive: IRegisterMeta<() => ng.IDirective>) {
+  registerDirective(directive: iRegisterMeta<() => ng.IDirective>) {
     console.debug(`Регистрируем директиву '${directive.name}' в модуле ${this.getModuleName()}`);
     this.module.directive(directive.name, directive.config)
   }
 
-  registerFilter(filter: IRegisterMeta<() => (input: string) => string>) {
+  registerFilter(filter: iRegisterMeta<() => (input: string) => string>) {
     console.debug(`Регистрируем фильтр '${filter.name}' в модуле ${this.getModuleName()}`);
     this.module.filter(filter.name, filter.config)
   }
 
-  registerServices(services: IRegisterMeta<Function>[]) {
+  registerServices(services: iRegisterMeta<Function>[]) {
     services.forEach(service => {
       console.debug(`Регистрируем сервис '${service.name}' в модуле ${this.getModuleName()}`);
       this.module.service(service.name, service.config)

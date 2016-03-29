@@ -4,16 +4,9 @@ declare var require: {
     ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void
 };
 
-declare interface iSchemaForm {
-    schema: Object
-    form: Object[]
-}
-
 declare type modalMode = "create" | "update"
 
-declare type schemaFormFactory = (mode: modalMode) => iSchemaForm
-
-declare interface iRegister<T> {
+declare interface iRegisterMeta<T> {
     name: string
     config: T
 }

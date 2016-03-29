@@ -1,0 +1,35 @@
+<md-dialog aria-label="Autocomplete Dialog Example" ng-cloak>
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Редактировать {{ctrlVM.field.title}}</h2>
+            <span flex></span>
+            <md-button class="md-icon-button" ng-click="ctrlVM.mdDialog.cancel()">
+                <i class="fa fa-times"></i>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content>
+        <div class="md-dialog-content">
+            <form ng-submit="$event.preventDefault()">
+                <p>Введите название:</p>
+                <md-autocomplete
+                        md-selected-item="ctrlVM.selectedItem"
+                        md-search-text="ctrlVM.searchText"
+                        md-items="item in ctrlVM.querySearch(ctrlVM.searchText)"
+                        md-item-text="item.name"
+                        md-min-length="0"
+                        placeholder="">
+                    <md-item-template>
+                        <span md-highlight-text="ctrlVM.searchText" md-highlight-flags="^i">{{item.name}}</span>
+                    </md-item-template>
+                    <md-not-found>
+                        Не найдено "{{ctrlVM.searchText}}".
+                    </md-not-found>
+                </md-autocomplete>
+            </form>
+        </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+        <md-button aria-label="Finished" ng-click="ctrlVM.finish($event)">Завершить</md-button>
+    </md-dialog-actions>
+</md-dialog>

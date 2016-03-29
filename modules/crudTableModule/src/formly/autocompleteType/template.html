@@ -1,0 +1,18 @@
+<md-autocomplete
+        ng-disabled="ctrl.isDisabled"
+        md-no-cache="ctrl.noCache"
+        md-selected-item="selectedItem"
+        md-search-text-change="searchTextChange(searchText)"
+        md-search-text="searchText"
+        md-selected-item-change="selectedItemChange(item)"
+        md-items="item in querySearch(searchText)"
+        md-item-text="item.name"
+        md-min-length="0"
+        placeholder="Выберите {{to.label}}">
+    <md-item-template>
+        <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
+    </md-item-template>
+    <md-not-found>
+         Не найдено "{{ctrl.searchText}}".
+    </md-not-found>
+</md-autocomplete>

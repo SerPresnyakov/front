@@ -19,13 +19,13 @@
     "test",
     "tests"
   ],
-  "devDependencies": {
+  "dependencies": {
     "angular": "~1.5.1",
     "angular-material": "~1.0.6",
     "angular-ui-router": "ui-router#~0.2.18",
     "font-awesome": "~4.5.0",
     "angular-material-data-table": "^0.9.14",
     "angular-schema-form": "~0.8.12",
-    "bootstrap": "^3.3.6"
+    "angular-local-storage": "~0.2.7"
   }
 }

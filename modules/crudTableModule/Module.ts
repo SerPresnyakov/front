@@ -1,7 +1,8 @@
-import {CrudTableDirective} from "src/CrudTableCmpn"
+import {CrudTableDirective} from "./src/CrudTableCmpn"
 import {Deps} from "../utils/Deps";
 
 const module = angular.module("restCrud", [
+    Deps.localStorage,
     Deps.material,
     Deps.mdTable,
     Deps.angularFormly

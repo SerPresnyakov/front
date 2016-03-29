@@ -1,5 +1,4 @@
 import IState = ng.ui.IState
-import {Ctrl} from "./../crud/table/createDialog/Ctrl";
 
 function isTokenForm(t: string): boolean {
   return t.match(/^\d+:.*/) != null

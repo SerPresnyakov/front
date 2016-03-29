@@ -1,6 +1,6 @@
 import {CrudTableConfig} from "./CrudTableConfig";
-import {Source} from "../source/Source";
-import {Pager} from "../source/Pager";
+import {Source} from "../../dao/Source";
+import {Pager} from "../../dao/Pager";
 
 import {getDialog as autocompleteDialog} from "./autocompleteDialog/Cmpn"
 import {getDialog as createDialog} from "./createDialog/Cmpn"
@@ -8,12 +8,12 @@ import {getDialog as deleteDialog} from "./deleteDialog/Cmpn"
 import {getDialog as editDialog} from "./editDialog/Cmpn"
 
 import {StrField} from "./fieldTypes/StrField";
-import {Page} from "../source/Page";
+import {Page} from "../../dao/Page";
 import {TableField} from "./TableField";
 
 export class CrudTableCtrl {
 
-    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "Restangular", "$http"];
+    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http"];
 
     config: CrudTableConfig;
 
@@ -24,13 +24,11 @@ export class CrudTableCtrl {
         public inj: ng.auto.IInjectorService,
         public $editDialog: mdTable.EditDialogService,
         public $mdDialog: ng.material.IDialogService,
-        private restangular: restangular.IService,
         private $http:ng.IHttpService
     ) {}
 
     init(config: CrudTableConfig) {
         this.config = config;
-        this.config.rest= this.restangular;
         this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes());
         this.pager = new Pager(1, 15);
         this.refreshPage();

@@ -8,6 +8,7 @@
     "angular-local-storage": "registry:dt/angular-local-storage#0.1.5+20160317120654",
     "angular-material": "registry:dt/angular-material#1.0.0-rc5.0+20160311160148",
     "angular-ui-router": "registry:dt/angular-ui-router#1.1.5+20160112161118",
-    "jquery": "registry:dt/jquery#1.10.0+20160303223636"
+    "jquery": "registry:dt/jquery#1.10.0+20160303223636",
+    "restangular": "registry:dt/restangular#1.4.0+20160317120654"
   }
 }

@@ -25,7 +25,7 @@ export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective 
             let config = scope.config;
 
             if (scope.tmpl == "adGroups") {
-                templ = require<string>(".././AdgroupTemplate.html")
+                templ = require<string>("../../../demo/src/tableConfigs/AdgroupTemplate.html")
             } else {
                 templ = new Templater(config, "vm").getTemplate()
             }

@@ -5,6 +5,7 @@ export class TableRel {
         public field: string,
         public dao: string,
         public type: "one" | "many",
+        public isInclude: boolean,
         public displayField: string = "name"
     ) {}
 

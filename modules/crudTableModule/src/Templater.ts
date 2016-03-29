@@ -58,7 +58,7 @@ export class Templater {
             "<tbody md-body>" +
                 `<tr md-row ng-repeat='o in ${this.ctrlAs}.pager.data'>` +
                     this.getTds("o") +
-                    `<td md-cell><md-button ng-click='${this.ctrlAs}.edit(o)' class='md-raised'><i class='fa fa-pencil'></i> Редактировать</md-button><md-button ng-click='${this.ctrlAs}.delete(o)' class='md-raised'><i class='fa fa-trash-o'></i> Удалить</md-button></td>` +
+                    `<td md-cell><md-button ng-click='${this.ctrlAs}.edit(o)' class='md-raised'><i class='fa fa-pencil'></i></md-button><md-button ng-click='${this.ctrlAs}.delete(o)' class='md-raised'><i class='fa fa-trash-o'></i></md-button></td>` +
                 "</tr>" +
             "</tbody>";
     }

@@ -1,5 +1,5 @@
-import {StrField} from "../crudTable/src/fieldTypes/StrField";
-import {CrudTableConfig} from "../crudTable/src/CrudTableConfig";
+import {StrField} from "../../../modules/crudTableModule/src/fieldTypes/StrField";
+import {CrudTableConfig} from "../../../modules/crudTableModule/src/CrudTableConfig";
 
 export const table: CrudTableConfig = new CrudTableConfig("Таблицы", "/pureRest/resource")
     .setFields([{

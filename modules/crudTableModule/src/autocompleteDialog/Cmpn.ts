@@ -1,6 +1,6 @@
 import {TableField} from "../TableField";
 import {TableRel} from "../TableRel";
-import {Helper} from "../../../common/Helper";
+import {Helper} from "../../../utils/Helper";
 
 class Ctrl {
 
@@ -26,7 +26,7 @@ class Ctrl {
         return this.$http.get(this.rel.dao, {
             params: {
                 filter: `name_like_${text}`,
-                token: `1:god`
+                token: `1:6273543320`
             }
         }).then((res: any) => res.data.data);
     }

@@ -1,4 +1,3 @@
-
 export class Pager {
 
   data: any[] = [];

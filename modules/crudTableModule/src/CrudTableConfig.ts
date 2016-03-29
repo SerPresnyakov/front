@@ -35,7 +35,9 @@ export class CrudTableConfig {
 
     getIncludes(){
         let res=[];
-        this.rels.forEach((r)=> res.push(r.field));
+        this.rels.forEach((r)=> {
+            if(r.isInclude)res.push(r.field);
+        });
         return res;
     }
 

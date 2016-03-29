@@ -1,14 +1,12 @@
 import {indexState} from "./index/State"
+import {table as adGroupTable} from "./tableConfigs/adGroups"
+import {table as tables} from "./tableConfigs/tables"
+import {table as clients} from "./tableConfigs/leviafan/client"
+import {table as shops} from "./tableConfigs/leviafan/shop"
+import {CrudTableConfig} from "../../modules/crudTableModule/src/CrudTableConfig";
 
-import {table as adGroupTable} from "tableConfigs/adGroups"
-import {table as tables} from "tableConfigs/tables"
-import {table as clients} from "tableConfigs/leviafan/client"
-import {CrudTableConfig} from "crudTable/src/CrudTableConfig";
-import {loginState} from "./auth/login/loginState";
-
-export const states: IRegisterMeta<ng.ui.IState>[] = [
+export const states: iRegisterMeta<ng.ui.IState>[] = [
     indexState,
-    loginState,
     {
         name: "index.adGroups",
         config: {
@@ -45,6 +43,18 @@ export const states: IRegisterMeta<ng.ui.IState>[] = [
             }],
             resolve: {
                 config: (): CrudTableConfig => clients
+            }
+        }
+    },{
+        name: "index.shops",
+        config: {
+            url: "shops",
+            template: "<ak-crud-table config=\"config\">",
+            controller: ["config", "$scope", (config, s) => {
+                s['config'] = config
+            }],
+            resolve: {
+                config: (): CrudTableConfig => shops
             }
         }
     },

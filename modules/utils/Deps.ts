@@ -9,5 +9,7 @@ export class Deps {
     static diffMatch = "diff-match-patch";
     static material = "ngMaterial";
     static mdTable = 'md.data.table';
-    static angularFormly = "angular-formly";
+    static angularFormly = "formly";
+    static formlyMaterial = "formlyMaterial";
+    static ngMessages = "ngMessages";
 }

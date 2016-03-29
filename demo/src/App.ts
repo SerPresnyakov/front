@@ -1,13 +1,14 @@
 
-import {Deps} from "./Deps";
+import {Deps} from "../../modules/utils/Deps";
 import {Config} from "./Config";
 import {Run} from "./Run";
 import {states} from "./States";
-import CrudModule from "crudTable/Module"
 
 const module = angular.module("app", [
     Deps.uiRouter,
-    CrudModule
+    Deps.material,
+    "restCrud",
+    "a.auth"
 ]);
 
 Config.registerStates(module.name, states);

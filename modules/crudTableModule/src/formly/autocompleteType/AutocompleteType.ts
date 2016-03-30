@@ -18,7 +18,7 @@ class Ctrl {
             return this.$http.get(scope.options.data.dao, {
                 params: {
                     filter: `name_like_${text}`,
-                    token: `1:god`
+                    token: `1:6273543320`
                 }
             }).then((res: any) => res.data.data);
         };

@@ -26,8 +26,9 @@ class Ctrl {
         return this.$http.get(this.rel.dao, {
             params: {
                 filter: `name_like_${text}`,
-                token: `1:6273543320`
-            }
+
+            },
+            headers: {token: this.source.getToken()}
         }).then((res: any) => res.data.data);
     }
 

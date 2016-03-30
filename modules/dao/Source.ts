@@ -58,9 +58,15 @@ export class Source {
         let params = {};
         if (this.include != null) params["include"] = this.include.join(',');
         return this.$http
-            .get(`${this.restUrl}/${id}`,{params: params})
+            .get(`${this.restUrl}/${id}`, {
+                    params: params,
+                    headers: {
+                        token: this.token
+                    }
+            })
             .then((res) => res.data)
     }
+
     //create(doc: M): ng.IPromise<number> {
     //    let result = this.$q.defer<number>();
     //
@@ -76,6 +82,7 @@ export class Source {
     //    return result.promise
     //}
     //
+
     remove(id: number): ng.IPromise<boolean> {
 
         let result = this.$q.defer<boolean>();
@@ -108,6 +115,10 @@ export class Source {
                 result.reject(err.data)
             });
         return result.promise
+    }
+
+    getToken(){
+        return this.token
     }
 
 }

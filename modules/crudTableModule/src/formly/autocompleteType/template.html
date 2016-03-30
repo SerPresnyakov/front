@@ -8,7 +8,7 @@
         md-items="item in querySearch(searchText)"
         md-item-text="item.name"
         md-min-length="0"
-        placeholder="Выберите {{to.label}}">
+        placeholder="{{to.label}}">
     <md-item-template>
         <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
     </md-item-template>

@@ -1,17 +1,9 @@
 import {CrudTableConfig} from "../../../../modules/crudTableModule/src/CrudTableConfig";
 import {StrField} from "../../../../modules/crudTableModule/src/fieldTypes/StrField";
+import {TableField} from "../../../../modules/crudTableModule/src/TableField";
 
 export const table: CrudTableConfig = new CrudTableConfig("Клиенты", "/left/client")
-    .setFields([{
-        name: "name",
-        title: 'Имя',
-        fieldType: new StrField(),
-        nullable: false,
-        formly:"input"
-    },{
-        name: "login",
-        title: 'Логин',
-        fieldType: new StrField(),
-        nullable: false,
-        formly:"input"
-    }]);
+    .setFields([
+        new TableField("name", 'Имя', new StrField(), false, "input"),
+        new TableField("login", 'Логин', new StrField(), false, "input")
+    ]);

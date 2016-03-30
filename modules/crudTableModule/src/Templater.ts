@@ -21,6 +21,7 @@ export class Templater {
                     `<span>${this.config.sourceName}</span>` +
                     '<span flex></span>' +
                     `<md-button class="md-raised md-primary" ng-click="${this.ctrlAs}.create()">Создать</md-button>` +
+                    '<filter-button></filter-button>' +
                 '</div>' +
             '</md-toolbar>'
     }
@@ -40,7 +41,9 @@ export class Templater {
     getThs(): string {
         let res = [];
         angular.forEach(this.config.fields, (f) => {
-            res.push(`<th md-column>${f.title}</th>`)
+            if(f.parent==null){
+                res.push(`<th md-column>${f.title}</th>`)
+            }
         });
         res.push("<th md-column>Действия</th>");
         return res.join("\n")
@@ -69,11 +72,33 @@ export class Templater {
         angular.forEach(this.config.fields, (f) => {
             if(f.formly=="autocomplete"){
                 let relName = "";
+                let isInclude = false;
                 angular.forEach(this.config.rels, (r) => {
-                    if(r.name == f.name) relName = r.field;
+                    if(r.name == f.name){
+                        relName = r.field;
+                        if(r.isInclude)isInclude=true;
+                    }
                 });
-                res.push(`<td md-cell ng-click='vm.editProp($event,o, "${f.name}")'>{{o._relations.${relName}.name || 'Не указано'}}</td>`);
-            }else{
+                if (isInclude) {
+                    res.push(`<td md-cell ng-click='vm.editProp($event,o, "${f.name}")'>{{o._relations.${relName}.name || 'Не указано'}}</td>`);
+                }
+                else {
+                    res.push(`<td md-cell ng-click='vm.editProp($event,o, "${f.name}")'>{{o.${f.name} || 'Не указано'}}</td>`);
+                }
+
+            } else if (f.fieldType.type=="obj") {
+                let childs = "";
+                angular.forEach(this.config.fields, (n) => {
+                    if(f.name == n.parent){
+                        childs = childs + `${this.getObjCell(obj, n, f)}`;
+                    }
+                });
+                res.push(`<td md-cell>${childs}</td>`);
+
+            } else if (f.parent) {
+
+            }
+             else{
                 res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
             }
         });
@@ -88,6 +113,18 @@ export class Templater {
         } else {
 
             res = `{{${obj}.${f.name}}}`
+        }
+        return res
+    }
+
+    getObjCell(obj: string, n, f: TableField): string {
+        let rel = this.config.getRel(f.name);
+        var res: string;
+        if (rel && rel.type == "one") {
+            res = `{{${obj}._relations.${rel.name}.${rel.displayField ? rel.displayField : "name"}}}`
+        } else {
+
+            res = `${n.title}: {{${obj}.${f.name}.${n.name}}}<br>`
         }
         return res
     }

@@ -1,0 +1,23 @@
+<md-menu>
+    <md-button aria-label="Open phone interactions menu" ng-click="ctrl.openMenu($mdOpenMenu, $event)">
+        Фильтры
+    </md-button>
+    <md-menu-content width="4">
+        <md-menu-item>
+            <md-button ng-click="ctrl.redial($event)">
+                Redial
+            </md-button>
+        </md-menu-item>
+        <md-menu-item>
+            <md-button disabled="disabled" ng-click="ctrl.checkVoicemail()">
+                Check voicemail
+            </md-button>
+        </md-menu-item>
+        <md-menu-divider></md-menu-divider>
+        <md-menu-item>
+            <md-button ng-click="ctrl.toggleNotifications()">
+                {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
+            </md-button>
+        </md-menu-item>
+    </md-menu-content>
+</md-menu>

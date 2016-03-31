@@ -15,6 +15,7 @@ class Ctrl {
         let res = {};
         res["name"] = field.name;
         res["title"] = field.title;
+        res["parent"] = field.parent;
         res["type"] = field.fieldType.type;
         res["value"] = "";
         this.filters.push(res);

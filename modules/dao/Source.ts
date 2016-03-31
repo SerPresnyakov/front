@@ -16,6 +16,7 @@ export class Source {
     $http: ng.IHttpService;
     $q: ng.IQService;
     localStorage:ng.local.storage.ILocalStorageService;
+    state;
     Restangular;
     token;
 
@@ -29,6 +30,7 @@ export class Source {
         this.$http = inj.get<ng.IHttpService>("$http");
         this.$q = inj.get<ng.IQService>("$q");
         this.localStorage = inj.get<ng.local.storage.ILocalStorageService>("localStorageService");
+        this.state = inj.get<ng.ui.IStateService>("$state");
         if(restUrl != "/left/client" && restUrl != "/left/pricelab/shop") {
             this.token = this.localStorage.get<string>("token");
         }
@@ -43,8 +45,10 @@ export class Source {
         let res= "";
         angular.forEach(this.filter,(f)=>{
             if(f.type=="str"){
-                res = "base." + f.name + "_like_" + f.value + ";" + res;
-            }else{
+                if (f.parent==null) {
+                    res = "base." + f.name + "_like_" + f.value + ";" + res;
+                }
+            }else if(f.type == "int"){
                 res = "base." + f.name + "_eqN_" + f.value + ";" + res;
             }
 
@@ -62,7 +66,13 @@ export class Source {
         this.$http
             .get(this.restUrl, {params: params, headers:{token:this.token}})
             .then((res: ng.IHttpPromiseCallbackArg<iPageResponse>) => result.resolve(res.data))
-            .catch((err) => { console.error(err); result.reject(err.data); });
+            .catch((err) => {
+                console.error(err.status);
+                result.reject(err.data);
+                if(err.status==401){
+                    this.state.go("login", {from: this.state.current.name});
+                }
+            });
 
         return result.promise
     }

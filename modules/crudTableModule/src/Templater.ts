@@ -26,7 +26,7 @@ export class Templater {
             '</md-toolbar>' +
             `<md-content class="layout-padding flex">` +
                 `<filter-fields class="layout-padding flex" filters="${this.ctrlAs}.filters"></filter-fields>`+
-                `<md-button ng-click="vm.refreshPage()">Применить</md-button>` +
+                `<md-button ng-if='${this.ctrlAs}.filters.length>0' ng-click="${this.ctrlAs}.refreshPage()">Применить</md-button>` +
             `</md-content>`
     }
 

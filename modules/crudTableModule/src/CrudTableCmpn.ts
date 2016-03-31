@@ -7,6 +7,11 @@ interface CtrlScope extends ng.IScope {
     tmpl: string
 }
 
+//export const BoolBadgeDirective: iRegisterMeta<() => ng.IDirective> = {
+//    name:"akCrudTable",
+//    config: () =>CrudTableDirective($compile)
+//};
+
 export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective {
     return {
         scope: {
@@ -33,7 +38,6 @@ export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective 
             elem.html(templ);
             $compile(elem.contents())(scope);
             ctrl.init(config)
-
         }
     }
 

@@ -19,6 +19,7 @@ export class CrudTableCtrl {
 
     source: Source;
     pager: Pager;
+    filters = [];
 
     constructor(
         public inj: ng.auto.IInjectorService,
@@ -29,7 +30,7 @@ export class CrudTableCtrl {
 
     init(config: CrudTableConfig) {
         this.config = config;
-        this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes());
+        this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes(),this.filters);
         this.pager = new Pager(1, 15);
         this.refreshPage();
     }

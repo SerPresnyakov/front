@@ -20,8 +20,6 @@ export class Model {
                 model[f.name] = "";
             }
 
-
-
             //let res = {
             //    key: f.name,
             //    type: f.formly,

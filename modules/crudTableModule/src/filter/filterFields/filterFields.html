@@ -1,0 +1,8 @@
+<div ng-repeat='filter in filterFieldsVM.filters'>
+    <md-input-container >
+        <label>{{filter.title}}</label>
+        <md-icon ng-click='filterFieldsVM.filters.splice($index,1)' class="fa fa-times"></md-icon>
+        <input ng-model="filter.value">
+    </md-input-container>
+
+</div>

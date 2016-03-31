@@ -20,10 +20,14 @@ export class Templater {
                 '<div class="md-toolbar-tools">' +
                     `<span>${this.config.sourceName}</span>` +
                     '<span flex></span>' +
+                    `<filter-button filters="${this.ctrlAs}.filters" fields="${this.ctrlAs}.config.fields"></filter-button>` +
                     `<md-button class="md-raised md-primary" ng-click="${this.ctrlAs}.create()">Создать</md-button>` +
-                    '<filter-button></filter-button>' +
                 '</div>' +
-            '</md-toolbar>'
+            '</md-toolbar>' +
+            `<md-content class="layout-padding flex">` +
+                `<filter-fields class="layout-padding flex" filters="${this.ctrlAs}.filters"></filter-fields>`+
+                `<md-button ng-click="vm.refreshPage()">Применить</md-button>` +
+            `</md-content>`
     }
 
     getTable(): string {

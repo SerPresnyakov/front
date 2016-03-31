@@ -23,24 +23,41 @@ export class Source {
         protected sourceName: string,
         protected restUrl: string,
         protected inj: ng.auto.IInjectorService,
-        public include: any
+        public include: any,
+        public filter: any
     ) {
         this.$http = inj.get<ng.IHttpService>("$http");
         this.$q = inj.get<ng.IQService>("$q");
         this.localStorage = inj.get<ng.local.storage.ILocalStorageService>("localStorageService");
-        if(restUrl != "/left/client" && restUrl != "/left/pricelab/shop"){
+        if(restUrl != "/left/client" && restUrl != "/left/pricelab/shop") {
             this.token = this.localStorage.get<string>("token");
         }
-        else{
+        else {
             this.token = "1:6273543320";
         }
 
 
     }
 
+    setFilters(){
+        let res= "";
+        angular.forEach(this.filter,(f)=>{
+            if(f.type=="str"){
+                res = "base." + f.name + "_like_" + f.value + ";" + res;
+            }else{
+                res = "base." + f.name + "_eqN_" + f.value + ";" + res;
+            }
+
+        });
+        return res
+    }
+
     getPage(page:Page): ng.IPromise<iPageResponse> {
         let result = this.$q.defer<iPageResponse>();
         let params = page;
+        if(this.filter.length>0){
+            params["filter"] = this.setFilters();
+        }
         if (this.include != null) params["include"] = this.include.join(',');
         this.$http
             .get(this.restUrl, {params: params, headers:{token:this.token}})

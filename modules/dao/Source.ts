@@ -44,11 +44,11 @@ export class Source {
     setFilters(){
         let res= "";
         angular.forEach(this.filter,(f)=>{
-            if(f.type=="str"){
+            if(f.fieldType.type=="str"){
                 if (f.parent==null) {
                     res = "base." + f.name + "_like_" + f.value + ";" + res;
                 }
-            }else if(f.type == "int"){
+            }else if(f.fieldType.type == "int"){
                 res = "base." + f.name + "_eqN_" + f.value + ";" + res;
             }
 

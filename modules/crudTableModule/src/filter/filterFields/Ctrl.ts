@@ -1,14 +1,43 @@
+import {Schema} from "../../Schema";
 class Ctrl {
 
+    static $inject = ["$scope"];
+    constructor($scope){
+        $scope.$watch(function(scope) { return scope["filterFieldsVM"].filters.length; },(newVal, oldVal, scope)=>{
+            scope["filterFieldsVM"].test = Schema.getSchema(scope["filterFieldsVM"].filters,scope["filterFieldsVM"].rels,scope["filterFieldsVM"].rest)
+        })
+    }
+    res;
+    test;
+    filters;
+    refreshPage:()=>void;
 
+    delete(index) {
+        this.filters.splice(index, 1);
+        this.refreshPage();
+    }
+
+    submit(){
+        Object.getOwnPropertyNames(this.res).forEach(r =>{
+            angular.forEach(this.filters,(f)=>{
+                if(r==f.name){
+                    f['value'] = this.res[r];
+                 }
+            })
+        });
+        this.refreshPage();
+    };
 }
 
 export const filterFieldsDirective= {
     name: "filterFields",
     config: {
         bindings:{
+            fields: "=",
             filters: "=",
-            refreshPage: "="
+            rels: "=",
+            rest: "=",
+            refreshPage: "&"
         },
         controller: Ctrl,
         controllerAs: "filterFieldsVM",

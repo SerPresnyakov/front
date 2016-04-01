@@ -4,7 +4,7 @@
             Добавить фильтр
         </md-button>
         <md-menu-content width="3">
-            <md-menu-item ng-repeat="field in filterButtonVM.fields" ng-if="field.formly!='object'&& field.parent==null">
+            <md-menu-item ng-repeat="field in filterButtonVM.fields" ng-if="field.formly!='object'&& field.parent==null" ng-hide="filterButtonVM.isSet(field)">
                 <md-button ng-click="filterButtonVM.createFilter(field)">
                     {{field.title}}
                 </md-button>

@@ -11,12 +11,25 @@ class Ctrl {
         $mdOpenMenu(ev);
     };
 
+    isSet(field):boolean{
+        let res = false;
+        angular.forEach(this.filters,(f)=>{
+            if(field.name === f.name){
+                res = true;
+            }
+        });
+
+        return res;
+    }
+
     createFilter(field){
         let res = {};
         res["name"] = field.name;
         res["title"] = field.title;
         res["parent"] = field.parent;
-        res["type"] = field.fieldType.type;
+        res["formly"] = field.formly;
+        res["fieldType"]={};
+        res["fieldType"].type = field.fieldType.type;
         res["value"] = "";
         this.filters.push(res);
     }

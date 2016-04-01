@@ -4,7 +4,7 @@ import {TableRel} from "./TableRel";
 
 export class Schema {
 
-    static getSchema(fields,rels,rest): Object {
+    static getSchema(fields,rels?,rest?): Object {
 
         var schema = [];
 

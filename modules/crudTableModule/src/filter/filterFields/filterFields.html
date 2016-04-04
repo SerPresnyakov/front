@@ -1,6 +1,6 @@
  <form ng-submit="filterFieldsVM.submit()"  novalidate>
-        <formly-form model="filterFieldsVM.res" fields="filterFieldsVM.test"  form="vm.form">
-            <md-button type="submit" class="md-raised md-primary" ng-disabled="vm.form.$invalid">Submit</md-button>
-            <md-button type="button" class="md-raised" ng-click="vm.options.resetModel()">Reset</md-button>
+        <formly-form model="filterFieldsVM.res" fields="filterFieldsVM.test" options="filterFieldsVM.test1" >
+            <md-button ng-if="filterFieldsVM.test.length!=0" type="submit" ng-disabled="vm.form.$invalid">Применить</md-button>
+            <!--<md-button type="button" class="md-raised" ng-click="vm.options.resetModel()">Reset</md-button>-->
         </formly-form>
     </form>

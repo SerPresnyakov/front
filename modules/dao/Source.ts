@@ -50,8 +50,14 @@ export class Source {
                 }
             }else if(f.fieldType.type == "int"){
                 res = "base." + f.name + "_eqN_" + f.value + ";" + res;
-            }
+            }else if(f.fieldType.type == "bool"){
+                if(f.value) {
+                    res = "base." + f.name + "_eqB_" + f.value + ";" + res;
+                } else {
+                    res = "base." + f.name + "_eqB_false;" + res;
+                }
 
+            }
         });
         return res
     }

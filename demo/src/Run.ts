@@ -1,5 +1,5 @@
 import IFormlyConfig = AngularFormly.IFormlyConfig;
-import {PanelWrapper,InputContainerWrapper,LabelWrapper} from "../../modules/crudTableModule/src/formly/Wrappers";
+import {PanelWrapper,InputContainerWrapper,LabelWrapper,FilterWrapper} from "../../modules/crudTableModule/src/formly/Wrappers";
 import {AutocompleteType} from "../../modules/crudTableModule/src/formly/autocompleteType/AutocompleteType";
 
 export class Run {

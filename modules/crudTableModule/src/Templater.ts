@@ -25,8 +25,8 @@ export class Templater {
                 '</div>' +
             '</md-toolbar>' +
             `<md-content class="layout-padding flex">` +
-                `<filter-fields class="layout-padding flex" filters="${this.ctrlAs}.filters" fields="${this.ctrlAs}.config.fields" rels="${this.ctrlAs}.config.rels" rest="${this.ctrlAs}.config.rest"></filter-fields>`+
-                `<md-button ng-if='${this.ctrlAs}.filters.length>0' ng-click="${this.ctrlAs}.refreshPage()">Применить</md-button>` +
+                `<filter-fields class="layout-padding flex" filters="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' fields="${this.ctrlAs}.config.fields" rels="${this.ctrlAs}.config.rels" rest="${this.ctrlAs}.config.rest"></filter-fields>`+
+                //`<md-button ng-if='${this.ctrlAs}.filters.length>0' ng-click="${this.ctrlAs}.refreshPage()">Применить</md-button>` +
             `</md-content>`
     }
 
@@ -65,7 +65,7 @@ export class Templater {
             "<tbody md-body>" +
                 `<tr md-row ng-repeat='o in ${this.ctrlAs}.pager.data'>` +
                     this.getTds("o") +
-                    `<td md-cell><md-button ng-click='${this.ctrlAs}.edit(o)' class='md-raised'><i class='fa fa-pencil'></i></md-button><md-button ng-click='${this.ctrlAs}.delete(o)' class='md-raised'><i class='fa fa-trash-o'></i></md-button></td>` +
+                    `<td md-cell><md-button ng-click='${this.ctrlAs}.edit(o)' aria-label='edit' class='md-raised'><i class='fa fa-pencil'></i></md-button><md-button ng-click='${this.ctrlAs}.delete(o)' aria-label='delete' class='md-raised'><i class='fa fa-trash-o'></i></md-button></td>` +
                 "</tr>" +
             "</tbody>";
     }

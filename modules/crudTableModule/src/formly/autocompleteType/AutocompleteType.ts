@@ -11,14 +11,22 @@ class Ctrl {
         public $http: ng.IHttpService,
         public scope
     ) {
-        if(scope.model[scope.options.key]){
-            scope.searchText = scope.model._relations[scope.options.data.rels].name;
+        if (scope.model[scope.options.key]) {
+            if(scope.model._relations){
+                scope.searchText = scope.model._relations[scope.options.data.rels].name;
+            }
+            else{
+
+            }
+
         }
         scope.querySearch = (text: string) => {
             return this.$http.get(scope.options.data.dao, {
                 params: {
                     filter: `name_like_${text}`,
-                    token: `1:6273543320`
+                },
+                headers:{
+                    token: `1:3443014456`
                 }
             }).then((res: any) => res.data.data);
         };

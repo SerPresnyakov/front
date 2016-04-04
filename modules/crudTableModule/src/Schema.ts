@@ -27,11 +27,15 @@ export class Schema {
                     type: f.formly,
                     templateOptions: {
                         label: f.title
+                    },
+                    data:{
+                        test:()=>{
+                            console.log("test!")
+                        }
                     }
                 };
 
                 if (f.formly=="autocomplete") {
-                    res["data"]  = {};
                     angular.forEach(rels,(r:TableRel) => {
                         if(r.name == f.name){
                             res["data"]["rest"]= rest;

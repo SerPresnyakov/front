@@ -14,3 +14,8 @@ export const PanelWrapper = {
     name: 'panel',
     template: require<string>("./Panel.html")
 };
+
+export const FilterWrapper = {
+    name: 'FilterWrapper',
+    template: `<md-icon ng-click="formOptions.data.remove(index)" class='fa fa-times'></md-icon><formly-transclude></formly-transclude>`
+};

@@ -32,7 +32,7 @@ class Ctrl {
         }).then((res: any) => res.data.data);
     }
 
-    finish($event){
+    finish($event) {
         this.origin[this.field.name] = this.selectedItem.id;
         let res = {};
         res[this.field.name]=this.selectedItem.id;

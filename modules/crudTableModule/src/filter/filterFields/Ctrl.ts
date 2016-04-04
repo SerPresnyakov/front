@@ -4,7 +4,7 @@ class Ctrl {
     static $inject = ["$scope"];
     constructor($scope){
         $scope.$watch(function(scope) { return scope["filterFieldsVM"].filters.length; },(newVal, oldVal, scope)=>{
-            scope["filterFieldsVM"].test = Schema.getSchema(scope["filterFieldsVM"].filters,scope["filterFieldsVM"].rels,scope["filterFieldsVM"].rest)
+            scope["filterFieldsVM"].test = Schema.getSchema(scope["filterFieldsVM"].filters, scope["filterFieldsVM"].rels, scope["filterFieldsVM"].rest)
         })
     }
     res;
@@ -12,10 +12,24 @@ class Ctrl {
     filters;
     refreshPage:()=>void;
 
-    delete(index) {
-        this.filters.splice(index, 1);
-        this.refreshPage();
+    remove(index) {
+        if(index){
+            this.filters.splice(index, 1);
+            this.refreshPage();
+        }else{
+            console.log("index isnt spesify")
+        }
+
     }
+
+    test1 = {
+        wrapper:'FilterWrapper',
+        data:{
+            remove:function(index){
+               this.remove(index);
+            }
+        }
+    };
 
     submit(){
         Object.getOwnPropertyNames(this.res).forEach(r =>{
@@ -26,6 +40,7 @@ class Ctrl {
             })
         });
         this.refreshPage();
+        console.log("submit");
     };
 }
 

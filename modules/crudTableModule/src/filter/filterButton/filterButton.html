@@ -1,6 +1,6 @@
 <md-menu-bar role="menubar">
     <md-menu md-position-mode="left bottom" >
-        <md-button  ng-click="filterButtonVM.openMenu($mdOpenMenu, $event)">
+        <md-button  ng-disabled="filterButtonVM.fieldsCount() == filterButtonVM.filters.length" ng-click="filterButtonVM.openMenu($mdOpenMenu, $event)">
             Добавить фильтр
         </md-button>
         <md-menu-content width="3">

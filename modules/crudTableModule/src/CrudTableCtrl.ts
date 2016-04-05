@@ -68,6 +68,11 @@ export class CrudTableCtrl {
 
     }
 
+    onPaginate(page: any, limit: any) {
+        //this.refreshPage();
+        console.log("a")
+    }
+
     create($event: ng.IAngularEvent) {
 
         this.$mdDialog.show(createDialog($event, this.config)).then((res)=>this.refreshPage())

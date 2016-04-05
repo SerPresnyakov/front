@@ -1,8 +1,19 @@
 import {Schema} from "../../Schema";
+
+class fieldCtrl{
+    data={};
+    constructor(private $scope){
+        this.data = {scope:$scope.filterFieldsVM};
+        delete(this.$scope)
+    }
+    wrapper = "FilterWrapper";
+
+}
+
 class Ctrl {
 
     static $inject = ["$scope"];
-    constructor($scope){
+    constructor(public $scope){
         $scope.$watch(function(scope) { return scope["filterFieldsVM"].filters.length; },(newVal, oldVal, scope)=>{
             scope["filterFieldsVM"].test = Schema.getSchema(scope["filterFieldsVM"].filters, scope["filterFieldsVM"].rels, scope["filterFieldsVM"].rest)
         })
@@ -13,23 +24,17 @@ class Ctrl {
     refreshPage:()=>void;
 
     remove(index) {
-        if(index){
+        if(index>=0){
             this.filters.splice(index, 1);
             this.refreshPage();
-        }else{
+
+        }else {
             console.log("index isnt spesify")
         }
 
     }
 
-    test1 = {
-        wrapper:'FilterWrapper',
-        data:{
-            remove:function(index){
-               this.remove(index);
-            }
-        }
-    };
+    test1 = new fieldCtrl(this.$scope);
 
     submit(){
         Object.getOwnPropertyNames(this.res).forEach(r =>{

@@ -2,14 +2,16 @@ import {Helper} from "../../../../utils/Helper";
 
 class Ctrl {
 
-    static $inject = [ "$http", "$scope"];
+    static $inject = [ "$http", "$scope","localStorageService"];
 
     selectedItem: any;
     searchText: string;
+    token:string;
 
     constructor(
         public $http: ng.IHttpService,
-        public scope
+        public scope,
+        public localStorage: ng.local.storage.ILocalStorageService
     ) {
         if (scope.model[scope.options.key]) {
             if(scope.model._relations){
@@ -20,13 +22,19 @@ class Ctrl {
             }
 
         }
+        if(scope.options.data.dao != "/left/client" && scope.options.data.dao != "/left/pricelab/shop") {
+            this.token = this.localStorage.get<string>("token");
+        }
+        else {
+            this.token = "1:6273543320";
+        }
         scope.querySearch = (text: string) => {
             return this.$http.get(scope.options.data.dao, {
                 params: {
                     filter: `name_like_${text}`,
                 },
-                headers:{
-                    token: `1:3443014456`
+                headers: {
+                    token: this.token
                 }
             }).then((res: any) => res.data.data);
         };

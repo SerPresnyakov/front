@@ -6,3 +6,8 @@ md-toolbar h3 {
 md-list-item > a {
     width:100%;
 }
+
+md-switch{
+    display: inline-block !important;
+    vertical-align: middle;
+}

@@ -1,7 +1,8 @@
 import {Schema} from "../../Schema";
 
 class fieldCtrl{
-    data={};
+    data = {};
+
     constructor(private $scope){
         this.data = {scope:$scope.filterFieldsVM};
         delete(this.$scope)
@@ -12,15 +13,21 @@ class fieldCtrl{
 
 class Ctrl {
 
-    static $inject = ["$scope"];
-    constructor(public $scope){
+    static $inject = ["$scope","$state"];
+
+    constructor(public $scope,public state){
         $scope.$watch(function(scope) { return scope["filterFieldsVM"].filters.length; },(newVal, oldVal, scope)=>{
-            scope["filterFieldsVM"].test = Schema.getSchema(scope["filterFieldsVM"].filters, scope["filterFieldsVM"].rels, scope["filterFieldsVM"].rest)
-        })
+            scope["filterFieldsVM"].schema = Schema.getSchema(scope["filterFieldsVM"].filters, scope["filterFieldsVM"].rels)
+        });
+        if(state.params.filters) {
+            this.res = JSON.parse(state.params.filters);
+        }
+
     }
+
     res;
-    test;
-    filters;
+    schema:iFieldGroup[];
+    filters:iFilter[];
     refreshPage:()=>void;
 
     remove(index) {
@@ -31,10 +38,9 @@ class Ctrl {
         }else {
             console.log("index isnt spesify")
         }
-
     }
 
-    test1 = new fieldCtrl(this.$scope);
+    options = new fieldCtrl(this.$scope);
 
     submit(){
         Object.getOwnPropertyNames(this.res).forEach(r =>{
@@ -44,8 +50,10 @@ class Ctrl {
                  }
             })
         });
+        this.state.params.filters = JSON.stringify(this.res);
+        this.state.go(this.state.current.name,this.state.params);
         this.refreshPage();
-        console.log("submit");
+        console.log(JSON.stringify(this.res));
     };
 }
 

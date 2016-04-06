@@ -4,9 +4,9 @@ import {TableRel} from "./TableRel";
 
 export class Schema {
 
-    static getSchema(fields,rels?,rest?): Object {
+    static getSchema(fields,rels?): iFieldGroup[] {
 
-        var schema = [];
+        var schema:iFieldGroup[] = [];
 
         angular.forEach(fields, (f: TableField) => {
             if (f.fieldType.type=="obj") {
@@ -38,7 +38,6 @@ export class Schema {
                 if (f.formly=="autocomplete") {
                     angular.forEach(rels,(r:TableRel) => {
                         if(r.name == f.name){
-                            res["data"]["rest"]= rest;
                             res["data"]["dao"]= r.dao;
                             res["data"]["rels"] = r.field;
                         }

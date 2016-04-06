@@ -1,16 +1,20 @@
+import {TableField} from "../../TableField";
+
 class Ctrl {
+
     static $inject = ["$mdDialog"];
+
     constructor(public $mdDialog) {
     }
-    fields;
-    filters;
+
+    fields : TableField;
+    filters : iFilter[];
 
     originatorEv;
     openMenu = function($mdOpenMenu, ev) {
         this.originatorEv = ev;
         $mdOpenMenu(ev);
     };
-
 
     fieldsCount(){
         let res = 0;
@@ -31,21 +35,28 @@ class Ctrl {
                 res = true;
             }
         });
-
         return res;
     }
 
     createFilter(field){
-        let res = {};
-        res["name"] = field.name;
-        res["title"] = field.title;
-        res["parent"] = field.parent;
-        res["formly"] = field.formly;
-        res["options"] = field.options;
-        res["fieldType"]={};
-        res["fieldType"].type = field.fieldType.type;
-        res["value"] = "";
+        let res: iFilter = {
+            name:"",
+            title:"",
+            parent:"",
+            formly:"",
+            options:[],
+            fieldType:{type:""},
+            value:""
+        };
+        res.name = field.name;
+        res.title = field.title;
+        res.parent = field.parent;
+        res.formly = field.formly;
+        res.options = field.options;
+        res.fieldType.type = field.fieldType.type;
+        res.value = "";
         this.filters.push(res);
+
     }
 }
 

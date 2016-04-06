@@ -13,24 +13,33 @@ import {TableField} from "./TableField";
 
 export class CrudTableCtrl {
 
-    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http"];
+    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http", "$scope"];
 
     config: CrudTableConfig;
 
     source: Source;
     pager: Pager;
-    filters = [];
+    filters: iFilter[] = [];
 
     constructor(
         public inj: ng.auto.IInjectorService,
         public $editDialog: mdTable.EditDialogService,
         public $mdDialog: ng.material.IDialogService,
-        private $http:ng.IHttpService
-    ) {}
+        private $http:ng.IHttpService,
+        public $scope
+    ){
+        $scope.$watchCollection(function(scope) { return scope["vm"].pager;} ,(newVal, oldVal, scope)=>{
+            if(newVal.page!=oldVal.page || newVal.per!=oldVal.per){
+                console.log("new");
+                this.refreshPage();
+            }
+        })
+
+    }
 
     init(config: CrudTableConfig) {
         this.config = config;
-        this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes(),this.filters);
+        this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes(), this.filters);
         this.pager = new Pager(1, 15);
         this.refreshPage();
     }
@@ -69,8 +78,7 @@ export class CrudTableCtrl {
     }
 
     onPaginate(page: any, limit: any) {
-        //this.refreshPage();
-        console.log("a")
+        this.refreshPage();
     }
 
     create($event: ng.IAngularEvent) {

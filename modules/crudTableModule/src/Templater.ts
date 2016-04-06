@@ -45,7 +45,7 @@ export class Templater {
 
     getPagination():string{
         return '' +
-            '<md-table-pagination md-on-paginate="vm.onPaginate" md-limit="vm.pager.per" md-page="vm.pager.page" md-total="{{vm.pager.total}}" md-page-select>' +
+            '<md-table-pagination md-limit="vm.pager.per" md-page="vm.pager.page" md-total="{{vm.pager.total}}" md-page-select>' +
             '</md-table-pagination>'
     }
 

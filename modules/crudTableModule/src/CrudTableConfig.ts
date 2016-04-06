@@ -6,7 +6,6 @@ export class CrudTableConfig {
 
     fields: TableField[] = [];
     rels: TableRel[] = [];
-    rest;
 
     constructor(
         public sourceName: string,

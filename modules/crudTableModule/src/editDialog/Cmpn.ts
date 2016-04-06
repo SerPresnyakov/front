@@ -13,7 +13,7 @@ class Ctrl {
 
     constructor(public config: CrudTableConfig,public original , public source, public $http:ng.IHttpService, public $mdDialog:IDialogService) {
 
-        this.schema = Schema.getSchema(config.fields, config.rels, config.rest);
+        this.schema = Schema.getSchema(config.fields, config.rels);
         this.url = config.url;
         this.res = angular.copy(original);
 

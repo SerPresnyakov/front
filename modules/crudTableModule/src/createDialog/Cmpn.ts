@@ -14,8 +14,8 @@ class Ctrl {
 
     constructor(public config: CrudTableConfig, public $http:ng.IHttpService, public $mdDialog:IDialogService) {
 
-        this.schema = Schema.getSchema(config.fields, config.rels, config.rest);
-        this.res = Model.getModel(config.fields, config.rels, config.rest);
+        this.schema = Schema.getSchema(config.fields, config.rels);
+        this.res = Model.getModel(config.fields, config.rels);
         this.url = config.url;
         console.log(this.url);
         this.$http.get("left/client?page=1&per=15",{

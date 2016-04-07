@@ -3,7 +3,7 @@ import {TableRel} from "./TableRel";
 
 export class Model {
 
-    static getModel(fields, rels): Object {
+    static getModel(fields, rels ): Object {
 
         var model = {};
 

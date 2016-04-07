@@ -1,5 +1,5 @@
  <form ng-submit="filterFieldsVM.submit()"  novalidate>
-        <formly-form model="filterFieldsVM.res" fields="filterFieldsVM.schema" options="filterFieldsVM.options" >
+        <formly-form model="filterFieldsVM.filters.model" fields="filterFieldsVM.filters.schema" options="filterFieldsVM.options" >
             <md-button ng-if="filterFieldsVM.schema.length!=0" type="submit" ng-disabled="vm.form.$invalid">Применить</md-button>
             <!--<md-button type="button" class="md-raised" ng-click="vm.options.resetModel()">Reset</md-button>-->
         </formly-form>

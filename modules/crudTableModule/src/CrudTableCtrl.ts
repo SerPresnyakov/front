@@ -10,6 +10,7 @@ import {getDialog as editDialog} from "./editDialog/Cmpn"
 import {StrField} from "./fieldTypes/StrField";
 import {Page} from "../../dao/Page";
 import {TableField} from "./TableField";
+import {Filters} from "./filter/Filter";
 
 export class CrudTableCtrl {
 
@@ -19,7 +20,7 @@ export class CrudTableCtrl {
 
     source: Source;
     pager: Pager;
-    filters: iFilter[] = [];
+    filters;
 
     constructor(
         public inj: ng.auto.IInjectorService,
@@ -30,7 +31,6 @@ export class CrudTableCtrl {
     ){
         $scope.$watchCollection(function(scope) { return scope["vm"].pager;} ,(newVal, oldVal, scope)=>{
             if(newVal.page!=oldVal.page || newVal.per!=oldVal.per){
-                console.log("new");
                 this.refreshPage();
             }
         })
@@ -39,6 +39,7 @@ export class CrudTableCtrl {
 
     init(config: CrudTableConfig) {
         this.config = config;
+        this.filters = new Filters(config.fields,config.rels);
         this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes(), this.filters);
         this.pager = new Pager(1, 15);
         this.refreshPage();

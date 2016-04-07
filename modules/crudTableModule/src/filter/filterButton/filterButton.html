@@ -5,7 +5,7 @@
         </md-button>
         <md-menu-content width="3">
             <md-menu-item ng-repeat="field in filterButtonVM.fields" ng-if="field.formly!='object'&& field.parent==null" ng-hide="filterButtonVM.isSet(field)">
-                <md-button ng-click="filterButtonVM.createFilter(field)">
+                <md-button ng-click="filterButtonVM.filters.create(field)">
                     {{field.title}}
                 </md-button>
             </md-menu-item>

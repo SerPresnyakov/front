@@ -1,17 +1,17 @@
 import {TableField} from "../../TableField";
+import {Helper} from "../Helper";
 
 class Ctrl {
 
-    static $inject = ["$mdDialog"];
-
-    constructor(public $mdDialog) {
-    }
-
     fields : TableField;
     filters : iFilter[];
-
     originatorEv;
-    openMenu = function($mdOpenMenu, ev) {
+    fieldsLength = this.fieldsCount();
+
+    constructor() {
+    }
+
+    openMenu($mdOpenMenu, ev) {
         this.originatorEv = ev;
         $mdOpenMenu(ev);
     };
@@ -26,8 +26,6 @@ class Ctrl {
         return res;
     };
 
-    fieldsLength = this.fieldsCount();
-
     isSet(field):boolean{
         let res = false;
         angular.forEach(this.filters,(f)=>{
@@ -36,28 +34,8 @@ class Ctrl {
             }
         });
         return res;
-    }
+    };
 
-    createFilter(field){
-        let res: iFilter = {
-            name:"",
-            title:"",
-            parent:"",
-            formly:"",
-            options:[],
-            fieldType:{type:""},
-            value:""
-        };
-        res.name = field.name;
-        res.title = field.title;
-        res.parent = field.parent;
-        res.formly = field.formly;
-        res.options = field.options;
-        res.fieldType.type = field.fieldType.type;
-        res.value = "";
-        this.filters.push(res);
-
-    }
 }
 
 export const filterButtonDirective= {
@@ -70,6 +48,9 @@ export const filterButtonDirective= {
         controller: Ctrl,
         controllerAs: "filterButtonVM",
         template: require<string>("./filterButton.html"),
-        restrict: "E"
+        restrict: "E",
+        link:(scope)=>{
+            console.log(scope)
+        }
     }
 };

@@ -25,7 +25,7 @@ export class Templater {
                     `<md-button class="md-raised md-primary" ng-click="${this.ctrlAs}.create()">Создать</md-button>` +
                 '</div>' +
             '</md-toolbar>' +
-            `<md-content class="layout-padding flex">` +
+            `<md-content class="layout-padding flex" ng-if='${this.ctrlAs}.filters.filters.length>0'>` +
                 `<filter-fields class="layout-padding flex" filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' fields="${this.ctrlAs}.config.fields" rels="${this.ctrlAs}.config.rels" rest="${this.ctrlAs}.config.rest"></filter-fields>`+
                 //`<md-button ng-if='${this.ctrlAs}.filters.length>0' ng-click="${this.ctrlAs}.refreshPage()">Применить</md-button>` +
             `</md-content>`

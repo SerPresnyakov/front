@@ -17,5 +17,5 @@ export const PanelWrapper = {
 
 export const FilterWrapper = {
     name: 'FilterWrapper',
-    template: `<md-icon ng-click="formOptions.data.scope.remove(index,options.key)" class='fa fa-times'></md-icon><formly-transclude></formly-transclude>`
+    template: `<md-icon ng-click="formOptions.data.remove(index,options.key)" class='fa fa-times'></md-icon><formly-transclude></formly-transclude>`
 };

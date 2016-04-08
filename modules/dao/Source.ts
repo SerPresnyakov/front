@@ -41,32 +41,32 @@ export class Source {
 
     }
 
-    setFilters(){
-        let res= "";
-        angular.forEach(this.filter,(f)=>{
-            if(f.fieldType.type=="str"){
-                if (f.parent==null) {
-                    res = "base." + f.name + "_like_" + f.value + ";" + res;
-                }
-            }else if(f.fieldType.type == "int"){
-                res = "base." + f.name + "_eqN_" + f.value + ";" + res;
-            }else if(f.fieldType.type == "bool"){
-                if(f.value) {
-                    res = "base." + f.name + "_eqB_" + f.value + ";" + res;
-                } else {
-                    res = "base." + f.name + "_eqB_false;" + res;
-                }
-
-            }
-        });
-        return res
-    }
+    //setFilters(){
+    //    let res= "";
+    //    angular.forEach(this.filter,(f)=>{
+    //        if(f.fieldType.type=="str"){
+    //            if (f.parent==null) {
+    //                res = "base." + f.name + "_like_" + f.value + ";" + res;
+    //            }
+    //        }else if(f.fieldType.type == "int"){
+    //            res = "base." + f.name + "_eqN_" + f.value + ";" + res;
+    //        }else if(f.fieldType.type == "bool"){
+    //            if(f.value) {
+    //                res = "base." + f.name + "_eqB_" + f.value + ";" + res;
+    //            } else {
+    //                res = "base." + f.name + "_eqB_false;" + res;
+    //            }
+    //
+    //        }
+    //    });
+    //    return res
+    //}
 
     getPage(page:Page): ng.IPromise<iPageResponse> {
         let result = this.$q.defer<iPageResponse>();
         let params = page;
-        if(this.filter.length>0){
-            params["filter"] = this.setFilters();
+        if(this.filter.exist()){
+            params["filter"] = this.filter.getRestFilters();
         }
         if (this.include != null) params["include"] = this.include.join(',');
         this.$http
@@ -81,11 +81,11 @@ export class Source {
             });
 
         return result.promise
-    }
+    };
 
     getAll(): ng.IPromise<any[]> {
         return this.getPage(new Page().setGetAll()).then((res) => res.data)
-    }
+    };
 
     getOne(id: number):ng.IPromise<any[]> {
         let params = {};
@@ -98,7 +98,7 @@ export class Source {
                     }
             })
             .then((res) => res.data)
-    }
+    };
 
     //create(doc: M): ng.IPromise<number> {
     //    let result = this.$q.defer<number>();
@@ -131,10 +131,9 @@ export class Source {
             .catch((err: ng.IHttpPromiseCallbackArg<string>) => {
                 result.reject(err.data)
             });
-
         return result.promise
 
-    }
+    };
 
     patch(id: number, doc: any): ng.IPromise<boolean> {
         let result = this.$q.defer<boolean>();

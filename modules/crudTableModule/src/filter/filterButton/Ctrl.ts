@@ -4,7 +4,7 @@ import {Helper} from "../Helper";
 class Ctrl {
 
     fields : TableField;
-    filters : iFilter[];
+    filter;
     originatorEv;
     fieldsLength = this.fieldsCount();
 
@@ -28,7 +28,7 @@ class Ctrl {
 
     isSet(field):boolean{
         let res = false;
-        angular.forEach(this.filters,(f)=>{
+        angular.forEach(this.filter.filters,(f)=>{
             if(field.name === f.name){
                 res = true;
             }
@@ -43,7 +43,7 @@ export const filterButtonDirective= {
     config: {
         bindings:{
             fields: "=",
-            filters: "="
+            filter: "="
         },
         controller: Ctrl,
         controllerAs: "filterButtonVM",

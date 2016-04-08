@@ -33,13 +33,13 @@ export class CrudTableCtrl {
             if(newVal.page!=oldVal.page || newVal.per!=oldVal.per){
                 this.refreshPage();
             }
-        })
+        });
+        this.filters = new Filters($scope.config.fields, $scope.config.rels);
 
     }
 
     init(config: CrudTableConfig) {
         this.config = config;
-        this.filters = new Filters(config.fields,config.rels);
         this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes(), this.filters);
         this.pager = new Pager(1, 15);
         this.refreshPage();
@@ -83,9 +83,7 @@ export class CrudTableCtrl {
     }
 
     create($event: ng.IAngularEvent) {
-
         this.$mdDialog.show(createDialog($event, this.config)).then((res)=>this.refreshPage())
-
     }
 
     edit(item) {

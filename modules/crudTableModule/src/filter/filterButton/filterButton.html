@@ -1,11 +1,11 @@
 <md-menu-bar role="menubar">
     <md-menu md-position-mode="left bottom" >
-        <md-button  ng-disabled="filterButtonVM.fieldsCount() == filterButtonVM.filters.length" ng-click="filterButtonVM.openMenu($mdOpenMenu, $event)">
+        <md-button ng-click="filterButtonVM.openMenu($mdOpenMenu, $event)" ng-disabled="filterButtonVM.fieldsCount() == filterButtonVM.filter.filters.length">
             Добавить фильтр
         </md-button>
         <md-menu-content width="3">
-            <md-menu-item ng-repeat="field in filterButtonVM.fields" ng-if="field.formly!='object'&& field.parent==null" ng-hide="filterButtonVM.isSet(field)">
-                <md-button ng-click="filterButtonVM.filters.create(field)">
+            <md-menu-item ng-repeat="field in filterButtonVM.filter.fields" ng-if="field.formly!='object'&& field.parent==null" ng-hide="filterButtonVM.isSet(field)">
+                <md-button ng-click="filterButtonVM.filter.create(field)">
                     {{field.title}}
                 </md-button>
             </md-menu-item>

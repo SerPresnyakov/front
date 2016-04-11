@@ -11,3 +11,9 @@ md-switch{
     display: inline-block !important;
     vertical-align: middle;
 }
+.editable-click, a.editable-click{
+    cursor: pointer;
+    text-decoration: none;
+    color: #428bca;
+    border-bottom: dashed 1px #428bca;
+}

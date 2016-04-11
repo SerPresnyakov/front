@@ -9,7 +9,8 @@ export class CrudTableConfig {
 
     constructor(
         public sourceName: string,
-        public url: string
+        public url: string,
+        public allowedMethods:any
     ) {
     }
 

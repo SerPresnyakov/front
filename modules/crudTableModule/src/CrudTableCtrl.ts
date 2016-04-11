@@ -54,9 +54,9 @@ export class CrudTableCtrl {
 
         if (field) {
 
-            if (rel) {
+            if (field.formly=="autocomplete") {
                 this.$mdDialog.show(autocompleteDialog($event, field, origin, rel, this.$mdDialog, this.source))
-            } else if (field.fieldType instanceof StrField) {
+            } else if (field.formly=="input") {
 
                 this.$editDialog.small({
                     modelValue: origin[fieldName],
@@ -69,7 +69,7 @@ export class CrudTableCtrl {
                 })
 
             } else {
-                console.log('Unsupported field type')
+                console.log('Unsupported field type', field.fieldType,StrField)
             }
 
         } else {
@@ -80,6 +80,13 @@ export class CrudTableCtrl {
 
     onPaginate(page: any, limit: any) {
         this.refreshPage();
+    }
+
+    onChange(item,id,name){
+        console.log(item,id,name);
+        let res = {};
+        res[name] = item;
+        this.source.patch(id,res);
     }
 
     create($event: ng.IAngularEvent) {

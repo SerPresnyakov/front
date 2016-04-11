@@ -6,12 +6,12 @@ import {ObjField} from "../../../../modules/crudTableModule/src/fieldTypes/ObjFi
 import {TableField} from "../../../../modules/crudTableModule/src/TableField";
 import {BoolField} from "../../../../modules/crudTableModule/src/fieldTypes/BoolField";
 
-export const table: CrudTableConfig = new CrudTableConfig("Кампании", "/api/direct/campaign")
+export const table: CrudTableConfig = new CrudTableConfig("Кампании", "/api/direct/campaign",{})
     .setFields([
-        new TableField("name", 'Имя', new StrField(), false,"input"),
-        new TableField("status", 'Статус', new StrField(), false,"input"),
-        new TableField("id", 'ID', new IntField(), false, "input"),
-        new TableField("isActive", "Активна", new BoolField(), true, "switch"),
-        new TableField("statusShow", "Медиаплан", new BoolField(), true, "switch"),
-        new TableField("track", "Отслеживать", new BoolField(), true, "switch"),
+        new TableField("id", 'ID', new IntField(), false, false, "input"),
+        new TableField("name", 'Имя', new StrField(), false, false, "input"),
+        new TableField("status", 'Статус', new StrField(), false, false, "input"),
+        new TableField("isActive", "Активна", new BoolField(), true, false, "switch"),
+        new TableField("statusShow", "Медиаплан", new BoolField(), true, false, "switch"),
+        new TableField("track", "Отслеживать", new BoolField(), true, true, "switch"),
     ]);

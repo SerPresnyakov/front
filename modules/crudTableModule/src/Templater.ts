@@ -22,7 +22,7 @@ export class Templater {
                     `<span>${this.config.sourceName}</span>` +
                     '<span flex></span>' +
                     `<filter-button filter="${this.ctrlAs}.filters" fields="${this.ctrlAs}.config.fields"></filter-button>` +
-                    `<md-button class="md-raised md-primary" ng-click="${this.ctrlAs}.create()">Создать</md-button>` +
+                    `<md-button class="md-raised md-primary" ng-if='${this.config.allowedMethods.create}' ng-click="${this.ctrlAs}.create()">Создать</md-button>` +
                 '</div>' +
             '</md-toolbar>' +
             `<md-content class="layout-padding flex" ng-if='${this.ctrlAs}.filters.filters.length>0'>` +
@@ -56,7 +56,9 @@ export class Templater {
                 res.push(`<th md-column>${f.title}</th>`)
             }
         });
-        res.push("<th md-column>Действия</th>");
+        if(this.config.allowedMethods.patch||this.config.allowedMethods.delete) {
+            res.push("<th md-column>Действия</th>");
+        }
         return res.join("\n")
     }
 
@@ -72,58 +74,88 @@ export class Templater {
             "<tbody md-body>" +
                 `<tr md-row ng-repeat='o in ${this.ctrlAs}.pager.data'>` +
                     this.getTds("o") +
-                    `<td md-cell><md-button ng-click='${this.ctrlAs}.edit(o)' aria-label='edit' class='md-raised'><i class='fa fa-pencil'></i></md-button><md-button ng-click='${this.ctrlAs}.delete(o)' aria-label='delete' class='md-raised'><i class='fa fa-trash-o'></i></md-button></td>` +
                 "</tr>" +
             "</tbody>";
     }
+
 
     getTds(obj: string): string {
         let obj1= obj;
         let res = [];
         angular.forEach(this.config.fields, (f) => {
-            if(f.formly=="autocomplete"){
-                let relName = "";
-                let isInclude = false;
-                angular.forEach(this.config.rels, (r) => {
-                    if(r.name == f.name){
-                        relName = r.field;
-                        if(r.isInclude)isInclude=true;
-                    }
-                });
-                if (isInclude) {
-                    res.push(`<td md-cell ng-click='vm.editProp($event,o, "${f.name}")'>{{o._relations.${relName}.name || 'Не указано'}}</td>`);
+            if(f.editable){
+                switch(f.formly){
+                    case "switch" :
+                        res.push(`<td md-cell ><md-switch ng-model="o.${f.name}" ng-change="${this.ctrlAs}.onChange(o.${f.name},o.id,'${f.name}')" aria-label="Switch 1"></md-switch></td>`);
+                        break;
+
+                    case "autocomplete" :
+                        let relName = "";
+                        let isInclude = false;
+                        angular.forEach(this.config.rels, (r) => {
+                            if(r.name == f.name){
+                                relName = r.field;
+                                if(r.isInclude)isInclude=true;
+                            }
+                        });
+                        if (isInclude) {
+                            res.push(`<td md-cell><a ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")' class="editable-click" >{{o._relations.${relName}.name || 'Не указано'}}</a></td>`);
+                        }
+                        else {
+                            res.push(`<td md-cell><a ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")' class="editable-click" >{{o.${f.name} || 'Не указано'}}</a></td>`);
+                        }
+                        break;
+
+                    case "input" :
+                        res.push(`<td md-cell><a ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")' class="editable-click" >{{o.${f.name} || 'Не указано'}}</a></td>`);
+                        break;
                 }
-                else {
-                    res.push(`<td md-cell ng-click='vm.editProp($event,o, "${f.name}")'>{{o.${f.name} || 'Не указано'}}</td>`);
+            }
+            else{
+                if (f.fieldType.type=="obj") {
+                    let childs = "";
+                    angular.forEach(this.config.fields, (n) => {
+                        if(f.name == n.parent){
+                            childs = childs + `${this.getObjCell(obj, n, f)}`;
+                        }
+                    });
+                    res.push(`<td md-cell>${childs}</td>`);
+
+                } else if (f.parent) {
+
                 }
-
-            } else if (f.fieldType.type=="obj") {
-                let childs = "";
-                angular.forEach(this.config.fields, (n) => {
-                    if(f.name == n.parent){
-                        childs = childs + `${this.getObjCell(obj, n, f)}`;
-                    }
-                });
-                res.push(`<td md-cell>${childs}</td>`);
-
-            } else if (f.parent) {
-
+                else{
+                    res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
+                }
             }
-             else{
-                res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
-            }
+
         });
+
+        if(this.config.allowedMethods.patch||this.config.allowedMethods.create) {
+            let cell = "";
+            if (this.config.allowedMethods.patch) {
+                cell = cell + `<md-button ng-click='${this.ctrlAs}.edit(o)' aria-label='edit' class='md-raised'><i class='fa fa-pencil'></i></md-button>`;
+            }
+            if (this.config.allowedMethods.delete) {
+                cell = cell + `<md-button ng-click='${this.ctrlAs}.delete(o)' aria-label='delete' class='md-raised'><i class='fa fa-trash-o'></i></md-button>`;
+            }
+            res.push(`<td md-cell>`,`${cell}`,`</td>`);
+        }
+
         return res.join("\n")
     }
 
     getCell(obj: string, f: TableField): string {
-        let rel = this.config.getRel(f.name);
-        var res: string;
-        if (rel && rel.type == "one") {
-            res = `{{${obj}._relations.${rel.name}.${rel.displayField ? rel.displayField : "name"}}}`
+        if(f.formly=="switch"){
+            res =`<md-button ng-if="${obj}.${f.name}" class="md-raised md-primary md-button">Дa</md-button><md-button ng-if="!${obj}.${f.name}" class="md-raised md-accent md-button">Нет</md-button>`
         } else {
-
-            res = `{{${obj}.${f.name}}}`
+            let rel = this.config.getRel(f.name);
+            var res:string;
+            if (rel && rel.type == "one") {
+                res = `{{${obj}._relations.${rel.field}.${rel.displayField ? rel.displayField : "name"}}}`
+            } else {
+                res = `{{${obj}.${f.name}}}`
+            }
         }
         return res
     }

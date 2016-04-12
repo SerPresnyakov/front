@@ -10,11 +10,14 @@
         <md-content role="navigation">
             <md-list>
                 <md-list-item>
-                    <md-button ui-sref="index.adGroups2">Группы обьявлений</md-button>
+                    <a class="md-button" ng-click="toState('index.directAdGroups')">Группы обьявлений</a>
                 </md-list-item>
                 <md-list-item>
-                    <md-button ui-sref="index.campaigs">Кампании</md-button>
+                    <a class="md-button" ng-click="toState('index.directCampaigs')">Кампании</a>
                 </md-list-item>
+                <!--<md-list-item>-->
+                <!--<md-button ui-sref="index.adGroups">Tabs</md-button>-->
+                <!--</md-list-item>-->
                 <!--<md-list-item>-->
                     <!--<md-button ui-sref="index.clients">Клиенты</md-button>-->
                 <!--</md-list-item>-->

@@ -10,10 +10,24 @@ export class Templater {
 
     getTemplate(): string {
         return "" +
+            this.getTabs() +
             this.getToolbar() +
             this.getTable() +
             this.getPagination()
     }
+
+    getTabs(): string {
+        if(this.config.tab.tabs.length){
+            return "" +
+                `<md-tabs md-dynamic-height md-border-bottom md-selected='${this.ctrlAs}.config.tab.selected'>` +
+                    `<md-tab ng-repeat="tab in ${this.ctrlAs}.config.tab.tabs" ui-sref='{{tab.url}}' label="{{tab.title}}"></md-tab>` +
+                `</md-tabs><div>{{${this.ctrlAs}.config.getSelectedTab()}}</div>`
+        }
+        else{
+            return "";
+        }
+    }
+
 
     getToolbar(): string {
         return "" +
@@ -107,7 +121,7 @@ export class Templater {
                         break;
 
                     case "input" :
-                        res.push(`<td md-cell><a ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")' class="editable-click" >{{o.${f.name} || 'Не указано'}}</a></td>`);
+                        res.push(`<td md-cell ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")'><a class="editable-click">{{o.${f.name} || 'Не указано'}}</a></td>`);
                         break;
                 }
             }

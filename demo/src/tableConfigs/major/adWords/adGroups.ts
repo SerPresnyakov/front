@@ -1,13 +1,13 @@
-import {IntField} from "../../../modules/crudTableModule/src/fieldTypes/IntField";
-import {StrField} from "../../../modules/crudTableModule/src/fieldTypes/StrField";
-import {BoolField} from "../../../modules/crudTableModule/src/fieldTypes/BoolField";
-import {CrudTableConfig} from "../../../modules/crudTableModule/src/CrudTableConfig";
-import {TableRel} from "../../../modules/crudTableModule/src/TableRel";
-import {TableField} from "../../../modules/crudTableModule/src/TableField";
-import {ObjField} from "../../../modules/crudTableModule/src/fieldTypes/ObjField";
+import {IntField} from "../../../../../modules/crudTableModule/src/fieldTypes/IntField";
+import {StrField} from "../../../../../modules/crudTableModule/src/fieldTypes/StrField";
+import {BoolField} from "../../../../../modules/crudTableModule/src/fieldTypes/BoolField";
+import {CrudTableConfig} from "../../../../../modules/crudTableModule/src/CrudTableConfig";
+import {TableRel} from "../../../../../modules/crudTableModule/src/TableRel";
+import {TableField} from "../../../../../modules/crudTableModule/src/TableField";
+import {ObjField} from "../../../../../modules/crudTableModule/src/fieldTypes/ObjField";
 
 export const table: CrudTableConfig =
-    new CrudTableConfig("Группы объявлений", "/api/direct/bannerGroup",{patch:false})
+    new CrudTableConfig("Группы объявлений", "/api/adwords/adGroup",{patch:false})
         .setFields([
             new TableField("campaign", 'Кампания', new ObjField(), false, false, "object"),
             new TableField("id", 'ID', new IntField(), false, false, "input", "campaign"),
@@ -29,4 +29,6 @@ export const table: CrudTableConfig =
             new TableRel("brandId", "brand", "/api/refs/brand", "one", true),
             new TableRel("regionId", "region", "/api/refs/region", "one", true),
             new TableRel("campaignId", "campaign", "/api/direct/campaign", "one", true)
-        ]);
+        ])
+        .setTabs([{title:"Direct",url:"index.directAdGroups"},{title:"Adwords",url:"index.adwordsAdGroups",selected:true}]);
+

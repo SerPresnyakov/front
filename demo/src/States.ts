@@ -1,5 +1,6 @@
 import {indexState} from "./index/State"
-import {table as adGroupTable} from "./tableConfigs/adGroups"
+import {table as directAdGroup} from "./tableConfigs/major/direct/adGroups"
+import {table as adWordsAdGroup} from "./tableConfigs/major/adWords/adGroups"
 import {table as tables} from "./tableConfigs/tables"
 import {table as clients} from "./tableConfigs/leviafan/client"
 import {table as shops} from "./tableConfigs/leviafan/shop"
@@ -7,7 +8,8 @@ import {CrudTableConfig} from "../../modules/crudTableModule/src/CrudTableConfig
 import {table as brands} from "./tableConfigs/major/brands";
 import {table as regions} from "./tableConfigs/major/regions";
 import {table as users} from "./tableConfigs/major/users";
-import {table as campaign} from "./tableConfigs/major/campaign";
+import {table as directCampaign} from "./tableConfigs/major/direct/campaign";
+import {table as adWordsCampaign} from "./tableConfigs/major/adWords/campaign";
 
 export const states: iRegisterMeta<ng.ui.IState>[] = [
     indexState,
@@ -20,20 +22,33 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
                 s['config'] = config
             }],
             resolve: {
-                config: (): CrudTableConfig => adGroupTable
+                config: (): CrudTableConfig => directAdGroup
             }
         }
     },
     {
-        name: "index.adGroups2",
+        name: "index.directAdGroups",
         config: {
-            url: "adGroups2?filters",
+            url: "adwords/adGroups?filters",
             template: "<ak-crud-table config=\"config\">",
             controller: ["config", "$scope", (config, s) => {
                 s['config'] = config
             }],
             resolve: {
-                config: (): CrudTableConfig => adGroupTable
+                config: (): CrudTableConfig => directAdGroup
+            }
+        }
+    },
+    {
+        name: "index.adwordsAdGroups",
+        config: {
+            url: "direct/adGroups?filters",
+            template: "<ak-crud-table config=\"config\">",
+            controller: ["config", "$scope", (config, s) => {
+                s['config'] = config
+            }],
+            resolve: {
+                config: (): CrudTableConfig => adWordsAdGroup
             }
         }
     },
@@ -98,15 +113,27 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
             }
         }
     },{
-        name: "index.campaigs",
+        name: "index.adwordsCampaigs",
         config: {
-            url: "campaigs?filters",
+            url: "adwords/campaigs?filters",
             template: "<ak-crud-table config=\"config\">",
             controller: ["config", "$scope", (config, s) => {
                 s['config'] = config
             }],
             resolve: {
-                config: (): CrudTableConfig => campaign
+                config: (): CrudTableConfig => adWordsCampaign
+            }
+        }
+    },{
+        name: "index.directCampaigs",
+        config: {
+            url: "direct/campaigs?filters",
+            template: "<ak-crud-table config=\"config\">",
+            controller: ["config", "$scope", (config, s) => {
+                s['config'] = config
+            }],
+            resolve: {
+                config: (): CrudTableConfig => directCampaign
             }
         }
     },

@@ -63,7 +63,11 @@ export class CrudTableCtrl {
                     type: "text",
                     targetEvent: $event,
                     save: (ctrl: ng.INgModelController) => {
-                        origin[fieldName] = ctrl.$modelValue
+                        origin[fieldName] = ctrl.$modelValue;
+                        console.log(ctrl.$modelValue,fieldName);
+                        let res = {};
+                        res[fieldName] = ctrl.$modelValue;
+                        this.source.patch(origin.id,res);
                     },
                     placeholder: field.title
                 })

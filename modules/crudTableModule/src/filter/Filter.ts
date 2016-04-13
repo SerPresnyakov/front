@@ -4,6 +4,7 @@ export class Filters{
     schema = [];
     filters = [];
     model;
+    savedFilters =[];
 
     constructor(public fields, public rels){
     }
@@ -50,12 +51,13 @@ export class Filters{
                 } else if (f.fieldType.type == "int") {
                     res = "base." + f.name + "_eqN_" + this.model[f.name] + ";" + res;
                 } else if (f.fieldType.type == "bool") {
-                    if (this.model[f.name]) {
-                        res = "base." + f.name + "_eqB_" + this.model[f.name] + ";" + res;
-                    } else {
-                        res = "base." + f.name + "_eqB_false;" + res;
-                    }
+                    res = "base." + f.name + "_eqB_" + this.model[f.name] + ";" + res;
 
+
+                }
+            }else{
+                if (f.fieldType.type == "bool") {
+                    res = "base." + f.name + "_eqB_false;" + res;
                 }
             }
         });

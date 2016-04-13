@@ -17,3 +17,6 @@ md-switch{
     color: #428bca;
     border-bottom: dashed 1px #428bca;
 }
+.md-virtual-repeat-container.md-autocomplete-suggestions-container {
+    z-index: 101;
+}

@@ -1,4 +1,33 @@
 <md-menu-bar role="menubar">
+    <md-menu md-position-mode="left bottom" ng-if="filterButtonVM.filter.savedFilters.length>0">
+        <md-button ng-click="filterButtonVM.openMenu($mdOpenMenu, $event)" >
+            Сохраненные фильтры
+        </md-button>
+        <md-menu-content width="3">
+            <md-autocomplete
+                    ng-disabled="ctrl.isDisabled"
+                    md-no-cache="ctrl.noCache"
+                    md-selected-item="ctrl.selectedItem"
+                    md-search-text-change="ctrl.searchTextChange(ctrl.searchText)"
+                    md-search-text="ctrl.searchText"
+                    md-selected-item-change="ctrl.selectedItemChange(item)"
+                    md-items="item in filterButtonVM.filter.savedFilters"
+                    md-item-text="item.name"
+                    md-min-length="0"
+                    placeholder="Выберите фильтр"
+                <md-item-template style="z-index: 110">
+                    <span class="item-title">
+                        <span> {{item.name}} </span>
+                    </span>
+                </md-item-template>
+            </md-autocomplete>
+            <!--<md-menu-item ng-repeat="filter in filterButtonVM.filter.savedFilters" >-->
+                <!--<md-button >-->
+                    <!--{{filter.name}}-->
+                <!--</md-button>-->
+            <!--</md-menu-item>-->
+        </md-menu-content>
+    </md-menu>
     <md-menu md-position-mode="left bottom" >
         <md-button ng-click="filterButtonVM.openMenu($mdOpenMenu, $event)" ng-disabled="filterButtonVM.fieldsCount() == filterButtonVM.filter.filters.length">
             Добавить фильтр

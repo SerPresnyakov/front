@@ -44,6 +44,10 @@ export class Schema {
                     });
                 }
 
+                if (f.formly=="switch") {
+                    res["defaultValue"] = false;
+                }
+
                 if (f.formly=="select") {
                     res.templateOptions["options"] = f.options;
                     res.templateOptions["labelProp"] = "prop";

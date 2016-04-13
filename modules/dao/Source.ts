@@ -73,7 +73,7 @@ export class Source {
             .get(this.restUrl, {params: params, headers:{token:this.token}})
             .then((res: ng.IHttpPromiseCallbackArg<iPageResponse>) => result.resolve(res.data))
             .catch((err) => {
-                console.error(err.status);
+                console.error(err);
                 result.reject(err.data);
                 if(err.status==401){
                     this.state.go("login", {from: this.state.current.name});
@@ -137,7 +137,7 @@ export class Source {
 
     patch(id: number, doc: any): ng.IPromise<boolean> {
         let result = this.$q.defer<boolean>();
-        this.$http.patch(`${this.restUrl}/${id}`, doc, {headers: {
+        this.$http.patch(`${this.restUrl}/${id}`, doc, { headers: {
             token: this.token
         }})
             .then((res: ng.IHttpPromiseCallbackArg<boolean>) => {

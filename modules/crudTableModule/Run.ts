@@ -16,7 +16,7 @@ export class Run {
 
         formlyConfig.setType(AutocompleteType);
         formlyConfig.setWrapper(PanelWrapper);
-        formlyConfig.setWrapper(InputContainerWrapper);
+        //formlyConfig.setWrapper(InputContainerWrapper);
         formlyConfig.setWrapper(FilterWrapper);
 
 

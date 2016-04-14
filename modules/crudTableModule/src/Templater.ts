@@ -35,7 +35,7 @@ export class Templater {
                 '<div class="md-toolbar-tools">' +
                     `<span>${this.config.sourceName}</span>` +
                     '<span flex></span>' +
-                    `<filter-button filter="${this.ctrlAs}.filters" fields="${this.ctrlAs}.config.fields"></filter-button>` +
+                    `<filter-button filter="${this.ctrlAs}.filters" fields="${this.ctrlAs}.config.fields" refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
                     `<md-button class="md-raised md-primary" ng-if='${this.config.allowedMethods.create}' ng-click="${this.ctrlAs}.create()">Создать</md-button>` +
                 '</div>' +
             '</md-toolbar>' +

@@ -1,10 +1,12 @@
 import {Schema} from "../Schema";
+import {Helper} from "../../../utils/Helper";
 
 export class Filters{
     schema = [];
     filters = [];
     model;
     savedFilters =[];
+    saveFilter={};
 
     constructor(public fields, public rels){
     }
@@ -65,7 +67,13 @@ export class Filters{
     };
 
     getParamsFilters(params){
-        this.model = JSON.parse(params);
+        if(typeof params=='string'){
+            this.model = JSON.parse(params);
+        }else if(typeof params=='object'){
+            this.model = params;
+        }
+        this.schema = [];
+        this.filters = [];
         Object.getOwnPropertyNames(this.model).forEach(r =>{
             angular.forEach(this.fields,(f)=>{
                 if(r === f.name){
@@ -82,4 +90,14 @@ export class Filters{
         }
         return res;
     };
+
+    resetFilter(){
+        if(this.schema.length>0){
+            this.schema = [];
+        }
+        if(this.filters.length>0) {
+            this.filters = [];
+        }
+        this.model = {};
+    }
 }

@@ -28,7 +28,6 @@ class Ctrl {
         if(state.params.filters){
             this.filter.getParamsFilters(state.params.filters);
         } else if(localStorage.get(state.current.name)){
-            console.log(localStorage.get(state.current.name));
             this.filter.savedFilters = JSON.parse(localStorage.get(state.current.name));
         }
 
@@ -65,7 +64,7 @@ class Ctrl {
 
         this.$mdDialog.show(confirm).then((result)=> {
             this.test.name = result;
-            this.test.model=this.filter.model;
+            this.test.model= angular.copy(this.filter.model);
             this.filter.savedFilters.push(this.test);
             this.localStorage.set(this.state.current.name, JSON.stringify(this.filter.savedFilters));
             //console.log(this.test)

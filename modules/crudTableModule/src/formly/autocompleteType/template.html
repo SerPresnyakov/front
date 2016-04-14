@@ -1,4 +1,4 @@
-<md-autocomplete
+<md-input-container><label>{{to.label}}</label><md-autocomplete
         ng-disabled="ctrl.isDisabled"
         md-no-cache="ctrl.noCache"
         md-selected-item="selectedItem"
@@ -8,7 +8,6 @@
         md-items="item in querySearch(searchText)"
         md-item-text="item.name"
         md-min-length="0"
-        placeholder="{{to.label}}">
     <md-item-template>
         <span md-highlight-text="searchText" md-highlight-flags="^i">{{item.name}}</span>
     </md-item-template>
@@ -16,3 +15,4 @@
          Не найдено "{{ctrl.searchText}}".
     </md-not-found>
 </md-autocomplete>
+</md-input-container>

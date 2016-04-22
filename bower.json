@@ -32,5 +32,12 @@
     "api-check":"7.5.5",
     "lodash": "4.6.1",
     "angular-formly-material" : "0.14.1"
+  },
+  "resolutions": {
+    "angular-formly":"8.1.0",
+    "angular-material": "1.1.0-rc1",
+    "angular": "~1.5.5"
+
   }
+
 }

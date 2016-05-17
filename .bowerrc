@@ -1,3 +1,8 @@
 {
-  "directory": "bower"
+  "directory" : "app/bower",
+  "registry" : {
+    "search" : [ "http://hb.vmc.loc:8081/repository/bower" ]
+  },
+  "strict-ssl": false,
+  "resolvers" : [ "bower-nexus3-resolver" ]
 }

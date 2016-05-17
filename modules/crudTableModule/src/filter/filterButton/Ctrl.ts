@@ -70,9 +70,9 @@ export const filterButtonDirective= {
     name: "filterButton",
     config: {
         bindings:{
-            fields: "=",
-            filter: "=",
-            refreshPage: "&"
+            "fields": "=",
+            "filter": "=",
+            "refreshPage": "&"
         },
         controller: Ctrl,
         controllerAs: "filterButtonVM",

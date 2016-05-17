@@ -5,7 +5,7 @@ import {AngularModule} from "../../modules/utils/AngularModule";
 import {filterButtonDirective} from "./src/filter/filterButton/Ctrl";
 import {filterFieldsDirective} from "./src/filter/filterFields/Ctrl";
 
-let module = new AngularModule("restCrud", [
+let module = new AngularModule("crudTable", [
     Deps.localStorage,
     Deps.material,
     Deps.mdTable,

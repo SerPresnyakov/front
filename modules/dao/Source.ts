@@ -24,8 +24,8 @@ export class Source {
         protected sourceName: string,
         protected restUrl: string,
         protected inj: ng.auto.IInjectorService,
-        public include: any,
-        public filter: any
+        public include?: any,
+        public filter?: any
     ) {
         this.$http = inj.get<ng.IHttpService>("$http");
         this.$q = inj.get<ng.IQService>("$q");
@@ -62,11 +62,28 @@ export class Source {
     //    return res
     //}
 
+    getStructView(): ng.IPromise<iPageResponse> {
+        let result = this.$q.defer<iPageResponse>();
+        this.$http
+            .post(this.restUrl, {"method":"GET", "action":"view"}, {headers:{db:"major2",dbUser:"Alex"}})
+            .then((res: ng.IHttpPromiseCallbackArg<iPageResponse>) => result.resolve(res.data))
+            .catch((err) => {
+                console.error(err);
+                result.reject(err.data);
+                if(err.status==401){
+                    this.state.go("login", {from: this.state.current.name});
+                }
+            });
+        return result.promise
+    };
+
     getPage(page:Page): ng.IPromise<iPageResponse> {
         let result = this.$q.defer<iPageResponse>();
         let params = page;
-        if(this.filter.exist()){
-            params["filter"] = this.filter.getRestFilters();
+        if(this.filter != undefined){
+            if(this.filter.exist()){
+                params["filter"] = this.filter.getRestFilters();
+            }
         }
         if (this.include != null) params["include"] = this.include.join(',');
         this.$http

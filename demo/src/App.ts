@@ -7,7 +7,8 @@ import {states} from "./States";
 const module = angular.module("app", [
     Deps.uiRouter,
     Deps.material,
-    "restCrud",
+    "crudTable",
+    "crudStruct",
     "a.auth"
 ]);
 

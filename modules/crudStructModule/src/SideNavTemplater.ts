@@ -1,5 +1,5 @@
 import {CrudStructConfig} from "./CrudStructConfig";
-export class Templater {
+export class SideNavTemplater {
 
     constructor(public config:CrudStructConfig,
                 public ctrlAs:string) {
@@ -9,8 +9,7 @@ export class Templater {
         return "" +
         '<div layout="row" flex style="height: 100%;">' +
         this.getSidenav() +
-        this.getHeader() +
-        this.getTable() +
+        this.getContent() +
         '</div>'
     }
 
@@ -18,7 +17,7 @@ export class Templater {
         return '' +
         `<md-sidenav class="md-sidenav-left md-whiteframe-z3" md-component-id="leftNav" md-is-locked-open="$mdMedia('gt-sm')" layout="column">` +
         this.getToolbar() +
-        this.getContent() +
+        this.getSidenavMenu() +
         `</md-sidenav>`
     }
 
@@ -29,7 +28,7 @@ export class Templater {
             `</md-toolbar>`
     }
 
-    getContent(): string {
+    getSidenavMenu(): string {
         return '' +
             `<md-content role="navigation">` +
                 `<md-list>` +
@@ -40,33 +39,14 @@ export class Templater {
             `</md-content>`
     }
 
-    getHeader(): string {
-        return ''
-    }
-
-    getTable(): string {
-
+    getContent(): string {
         return '' +
-            '<md-table-container>' +
-            '<table md-table>' +
-            this.getThead() +
-            this.getTBody() +
-            '</table>' +
-            '</md-table-container>'
-
-    }
-
-    getThead(): string {
-        return "" +
-            "<thead md-head>" +
-            "</thead>"
-    }
-
-    getTBody(): string {
-        return "" +
-            "<tbody md-body>" +
-            `<tr md-row ng-repeat='o in ${this.ctrlAs}.pager.data'>` +
-            "</tr>" +
-            "</tbody>";
+            `<div layout="column" style="height: 100%;" flex>` +
+                `<md-toolbar layout="row">` +
+                    `<md-button ng-click="vm.toggleNav('leftNav')" hide-gt-sm>BTN</md-button>` +
+                    `<h3><md-button ui-sref="index">Вернуться к редактированию данных <i class="fa fa-arrow-left" aria-hidden="true"></i></md-button></h3>` +
+                `</md-toolbar>` +
+                `<md-content ui-view></md-content>` +
+            `</div>`
     }
 }

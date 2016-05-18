@@ -1,17 +1,18 @@
 import {CrudStructCtrl} from "./CrudStructCtrl";
 import {CrudStructConfig} from "./CrudStructConfig";
 import {SideNavTemplater} from "./SideNavTemplater";
+import {FieldTableTemplater} from "./FieldTableTemplater";
 
 interface CtrlScope extends ng.IScope {
     config: CrudStructConfig
     tmpl: string
 }
 
-export function CrudStructDirective($compile: ng.ICompileService): ng.IDirective {
+export function CrudFieldDirective($compile: ng.ICompileService): ng.IDirective {
     return {
         scope: {
             config: "=",
-            tmpl: "="
+            stateParams: "="
         },
         controller: CrudStructCtrl,
         controllerAs: "vm",
@@ -23,8 +24,9 @@ export function CrudStructDirective($compile: ng.ICompileService): ng.IDirective
             let templ = "not found";
 
             let config = scope.config;
+            console.log(scope);
 
-            templ = new SideNavTemplater(config, "vm").getTemplate();
+            templ = new FieldTableTemplater(config, "vm").getTemplate();
 
             elem.html(templ);
             $compile(elem.contents())(scope);

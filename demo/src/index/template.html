@@ -15,15 +15,6 @@
                 <md-list-item>
                     <a class="md-button" ng-click="toState('index.directCampaigs')">Кампании</a>
                 </md-list-item>
-                <!--<md-list-item>-->
-                <!--<md-button ui-sref="index.adGroups">Tabs</md-button>-->
-                <!--</md-list-item>-->
-                <!--<md-list-item>-->
-                    <!--<md-button ui-sref="index.clients">Клиенты</md-button>-->
-                <!--</md-list-item>-->
-                <!--<md-list-item>-->
-                    <!--<md-button ui-sref="index.shops">Магазины</md-button>-->
-                <!--</md-list-item>-->
                 <md-list-item>
                     <md-button ui-sref="index.brands">Бренды</md-button>
                 </md-list-item>
@@ -32,9 +23,6 @@
                 </md-list-item>
                 <md-list-item>
                     <md-button ui-sref="index.users">Пользователи</md-button>
-                </md-list-item>
-                <md-list-item>
-                    <md-button ui-sref="dbAdmin">Структура таблицы</md-button>
                 </md-list-item>
             </md-list>
         </md-content>
@@ -45,6 +33,7 @@
             <md-button ng-click="vm.toggleNav('leftNav')" hide-gt-sm>
                 BTN
             </md-button>
+            <h3><md-button ui-sref="dbAdmin">Редактировать базу данных</md-button></h3>
         </md-toolbar>
         <md-content ui-view>
         </md-content>

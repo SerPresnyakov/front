@@ -28,7 +28,6 @@ export class Templater {
         }
     }
 
-
     getToolbar(): string {
         return "" +
             '<md-toolbar class="md-table-toolbar md-default">' +

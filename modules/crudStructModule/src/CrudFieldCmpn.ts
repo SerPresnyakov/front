@@ -30,7 +30,7 @@ export function CrudFieldDirective($compile: ng.ICompileService): ng.IDirective 
 
             ctrl.pager.deffered.promise.then((data)=>{
                 getConfig.get(data, scope.tableName, config);
-                templ = new Templater(config, "vm").getTemplate();
+                templ = new FieldTableTemplater(config, "vm").getTemplate();
                 elem.html(templ);
                 $compile(elem.contents())(scope);
             });

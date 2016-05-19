@@ -1,31 +1,35 @@
 import {CrudTableConfig} from "../CrudTableConfig";
 import {Schema} from "../Schema";
 import IDialogService = angular.material.IDialogService;
+import {Model} from "../Model";
 
-class Ctrl {
+class CreateCtrl {
 
-    static $inject = [ "config", "$http", "$mdDialog" ];
+    static $inject = [ "config", "$http", "$mdDialog","localStorageService"];
 
     schema: any;
     from: string;
     res:any;
     url;
+    token;
 
-    constructor(public config: CrudTableConfig, public $http:ng.IHttpService, public $mdDialog:IDialogService) {
+    constructor(public config: CrudTableConfig, public $http:ng.IHttpService, public $mdDialog:IDialogService, public localStorage: ng.local.storage.ILocalStorageService) {
 
-        this.schema = Schema.getSchema(config.fields, config.rels, config.rest);
+        this.schema = Schema.getSchema(config.fields, config.rels);
+        this.res = Model.getModel(config.fields, config.rels);
         this.url = config.url;
         console.log(this.url);
-        this.$http.get("left/client?page=1&per=15",{
-            headers: {
-                token: `1:6273543320`
-            }
-        }).then((res) => console.log(res))
+        if(this.url != "/left/client" && this.url != "/left/pricelab/shop") {
+            this.token = this.localStorage.get<string>("token");
+        }
+        else {
+            this.token = "1:6273543320";
+        }
     }
 
     submit(){
         return this.$http.post(this.url,this.res,{headers: {
-            token: `1:6273543320`
+            token: this.token
         }}).then((res)=>{
             if(res){
                 this.$mdDialog.hide()
@@ -41,7 +45,7 @@ export function getDialog($event: any, config: CrudTableConfig): ng.material.IDi
     return {
         parent: parentEl,
         template: require<string>("./Template.html"),
-        controller: Ctrl,
+        controller: CreateCtrl,
         controllerAs: "vm",
         clickOutsideToClose: true,
         locals: {

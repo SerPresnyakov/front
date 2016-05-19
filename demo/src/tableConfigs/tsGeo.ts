@@ -1,24 +1,11 @@
-//noinspection TypeScriptValidateTypes
-import {CrudTableConfig} from "../crudTable/src/CrudTableConfig";
-import {IntField} from "../crudTable/src/fieldTypes/IntField";
-import {StrField} from "../crudTable/src/fieldTypes/StrField";
-import {TableField} from "../crudTable/src/TableField";
+import {CrudTableConfig} from "../../../modules/crudTableModule/src/CrudTableConfig";
+import {IntField} from "../../../modules/crudTableModule/src/fieldTypes/IntField";
+import {StrField} from "../../../modules/crudTableModule/src/fieldTypes/StrField";
+import {TableField} from "../../../modules/crudTableModule/src/TableField";
 
 export const table: CrudTableConfig =
-    new CrudTableConfig("GEO", "/pureRest/tsGeo")
+    new CrudTableConfig("GEO", "/pureRest/tsGeo",["PATCH"])
         .setFields([
-            {
-                name: "brandId",
-                title: "Бренд",
-                fieldType: new IntField(),
-                nullable: false,
-                formly: "input"
-            },
-            {
-                name: "model",
-                title: "Модель",
-                fieldType: new StrField(),
-                nullable: false,
-                formly: "input"
-            }
+            new TableField("brandId", "Бренд", new IntField(), false,false, "input"),
+            new TableField("model", "Модель", new StrField(), false,false, "input")
         ]);

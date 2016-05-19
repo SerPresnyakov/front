@@ -2,23 +2,46 @@ import {Helper} from "../../../../utils/Helper";
 
 class Ctrl {
 
-    static $inject = [ "$http", "$scope"];
+    static $inject = [ "$http", "$scope","localStorageService"];
 
     selectedItem: any;
     searchText: string;
+    token:string;
 
     constructor(
         public $http: ng.IHttpService,
-        public scope
+        public scope,
+        public localStorage: ng.local.storage.ILocalStorageService
     ) {
-        if(scope.model[scope.options.key]){
-            scope.searchText = scope.model._relations[scope.options.data.rels].name;
+        if(scope.options.data.dao != "/left/client" && scope.options.data.dao != "/left/pricelab/shop") {
+            this.token = this.localStorage.get<string>("token");
         }
+        else {
+            this.token = "1:6273543320";
+        }
+        if (scope.model[scope.options.key]) {
+            if(scope.model._relations){
+                scope.searchText = scope.model._relations[scope.options.data.rels].name;
+            }
+            else{
+                this.$http.get(scope.options.data.dao, {
+                    params: {
+                        filter: `id_eqN_${scope.model[scope.options.key]}`,
+                    },
+                    headers: {
+                        token: this.token
+                    }
+                }).then((res:any) => scope.searchText =res.data.data[0].name);
+            }
+        }
+
         scope.querySearch = (text: string) => {
             return this.$http.get(scope.options.data.dao, {
                 params: {
                     filter: `name_like_${text}`,
-                    token: `1:god`
+                },
+                headers: {
+                    token: this.token
                 }
             }).then((res: any) => res.data.data);
         };

@@ -4,7 +4,8 @@ module.exports = {
     context: __dirname + "/modules",
     entry: {
         auth:"./authModule/Module",
-        crudTable:"./crudTableModule/Module"
+        crudTable:"./crudTableModule/Module",
+        crudStruct:"./crudStructModule/Module"
     },
     output: {
         filename: "[name].bundle.js",

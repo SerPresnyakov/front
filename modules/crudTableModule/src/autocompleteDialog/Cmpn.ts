@@ -26,12 +26,13 @@ class Ctrl {
         return this.$http.get(this.rel.dao, {
             params: {
                 filter: `name_like_${text}`,
-                token: `1:6273543320`
-            }
+
+            },
+            headers: {token: this.source.getToken()}
         }).then((res: any) => res.data.data);
     }
 
-    finish($event){
+    finish($event) {
         this.origin[this.field.name] = this.selectedItem.id;
         let res = {};
         res[this.field.name]=this.selectedItem.id;

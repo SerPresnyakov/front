@@ -1,7 +1,11 @@
 import {CrudTableDirective} from "./src/CrudTableCmpn"
 import {Deps} from "../utils/Deps";
+import {Run} from "./Run";
+import {AngularModule} from "../../modules/utils/AngularModule";
+import {filterButtonDirective} from "./src/filter/filterButton/Ctrl";
+import {filterFieldsDirective} from "./src/filter/filterFields/Ctrl";
 
-const module = angular.module("restCrud", [
+let module = new AngularModule("crudTable", [
     Deps.localStorage,
     Deps.material,
     Deps.mdTable,
@@ -9,5 +13,8 @@ const module = angular.module("restCrud", [
 ]);
 
 module.directive("akCrudTable", ["$compile", ($compile => CrudTableDirective($compile))]);
+module.registerComponent([filterButtonDirective,filterFieldsDirective]);
 
-export default module.name
+module.run(Run);
+
+export default module.getModuleName()

@@ -1,0 +1,48 @@
+<md-menu-bar role="menubar">
+    <md-menu md-position-mode="left bottom" ng-if="filterButtonVM.filter.savedFilters.length>0">
+        <md-button ng-click="filterButtonVM.openMenu($mdOpenMenu, $event)" >
+            <span ng-if="!filterButtonVM.filter.saveFilter.selectedItem">Сохраненные фильтры</span><span ng-if="filterButtonVM.filter.saveFilter.selectedItem">Выбранный фильтр: <span style="text-transform: none;">{{filterButtonVM.filter.saveFilter.selectedItem.name}}</span></span>
+        </md-button>
+        <md-menu-content width="3">
+            <md-autocomplete
+                    ng-disabled="ctrl.isDisabled"
+                    md-no-cache="ctrl.noCache"
+                    md-selected-item="filterButtonVM.filter.saveFilter.selectedItem"
+                    md-search-text="filterButtonVM.filter.saveFilter.searchText"
+                    md-selected-item-change="filterButtonVM.selectFilter(filterButtonVM.filter.saveFilter.searchText)"
+                    md-items="item in filterButtonVM.filter.savedFilters"
+                    md-item-text="item.name"
+                    md-min-length="0"
+                    md-menu-class="autocomplete-custom-template"
+                    placeholder="Выберите фильтр">
+                <md-item-template>
+                    <span class="item-title">
+                        <span> {{item.name}} </span>
+                    </span>
+                    <span class="item-metadata">
+                        <span class="item-metastat" ng-repeat="(key, value) in item.model">
+                            <strong>{{key}}</strong> : {{ value }}<br>
+                        </span>
+                    </span>
+                </md-item-template>
+            </md-autocomplete>
+            <!--<md-menu-item ng-repeat="filter in filterButtonVM.filter.savedFilters" >-->
+                <!--<md-button >-->
+                    <!--{{filter.name}}-->
+                <!--</md-button>-->
+            <!--</md-menu-item>-->
+        </md-menu-content>
+    </md-menu>
+    <md-menu md-position-mode="left bottom" >
+        <md-button ng-click="filterButtonVM.openMenu($mdOpenMenu, $event)" ng-disabled="filterButtonVM.fieldsCount() == filterButtonVM.filter.filters.length">
+            Добавить фильтр
+        </md-button>
+        <md-menu-content width="3">
+            <md-menu-item ng-repeat="field in filterButtonVM.filter.fields" ng-if="field.formly!='object'&& field.parent==null" ng-hide="filterButtonVM.isSet(field)">
+                <md-button ng-click="filterButtonVM.filter.create(field)">
+                    {{field.title}}
+                </md-button>
+            </md-menu-item>
+        </md-menu-content>
+    </md-menu>
+</md-menu-bar>

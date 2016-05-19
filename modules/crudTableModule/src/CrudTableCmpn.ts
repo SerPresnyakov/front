@@ -33,7 +33,6 @@ export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective 
             elem.html(templ);
             $compile(elem.contents())(scope);
             ctrl.init(config)
-
         }
     }
 

@@ -6,11 +6,12 @@ export class CrudTableConfig {
 
     fields: TableField[] = [];
     rels: TableRel[] = [];
-    rest;
+    tab = {selected:null,tabs:[]};
 
     constructor(
         public sourceName: string,
-        public url: string
+        public url: string,
+        public allowedMethods:any
     ) {
     }
 
@@ -22,6 +23,11 @@ export class CrudTableConfig {
 
     setRels(rels: TableRel[]): CrudTableConfig {
         this.rels = rels;
+        return this
+    }
+
+    setTabs(tabs): CrudTableConfig {
+        this.tab.tabs = tabs;
         return this
     }
 
@@ -41,5 +47,12 @@ export class CrudTableConfig {
         return res;
     }
 
+    getSelectedTab(){
+        this.tab.tabs.forEach((t,i)=>{
+            if(t.selected){
+                this.tab.selected=i;
+            }
+        });
+    }
 
 }

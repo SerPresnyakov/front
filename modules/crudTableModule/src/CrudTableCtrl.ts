@@ -10,27 +10,39 @@ import {getDialog as editDialog} from "./editDialog/Cmpn"
 import {StrField} from "./fieldTypes/StrField";
 import {Page} from "../../dao/Page";
 import {TableField} from "./TableField";
+import {Filters} from "./filter/Filter";
 
 export class CrudTableCtrl {
 
-    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http"];
+    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http", "$scope", "$q"];
 
     config: CrudTableConfig;
 
     source: Source;
     pager: Pager;
+    filters;
 
     constructor(
         public inj: ng.auto.IInjectorService,
         public $editDialog: mdTable.EditDialogService,
         public $mdDialog: ng.material.IDialogService,
-        private $http:ng.IHttpService
-    ) {}
+        private $http:ng.IHttpService,
+        public $scope,
+        public $q: ng.IQService
+    ){
+        $scope.$watchCollection(function(scope) { return scope["vm"].pager;} ,(newVal, oldVal, scope)=>{
+            if(newVal.page!=oldVal.page || newVal.per!=oldVal.per){
+                this.refreshPage();
+            }
+        });
+        this.filters = new Filters($scope.config.fields, $scope.config.rels);
+
+    }
 
     init(config: CrudTableConfig) {
         this.config = config;
-        this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes());
-        this.pager = new Pager(1, 15);
+        this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes(), this.filters);
+        this.pager = new Pager(1, 15, this.$q);
         this.refreshPage();
     }
 
@@ -43,22 +55,26 @@ export class CrudTableCtrl {
 
         if (field) {
 
-            if (rel) {
+            if (field.formly=="autocomplete") {
                 this.$mdDialog.show(autocompleteDialog($event, field, origin, rel, this.$mdDialog, this.source))
-            } else if (field.fieldType instanceof StrField) {
+            } else if (field.formly=="input") {
 
                 this.$editDialog.small({
                     modelValue: origin[fieldName],
                     type: "text",
                     targetEvent: $event,
                     save: (ctrl: ng.INgModelController) => {
-                        origin[fieldName] = ctrl.$modelValue
+                        origin[fieldName] = ctrl.$modelValue;
+                        console.log(ctrl.$modelValue,fieldName);
+                        let res = {};
+                        res[fieldName] = ctrl.$modelValue;
+                        this.source.patch(origin.id,res);
                     },
                     placeholder: field.title
                 })
 
             } else {
-                console.log('Unsupported field type')
+                console.log('Unsupported field type', field.fieldType,StrField)
             }
 
         } else {
@@ -67,10 +83,19 @@ export class CrudTableCtrl {
 
     }
 
+    onPaginate(page: any, limit: any) {
+        this.refreshPage();
+    }
+
+    onChange(item,id,name){
+        console.log(item,id,name);
+        let res = {};
+        res[name] = item;
+        this.source.patch(id,res);
+    }
+
     create($event: ng.IAngularEvent) {
-
         this.$mdDialog.show(createDialog($event, this.config)).then((res)=>this.refreshPage())
-
     }
 
     edit(item) {

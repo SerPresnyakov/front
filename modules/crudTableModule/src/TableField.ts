@@ -10,8 +10,13 @@ export class TableField {
         public title: string,
         public fieldType: fieldType,
         public nullable: boolean,
-        public formly:string
+        public editable: boolean,
+        public formly: string,
+        public parent: string = null,
+        public options: any = null
 
     ) {}
+
+
 
 }

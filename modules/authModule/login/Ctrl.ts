@@ -20,7 +20,7 @@ export class LoginCtrl {
 
     options = {};
 
-    fields = [
+    fields: iFieldGroup[] = [
         {
             key: 'email',
             type: 'input',

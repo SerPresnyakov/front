@@ -11,6 +11,7 @@
   "files": [
     "./typings/main.d.ts",
     "./dts/global.d.ts",
-    "./dts/mdTable.d.ts"
+    "./dts/mdTable.d.ts",
+    "./dts/modules.d.ts"
   ]
 }

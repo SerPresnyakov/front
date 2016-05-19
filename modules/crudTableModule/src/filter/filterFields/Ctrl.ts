@@ -76,10 +76,10 @@ class Ctrl {
     }
 }
 
-export const filterFieldsDirective = {
+export const filterFieldsDirective: iRegisterMeta<ng.IComponentOptions> = {
     name: "filterFields",
     config: {
-        bindings:{
+        bindings: {
             filter: "=",
             rels: "=",
             rest: "=",
@@ -87,7 +87,6 @@ export const filterFieldsDirective = {
         },
         controller: Ctrl,
         controllerAs: "filterFieldsVM",
-        template: require<string>("./filterFields.html"),
-        restrict: "E"
+        template: require<string>("./filterFields.html")
     }
 };

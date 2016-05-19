@@ -39,15 +39,16 @@ module.exports =
       auth: "./Module"
     output: getOutputConfig()
   )
-  crudStruct: getConfig(
-    context: "<%= dirs.root %>/modules/crudStructModule",
-    entry:
-      crudStruct: "./Module"
-    output: getOutputConfig()
-  )
   crudTable: getConfig(
     context: "<%= dirs.root %>/modules/crudTableModule",
     entry:
       crudTable: "./Module"
     output: getOutputConfig()
   )
+  crudStruct: getConfig(
+    context: "<%= dirs.root %>/modules/crudStructModule",
+    entry:
+      crudStruct: "./Module"
+    output: getOutputConfig()
+  )
+

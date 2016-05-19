@@ -3,6 +3,7 @@ node_modules
 bower
 .tmp
 build
+typings
 npm-debug.log
 .tscache
 **/*.bundle.js

@@ -6,7 +6,7 @@ import {fieldType} from "../../crudTableModule/src/TableField";
 
 export class CrudStructCtrl {
 
-    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http", "$scope","$stateParams"];
+    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http", "$scope","$stateParams", "$q"];
 
     config: CrudStructConfig;
 
@@ -20,7 +20,8 @@ export class CrudStructCtrl {
         public $mdDialog: ng.material.IDialogService,
         private $http:ng.IHttpService,
         public $scope,
-        public stateParams
+        public stateParams,
+        public $q: ng.IQService
     ){
 
     }
@@ -28,15 +29,17 @@ export class CrudStructCtrl {
     init(config) {
         this.config = config;
         this.source = new Source(this.config.dbName, this.config.url, this.inj);
-        this.pager = new Pager(1, 15);
-        return this.refreshPage()
+        this.pager = new Pager(1, 15, this.$q);
+        this.refreshPage();
     }
 
     refreshPage() {
         this.source.getStructView()
             .then((res) => {
                 this.pager.data = res.data;
+                this.pager.deffered.resolve(res.data)
             })
+            .catch(err => this.pager.deffered.reject(err))
     }
 
     //edit(item) {

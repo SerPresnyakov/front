@@ -3,6 +3,7 @@ import {CrudStructConfig} from "./CrudStructConfig";
 import {SideNavTemplater} from "./SideNavTemplater";
 import {FieldTableTemplater} from "./FieldTableTemplater";
 import {getConfig} from "./getConfig";
+import {Templater} from "../../crudTableModule/src/Templater";
 
 interface CtrlScope extends ng.IScope {
     config: CrudStructConfig
@@ -24,17 +25,24 @@ export function CrudFieldDirective($compile: ng.ICompileService): ng.IDirective 
             console.log("linking");
 
             let templ = "not found";
-            ctrl.init(scope.config)
-                .then((res)=> console.log(res, "test"));
+            let config = scope.config;
+            ctrl.init(scope.config);
 
-            getConfig.get(ctrl.pager, scope.tableName).then(config => {
-                //let config = scope.config;
-                //console.log(scope.vm.stateParams);
-                templ = new FieldTableTemplater(config, "vm").getTemplate();
+            ctrl.pager.deffered.promise.then((data)=>{
+                getConfig.get(data, scope.tableName, config);
+                //templ = new Templater(config, "vm").getTemplate();
+                //elem.html(templ);
+                //$compile(elem.contents())(scope);
+            });
 
-                elem.html(templ);
-                $compile(elem.contents())(scope);
-            })
+                //.then(config => {
+            //    //let config = scope.config;
+            //    //console.log(scope.vm.stateParams);
+
+            //
+            //    elem.html(templ);
+            //    $compile(elem.contents())(scope);
+            //})
 
         }
     }

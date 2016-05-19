@@ -4,7 +4,7 @@ import {TableField} from "./TableField";
 export class Templater {
 
     constructor(
-        public config: CrudTableConfig,
+        public config: any,
         public ctrlAs: string
     ) {}
 

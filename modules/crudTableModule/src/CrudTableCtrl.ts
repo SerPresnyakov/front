@@ -14,7 +14,7 @@ import {Filters} from "./filter/Filter";
 
 export class CrudTableCtrl {
 
-    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http", "$scope"];
+    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http", "$scope", "$q"];
 
     config: CrudTableConfig;
 
@@ -27,7 +27,8 @@ export class CrudTableCtrl {
         public $editDialog: mdTable.EditDialogService,
         public $mdDialog: ng.material.IDialogService,
         private $http:ng.IHttpService,
-        public $scope
+        public $scope,
+        public $q: ng.IQService
     ){
         $scope.$watchCollection(function(scope) { return scope["vm"].pager;} ,(newVal, oldVal, scope)=>{
             if(newVal.page!=oldVal.page || newVal.per!=oldVal.per){
@@ -41,7 +42,7 @@ export class CrudTableCtrl {
     init(config: CrudTableConfig) {
         this.config = config;
         this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes(), this.filters);
-        this.pager = new Pager(1, 15);
+        this.pager = new Pager(1, 15, this.$q);
         this.refreshPage();
     }
 

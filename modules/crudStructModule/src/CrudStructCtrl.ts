@@ -29,10 +29,10 @@ export class CrudStructCtrl {
         this.config = config;
         this.source = new Source(this.config.dbName, this.config.url, this.inj);
         this.pager = new Pager(1, 15);
-        this.refreshPage();
+        return this.refreshPage()
     }
 
-    refreshPage(): void {
+    refreshPage() {
         this.source.getStructView()
             .then((res) => {
                 this.pager.data = res.data;

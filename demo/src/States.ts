@@ -21,10 +21,11 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
         name: "dbAdmin.table",
         config: {
             url: "/table/:name",
-            template: "<ak-crud-field config=\"config\" stateParams=\"stateParams\" >",
+            template: "<ak-crud-field config=\"config\" table-name='tableName' >",
             controller: ["config", "$scope", "$stateParams", (config, s, stateParams) => {
                 s['config'] = config;
                 s['stateParams'] = stateParams;
+                s['tableName'] = stateParams.name;
             }],
             resolve: {
                 config: (): CrudStructConfig => struct

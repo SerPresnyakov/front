@@ -4,5 +4,6 @@ bower
 .tmp
 build
 npm-debug.log
+typings
 .tscache
 **/*.bundle.js

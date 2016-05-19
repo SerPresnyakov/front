@@ -20,7 +20,7 @@ export class getConfig {
         });
         console.log(table.fields[0]);
 
-        function setField(obj,fields){
+        function setField(obj,fields,parent?){
             let res;
             Object.getOwnPropertyNames(obj).forEach(prop => {
                 var title = prop;
@@ -47,16 +47,17 @@ export class getConfig {
                          formly = 'object';
                         break;
                 }
-                fields.push(this);
+                fields.push(new TableField(name, title, fieldType ,nullable, editable, formly, parent));
+
                 if(typeof obj[prop]== 'object'){
-                    fields.push(setField(obj[prop],fields));
+                    console.log('parent: ',obj[prop],prop);
+                    setField(obj[prop],fields,prop);
                 }
             });
             return this;
         }
-        fields.push(setField(table.fields[0],fields));
-
-
+        setField(table.fields[0],fields);
+        config.setFields(fields);
         console.log(fields);
 
         return null

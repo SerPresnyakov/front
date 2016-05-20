@@ -42,6 +42,16 @@ export class CrudStructCtrl {
             .catch(err => this.pager.deffered.reject(err))
     }
 
+    getTableNumb(){
+        var res;
+        this.pager.data.forEach((table,index)=>{
+            if(table.tableName == this.stateParams.name){
+                res = index;
+            }
+        });
+        return res;
+    }
+
     //edit(item) {
     //    let field;
     //    let rels;

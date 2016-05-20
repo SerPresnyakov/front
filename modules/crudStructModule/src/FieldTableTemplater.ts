@@ -6,6 +6,11 @@ export class FieldTableTemplater {
                 public ctrlAs:string) {
     }
 
+    //getTableNumb():number{
+    //    angular.forEach(this.config.fields, (f) => {
+    //    return
+    //}
+
     getTemplate():string {
         return "" +
             this.getTabs() +
@@ -83,7 +88,7 @@ export class FieldTableTemplater {
     getTBody():string {
         return "" +
             "<tbody md-body>" +
-            `<tr md-row ng-repeat='o in ${this.ctrlAs}.pager.data'>` +
+            `<tr md-row ng-repeat='o in ${this.ctrlAs}.pager.data[${this.ctrlAs}.getTableNumb()].fields'>` +
             this.getTds("o") +
             "</tr>" +
             "</tbody>";

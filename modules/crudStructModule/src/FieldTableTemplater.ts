@@ -94,7 +94,6 @@ export class FieldTableTemplater {
             "</tbody>";
     }
 
-
     getTds(obj:string):string {
         let obj1 = obj;
         let res = [];

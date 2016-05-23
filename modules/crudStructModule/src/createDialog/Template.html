@@ -1,0 +1,19 @@
+<div layout="column" flex role="main" style="height: 100%;">
+    <md-content layout="vertical" flex style="height: 100%;">
+        <div layout="row" layout-align="center center" layout-fill style="height: 100%;">
+            <md-whiteframe class="md-whiteframe-z1" layout="column" flex layout-padding >
+                <md-toolbar>
+                    <div class="md-toolbar-tools">
+                        <span>Создать</span>
+                    </div>
+                </md-toolbar>
+                <form ng-submit="vm.submit()" name="vm.form" novalidate>
+                    <formly-form model="vm.res" fields="vm.schema" options="vm.options" form="vm.form">
+                        <md-button type="submit" class="md-raised md-primary" ng-disabled="vm.form.$invalid">Submit</md-button>
+                        <md-button type="button" class="md-raised" ng-click="vm.options.resetModel()">Reset</md-button>
+                    </formly-form>
+                </form>
+            </md-whiteframe>
+        </div>
+    </md-content>
+</div>

@@ -21,14 +21,9 @@ export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective 
             console.log("linking");
 
             let templ = "not found";
-
             let config = scope.config;
 
-            if (scope.tmpl == "adGroups") {
-                templ = require<string>("../../../demo/src/tableConfigs/AdgroupTemplate.html")
-            } else {
-                templ = new Templater(config, "vm").getTemplate()
-            }
+            templ = new Templater(config, "vm").getTemplate();
 
             elem.html(templ);
             $compile(elem.contents())(scope);

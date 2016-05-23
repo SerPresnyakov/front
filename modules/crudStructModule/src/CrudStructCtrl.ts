@@ -3,6 +3,8 @@ import {Source} from "../../dao/Source";
 import {CrudStructConfig} from "./CrudStructConfig";
 import {Page} from "../../dao/Page";
 import {fieldType} from "../../crudTableModule/src/TableField";
+import {getDialog as editDialog} from "../src/editDialog/Cmpn"
+import {getDialog as createDialog} from "../src/createDialog/Cmpn"
 
 export class CrudStructCtrl {
 
@@ -23,6 +25,10 @@ export class CrudStructCtrl {
         public stateParams,
         public $q: ng.IQService
     ){
+
+    }
+
+    gerConfig(){
 
     }
 
@@ -52,13 +58,14 @@ export class CrudStructCtrl {
         return res;
     }
 
-    //edit(item) {
-    //    let field;
-    //    let rels;
-    //    this.$mdDialog.show(editDialog(this.config,item,this.source)).then((res)=>this.refreshPage())
-    //};
+    edit(item) {
+        let field;
+        let rels;
+        this.$mdDialog.show(editDialog(this.config, item,this.source)).then((res)=>this.refreshPage())
+    };
 
-
-    fieldsNames = ["id", "tableId", "name", "fieldName", "fieldType", "nullable", "hasDefault"]
+    create($event: ng.IAngularEvent) {
+        this.$mdDialog.show(createDialog($event, this.config)).then((res)=>this.refreshPage())
+    }
 
 }

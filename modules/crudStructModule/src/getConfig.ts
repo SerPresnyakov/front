@@ -47,6 +47,7 @@ export class getConfig {
                          formly = 'object';
                         break;
                 }
+
                 fields.push(new TableField(name, title, fieldType ,nullable, editable, formly, parent));
 
                 if(typeof obj[prop]== 'object'){

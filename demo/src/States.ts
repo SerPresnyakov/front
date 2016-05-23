@@ -33,6 +33,21 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
         }
     },
     {
+        name: "index.table",
+        config: {
+            url: "table/:name",
+            template: "<ak-crud-table config=\"config\" table-name='tableName' >",
+            controller: ["config", "$scope", "$stateParams", (config, s, stateParams) => {
+                s['config'] = config;
+                s['stateParams'] = stateParams;
+                s['tableName'] = stateParams.name;
+            }],
+            resolve: {
+                config: (): CrudTableConfig => directAdGroup
+            }
+        }
+    },
+    {
         name: "index.adGroups",
         config: {
             url: "adGroups",

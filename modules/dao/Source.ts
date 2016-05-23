@@ -41,6 +41,30 @@ export class Source {
 
     }
 
+    request(params): ng.IPromise<iPageResponse> {
+        let result = this.$q.defer<iPageResponse>();
+        this.$http
+            .post(this.restUrl, params, {headers:{db:"major2",dbUser:"Alex"}})
+            .then((res: ng.IHttpPromiseCallbackArg<iPageResponse>) => result.resolve(res.data))
+            .catch((err) => {
+                console.error(err);
+                result.reject(err.data);
+                if(err.status==401){
+                    this.state.go("login", {from: this.state.current.name});
+                }
+            });
+        return result.promise
+    };
+
+    getStructView(){
+        return this.request({"method":"GET", "action":"view"})
+    }
+
+
+    getStructView(){
+        return this.request({"method":"GET", "action":"view"})
+    }
+
     //setFilters(){
     //    let res= "";
     //    angular.forEach(this.filter,(f)=>{
@@ -62,10 +86,25 @@ export class Source {
     //    return res
     //}
 
+    //getStructView(): ng.IPromise<iPageResponse> {
+    //    let result = this.$q.defer<iPageResponse>();
+    //    this.$http
+    //        .post(this.restUrl, {"method":"GET", "action":"view"}, {headers:{db:"major2",dbUser:"Alex"}})
+    //        .then((res: ng.IHttpPromiseCallbackArg<iPageResponse>) => result.resolve(res.data))
+    //        .catch((err) => {
+    //            console.error(err);
+    //            result.reject(err.data);
+    //            if(err.status==401){
+    //                this.state.go("login", {from: this.state.current.name});
+    //            }
+    //        });
+    //    return result.promise
+    //};
+
     getStructView(): ng.IPromise<iPageResponse> {
         let result = this.$q.defer<iPageResponse>();
         this.$http
-            .post(this.restUrl, {"method":"GET", "action":"view"}, {headers:{db:"major2",dbUser:"Alex"}})
+            .post(this.restUrl, {"method":"GET", "action":"view", "table" : "direct.bannerGroups"}, {headers:{db:"major2",dbUser:"Alex"}})
             .then((res: ng.IHttpPromiseCallbackArg<iPageResponse>) => result.resolve(res.data))
             .catch((err) => {
                 console.error(err);

@@ -35,7 +35,7 @@ export function CrudFieldDirective($compile: ng.ICompileService): ng.IDirective 
                 $compile(elem.contents())(scope);
             });
 
-                //.then(config => {
+            //.then(config => {
             //    //let config = scope.config;
             //    //console.log(scope.vm.stateParams);
 

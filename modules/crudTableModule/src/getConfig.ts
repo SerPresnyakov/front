@@ -1,15 +1,15 @@
 import {Pager} from "../../dao/Pager";
-import {CrudStructConfig} from "./CrudStructConfig";
-import {StrField} from "../../crudTableModule/src/fieldTypes/StrField";
-import {IntField} from "../../crudTableModule/src/fieldTypes/IntField";
-import {TableField} from "../../crudTableModule/src/TableField";
-import {ObjField} from "../../crudTableModule/src/fieldTypes/ObjField";
-import {TableRel} from "../../crudTableModule/src/TableRel";
-import {BoolField} from "../../crudTableModule/src/fieldTypes/BoolField";
+import {StrField} from "./fieldTypes/StrField";
+import {IntField} from "./fieldTypes/IntField";
+import {TableField} from "./TableField";
+import {ObjField} from "./fieldTypes/ObjField";
+import {TableRel} from "./TableRel";
+import {BoolField} from "./fieldTypes/BoolField";
+import {CrudTableConfig} from "./CrudTableConfig";
 
 export class getConfig {
 
-    static get(data: any[], tableName,config): CrudStructConfig {
+    static get(data: any[], tableName,config): CrudTableConfig {
         //console.log('getConfig: ',data,tableName);
         let table;
         let fields = [];
@@ -47,11 +47,12 @@ export class getConfig {
                          formly = 'object';
                         break;
                 }
+
                 fields.push(new TableField(name, title, fieldType ,nullable, editable, formly, parent));
 
                 if(typeof obj[prop]== 'object'){
-                    console.log('parent: ',obj[prop],prop);
-                    setField(obj[prop],fields,prop);
+                    console.log('parent: ',obj[prop], prop);
+                    setField(obj[prop],fields, prop);
                 }
             });
             return this;

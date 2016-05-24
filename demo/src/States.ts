@@ -10,7 +10,6 @@ import {table as regions} from "./tableConfigs/major/regions";
 import {table as users} from "./tableConfigs/major/users";
 import {table as directCampaign} from "./tableConfigs/major/direct/campaign";
 import {table as adWordsCampaign} from "./tableConfigs/major/adWords/campaign";
-import {CrudStructConfig} from "../../modules/crudStructModule/src/CrudStructConfig";
 import {dbAdminState} from "./admin/State";
 
 export const states: iRegisterMeta<ng.ui.IState>[] = [
@@ -19,15 +18,30 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
     {
         name: "dbAdmin.table",
         config: {
-            url: "/table/:name",
-            template: "<ak-crud-field config=\"config\" table-name='tableName' >",
+            url: "/dtable/:name",
+            template: "<ak-crud-table config=\"config\" table-name='tableName' >",
             controller: ["config", "$scope", "$stateParams", (config, s, stateParams) => {
                 s['config'] = config;
                 s['stateParams'] = stateParams;
                 s['tableName'] = stateParams.name;
             }],
             resolve: {
-                config: (): CrudStructConfig => struct
+                config: (): CrudTableConfig => struct
+            }
+        }
+    },
+    {
+        name: "index.table",
+        config: {
+            url: "table/:name",
+            template: "<ak-crud-table config=\"config\" table-name='tableName' >",
+            controller: ["config", "$scope", "$stateParams", (config, s, stateParams) => {
+                s['config'] = config;
+                s['stateParams'] = stateParams;
+                s['tableName'] = stateParams.name;
+            }],
+            resolve: {
+                config: (): CrudTableConfig => directAdGroup
             }
         }
     },
@@ -48,7 +62,7 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
         name: "index.directAdGroups",
         config: {
             url: "adwords/adGroups?filters",
-            template: "<ak-crud-table config=\"config\">",
+            template: "<ak-crud-table config=\"config\" type='sidenav'>",
             controller: ["config", "$scope", (config, s) => {
                 s['config'] = config
             }],

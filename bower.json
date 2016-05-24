@@ -21,6 +21,7 @@
   ],
   "dependencies": {
     "angular": "~1.5.1",
+    "angular-mocks":"~1.5",
     "angular-material": "1.1.0-rc1",
     "angular-ui-router": "ui-router#~0.2.18",
     "font-awesome": "~4.5.0",

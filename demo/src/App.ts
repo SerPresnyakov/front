@@ -8,7 +8,7 @@ const module = angular.module("app", [
     Deps.uiRouter,
     Deps.material,
     "crudTable",
-    "crudStruct"
+    "a.auth"
 ]);
 
 Config.registerStates(module.name, states);

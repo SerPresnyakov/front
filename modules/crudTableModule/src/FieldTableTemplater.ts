@@ -1,8 +1,8 @@
-import {CrudStructConfig} from "./CrudStructConfig";
-import {TableField} from "../../crudTableModule/src/TableField";
+import {TableField} from "./TableField";
+import {CrudTableConfig} from "./CrudTableConfig";
 export class FieldTableTemplater {
 
-    constructor(public config:CrudStructConfig,
+    constructor(public config:CrudTableConfig,
                 public ctrlAs:string) {
     }
 
@@ -93,7 +93,6 @@ export class FieldTableTemplater {
             "</tr>" +
             "</tbody>";
     }
-
 
     getTds(obj:string):string {
         let obj1 = obj;

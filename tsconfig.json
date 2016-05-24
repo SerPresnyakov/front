@@ -13,6 +13,7 @@
     "./dts/global.d.ts",
     "./dts/mdTable.d.ts",
     "./dts/modules.d.ts",
-    "./dts/api.d.ts"
+    "./dts/api.d.ts",
+    "./dts/apiAdmin.d.ts"
   ]
 }

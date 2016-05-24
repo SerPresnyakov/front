@@ -16,7 +16,7 @@ export class Run {
     let token = localStorage.get<string>("token");
 
     if (token != null && isTokenForm(token)) {
-
+      $http.defaults.headers.common['token'] = token
     } else {
       $state.go("login");
     }

@@ -1,5 +1,5 @@
-import {CrudStructConfig} from "../../../modules/crudStructModule/src/CrudStructConfig";
 import {table as struct} from "../tableConfigs/struct"
+import {CrudTableConfig} from "../../../modules/crudTableModule/src/CrudTableConfig";
 
 class Ctrl {
 
@@ -27,7 +27,7 @@ export const dbAdminState: iRegisterMeta<ng.ui.IState> = {
         controllerAs: "vm",
         controller: Ctrl,
         resolve: {
-            config: (): CrudStructConfig => struct
+            config: (): CrudTableConfig => struct
         }
     }
 };

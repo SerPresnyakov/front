@@ -3,10 +3,11 @@ import {SideNavTemplater} from "./SideNavTemplater";
 import {FieldTableTemplater} from "./FieldTableTemplater";
 import {CrudTableConfig} from "./CrudTableConfig";
 import {CrudTableCtrl} from "./CrudTableCtrl";
-import {getConfig} from "./getConfig";
+import {ConfigBuilder} from "./ConfigBuilder";
+import {Source} from "../../dao/Source";
+import {Page} from "../../dao/Page";
 
 interface CtrlScope extends ng.IScope {
-    config: CrudTableConfig
     type: string
     tableName: string
 }
@@ -14,7 +15,6 @@ interface CtrlScope extends ng.IScope {
 export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective {
     return {
         scope: {
-            config: "=",
             type: "=",
             tableName:"=",
         },
@@ -23,24 +23,21 @@ export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective 
         restrict: "E",
         link: (scope: CtrlScope, elem: ng.IAugmentedJQuery, attrs: any, ctrl: CrudTableCtrl) => {
 
-            console.log("linking");
-
             let templ = "not found";
-            let config = scope.config;
-            ctrl.init(scope.config);
 
-            ctrl.pager.deffered.promise.then((data)=>{
-                getConfig.get(data, scope.tableName, config);
-                if(scope.type=="sidenav"){
+            new ConfigBuilder(ctrl.inj).build(scope.tableName, scope.type == "struct").then((config) => {
+                ctrl.init(config);
+                if(scope.type == "sidenav") {
                     templ = new SideNavTemplater(config, "vm").getTemplate();
-                } else if(scope.type=="struct"){
+                } else if(scope.type == "struct") {
                     templ = new FieldTableTemplater(config, "vm").getTemplate();
-                } else if(scope.type=="table"){
+                } else if(scope.type == "table") {
                     templ = new Templater(config, "vm").getTemplate();
                 }
                 elem.html(templ);
                 $compile(elem.contents())(scope);
-            });
+            }).catch((err) => { throw { msg: "can't build config", err: err } });
+
         }
     }
 }

@@ -18,7 +18,7 @@ export class CrudTableCtrl {
 
     config: CrudTableConfig;
 
-    source: Source;
+    source: Source<any>;
     pager: Pager;
     filters;
 
@@ -35,14 +35,13 @@ export class CrudTableCtrl {
                 this.refreshPage();
             }
         });
-        this.filters = new Filters($scope.config.fields, $scope.config.rels);
-
+        this.pager = new Pager(1, 15, this.$q);
     }
 
     init(config: CrudTableConfig) {
         this.config = config;
         this.source = new Source(this.config.url, this.config.tableName, this.inj);
-        this.pager = new Pager(1, 15, this.$q);
+        this.filters = new Filters(config.fields, config.rels);
         this.refreshPage();
     }
 

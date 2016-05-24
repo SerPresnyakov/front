@@ -2,7 +2,7 @@ import {Page} from "./Page";
 
 import iPageResponse = api.iPageResponse;
 
-export abstract class AbstractSource {
+export abstract class AbstractSource<M> {
 
     $http: ng.IHttpService;
     $q: ng.IQService;
@@ -16,31 +16,38 @@ export abstract class AbstractSource {
         this.$q = inj.get<ng.IQService>("$q");
     }
 
-    getPage(page:Page, filters: Object[]): ng.IPromise<any[]> {
+    getPage(page:Page, filters: apiAdmin.iFilter[] = []): ng.IPromise<M[]> {
         let result = this.$q.defer<any[]>();
         this.$http
             .post(this.crudUrl, {
-                method: "retrieve",
+                method: "get",
                 table: this.tableName,
-                pager: page
+                pager: page,
+                filters: filters
             })
-            .then((res: ng.IHttpPromiseCallbackArg<any[]>) => result.resolve(res.data))
+            .then((res: ng.IHttpPromiseCallbackArg<M[]>) => result.resolve(res.data))
             .catch((err) => result.reject(err.data));
 
         return result.promise
     };
 
-    getOne(id: number): ng.IPromise<Object> {
-        return this.getPage(new Page().setPage(1, 1), [
-            {field: "base.id", op: "eq", "value": id}
-        ]).then(res => res[0])
+    getOne(filters: apiAdmin.iFilter[]): ng.IPromise<M> {
+        let deffer = this.$q.defer<M>();
+        this.getPage(new Page().setPage(1, 1), filters)
+            .then(res => { if (res[0]) deffer.resolve(res[0]); else deffer.reject("Not found") })
+            .catch((err) => deffer.reject(err));
+        return deffer.promise
     };
 
-    create(doc: Object): ng.IPromise<any> { return this.modify(doc, "create") }
+    getById(id: number): ng.IPromise<M> {
+        return this.getOne([{field: "base.id", op: "eq", value: id}])
+    }
+
+    create(doc: M): ng.IPromise<any> { return this.modify(doc, "create") }
     update(doc: Object): ng.IPromise<any> { return this.modify(doc, "update") }
     remove(doc: Object): ng.IPromise<any> { return this.modify(doc, "delete") }
 
-    modify(doc: Object, method: string): ng.IPromise<any> {
+    modify<T>(doc: T, method: string): ng.IPromise<any> {
         let result = this.$q.defer<any>();
 
         this.$http

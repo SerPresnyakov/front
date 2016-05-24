@@ -9,8 +9,10 @@ interface token {
 }
 
 interface successLogin {
-    userId: number;
-    token: token
+    data: {
+        userId: number
+        token: token
+    }
 }
 
 export class AuthService {
@@ -26,10 +28,12 @@ export class AuthService {
     login(cred: credentials): ng.IPromise<Boolean> {
 
       return this.$http.post("/api/auth/login", cred).then((res: ng.IHttpPromiseCallbackArg<successLogin>) => {
-        this.$localStorage.set("token", `${res.data.userId}:${res.data.token.code}`);
+        let token = `${res.data.data.userId}:${res.data.data.token.code}`
+        this.$localStorage.set("token", token);
+        this.$http.defaults.headers.common['token'] = token;
         return true
       }).catch((err) => {
-        console.warn(`AuthService.Login: ${err}`);
+        console.warn(`AuthService. Login:`, err);
         return false
       })
 
@@ -40,7 +44,7 @@ export class AuthService {
       return this.$http.post("/api/auth/logout", {}).then(() => {
         this.$localStorage.remove('token');
       }, (err) => {
-        console.warn(`AuthService.Logout: ${err}`); throw err
+        console.warn(`AuthService.Logout`, err); throw err
       })
 
     }

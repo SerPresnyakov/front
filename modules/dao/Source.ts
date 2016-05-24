@@ -2,7 +2,7 @@
 import {AbstractSource} from "./AbstractSource";
 import {Page} from "./Page";
 
-export class Source extends AbstractSource {
+export class Source<M> extends AbstractSource<M> {
 
     $http: ng.IHttpService;
     $q: ng.IQService;

@@ -16,7 +16,6 @@ export class CrudTableConfig {
     ) {
     }
 
-
     setFields(fields: TableField[]): CrudTableConfig {
         this.fields = fields;
         return this;

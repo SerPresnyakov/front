@@ -5,7 +5,7 @@ import {TableRel} from "../../../../modules/crudTableModule/src/TableRel";
 import {ObjField} from "../../../../modules/crudTableModule/src/fieldTypes/ObjField";
 import {TableField} from "../../../../modules/crudTableModule/src/TableField";
 
-export const table: CrudTableConfig = new CrudTableConfig("Магазины", "/left/pricelab/shop",["PATCH"])
+export const table: CrudTableConfig = new CrudTableConfig("Магазины", "/api/crud", "pricelabs.shops")
     .setFields([
         new TableField("name", 'Название', new StrField(), false, false, "input"),
         new TableField("clientId", 'Клиент', new IntField(), false, false, "autocomplete"),

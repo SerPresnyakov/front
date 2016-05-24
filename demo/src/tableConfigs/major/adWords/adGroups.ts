@@ -7,7 +7,7 @@ import {TableField} from "../../../../../modules/crudTableModule/src/TableField"
 import {ObjField} from "../../../../../modules/crudTableModule/src/fieldTypes/ObjField";
 
 export const table: CrudTableConfig =
-    new CrudTableConfig("Группы объявлений", "/api/adwords/adGroup",{patch:false})
+    new CrudTableConfig("Группы объявлений", "/api/crud", "adwords.adGroups")
         .setFields([
             new TableField("campaign", 'Кампания', new ObjField(), false, false, "object"),
             new TableField("id", 'ID', new IntField(), false, false, "input", "campaign"),

@@ -5,7 +5,7 @@ import {TableRel} from "../../../../modules/crudTableModule/src/TableRel";
 import {ObjField} from "../../../../modules/crudTableModule/src/fieldTypes/ObjField";
 import {TableField} from "../../../../modules/crudTableModule/src/TableField";
 
-export const table: CrudTableConfig = new CrudTableConfig("Бренды", "/api/refs/brand",{patch:true,create:true,delete:true})
+export const table: CrudTableConfig = new CrudTableConfig("Бренды", "/api/crud", "brands")
     .setFields([
         new TableField("name", 'Название', new StrField(),false, false,"input"),
     ]);

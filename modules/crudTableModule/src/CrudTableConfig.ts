@@ -11,7 +11,7 @@ export class CrudTableConfig {
     constructor(
         public sourceName: string,
         public url: string,
-        public allowedMethods:any
+        public tableName: string
     ) {
     }
 
@@ -37,14 +37,6 @@ export class CrudTableConfig {
 
     getField(fieldName: string): TableField {
         return this.fields.find((r) => r.name == fieldName)
-    }
-
-    getIncludes(){
-        let res=[];
-        this.rels.forEach((r)=> {
-            if(r.isInclude)res.push(r.field);
-        });
-        return res;
     }
 
     getSelectedTab(){

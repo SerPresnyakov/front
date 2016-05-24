@@ -29,7 +29,7 @@ export class CrudTableCtrl {
         private $http:ng.IHttpService,
         public $scope,
         public $q: ng.IQService
-    ){
+    ) {
         $scope.$watchCollection(function(scope) { return scope["vm"].pager;} ,(newVal, oldVal, scope)=>{
             if(newVal.page!=oldVal.page || newVal.per!=oldVal.per){
                 this.refreshPage();
@@ -41,7 +41,7 @@ export class CrudTableCtrl {
 
     init(config: CrudTableConfig) {
         this.config = config;
-        this.source = new Source(this.config.sourceName, this.config.url, this.inj, this.config.getIncludes(), this.filters);
+        this.source = new Source(this.config.url, this.config.tableName, this.inj);
         this.pager = new Pager(1, 15, this.$q);
         this.refreshPage();
     }
@@ -68,7 +68,7 @@ export class CrudTableCtrl {
                         console.log(ctrl.$modelValue,fieldName);
                         let res = {};
                         res[fieldName] = ctrl.$modelValue;
-                        this.source.patch(origin.id,res);
+                        this.source.update(res);
                     },
                     placeholder: field.title
                 })
@@ -91,7 +91,7 @@ export class CrudTableCtrl {
         console.log(item,id,name);
         let res = {};
         res[name] = item;
-        this.source.patch(id,res);
+        this.source.update(res);
     }
 
     create($event: ng.IAngularEvent) {
@@ -116,13 +116,12 @@ export class CrudTableCtrl {
         });
     };
 
-    refreshPage() {
-        this.source.getStructView()
+    refreshPage(): void {
+        this.source.getPage(new Page().setPage(this.pager.page, this.pager.per), this.filters)
             .then((res) => {
-                this.pager.data = res.data;
-                this.pager.deffered.resolve(res.data)
+                this.pager.data = res;
+                this.pager.total = 1;
             })
-            .catch(err => this.pager.deffered.reject(err))
     }
 
     refreshResource(origin: any) {

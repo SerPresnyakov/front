@@ -6,7 +6,7 @@ import {ObjField} from "../../../../../modules/crudTableModule/src/fieldTypes/Ob
 import {TableField} from "../../../../../modules/crudTableModule/src/TableField";
 import {BoolField} from "../../../../../modules/crudTableModule/src/fieldTypes/BoolField";
 
-export const table: CrudTableConfig = new CrudTableConfig("Кампании", "/api/direct/campaign",{})
+export const table: CrudTableConfig = new CrudTableConfig("Кампании", "/api/crud", "direct.campaigns")
     .setFields([
         new TableField("id", 'ID', new IntField(), false, false, "input"),
         new TableField("name", 'Имя', new StrField(), false, false, "input"),

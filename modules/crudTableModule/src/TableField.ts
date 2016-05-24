@@ -14,7 +14,6 @@ export class TableField {
         public formly: string,
         public parent: string = null,
         public options: any = null
-
     ) {}
 
 

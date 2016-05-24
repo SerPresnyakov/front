@@ -1,5 +1,6 @@
 import {TableField} from "../../TableField";
 import {Helper} from "../Helper";
+import IComponentOptions = angular.IComponentOptions;
 
 class Ctrl {
 
@@ -66,20 +67,16 @@ class Ctrl {
 
 }
 
-export const filterButtonDirective= {
+export const filterButtonDirective: iRegisterMeta<IComponentOptions> = {
     name: "filterButton",
     config: {
-        bindings:{
-            "fields": "=",
-            "filter": "=",
-            "refreshPage": "&"
+        bindings: {
+            fields: "=",
+            filter: "=",
+            refreshPage: "&"
         },
         controller: Ctrl,
         controllerAs: "filterButtonVM",
-        template: require<string>("./filterButton.html"),
-        restrict: "E",
-        link:(scope)=>{
-            console.log(scope)
-        }
+        template: require<string>("./filterButton.html")
     }
 };

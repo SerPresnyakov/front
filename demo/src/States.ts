@@ -1,7 +1,6 @@
 import {indexState} from "./index/State"
 import {table as directAdGroup} from "./tableConfigs/major/direct/adGroups"
 import {table as adWordsAdGroup} from "./tableConfigs/major/adWords/adGroups"
-import {table as tables} from "./tableConfigs/tables"
 import {table as struct} from "./tableConfigs/struct"
 import {table as clients} from "./tableConfigs/leviafan/client"
 import {table as shops} from "./tableConfigs/leviafan/shop"

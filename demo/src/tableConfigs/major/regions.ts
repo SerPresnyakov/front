@@ -9,3 +9,4 @@ export const table: CrudTableConfig = new CrudTableConfig("Регионы", "/ap
     .setFields([
         new TableField("name", 'Название', new StrField(), false, false,"input"),
     ]);
+//bla

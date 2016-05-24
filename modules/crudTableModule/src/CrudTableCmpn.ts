@@ -9,14 +9,14 @@ import {Page} from "../../dao/Page";
 
 interface CtrlScope extends ng.IScope {
     type: string
-    tableName: string
+    config: CrudTableConfig
 }
 
 export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective {
     return {
         scope: {
             type: "=",
-            tableName:"=",
+            config:"=",
         },
         controller: CrudTableCtrl,
         controllerAs: "vm",
@@ -25,18 +25,17 @@ export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective 
 
             let templ = "not found";
 
-            new ConfigBuilder(ctrl.inj).build(scope.tableName, scope.type == "struct").then((config) => {
-                ctrl.init(config);
-                if(scope.type == "sidenav") {
-                    templ = new SideNavTemplater(config, "vm").getTemplate();
-                } else if(scope.type == "struct") {
-                    templ = new FieldTableTemplater(config, "vm").getTemplate();
-                } else if(scope.type == "table") {
-                    templ = new Templater(config, "vm").getTemplate();
-                }
-                elem.html(templ);
-                $compile(elem.contents())(scope);
-            }).catch((err) => { throw { msg: "can't build config", err: err } });
+            ctrl.init(scope.config);
+
+            if(scope.type == "sidenav") {
+                templ = new SideNavTemplater(scope.config, "vm").getTemplate();
+            } else if(scope.type == "struct") {
+                templ = new FieldTableTemplater(scope.config, "vm").getTemplate();
+            } else if(scope.type == "table") {
+                templ = new Templater(scope.config, "vm").getTemplate();
+            }
+            elem.html(templ);
+            $compile(elem.contents())(scope);
 
         }
     }

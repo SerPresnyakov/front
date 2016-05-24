@@ -1,12 +1,12 @@
 import {IntField} from "../../../../../modules/crudTableModule/src/fieldTypes/IntField";
 import {StrField} from "../../../../../modules/crudTableModule/src/fieldTypes/StrField";
 import {BoolField} from "../../../../../modules/crudTableModule/src/fieldTypes/BoolField";
-import {CrudTableConfig} from "../../../../../modules/crudTableModule/src/CrudTableConfig";
-import {TableRel} from "../../../../../modules/crudTableModule/src/TableRel";
-import {TableField} from "../../../../../modules/crudTableModule/src/TableField";
 import {ObjField} from "../../../../../modules/crudTableModule/src/fieldTypes/ObjField";
+import {CrudTableConfig} from "../../../../../modules/crudTableModule/src/models/CrudTableConfig";
+import {TableField} from "../../../../../modules/crudTableModule/src/models/TableField";
+import {TableRel} from "../../../../../modules/crudTableModule/src/models/TableRel";
 
-export const table: CrudTableConfig =
+export const table:  =
     new CrudTableConfig("Группы объявлений", "/api/crud", "adwords.adGroups")
         .setFields([
             new TableField("campaign", 'Кампания', new ObjField(), false, false, "object"),

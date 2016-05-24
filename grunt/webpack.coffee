@@ -45,10 +45,4 @@ module.exports =
       crudTable: "./Module"
     output: getOutputConfig()
   )
-  crudStruct: getConfig(
-    context: "<%= dirs.root %>/modules/crudStructModule",
-    entry:
-      crudStruct: "./Module"
-    output: getOutputConfig()
-  )
 

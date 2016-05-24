@@ -1,16 +1,16 @@
 import {indexState} from "./index/State"
 import {table as directAdGroup} from "./tableConfigs/major/direct/adGroups"
 import {table as adWordsAdGroup} from "./tableConfigs/major/adWords/adGroups"
-import {table as struct} from "./tableConfigs/struct"
 import {table as clients} from "./tableConfigs/leviafan/client"
 import {table as shops} from "./tableConfigs/leviafan/shop"
-import {CrudTableConfig} from "../../modules/crudTableModule/src/CrudTableConfig";
 import {table as brands} from "./tableConfigs/major/brands";
 import {table as regions} from "./tableConfigs/major/regions";
 import {table as users} from "./tableConfigs/major/users";
 import {table as directCampaign} from "./tableConfigs/major/direct/campaign";
 import {table as adWordsCampaign} from "./tableConfigs/major/adWords/campaign";
 import {dbAdminState} from "./admin/State";
+import {CrudTableConfig} from "../../modules/crudTableModule/src/models/CrudTableConfig";
+import {ConfigBuilder} from "../../modules/crudTableModule/src/models/ConfigBuilder";
 
 export const states: iRegisterMeta<ng.ui.IState>[] = [
     indexState,
@@ -18,15 +18,24 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
     {
         name: "dbAdmin.table",
         config: {
-            url: "/dtable/:name",
-            template: "<ak-crud-table config=\"config\" table-name='tableName' >",
-            controller: ["config", "$scope", "$stateParams", (config, s, stateParams) => {
+            url: "/dbtable/:name",
+            template: "<ak-crud-table config=\"config\">",
+            controller: ["config", "$scope", (config, s) => {
                 s['config'] = config;
-                s['stateParams'] = stateParams;
-                s['tableName'] = stateParams.name;
             }],
             resolve: {
-                config: (): CrudTableConfig => struct
+                config: ["$stateParams", "$injector", "$q", (stateParams: any, inj: ng.auto.IInjectorService, $q: ng.IQService): ng.IPromise<CrudTableConfig> => {
+                    let deferred = $q.defer<CrudTableConfig>();
+                    let tableName = stateParams['tableName'];
+                    if (!tableName) {
+                        deferred.reject("tableName isn't specified")
+                    } else {
+                        new ConfigBuilder(inj).build(tableName, true)
+                            .then((res) => deferred.resolve(res))
+                            .catch((err) => deferred.reject({msg: "can't build config", err: err}));
+                    }
+                    return deferred.promise
+                }]
             }
         }
     },

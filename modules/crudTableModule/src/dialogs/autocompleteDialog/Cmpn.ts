@@ -1,6 +1,6 @@
-import {TableField} from "../TableField";
-import {TableRel} from "../TableRel";
-import {Helper} from "../../../utils/Helper";
+import {TableField} from "../../TableField";
+import {TableRel} from "../../TableRel";
+import {Helper} from "../../../../utils/Helper";
 
 class Ctrl {
 

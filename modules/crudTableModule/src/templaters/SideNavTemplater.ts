@@ -1,4 +1,4 @@
-import {CrudTableConfig} from "./CrudTableConfig";
+import {CrudTableConfig} from "../CrudTableConfig";
 
 export class SideNavTemplater {
 

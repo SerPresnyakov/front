@@ -1,5 +1,3 @@
-import {table as struct} from "../tableConfigs/struct"
-import {CrudTableConfig} from "../../../modules/crudTableModule/src/CrudTableConfig";
 
 class Ctrl {
 

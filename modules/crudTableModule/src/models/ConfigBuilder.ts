@@ -1,13 +1,13 @@
-import {Pager} from "../../dao/Pager";
-import {StrField} from "./fieldTypes/StrField";
-import {IntField} from "./fieldTypes/IntField";
+import {Pager} from "../../../dao/Pager";
+import {StrField} from "../fieldTypes/StrField";
+import {IntField} from "../fieldTypes/IntField";
 import {TableField} from "./TableField";
-import {ObjField} from "./fieldTypes/ObjField";
+import {ObjField} from "../fieldTypes/ObjField";
 import {TableRel} from "./TableRel";
-import {BoolField} from "./fieldTypes/BoolField";
+import {BoolField} from "../fieldTypes/BoolField";
 import {CrudTableConfig} from "./CrudTableConfig";
-import {Source} from "../../dao/Source";
-import {Page} from "../../dao/Page";
+import {Source} from "../../../dao/Source";
+import {Page} from "../../../dao/Page";
 
 export class ConfigBuilder {
 

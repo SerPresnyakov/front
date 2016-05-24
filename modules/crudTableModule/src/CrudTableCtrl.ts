@@ -106,7 +106,7 @@ export class CrudTableCtrl {
 
     delete(item) {
         this.$mdDialog.show(deleteDialog(this.$mdDialog,item.name)).then((res)=> {
-            this.source.remove(item.id)
+            this.source.remove(item)
                 .then((res)=> {
                     if (res) {
                         this.$mdDialog.hide();

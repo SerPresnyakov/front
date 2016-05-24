@@ -1,15 +1,15 @@
 import {Pager} from "../../dao/Pager";
-import {CrudStructConfig} from "./../../crudStructModule/src/CrudStructConfig";
 import {StrField} from "./fieldTypes/StrField";
 import {IntField} from "./fieldTypes/IntField";
 import {TableField} from "./TableField";
 import {ObjField} from "./fieldTypes/ObjField";
 import {TableRel} from "./TableRel";
 import {BoolField} from "./fieldTypes/BoolField";
+import {CrudTableConfig} from "./CrudTableConfig";
 
 export class getConfig {
 
-    static get(data: any[], tableName,config): CrudStructConfig {
+    static get(data: any[], tableName,config): CrudTableConfig {
         //console.log('getConfig: ',data,tableName);
         let table;
         let fields = [];

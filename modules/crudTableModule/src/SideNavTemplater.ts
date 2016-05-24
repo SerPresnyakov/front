@@ -1,4 +1,3 @@
-import {CrudStructConfig} from "./../../crudStructModule/src/CrudStructConfig";
 import {CrudTableConfig} from "./CrudTableConfig";
 
 export class SideNavTemplater {

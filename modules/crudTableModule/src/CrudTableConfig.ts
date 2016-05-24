@@ -7,6 +7,7 @@ export class CrudTableConfig {
     fields: TableField[] = [];
     rels: TableRel[] = [];
     tab = {selected:null,tabs:[]};
+    allowedMethods = {patch:true, delete:true, create:true};
 
     constructor(
         public sourceName: string,

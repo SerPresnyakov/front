@@ -1,4 +1,3 @@
-import {CrudStructConfig} from "./../../crudStructModule/src/CrudStructConfig";
 import {TableField} from "./TableField";
 import {CrudTableConfig} from "./CrudTableConfig";
 export class FieldTableTemplater {

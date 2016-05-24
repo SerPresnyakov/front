@@ -116,12 +116,13 @@ export class CrudTableCtrl {
         });
     };
 
-    refreshPage(): void {
-        this.source.getPage(new Page().setPage(this.pager.page, this.pager.per))
+    refreshPage() {
+        this.source.getStructView()
             .then((res) => {
                 this.pager.data = res.data;
-                this.pager.total = res.items;
+                this.pager.deffered.resolve(res.data)
             })
+            .catch(err => this.pager.deffered.reject(err))
     }
 
     refreshResource(origin: any) {

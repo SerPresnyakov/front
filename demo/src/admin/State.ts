@@ -23,7 +23,7 @@ export const dbAdminState: iRegisterMeta<ng.ui.IState> = {
     name: "dbAdmin",
     config: {
         url: "/dbAdmin",
-        template: "<ak-crud-struct config=\"config\">",
+        template: "<ak-crud-table config=\"config\" type='sidenav'>",
         controllerAs: "vm",
         controller: Ctrl,
         resolve: {

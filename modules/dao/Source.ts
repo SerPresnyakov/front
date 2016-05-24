@@ -56,14 +56,6 @@ export class Source {
         return result.promise
     };
 
-    getStructView(){
-        return this.request({"method":"GET", "action":"view"})
-    }
-
-
-    getStructView(){
-        return this.request({"method":"GET", "action":"view"})
-    }
 
     //setFilters(){
     //    let res= "";

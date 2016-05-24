@@ -1,17 +1,22 @@
 import {Templater} from "./Templater";
+import {SideNavTemplater} from "./SideNavTemplater";
+import {FieldTableTemplater} from "./FieldTableTemplater";
 import {CrudTableConfig} from "./CrudTableConfig";
 import {CrudTableCtrl} from "./CrudTableCtrl";
+import {getConfig} from "./getConfig";
 
 interface CtrlScope extends ng.IScope {
     config: CrudTableConfig
-    tmpl: string
+    type: string
+    tableName: string
 }
 
 export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective {
     return {
         scope: {
             config: "=",
-            tmpl: "="
+            type: "=",
+            tableName:"=",
         },
         controller: CrudTableCtrl,
         controllerAs: "vm",
@@ -22,13 +27,20 @@ export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective 
 
             let templ = "not found";
             let config = scope.config;
+            ctrl.init(scope.config);
 
-            templ = new Templater(config, "vm").getTemplate();
-
-            elem.html(templ);
-            $compile(elem.contents())(scope);
-            ctrl.init(config)
+            ctrl.pager.deffered.promise.then((data)=>{
+                getConfig.get(data, scope.tableName, config);
+                if(scope.type=="sidenav"){
+                    templ = new SideNavTemplater(config, "vm").getTemplate();
+                } else if(scope.type=="struct"){
+                    templ = new FieldTableTemplater(config, "vm").getTemplate();
+                } else if(scope.type=="table"){
+                    templ = new Templater(config, "vm").getTemplate();
+                }
+                elem.html(templ);
+                $compile(elem.contents())(scope);
+            });
         }
     }
-
 }

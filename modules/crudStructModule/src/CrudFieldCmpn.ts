@@ -1,8 +1,8 @@
 import {CrudStructCtrl} from "./CrudStructCtrl";
 import {CrudStructConfig} from "./CrudStructConfig";
-import {SideNavTemplater} from "./SideNavTemplater";
-import {FieldTableTemplater} from "./FieldTableTemplater";
-import {getConfig} from "./getConfig";
+import {SideNavTemplater} from "./../../crudTableModule/src/SideNavTemplater";
+import {FieldTableTemplater} from "./../../crudTableModule/src/FieldTableTemplater";
+import {getConfig} from "./../../crudTableModule/src/getConfig";
 import {Templater} from "../../crudTableModule/src/Templater";
 
 interface CtrlScope extends ng.IScope {

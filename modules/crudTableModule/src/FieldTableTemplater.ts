@@ -1,8 +1,9 @@
-import {CrudStructConfig} from "./CrudStructConfig";
-import {TableField} from "../../crudTableModule/src/TableField";
+import {CrudStructConfig} from "./../../crudStructModule/src/CrudStructConfig";
+import {TableField} from "./TableField";
+import {CrudTableConfig} from "./CrudTableConfig";
 export class FieldTableTemplater {
 
-    constructor(public config:CrudStructConfig,
+    constructor(public config:CrudTableConfig,
                 public ctrlAs:string) {
     }
 

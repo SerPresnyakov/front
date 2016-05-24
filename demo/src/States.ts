@@ -20,8 +20,8 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
     {
         name: "dbAdmin.table",
         config: {
-            url: "/table/:name",
-            template: "<ak-crud-field config=\"config\" table-name='tableName' >",
+            url: "/dtable/:name",
+            template: "<ak-crud-table config=\"config\" table-name='tableName' >",
             controller: ["config", "$scope", "$stateParams", (config, s, stateParams) => {
                 s['config'] = config;
                 s['stateParams'] = stateParams;
@@ -64,7 +64,7 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
         name: "index.directAdGroups",
         config: {
             url: "adwords/adGroups?filters",
-            template: "<ak-crud-table config=\"config\">",
+            template: "<ak-crud-table config=\"config\" type='sidenav'>",
             controller: ["config", "$scope", (config, s) => {
                 s['config'] = config
             }],

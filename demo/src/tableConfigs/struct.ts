@@ -3,4 +3,4 @@ import {CrudTableConfig} from "../../../modules/crudTableModule/src/CrudTableCon
 import {TableField} from "../../../modules/crudTableModule/src/TableField";
 import {CrudStructConfig} from "../../../modules/crudStructModule/src/CrudStructConfig";
 
-export const table: CrudStructConfig = new CrudStructConfig("major", "struct/api/struct/view");
+export const table: CrudStructConfig = new CrudStructConfig("major", "struct/admin/crud");

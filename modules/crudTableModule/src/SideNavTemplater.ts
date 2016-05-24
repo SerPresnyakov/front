@@ -1,7 +1,9 @@
-import {CrudStructConfig} from "./CrudStructConfig";
+import {CrudStructConfig} from "./../../crudStructModule/src/CrudStructConfig";
+import {CrudTableConfig} from "./CrudTableConfig";
+
 export class SideNavTemplater {
 
-    constructor(public config:CrudStructConfig,
+    constructor(public config:CrudTableConfig,
                 public ctrlAs:string) {
     }
 

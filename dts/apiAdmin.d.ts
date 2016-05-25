@@ -4,8 +4,8 @@ declare module apiAdmin {
         id: number
         tableName: string
         url: string
-        fields: iField[]
-        relations: iRelation[]
+        fields?: iField[]
+        relations?: iRelation[]
     }
 
     interface iField {
@@ -16,12 +16,15 @@ declare module apiAdmin {
         fieldType: Object
         nullable: boolean
         hasDefault: boolean
+        table?: iTable
     }
 
     interface iRelation {
         name: string
-        leftTable: iTable
-        rightTable: iTable
+        leftTableId: number
+        rightTableId: number
+        leftTable?: iTable
+        rightTable?: iTable
         onCondition: Object
         hasMany: boolean
     }

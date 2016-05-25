@@ -1,5 +1,5 @@
-import {TableField} from "./TableField";
-import {TableRel} from "./TableRel";
+import {TableField} from "../models/TableField";
+import {TableRel} from "../models/TableRel";
 import {ObjField} from "../fieldTypes/ObjField";
 
 export class CrudTableConfig {

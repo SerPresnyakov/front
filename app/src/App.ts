@@ -1,4 +1,4 @@
-import {Deps} from "./Deps";
+import {Deps} from "../../modules/utils/Deps";
 import {AngularModule} from "../../modules/utils/AngularModule";
 import {Run} from "../../demo/src/Run";
 

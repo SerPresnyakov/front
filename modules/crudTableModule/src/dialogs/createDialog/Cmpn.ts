@@ -1,4 +1,4 @@
-import {CrudTableConfig} from "../../CrudTableConfig";
+import {CrudTableConfig} from "../../models/CrudTableConfig";
 import {Schema} from "../../Schema";
 import IDialogService = angular.material.IDialogService;
 import {Model} from "../../Model";

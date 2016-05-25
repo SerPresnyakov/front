@@ -6,7 +6,7 @@ import {CrudTableConfig} from "../../../../../modules/crudTableModule/src/models
 import {TableField} from "../../../../../modules/crudTableModule/src/models/TableField";
 import {TableRel} from "../../../../../modules/crudTableModule/src/models/TableRel";
 
-export const table:  =
+export const table  =
     new CrudTableConfig("Группы объявлений", "/api/crud", "adwords.adGroups")
         .setFields([
             new TableField("campaign", 'Кампания', new ObjField(), false, false, "object"),

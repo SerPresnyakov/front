@@ -1,5 +1,4 @@
-
-import {fieldType} from "../TableField";
+import {fieldType} from "../models/TableField";
 
 interface IBoolField extends fieldType {}
 

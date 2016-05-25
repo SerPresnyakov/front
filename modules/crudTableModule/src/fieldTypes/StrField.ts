@@ -1,4 +1,4 @@
-import {fieldType} from "../TableField";
+import {fieldType} from "../models/TableField";
 
 interface IStrField extends fieldType {
     pattern: string

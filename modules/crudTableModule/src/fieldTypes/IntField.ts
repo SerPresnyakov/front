@@ -1,4 +1,4 @@
-import {fieldType} from "../TableField";
+import {fieldType} from "../models/TableField";
 
 interface IIntField extends fieldType {
     min?: number

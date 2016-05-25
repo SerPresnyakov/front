@@ -1,6 +1,6 @@
-import {TableField} from "./TableField";
+import {TableField} from "./models/TableField";
 import {ObjField} from "./fieldTypes/ObjField";
-import {TableRel} from "./TableRel";
+import {TableRel} from "./models/TableRel";
 
 export class Schema {
 

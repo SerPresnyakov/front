@@ -1,4 +1,4 @@
-import {TableField} from "../../TableField";
+import {TableField} from "../../models/TableField";
 import {Helper} from "../Helper";
 import IComponentOptions = angular.IComponentOptions;
 

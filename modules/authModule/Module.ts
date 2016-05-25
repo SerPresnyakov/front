@@ -18,6 +18,6 @@ module.run(Run);
 
 module.registerServices([{name: AuthService.serviceName, config: AuthService}]);
 
-module.registerStates([States]);
+module.registerStates(States);
 
 export default module.getModuleName();

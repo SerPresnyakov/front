@@ -1,4 +1,4 @@
-import {CrudTableDirective} from "./src/CrudTableCmpn"
+import {CrudTableDirective} from "./src/crudTable/CrudTableDirective"
 import {Deps} from "../utils/Deps";
 import {Run} from "./Run";
 import {AngularModule} from "../../modules/utils/AngularModule";

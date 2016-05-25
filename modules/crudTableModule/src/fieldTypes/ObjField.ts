@@ -1,7 +1,7 @@
-import {TableField} from "../TableField";
-import {fieldType} from "../TableField";
+import {TableField} from "../models/TableField";
+import {fieldType} from "../models/TableField";
 import {Schema} from "../Schema";
-import {TableRel} from "../TableRel";
+import {TableRel} from "../models/TableRel";
 
 export interface IObjField extends fieldType {
 }

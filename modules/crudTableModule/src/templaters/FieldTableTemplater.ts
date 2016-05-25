@@ -1,5 +1,5 @@
-import {TableField} from "../TableField";
-import {CrudTableConfig} from "../CrudTableConfig";
+import {TableField} from "../models/TableField";
+import {CrudTableConfig} from "../crudTable/CrudTableConfig";
 
 export class FieldTableTemplater {
 

@@ -1,18 +1,20 @@
+import {Source} from "../../../dao/Source";
+import {Pager} from "../../../dao/Pager";
+
+import {getDialog as autocompleteDialog} from "../dialogs/autocompleteDialog/Cmpn"
+import {getDialog as createDialog} from "../dialogs/createDialog/Cmpn"
+import {getDialog as deleteDialog} from "../dialogs/deleteDialog/Cmpn"
+import {getDialog as editDialog} from "../dialogs/editDialog/Cmpn"
+
+import {StrField} from "../fieldTypes/StrField";
+import {Page} from "../../../dao/Page";
+import {TableField} from "../models/TableField";
+import {Filters} from "../filter/Filter";
 import {CrudTableConfig} from "./CrudTableConfig";
-import {Source} from "../../dao/Source";
-import {Pager} from "../../dao/Pager";
+import {Templater} from "./Templater";
+import {FieldTableTemplater} from "../templaters/FieldTableTemplater";
 
-import {getDialog as autocompleteDialog} from "./autocompleteDialog/Cmpn"
-import {getDialog as createDialog} from "./createDialog/Cmpn"
-import {getDialog as deleteDialog} from "./deleteDialog/Cmpn"
-import {getDialog as editDialog} from "./editDialog/Cmpn"
-
-import {StrField} from "./fieldTypes/StrField";
-import {Page} from "../../dao/Page";
-import {TableField} from "./TableField";
-import {Filters} from "./filter/Filter";
-
-export class CrudTableCtrl {
+class Ctrl {
 
     static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http", "$scope", "$q"];
 
@@ -30,8 +32,8 @@ export class CrudTableCtrl {
         public $scope,
         public $q: ng.IQService
     ) {
-        $scope.$watchCollection(function(scope) { return scope["vm"].pager;} ,(newVal, oldVal, scope)=>{
-            if(newVal.page!=oldVal.page || newVal.per!=oldVal.per){
+        $scope.$watchCollection((scope) => { return scope["vm"].pager; } ,(newVal, oldVal, scope) => {
+            if (newVal.page!=oldVal.page || newVal.per!=oldVal.per) {
                 this.refreshPage();
             }
         });
@@ -54,7 +56,7 @@ export class CrudTableCtrl {
 
         if (field) {
 
-            if (field.formly=="autocomplete") {
+            if (field.formly == "autocomplete") {
                 this.$mdDialog.show(autocompleteDialog($event, field, origin, rel, this.$mdDialog, this.source))
             } else if (field.formly=="input") {
 
@@ -127,4 +129,25 @@ export class CrudTableCtrl {
         this.source.getOne(origin.id).then((res) => angular.merge(origin, res))
     }
 
+}
+
+interface CtrlScope extends ng.IScope {
+    config: CrudTableConfig
+}
+
+export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective {
+    return {
+        scope: {
+            config:"=",
+        },
+        controller: Ctrl,
+        controllerAs: "vm",
+        restrict: "E",
+        link: (scope: CtrlScope, elem: ng.IAugmentedJQuery, attrs: any, ctrl: Ctrl) => {
+            let templ = new Templater(scope.config, "vm").getTemplate();
+            ctrl.init(scope.config);
+            elem.html(templ);
+            $compile(elem.contents())(scope);
+        }
+    }
 }

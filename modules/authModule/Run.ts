@@ -1,4 +1,5 @@
 import IState = ng.ui.IState
+import {AuthService} from "./AuthService";
 
 function isTokenForm(t: string): boolean {
   return t.match(/^\d+:.*/) != null
@@ -6,17 +7,17 @@ function isTokenForm(t: string): boolean {
 
 export class Run {
 
-  static $inject = ["$state", "$rootScope", "localStorageService", "$http"];
+  static $inject = ["$state", "$rootScope", "localStorageService", "$http", AuthService.serviceName];
 
-  constructor($state:ng.ui.IStateService,
-              $rootScope:ng.IRootScopeService,
-              localStorage:ng.local.storage.ILocalStorageService,
-              $http:ng.IHttpProvider) {
+  constructor($state: ng.ui.IStateService,
+              $rootScope: ng.IRootScopeService,
+              localStorage: ng.local.storage.ILocalStorageService,
+              $http: ng.IHttpProvider) {
 
     let token = localStorage.get<string>("token");
 
     if (token != null && isTokenForm(token)) {
-
+      $http.defaults.headers.common['token'] = token
     } else {
       $state.go("login");
     }
@@ -26,11 +27,11 @@ export class Run {
       console.log("state change error");
 
       if (err.status == 401) {
-        console.info("go to login");
+        console.debug("authModule: go to login");
         $state.go("login", {from: toState.name});
       } else {
-        console.info("go to badGateway", err);
-        $state.go("login", {from: toState.name})
+        console.debug("authModule: go to badGateway", err);
+        $state.go("badGateway", {from: toState.name})
       }
 
       e.preventDefault();

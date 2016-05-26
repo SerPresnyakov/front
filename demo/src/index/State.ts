@@ -1,3 +1,5 @@
+import {AuthService} from "../../../modules/authModule/AuthService";
+
 class Ctrl {
 
     static $inject = ["$mdSidenav"];
@@ -20,7 +22,12 @@ export const indexState: iRegisterMeta<ng.ui.IState> = {
         url: "/",
         template: require<string>("./template.html"),
         controllerAs: "vm",
-        controller: Ctrl
+        controller: Ctrl,
+        resolve: {
+            user: [AuthService.serviceName, (auth: AuthService): ng.IPromise<any> => {
+                return auth.me()
+            }]
+        }
     }
 
 };

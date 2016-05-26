@@ -1,4 +1,4 @@
-export class TableRel {
+export class TableRel  {
 
     constructor(
         public name: string,

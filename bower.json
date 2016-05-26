@@ -1,6 +1,5 @@
 {
   "name": "pureRest",
-  "version": "0.1.0",
   "authors": [
     "Александр Кондауров <kondaurov@realweb.ru>"
   ],
@@ -22,24 +21,23 @@
   ],
   "dependencies": {
     "angular": "~1.5.1",
-    "angular-mocks":"~1.5",
+    "angular-mocks": "~1.5",
     "angular-material": "1.1.0-rc1",
-    "angular-ui-router": "ui-router#~0.2.18",
     "font-awesome": "~4.5.0",
     "angular-material-data-table": "^0.9.14",
     "angular-schema-form": "~0.8.12",
     "angular-local-storage": "~0.2.3",
     "bootstrap": "^3.3.6",
-    "angular-formly":"8.1.0",
-    "api-check":"7.5.5",
+    "angular-formly": "8.1.0",
+    "api-check": "7.5.5",
     "lodash": "4.6.1",
-    "angular-formly-material" : "0.14.1"
+    "angular-formly-material": "0.14.1",
+    "angular-ui-router": "~0.3.0"
   },
   "resolutions": {
-    "angular-formly":"8.1.0",
+    "angular-formly": "8.1.0",
     "angular-material": "1.1.0-rc1",
-    "angular": "~1.5.5"
-  },
-  "releaseRepo": "https://nexus.hb.vmc.loc/repository/acontext-front-release"
-
+    "angular": "~1.5.5",
+    "angular-ui-router": "~0.3.0"
+  }
 }

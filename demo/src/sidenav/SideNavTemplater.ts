@@ -1,20 +1,16 @@
-import {CrudTableConfig} from "./CrudTableConfig";
 
 export class SideNavTemplater {
 
-    constructor(public config:CrudTableConfig,
-                public ctrlAs:string) {
+    getTemplate(): string {
+        return `
+            <div layout="row" flex style="height: 100%;">
+                ${this.getSidenav()}
+                this.getContent()
+            </div>
+            `
     }
 
-    getTemplate():string {
-        return "" +
-        '<div layout="row" flex style="height: 100%;">' +
-        this.getSidenav() +
-        this.getContent() +
-        '</div>'
-    }
-
-    getSidenav(): string{
+    getSidenav(): string {
         return '' +
         `<md-sidenav class="md-sidenav-left md-whiteframe-z3" md-component-id="leftNav" md-is-locked-open="$mdMedia('gt-sm')" layout="column">` +
         this.getToolbar() +
@@ -45,7 +41,6 @@ export class SideNavTemplater {
             `<div layout="column" style="height: 100%;" flex>` +
                 `<md-toolbar layout="row">` +
                     `<md-button ng-click="vm.toggleNav('leftNav')" hide-gt-sm>BTN</md-button>` +
-                    `<h3><md-button ui-sref="index">Вернуться к редактированию данных <i class="fa fa-arrow-left" aria-hidden="true"></i></md-button></h3>` +
                 `</md-toolbar>` +
                 `<md-content ui-view></md-content>` +
             `</div>`

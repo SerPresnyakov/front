@@ -1,5 +1,6 @@
-import {TableField} from "./TableField";
-import {CrudTableConfig} from "./CrudTableConfig";
+import {TableField} from "../models/TableField";
+import {CrudTableConfig} from "../crudTable/CrudTableConfig";
+
 export class FieldTableTemplater {
 
     constructor(public config:CrudTableConfig,
@@ -110,7 +111,7 @@ export class FieldTableTemplater {
                         angular.forEach(this.config.rels, (r) => {
                             if (r.name == f.name) {
                                 relName = r.field;
-                                if (r.isInclude)isInclude = true;
+                                if (r.isInclude) isInclude = true;
                             }
                         });
                         if (isInclude) {

@@ -1,14 +1,13 @@
-import {TableField} from "./TableField";
-import {TableRel} from "./TableRel";
+import {TableField} from "./models/TableField";
+import {TableRel} from "./models/TableRel";
 
 export class Model {
 
-    static getModel(fields, rels ): Object {
+    static getModel(fields, rels): Object {
 
         var model = {};
 
         angular.forEach(fields, (f: TableField) => {
-
 
             if (f.fieldType.type=="obj") {
                 model[f.name] = {};

@@ -41,10 +41,8 @@ export class LoginCtrl {
 
         this.$scope.$broadcast('schemaFormValidate');
 
-
             this.authService.login(this.cred).then((res) => {
                 if (res) {
-                    console.log(this.from);
                     if (this.from) {
                         this.$state.go(this.from)
                     } else {

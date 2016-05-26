@@ -1,6 +1,6 @@
-import {TableField} from "./TableField";
-import {TableRel} from "./TableRel";
-import {ObjField} from "./fieldTypes/ObjField";
+import {TableField} from "../models/TableField";
+import {TableRel} from "../models/TableRel";
+import {ObjField} from "../fieldTypes/ObjField";
 
 export class CrudTableConfig {
 
@@ -15,7 +15,6 @@ export class CrudTableConfig {
         public tableName: string
     ) {
     }
-
 
     setFields(fields: TableField[]): CrudTableConfig {
         this.fields = fields;

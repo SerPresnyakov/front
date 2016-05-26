@@ -2,7 +2,7 @@ import {StrField} from "../../../../modules/crudTableModule/src/fieldTypes/StrFi
 import {IntField} from "../../../../modules/crudTableModule/src/fieldTypes/IntField";
 import {ObjField} from "../../../../modules/crudTableModule/src/fieldTypes/ObjField";
 import {TableField} from "../../../../modules/crudTableModule/src/models/TableField";
-import {CrudTableConfig} from "../../../../modules/crudTableModule/src/models/CrudTableConfig";
+import {CrudTableConfig} from "../../../../modules/crudTableModule/src/crudTable/CrudTableConfig";
 
 export const table = new CrudTableConfig("Регионы", "/api/crud", "public.regions")
     .setFields([

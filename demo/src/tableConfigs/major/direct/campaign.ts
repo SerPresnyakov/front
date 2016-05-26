@@ -3,7 +3,7 @@ import {IntField} from "../../../../../modules/crudTableModule/src/fieldTypes/In
 import {ObjField} from "../../../../../modules/crudTableModule/src/fieldTypes/ObjField";
 import {BoolField} from "../../../../../modules/crudTableModule/src/fieldTypes/BoolField";
 import {TableField} from "../../../../../modules/crudTableModule/src/models/TableField";
-import {CrudTableConfig} from "../../../../../modules/crudTableModule/src/models/CrudTableConfig";
+import {CrudTableConfig} from "../../../../../modules/crudTableModule/src/crudTable/CrudTableConfig";
 
 export const table = new CrudTableConfig("Кампании", "/api/crud", "direct.campaigns")
     .setFields([

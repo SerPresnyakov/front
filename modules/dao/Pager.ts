@@ -1,3 +1,5 @@
+import iPageResponse = api.iPageResponse;
+
 export class Pager {
 
   deffered: ng.IDeferred<any[]>;

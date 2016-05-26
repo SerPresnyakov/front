@@ -16,8 +16,8 @@ export abstract class AbstractSource<M> {
         this.$q = inj.get<ng.IQService>("$q");
     }
 
-    getPage(page:Page, filters: apiAdmin.iFilter[] = []): ng.IPromise<M[]> {
-        let result = this.$q.defer<any[]>();
+    getPage(page:Page, filters: apiAdmin.iFilter[] = []): ng.IPromise<iPageResponse<M>> {
+        let result = this.$q.defer<iPageResponse<M>>();
         this.$http
             .post(this.crudUrl, {
                 method: "get",
@@ -25,7 +25,7 @@ export abstract class AbstractSource<M> {
                 pager: page,
                 filters: filters
             })
-            .then((res: ng.IHttpPromiseCallbackArg<M[]>) => result.resolve(res.data))
+            .then((res: ng.IHttpPromiseCallbackArg<iPageResponse<M>>) => result.resolve(res.data))
             .catch((err) => result.reject(err.data));
 
         return result.promise
@@ -34,7 +34,9 @@ export abstract class AbstractSource<M> {
     getOne(filters: apiAdmin.iFilter[]): ng.IPromise<M> {
         let deffer = this.$q.defer<M>();
         this.getPage(new Page().setPage(1, 1), filters)
-            .then(res => { if (res[0]) deffer.resolve(res[0]); else deffer.reject("Not found") })
+            .then((res:iPageResponse<M>) => {
+                if (res.data[0]) deffer.resolve(res.data[0]);
+                else deffer.reject("Not found") })
             .catch((err) => deffer.reject(err));
         return deffer.promise
     };

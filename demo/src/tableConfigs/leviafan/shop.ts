@@ -1,9 +1,9 @@
 import {StrField} from "../../../../modules/crudTableModule/src/fieldTypes/StrField";
 import {IntField} from "../../../../modules/crudTableModule/src/fieldTypes/IntField";
 import {ObjField} from "../../../../modules/crudTableModule/src/fieldTypes/ObjField";
-import {CrudTableConfig} from "../../../../modules/crudTableModule/src/models/CrudTableConfig";
 import {TableField} from "../../../../modules/crudTableModule/src/models/TableField";
 import {TableRel} from "../../../../modules/crudTableModule/src/models/TableRel";
+import {CrudTableConfig} from "../../../../modules/crudTableModule/src/crudTable/CrudTableConfig";
 
 export const table = new CrudTableConfig("Магазины", "/api/crud", "pricelabs.shops")
     .setFields([

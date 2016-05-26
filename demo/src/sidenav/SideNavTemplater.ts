@@ -1,4 +1,3 @@
-
 export class SideNavTemplater {
 
     getTemplate(): string {
@@ -21,7 +20,7 @@ export class SideNavTemplater {
     getToolbar(): string {
         return '' +
             `<md-toolbar>` +
-            `<h3><md-button ui-sref="dbAdmin">dbAdmin</md-button></h3>` +
+            `<h3><md-button ui-sref="index">dbAdmin</md-button></h3>` +
             `</md-toolbar>`
     }
 

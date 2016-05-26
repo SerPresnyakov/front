@@ -1,5 +1,6 @@
 {
   "name": "pureRest",
+  "version": "0.1.0",
   "authors": [
     "Александр Кондауров <kondaurov@realweb.ru>"
   ],
@@ -38,6 +39,7 @@
     "angular-formly":"8.1.0",
     "angular-material": "1.1.0-rc1",
     "angular": "~1.5.5"
-  }
+  },
+  "releaseRepo": "https://nexus.hb.vmc.loc/repository/acontext-front-release"
 
 }

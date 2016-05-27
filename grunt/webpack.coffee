@@ -45,10 +45,10 @@ module.exports =
       crudTable: "./Module"
     output: getOutputConfig()
   )
-  sidenav: getConfig(
-    context: "<%= dirs.root %>/modules/sidenavModule",
+  apiAdmin: getConfig(
+    context: "<%= dirs.root %>/modules/apiAdminModule",
     entry:
-      sidenav: "./Module"
+      apiAdmin: "./Module"
     output: getOutputConfig()
   )
 

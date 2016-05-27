@@ -9,6 +9,7 @@ import {Source} from "../../../dao/Source";
 import {Page} from "../../../dao/Page";
 import {CrudTableConfig} from "../crudTable/CrudTableConfig";
 import apiUrls from "../../../utils/apiUrls";
+import iPageResponse = api.iPageResponse;
 
 
 export class ConfigBuilder {
@@ -17,7 +18,7 @@ export class ConfigBuilder {
     $q: ng.IQService;
 
     constructor(inj: ng.auto.IInjectorService) {
-        this.tablesSource = new Source(apiUrls.admin, "tables", inj);
+        this.tablesSource = new Source(apiUrls.admin, "fields", inj);
         this.$q = inj.get<ng.IQService>("$q")
     }
 
@@ -28,16 +29,16 @@ export class ConfigBuilder {
         if (typeof tableName !== "string") {
             deferred.reject("tableName is required")
         } else {
-            this.tablesSource.getOne([{field: "base.url", op: "eq", value: tableName}])
-                .then((table: apiAdmin.iTable) => {
+            this.tablesSource.getPage(new Page().setPage(1,100),[{field: "base.table.url", op: "eq", value: tableName}])
+                .then((table: iPageResponse<apiAdmin.iField>) => {
 
                     let crudUrl = adminMode ? apiUrls.admin : apiUrls.crud;
 
-                    let fields = ConfigBuilder.getFields(table.fields);
-
-                    let res = new CrudTableConfig(table.tableName, crudUrl, table.tableName);
-                        res.setFields(fields[0]);
-                        deferred.resolve(res)
+                    let fields = ConfigBuilder.getFields(table.data);
+                    //
+                    //let res = new CrudTableConfig(table.data.tableName, crudUrl, table.data.tableName);
+                    //    res.setFields(fields[0]);
+                    //    deferred.resolve(res)
 
 
                 })

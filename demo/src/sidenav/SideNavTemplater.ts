@@ -40,6 +40,8 @@ export class SideNavTemplater {
             `<div layout="column" style="height: 100%;" flex>` +
                 `<md-toolbar layout="row">` +
                     `<md-button ng-click="vm.toggleNav('leftNav')" hide-gt-sm>BTN</md-button>` +
+                    `<h3><md-button ui-sref="Admin">Редактировать базу данных</md-button></h3>` +
+                    `<h3><md-button ui-sref="index">Редактировать данныe</md-button></h3>`
                 `</md-toolbar>` +
                 `<md-content ui-view></md-content>` +
             `</div>`

@@ -2,8 +2,8 @@ import {StrField} from "../../../../../modules/crudTableModule/src/fieldTypes/St
 import {IntField} from "../../../../../modules/crudTableModule/src/fieldTypes/IntField";
 import {ObjField} from "../../../../../modules/crudTableModule/src/fieldTypes/ObjField";
 import {BoolField} from "../../../../../modules/crudTableModule/src/fieldTypes/BoolField";
-import {CrudTableConfig} from "../../../../../modules/crudTableModule/src/models/CrudTableConfig";
 import {TableField} from "../../../../../modules/crudTableModule/src/models/TableField";
+import {CrudTableConfig} from "../../../../../modules/crudTableModule/src/crudTable/CrudTableConfig";
 
 export const table = new CrudTableConfig("Кампании", "/api/crud", "adwords.campaigns")
     .setFields([

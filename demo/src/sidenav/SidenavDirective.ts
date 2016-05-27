@@ -22,7 +22,6 @@ export function SidenavDirective($compile: ng.ICompileService): ng.IDirective {
         scope: {
             config:"=",
         },
-        restrict: "E",
         link: (scope: SidenavScope, elem: ng.IAugmentedJQuery, attrs: any) => {
             let templ = new SideNavTemplater().getTemplate();
             elem.html(templ);

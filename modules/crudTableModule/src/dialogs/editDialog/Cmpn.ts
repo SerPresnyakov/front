@@ -1,6 +1,6 @@
 import {Schema} from "../../Schema";
 import IDialogService = angular.material.IDialogService;
-import {CrudTableConfig} from "../../models/CrudTableConfig";
+import {CrudTableConfig} from "../../crudTable/CrudTableConfig";
 
 class Ctrl {
 

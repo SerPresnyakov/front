@@ -1,11 +1,13 @@
 declare module api {
 
-    interface iPageResponse {
-        data: any[]
+    interface iPageResponse<T> {
+        data: T[]
     }
 
     interface PageFilters {
         getWhere(): string[]
     }
+
+
 
 }

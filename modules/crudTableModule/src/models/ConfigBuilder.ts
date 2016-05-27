@@ -5,9 +5,11 @@ import {TableField} from "./TableField";
 import {ObjField} from "../fieldTypes/ObjField";
 import {TableRel} from "./TableRel";
 import {BoolField} from "../fieldTypes/BoolField";
-import {CrudTableConfig} from "./CrudTableConfig";
 import {Source} from "../../../dao/Source";
 import {Page} from "../../../dao/Page";
+import {CrudTableConfig} from "../crudTable/CrudTableConfig";
+import apiUrls from "../../../utils/apiUrls";
+
 
 export class ConfigBuilder {
 
@@ -15,7 +17,7 @@ export class ConfigBuilder {
     $q: ng.IQService;
 
     constructor(inj: ng.auto.IInjectorService) {
-        this.tablesSource = new Source("/api/admin/crud", "tables", inj);
+        this.tablesSource = new Source(apiUrls.admin, "tables", inj);
         this.$q = inj.get<ng.IQService>("$q")
     }
 
@@ -26,21 +28,20 @@ export class ConfigBuilder {
         if (typeof tableName !== "string") {
             deferred.reject("tableName is required")
         } else {
-            this.tablesSource.getOne([{field: "base.url", op: "eq", value: tableName}]).then((table: apiAdmin.iTable) => {
+            this.tablesSource.getOne([{field: "base.url", op: "eq", value: tableName}])
+                .then((table: apiAdmin.iTable) => {
 
-                let crudUrl = adminMode ? "/api/admin/crud" : "/api/crud";
+                    let crudUrl = adminMode ? apiUrls.admin : apiUrls.crud;
 
-                let fields = ConfigBuilder.getFields(table.fields);
+                    let fields = ConfigBuilder.getFields(table.fields);
 
-                if (fields[1].length) {
-                    deferred.reject(fields[1])
-                } else {
                     let res = new CrudTableConfig(table.tableName, crudUrl, table.tableName);
-                    res.setFields(fields[0]);
-                    deferred.resolve(res)
-                }
+                        res.setFields(fields[0]);
+                        deferred.resolve(res)
 
-            }).catch((err) => { deferred.reject({msg: "Can't resolve table", err: err })});
+
+                })
+                .catch((err) => { deferred.reject({msg: "Can't resolve table", err: err })});
         }
 
         return deferred.promise

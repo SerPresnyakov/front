@@ -2,9 +2,9 @@ import {IntField} from "../../../../../modules/crudTableModule/src/fieldTypes/In
 import {StrField} from "../../../../../modules/crudTableModule/src/fieldTypes/StrField";
 import {BoolField} from "../../../../../modules/crudTableModule/src/fieldTypes/BoolField";
 import {ObjField} from "../../../../../modules/crudTableModule/src/fieldTypes/ObjField";
-import {CrudTableConfig} from "../../../../../modules/crudTableModule/src/models/CrudTableConfig";
 import {TableField} from "../../../../../modules/crudTableModule/src/models/TableField";
 import {TableRel} from "../../../../../modules/crudTableModule/src/models/TableRel";
+import {CrudTableConfig} from "../../../../../modules/crudTableModule/src/crudTable/CrudTableConfig";
 
 export const table  =
     new CrudTableConfig("Группы объявлений", "/api/crud", "adwords.adGroups")

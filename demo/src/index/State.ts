@@ -6,11 +6,13 @@ import {Page} from "../../../modules/dao/Page";
 
 class Ctrl {
 
-    static $inject = ["$mdSidenav","tables"];
+    static $inject = ["$mdSidenav","$state","tables" ];
 
     constructor(
         private sidenav: ng.material.ISidenavService,
+        public state,
         public tables:apiAdmin.iTable[]
+
     ) {}
 
     toggleNav(name: string) {
@@ -24,7 +26,7 @@ export const indexState: iRegisterMeta<ng.ui.IState> = {
     name: "index",
     config: {
         url: "/",
-        template: "<ak-sidenav tables='vm.tables'></ak-sidenav>",
+        template: "<ak-sidenav tables='vm.tables' state='vm.state'></ak-sidenav>",
         controllerAs: "vm",
         controller: Ctrl,
         resolve: {

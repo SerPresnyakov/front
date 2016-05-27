@@ -5,10 +5,11 @@ interface SidenaveScope extends IScope{
     tables: apiAdmin.iTable[]
 }
 
-export function SidenavDirective($compile:ng.ICompileService,$q:ng.IQService):ng.IDirective{
+export function SidenavDirective($compile:ng.ICompileService):ng.IDirective{
     return{
         scope:{
             tables: "=",
+            state: "="
         },
         restrict: "E",
         link:( scope: SidenaveScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes )=>{

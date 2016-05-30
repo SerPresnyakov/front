@@ -26,7 +26,7 @@ export abstract class AbstractSource<M> {
                 filters: filters
             })
             .then((res: ng.IHttpPromiseCallbackArg<iPageResponse<M>>) => result.resolve(res.data))
-            .catch((err) => result.reject(err.data));
+            .catch((err) => {result.reject(err);console.log(err)});
 
         return result.promise
     };

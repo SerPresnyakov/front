@@ -118,7 +118,7 @@ class Ctrl {
     };
 
     refreshPage(): void {
-        this.source.getPage(new Page().setPage(this.pager.page, this.pager.per), this.filters)
+        this.source.getPage(new Page().setPage(this.pager.page, this.pager.per), [])
             .then((res) => {
                 this.pager.data = res.data;
                 this.pager.total = 1;

@@ -22,7 +22,7 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
                         deferred.reject({msg: "can't build config", err: "tableName isn't specified"})
                     } else {
                         console.log('else');
-                        new ConfigBuilder(inj).build(tableName, true)
+                        new ConfigBuilder(inj).build(tableName, false)
                             .then((res) => deferred.resolve(res))
                             .catch((err) => deferred.reject({msg: "can't build config", err: err}));
                     }

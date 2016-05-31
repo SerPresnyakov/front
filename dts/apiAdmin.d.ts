@@ -8,15 +8,21 @@ declare module apiAdmin {
         relations?: iRelation[]
     }
 
+
+
     interface iField {
         id: number
         tableId: number
         name: string
         fieldName: string
-        fieldType: Object
+        fieldType: IFieldType
         nullable: boolean
         hasDefault: boolean
         table?: iTable
+    }
+
+    interface IFieldType {
+        variant: string
     }
 
     interface iRelation {

@@ -10,7 +10,7 @@ class Ctrl {
 
     constructor(
         private sidenav: ng.material.ISidenavService,
-        public state,
+        public state:ng.ui.IStateService,
         public tables:apiAdmin.iTable[]
 
     ) {}

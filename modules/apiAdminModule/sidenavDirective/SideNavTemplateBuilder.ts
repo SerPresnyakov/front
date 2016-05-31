@@ -22,7 +22,7 @@ export function SideNavTemplateBuilder(tables:apiAdmin.iTable[]):string {
             return '' +
                 `<md-toolbar>` +
                 `<h3 ng-if="state.includes('index')"><md-button ui-sref="index">Index</md-button></h3>` +
-                `<h3 ng-if="state.includes('admin')"><md-button ui-sref="Admin">Admin</md-button></h3>` +
+                `<h3 ng-if="state.includes('dbAdmin')"><md-button ui-sref="dbAdmin">Admin</md-button></h3>` +
                 `</md-toolbar>`
     }
 
@@ -38,7 +38,8 @@ export function SideNavTemplateBuilder(tables:apiAdmin.iTable[]):string {
     function getListItems(tables):string {
         let res = '';
         tables.forEach((t)=>{
-            res = res  + `<md-list-item >` + `<a class="md-button" ui-sref="index.table({ name: '${t.url}' })">${t.tableName}</a>` + `</md-list-item>`;
+            res = res  + `<md-list-item ng-if="state.includes('index')">` + `<a class="md-button" ui-sref="index.table({ name: '${t.url}' })">${t.tableName}</a>` + `</md-list-item>`;
+            res = res  + `<md-list-item ng-if="state.includes('dbAdmin')">` + `<a class="md-button" ui-sref="dbAdmin.table({ name: '${t.url}' })">${t.tableName}</a>` + `</md-list-item>`;
         });
         return res;
     }
@@ -48,8 +49,8 @@ export function SideNavTemplateBuilder(tables:apiAdmin.iTable[]):string {
                 `<div layout="column" style="height: 100%;" flex>` +
                 `<md-toolbar layout="row">` +
                 `<md-button ng-click="vm.toggleNav('leftNav')" hide-gt-sm>BTN</md-button>` +
-                `<h3 ng-if="state.includes('index')"><md-button ui-sref="admin">Редактировать базу данных</md-button></h3>` +
-                `<h3 ng-if="state.includes('admin')"><md-button ui-sref="index">Редактировать данныe</md-button></h3>` +
+                `<h3 ng-if="state.includes('index')"><md-button ui-sref="dbAdmin">Редактировать базу данных</md-button></h3>` +
+                `<h3 ng-if="state.includes('dbAdmin')"><md-button ui-sref="index">Редактировать данныe</md-button></h3>` +
                 `</md-toolbar>` +
                 `<md-content ui-view></md-content>` +
                 `</div>`

@@ -1,16 +1,8 @@
-import {Pager} from "../../../dao/Pager";
-import {StrField} from "../fieldTypes/StrField";
-import {IntField} from "../fieldTypes/IntField";
-import {TableField} from "./TableField";
-import {ObjField} from "../fieldTypes/ObjField";
-import {TableRel} from "./TableRel";
-import {BoolField} from "../fieldTypes/BoolField";
-import {Source} from "../../../dao/Source";
-import {Page} from "../../../dao/Page";
-import {CrudTableConfig} from "../crudTable/CrudTableConfig";
-import apiUrls from "../../../utils/apiUrls";
 import iPageResponse = api.iPageResponse;
 
+import {Source} from "../../dao/Source";
+import apiUrls from "../../utils/apiUrls";
+import {CrudTableConfig} from "../../crudTableModule/src/crudTable/CrudTableConfig";
 
 export class ConfigBuilder {
 
@@ -34,13 +26,13 @@ export class ConfigBuilder {
         if (typeof tableUrl !== "string") {
             deferred.reject("tableName is required")
         } else {
-            if(adminMode){
-                this.fieldsSource.getPage(new Page().setPage(1,100),[{field:"base.table.url", op:"eq", value: tableUrl}])
-                    .then((table)=>{
+            if (adminMode) {
+                this.fieldsSource.getFullPage([{field:"base.table.url", op:"eq", value: tableUrl}])
+                    .then((table) => {
 
                     })
-            }else{
-                this.fieldsSource.getPage(new Page().setPage(1,100),[{field: "base.table.url", op: "eq", value: tableUrl}])
+            } else {
+                this.fieldsSource.getFullPage([{field: "base.table.url", op: "eq", value: tableUrl}])
                     .then((table: iPageResponse<apiAdmin.iField>) => {
                         let fields = ConfigBuilder.getFields(table.data);
 
@@ -50,13 +42,13 @@ export class ConfigBuilder {
                     })
                     .catch((err) => { deferred.reject({msg: "Can't resolve table", err: err })});
 
-                this.relsSource.getPage(new Page().setPage(1,100),[{field:"base.leftTable.url",op:"eq", value: tableUrl}])
+                this.relsSource.getFullPage([{field:"base.leftTable.url",op:"eq", value: tableUrl}])
                     .then((table:iPageResponse<apiAdmin.iRelation>)=>{
                         table.data.forEach((t)=>{
                             rels.push({tableName:t.rightTable.url, name:t.name});
                         });
                         console.log(rels);
-                        this.fieldsSource.getPage(new Page().setPage(1,100),[{field:"base.table.url", op:"in", value:rels}])
+                        this.fieldsSource.getFullPage([{field:"base.table.url", op:"in", value:rels}])
                             .then((table:iPageResponse<apiAdmin.iField>) => {
                                 let fields = ConfigBuilder.getFields(table.data);
                                 config.setFields(fields);

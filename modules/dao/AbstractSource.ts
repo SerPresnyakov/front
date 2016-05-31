@@ -1,6 +1,8 @@
 import {Page} from "./Page";
 
 import iPageResponse = api.iPageResponse;
+import iPageResponse = api.iPageResponse;
+import {Page} from "./Page";
 
 export abstract class AbstractSource<M> {
 
@@ -14,6 +16,10 @@ export abstract class AbstractSource<M> {
     ) {
         this.$http = inj.get<ng.IHttpService>("$http");
         this.$q = inj.get<ng.IQService>("$q");
+    }
+
+    getFullPage(filters: apiAdmin.iFilter[] = []): ng.IPromise<iPageResponse<M>> {
+        return this.getPage(new Page().setPage(1, 100), filters)
     }
 
     getPage(page:Page, filters: apiAdmin.iFilter[] = []): ng.IPromise<iPageResponse<M>> {

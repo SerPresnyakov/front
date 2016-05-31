@@ -52,16 +52,18 @@ export class ConfigBuilder {
 
                 this.relsSource.getPage(new Page().setPage(1,100),[{field:"base.leftTable.url",op:"eq", value: tableUrl}])
                     .then((table:iPageResponse<apiAdmin.iRelation>)=>{
-                        table.data.forEach((t)=>{
-                            rels.push({tableName:t.rightTable.url, name:t.name});
-                        });
+                        let relats = new Rels(table.data);
+                        console.log(relats);
                         console.log(rels);
-                        this.fieldsSource.getPage(new Page().setPage(1,100),[{field:"base.table.url", op:"in", value:rels}])
+                        this.fieldsSource.getPage(new Page().setPage(1,100),[{field:"base.table.url", op:"in", value:relats.tableNames}])
                             .then((table:iPageResponse<apiAdmin.iField>) => {
+
                                 let fields = ConfigBuilder.getFields(table.data);
                                 config.setFields(fields);
-                                deferred.resolve(config)
+
                             });
+
+                        deferred.resolve(config)
                     });
 
             }
@@ -125,12 +127,23 @@ export class ConfigBuilder {
 
         return result
     }
-    //static getRelations(rels:apiAdmin.iRelation[]):TableRel[]{
-    //    let result:TableRel[] = [];
-    //    angular.forEach(rels,(r:apiAdmin.iRelation) => {
-    //
-    //    });
-    //    return result
-    //}
+    static getRelations(rels:apiAdmin.iRelation[], relsNames):TableRel[]{
+        let result:TableRel[] = [];
+        angular.forEach(rels,(r:apiAdmin.iRelation) => {
 
+        });
+        return result
+    }
+
+}
+
+class Rels {
+    tableNames:string[] = [];
+    rels:any[] =[];
+    constructor(private tables:apiAdmin.iRelation[]){
+        tables.forEach((t)=>{
+            this.tableNames.push(t.rightTable.url);
+            this.rels.push({tableName:t.rightTable.url, name:t.name})
+        })
+    }
 }

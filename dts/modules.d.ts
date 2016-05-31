@@ -38,3 +38,7 @@ interface iTemplateOptons{
     description?: string;
     [key: string]: any;
 }
+
+interface iStateParams{
+    name: string;
+}

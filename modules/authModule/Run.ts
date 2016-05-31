@@ -26,7 +26,7 @@ export class Run {
 
       console.log("state change error");
 
-      if (error.err.status == 401) {
+      if (error.status == 401) {
         console.debug("authModule: go to login");
         $state.go("login", {from: toState.name});
       } else {

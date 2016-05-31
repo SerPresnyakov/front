@@ -17,7 +17,7 @@ export class CrudTableConfig {
     }
 
     setFields(fields: TableField[]): CrudTableConfig {
-        this.fields = fields;
+        this.fields = this.fields.concat(fields);
         return this;
     }
 

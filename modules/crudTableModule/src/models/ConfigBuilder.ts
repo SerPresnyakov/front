@@ -28,25 +28,43 @@ export class ConfigBuilder {
 
         let deferred = this.$q.defer<CrudTableConfig>();
         let crudUrl = adminMode ? apiUrls.admin : apiUrls.crud;
+        let rels : any[] = [];
         let config;
 
         if (typeof tableUrl !== "string") {
             deferred.reject("tableName is required")
         } else {
-            this.fieldsSource.getPage(new Page().setPage(1,100),[{field: "base.table.url", op: "eq", value: tableUrl}])
-                .then((table: iPageResponse<apiAdmin.iField>) => {
-                    let fields = ConfigBuilder.getFields(table.data);
+            if(adminMode){
+                this.fieldsSource.getPage(new Page().setPage(1,100),[{field:"base.table.url", op:"eq", value: tableUrl}])
+                    .then((table)=>{
 
-                    config = new CrudTableConfig(table.data[0].table.tableName, crudUrl, table.data[0].table.url);
-                    config.setFields(fields);
-                    deferred.resolve(config)
-                })
-                .catch((err) => { deferred.reject({msg: "Can't resolve table", err: err })});
+                    })
+            }else{
+                this.fieldsSource.getPage(new Page().setPage(1,100),[{field: "base.table.url", op: "eq", value: tableUrl}])
+                    .then((table: iPageResponse<apiAdmin.iField>) => {
+                        let fields = ConfigBuilder.getFields(table.data);
 
-            this.relsSource.getPage(new Page().setPage(1,100),[{field:"base.leftTable.url",op:"eq", value: tableUrl}])
-                .then((table:iPageResponse<apiAdmin.iRelation>)=>{
-                    console.log(table)
-                })
+                        config = new CrudTableConfig(table.data[0].table.tableName, crudUrl, table.data[0].table.url);
+                        config.setFields(fields);
+
+                    })
+                    .catch((err) => { deferred.reject({msg: "Can't resolve table", err: err })});
+
+                this.relsSource.getPage(new Page().setPage(1,100),[{field:"base.leftTable.url",op:"eq", value: tableUrl}])
+                    .then((table:iPageResponse<apiAdmin.iRelation>)=>{
+                        table.data.forEach((t)=>{
+                            rels.push({tableName:t.rightTable.url, name:t.name});
+                        });
+                        console.log(rels);
+                        this.fieldsSource.getPage(new Page().setPage(1,100),[{field:"base.table.url", op:"in", value:rels}])
+                            .then((table:iPageResponse<apiAdmin.iField>) => {
+                                let fields = ConfigBuilder.getFields(table.data);
+                                config.setFields(fields);
+                                deferred.resolve(config)
+                            });
+                    });
+
+            }
         }
 
         return deferred.promise
@@ -102,12 +120,17 @@ export class ConfigBuilder {
         return result;
 
     }
-    static getRelations(rels:apiAdmin.iRelation[]):TableRel[]{
-        let result:TableRel[] = [];
-        angular.forEach(rels,(r:apiAdmin.iRelation) => {
+    static getFieldsConfig(fileds:apiAdmin.iField[]):TableField[]{
+        let result:TableField[] = [];
 
-        });
         return result
     }
+    //static getRelations(rels:apiAdmin.iRelation[]):TableRel[]{
+    //    let result:TableRel[] = [];
+    //    angular.forEach(rels,(r:apiAdmin.iRelation) => {
+    //
+    //    });
+    //    return result
+    //}
 
 }

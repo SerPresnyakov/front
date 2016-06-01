@@ -8,8 +8,6 @@ declare module apiAdmin {
         relations?: iRelation[]
     }
 
-
-
     interface iField {
         id: number
         tableId: number

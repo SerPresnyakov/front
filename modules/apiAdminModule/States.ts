@@ -1,5 +1,5 @@
-import {indexState} from "./../../demo/src/index/State"
-import {ConfigBuilder} from "../crudTableModule/src/models/ConfigBuilder";
+import {indexState} from "./states/IndexState"
+import {ConfigBuilder} from "./models/ConfigBuilder";
 import {CrudTableConfig} from "../crudTableModule/src/crudTable/CrudTableConfig";
 import {Source} from "../dao/Source";
 import apiUrls from "../utils/apiUrls";

@@ -11,6 +11,9 @@ getConfig = (conf) ->
         ,
           test: /\.html$/,
           loader: 'html'
+        ,
+          test: /\.css$/,
+          loader: "style-loader!css-loader"
       ]
     stats: {
       errorDetails: true
@@ -24,13 +27,13 @@ getConfig = (conf) ->
 
 getOutputConfig = () ->
   filename: "[name].bundle.js",
-  path: "<%= dirs.root %>/demo/js"
+  path: "<%= dirs.root %>/js"
 
 module.exports =
   buildDemo: getConfig(
     context: "<%= dirs.root %>/demo/src"
     entry:
-      app: "./App"
+      demo: "./App"
     output: getOutputConfig()
   )
   auth: getConfig(

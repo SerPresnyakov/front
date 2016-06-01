@@ -1,15 +1,15 @@
 import {AngularModule} from "../utils/AngularModule";
-import {Deps} from "../utils/Deps";
+import {Deps, Modules} from "../utils/Deps";
 import {states} from "./States";
 import {Config} from "./Config"
 import {SidenavDirective} from "./sidenavDirective/SidenavDirective";
 
-let module = new AngularModule('apiAdmin',[
+let module = new AngularModule(Modules.apiAdmin, [
     Deps.uiRouter,
     Deps.material,
     Deps.mdTable,
-    Deps.crudTableModule,
-    Deps.authModule
+    Modules.crudTable,
+    Modules.auth
 ]);
 
 module.registerStates(states);

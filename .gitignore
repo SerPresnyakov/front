@@ -2,9 +2,6 @@
 node_modules
 bower
 .tmp
-build
-typings
 npm-debug.log
-typings
 .tscache
 **/*.bundle.js

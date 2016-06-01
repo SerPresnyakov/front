@@ -12,7 +12,10 @@ export class Deps {
     static angularFormly = "formly";
     static formlyMaterial = "formlyMaterial";
     static ngMessages = "ngMessages";
-    static authModule = "a.auth";
-    static crudTableModule = "crudTable";
-    static apiAdminModule = "apiAdmin";
+}
+
+export class Modules {
+    static crudTable = "crudTable";
+    static auth = "a.auth";
+    static apiAdmin = "apiAdmin";
 }

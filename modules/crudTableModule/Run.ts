@@ -19,7 +19,6 @@ export class Run {
         //formlyConfig.setWrapper(InputContainerWrapper);
         formlyConfig.setWrapper(FilterWrapper);
 
-
     }
 
 }

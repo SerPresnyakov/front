@@ -1,10 +1,4 @@
-interface queryParams {
-    page?: number
-    per?: number
-    getAll?: boolean
-}
-
-export class Page implements queryParams {
+export class Page {
 
     page: number;
     per: number;

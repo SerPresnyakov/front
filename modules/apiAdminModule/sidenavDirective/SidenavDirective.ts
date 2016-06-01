@@ -14,7 +14,7 @@ export function SidenavDirective($compile:ng.ICompileService):ng.IDirective{
         restrict: "E",
         link:( scope: SidenaveScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes )=>{
             let tables = scope.tables;
-            let template = SideNavTemplateBuilder(tables);
+            let template = new SideNavTemplateBuilder(tables).getTemplate();
             element.html(template);
             $compile(element.contents())(scope)
         }

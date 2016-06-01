@@ -16,6 +16,4 @@ export class TableField {
         public options: any = null
     ) {}
 
-
-
 }

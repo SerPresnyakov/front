@@ -3,6 +3,11 @@ import iPageResponse = api.iPageResponse;
 import {Source} from "../../dao/Source";
 import apiUrls from "../../utils/apiUrls";
 import {CrudTableConfig} from "../../crudTableModule/src/crudTable/CrudTableConfig";
+import {TableField} from "../../crudTableModule/src/models/TableField";
+import {IntField} from "../../crudTableModule/src/fieldTypes/IntField";
+import {StrField} from "../../crudTableModule/src/fieldTypes/StrField";
+import {BoolField} from "../../crudTableModule/src/fieldTypes/BoolField";
+import {ObjField} from "../../crudTableModule/src/fieldTypes/ObjField";
 
 export class ConfigBuilder {
 
@@ -112,17 +117,5 @@ export class ConfigBuilder {
         return result;
 
     }
-    static getFieldsConfig(fileds:apiAdmin.iField[]):TableField[]{
-        let result:TableField[] = [];
-
-        return result
-    }
-    //static getRelations(rels:apiAdmin.iRelation[]):TableRel[]{
-    //    let result:TableRel[] = [];
-    //    angular.forEach(rels,(r:apiAdmin.iRelation) => {
-    //
-    //    });
-    //    return result
-    //}
 
 }

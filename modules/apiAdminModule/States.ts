@@ -6,6 +6,26 @@ import apiUrls from "../utils/apiUrls";
 import {Page} from "../dao/Page";
 import iPageResponse = api.iPageResponse;
 
+class ConfigBuilderResolver {
+
+    static $inject = ["$stateParams","$injector", "$q"];
+
+    constructor(stateParams:iStateParams, inj: ng.auto.IInjectorService, $q:ng.IQService) {
+        let deferred = $q.defer<CrudTableConfig>();
+        let tableName = stateParams.name;
+        if(!tableName){
+            deferred.reject({msg:"can't build config", err: "tableName isn,t scecified"})
+        } else {
+            console.log('else');
+            new ConfigBuilder(inj).build(tableName, false)
+                .then((res)=>deferred.resolve(res))
+                .catch((err)=>deferred.reject({msg:"can't build config",err:err}))
+        }
+        return deferred.promise
+    }
+
+}
+
 export const states: iRegisterMeta<ng.ui.IState>[] = [
     indexState,
     {
@@ -18,20 +38,23 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
                 s['config'] = config;
             }],
             resolve: {
-                config: ["$stateParams", "$injector", "$q", (stateParams: iStateParams, inj: ng.auto.IInjectorService, $q: ng.IQService): ng.IPromise<CrudTableConfig> => {
-                    let deferred = $q.defer<CrudTableConfig>();
-                    console.log(stateParams.name);
-                    let tableName = stateParams.name;
-                    if (!tableName) {
-                        deferred.reject({msg: "can't build config", err: "tableName isn't specified"})
-                    } else {
-                        console.log('else');
-                        new ConfigBuilder(inj).build(tableName, false)
-                            .then((res) => deferred.resolve(res))
-                            .catch((err) => deferred.reject({msg: "can't build config", err: err}));
-                    }
-                    return deferred.promise
-                }]
+                config: ConfigBuilderResolver
+                //config: ["configBuilderService","$stateParams", (configBuilder, stateParams:iStateParams) => {
+                //
+                //    return configBuilder.getConfig(stateParams.name);
+                //    //let deferred = $q.defer<CrudTableConfig>();
+                //    //console.log(stateParams.name);
+                //    //let tableName = stateParams.name;
+                //    //if (!tableName) {
+                //    //    deferred.reject({msg: "can't build config", err: "tableName isn't specified"})
+                //    //} else {
+                //    //    console.log('else');
+                //    //    new ConfigBuilder(inj).build(tableName, false)
+                //    //        .then((res) => deferred.resolve(res))
+                //    //        .catch((err) => deferred.reject({msg: "can't build config", err: err}));
+                //    //}
+                //    //return deferred.promise
+                //}]
             }
         }
     },
@@ -45,19 +68,7 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
                 s['config'] = config;
             }],
             resolve:{
-                config: ["$stateParams","$injector", "$q", (stateParams:iStateParams, inj: ng.auto.IInjectorService, $q:ng.IQService):ng.IPromise<CrudTableConfig> => {
-                    let deferred = $q.defer<CrudTableConfig>();
-                    let tableName = stateParams.name;
-                    if(!tableName){
-                        deferred.reject({msg:"can't build config", err: "tableName isn,t scecified"})
-                    } else {
-                        console.log('else');
-                        new ConfigBuilder(inj).build(tableName, true)
-                            .then((res)=>deferred.resolve(res))
-                            .catch((err)=>deferred.reject({msg:"can't build config",err:err}))
-                    }
-                    return deferred.promise
-                }]
+                config: ConfigBuilderResolver
             }
         }
     },

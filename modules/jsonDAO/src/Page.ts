@@ -1,4 +1,4 @@
-export class Page {
+export class Page implements jsonDAO.iPage {
 
     page: number;
     per: number;

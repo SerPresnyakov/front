@@ -1,7 +1,7 @@
-import {Source} from "../../dao/Source";
+import {Source} from "../../jsonDAO/Source";
 import apiUrls from "../../utils/apiUrls";
 import {TableField} from "./../../crudTableModule/src/models/TableField";
-import {Page} from "../../dao/Page";
+import {Page} from "../../jsonDAO/Page";
 import iPageResponse = api.iPageResponse;
 export class dbAdminConfigBuilder{
 

@@ -1,9 +1,9 @@
 import {indexState} from "./states/IndexState"
 import {ConfigBuilder} from "./models/ConfigBuilder";
 import {CrudTableConfig} from "../crudTableModule/src/crudTable/CrudTableConfig";
-import {Source} from "../dao/Source";
+import {Source} from "../jsonDAO/Source";
 import apiUrls from "../utils/apiUrls";
-import {Page} from "../dao/Page";
+import {Page} from "../jsonDAO/Page";
 import iPageResponse = api.iPageResponse;
 
 export const states: iRegisterMeta<ng.ui.IState>[] = [

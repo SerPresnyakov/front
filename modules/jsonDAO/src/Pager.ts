@@ -1,6 +1,4 @@
-import iPageResponse = api.iPageResponse;
-
-export class Pager {
+export class Pager implements jsonDAO.iPager {
 
   deffered: ng.IDeferred<any[]>;
   data: any[] = [];

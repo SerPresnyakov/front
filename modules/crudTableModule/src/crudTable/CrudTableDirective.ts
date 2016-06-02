@@ -1,48 +1,47 @@
-import {Source} from "../../../dao/Source";
-import {Pager} from "../../../dao/Pager";
-
 import {getDialog as autocompleteDialog} from "../dialogs/autocompleteDialog/Cmpn"
 import {getDialog as createDialog} from "../dialogs/createDialog/Cmpn"
 import {getDialog as deleteDialog} from "../dialogs/deleteDialog/Cmpn"
 import {getDialog as editDialog} from "../dialogs/editDialog/Cmpn"
 
 import {StrField} from "../fieldTypes/StrField";
-import {Page} from "../../../dao/Page";
 import {Filters} from "../filter/Filter";
 import {Templater} from "./Templater";
 
 import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 import iTableField = crudTable.models.iTableField;
+import iSource = jsonDAO.iSource;
+import iPager = jsonDAO.iPager;
+
+import {Deps} from "../../../jsonDAO/Deps";
 
 class Ctrl {
 
-    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http", "$scope", "$q"];
+    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", Deps.daoFactoryService];
 
     config: iCrudTableConfig;
 
-    source: Source<any>;
-    pager: Pager;
+    source: iSource<any>;
+    pager: iPager;
     filters;
 
     constructor(
-        public inj: ng.auto.IInjectorService,
         public $editDialog: mdTable.EditDialogService,
         public $mdDialog: ng.material.IDialogService,
-        private $http:ng.IHttpService,
+        private $http: ng.IHttpService,
         public $scope,
-        public $q: ng.IQService
+        public $q: ng.IQService,
+        public daoFactory: jsonDAO.iDAOFactoryService
     ) {
         $scope.$watchCollection((scope) => { return scope["vm"].pager; } ,(newVal, oldVal, scope) => {
             if (newVal.page!=oldVal.page || newVal.per!=oldVal.per) {
                 this.refreshPage();
             }
         });
-        this.pager = new Pager(1, 15, this.$q);
     }
 
     init(config: iCrudTableConfig) {
         this.config = config;
-        this.source = new Source(this.config.url, this.config.tableName, this.inj);
+        this.source = this.daoFactory.build(this.config.tableName, this.config.url);
         this.filters = new Filters(config.fields, config.rels);
         this.refreshPage();
     }
@@ -118,7 +117,7 @@ class Ctrl {
     };
 
     refreshPage(): void {
-        this.source.getPage(new Page().setPage(this.pager.page, this.pager.per), [])
+        this.source.getPage(this.pager, [])
             .then((res) => {
                 this.pager.data = res.data;
                 this.pager.total = 1;

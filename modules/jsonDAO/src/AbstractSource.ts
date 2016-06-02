@@ -1,5 +1,5 @@
+import iPageResponse = jsonDAO.iPageResponse;
 import {Page} from "./Page";
-import iPageResponse = api.iPageResponse;
 
 export abstract class AbstractSource<M> {
 
@@ -7,8 +7,8 @@ export abstract class AbstractSource<M> {
     $q: ng.IQService;
 
     constructor(
-        protected crudUrl: string,
-        protected tableName: string,
+        public crudUrl: string,
+        public tableName: string,
         inj: ng.auto.IInjectorService
     ) {
         this.$http = inj.get<ng.IHttpService>("$http");
@@ -37,7 +37,7 @@ export abstract class AbstractSource<M> {
     getOne(filters: apiAdmin.iFilter[]): ng.IPromise<M> {
         let deffer = this.$q.defer<M>();
         this.getPage(new Page().setPage(1, 1), filters)
-            .then((res:iPageResponse<M>) => {
+            .then((res: iPageResponse<M>) => {
                 if (res.data[0]) deffer.resolve(res.data[0]);
                 else deffer.reject("Not found") })
             .catch((err) => deffer.reject(err));

@@ -1,7 +1,11 @@
 declare module crudTable.demo {
 
-    interface ConfigsService {
+    interface iConfigsService {
+        configs: models.iCrudTableConfig[]
+    }
 
+    interface iConfigsServiceProvider {
+        addConfig(config: models.iCrudTableConfig)
     }
 
 }

@@ -1,7 +1,7 @@
 import {Schema} from "../../Schema";
 import IDialogService = angular.material.IDialogService;
 import {Model} from "../../Model";
-import {CrudTableConfig} from "../../crudTable/CrudTableConfig";
+import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 
 class CreateCtrl {
 
@@ -13,7 +13,7 @@ class CreateCtrl {
     url;
     token;
 
-    constructor(public config: CrudTableConfig, public $http:ng.IHttpService, public $mdDialog:IDialogService, public localStorage: ng.local.storage.ILocalStorageService) {
+    constructor(public config: iCrudTableConfig, public $http:ng.IHttpService, public $mdDialog:IDialogService, public localStorage: ng.local.storage.ILocalStorageService) {
 
         this.schema = Schema.getSchema(config.fields, config.rels);
         this.res = Model.getModel(config.fields, config.rels);
@@ -40,7 +40,7 @@ class CreateCtrl {
 
 }
 
-export function getDialog($event: any, config: CrudTableConfig): ng.material.IDialogOptions {
+export function getDialog($event: any, config: iCrudTableConfig): ng.material.IDialogOptions {
     var parentEl = angular.element(document.body);
     return {
         parent: parentEl,

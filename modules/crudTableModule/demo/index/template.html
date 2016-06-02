@@ -9,7 +9,7 @@
 
         <md-content role="navigation">
             <md-list>
-                <md-list-item>
+                <md-list-item ng-repeat="">
                     <a class="md-button" ng-click="toState('index.directAdGroups')">Группы обьявлений</a>
                 </md-list-item>
                 <md-list-item>
@@ -33,7 +33,6 @@
             <md-button ng-click="vm.toggleNav('leftNav')" hide-gt-sm>
                 BTN
             </md-button>
-            <h3><md-button ui-sref="dbAdmin">Редактировать базу данных</md-button></h3>
         </md-toolbar>
         <md-content ui-view>
         </md-content>

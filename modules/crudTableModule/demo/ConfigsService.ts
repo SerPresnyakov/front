@@ -1,15 +1,18 @@
+import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 
-import {CrudTableConfig} from "../src/crudTable/CrudTableConfig";
+export class ConfigsService implements ng.IServiceProvider {
 
-class ConfigsService implements ng.IServiceProvider {
+    static angularName = "Configs";
 
-    addConfig(config: CrudTableConfig) {
+    configs: iCrudTableConfig[] = [];
 
+    addConfig(config: iCrudTableConfig) {
+        this.configs.push(config)
     }
 
-    $get() : any {
+    $get(): crudTable.demo.iConfigsService {
         return {
-            configs:
+            configs: this.configs
         }
     }
 

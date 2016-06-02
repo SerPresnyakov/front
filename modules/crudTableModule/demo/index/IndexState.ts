@@ -1,10 +1,15 @@
+import {ConfigsService} from "../ConfigsService";
+
 class Ctrl {
 
-    static $inject = ["$mdSidenav"];
+    static $inject = ["$mdSidenav", ConfigsService.angularName];
 
     constructor(
-        private sidenav: ng.material.ISidenavService
-    ) {}
+        private sidenav: ng.material.ISidenavService,
+        private configs: crudTable.demo.iConfigsService
+    ) {
+        console.log("sidenav ctrl", configs)
+    }
 
     toggleNav(name: string) {
         var a = this.sidenav(name);

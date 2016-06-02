@@ -8,17 +8,17 @@ import {getDialog as editDialog} from "../dialogs/editDialog/Cmpn"
 
 import {StrField} from "../fieldTypes/StrField";
 import {Page} from "../../../dao/Page";
-import {TableField} from "../models/TableField";
 import {Filters} from "../filter/Filter";
-import {CrudTableConfig} from "./CrudTableConfig";
 import {Templater} from "./Templater";
-import {FieldTableTemplater} from "../templaters/FieldTableTemplater";
+
+import iCrudTableConfig = crudTable.models.iCrudTableConfig;
+import iTableField = crudTable.models.iTableField;
 
 class Ctrl {
 
     static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http", "$scope", "$q"];
 
-    config: CrudTableConfig;
+    config: iCrudTableConfig;
 
     source: Source<any>;
     pager: Pager;
@@ -40,7 +40,7 @@ class Ctrl {
         this.pager = new Pager(1, 15, this.$q);
     }
 
-    init(config: CrudTableConfig) {
+    init(config: iCrudTableConfig) {
         this.config = config;
         this.source = new Source(this.config.url, this.config.tableName, this.inj);
         this.filters = new Filters(config.fields, config.rels);
@@ -50,7 +50,7 @@ class Ctrl {
     editProp($event: ng.IAngularEvent, origin: any, fieldName: string) {
 
         $event.stopPropagation();
-        let field: TableField  = this.config.getField(fieldName);
+        let field: iTableField  = this.config.getField(fieldName);
 
         let rel = this.config.getRel(fieldName);
 
@@ -132,7 +132,7 @@ class Ctrl {
 }
 
 interface CtrlScope extends ng.IScope {
-    config: CrudTableConfig
+    config: iCrudTableConfig
 }
 
 export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective {

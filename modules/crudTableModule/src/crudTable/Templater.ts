@@ -1,10 +1,11 @@
-import {CrudTableConfig} from "./CrudTableConfig";
-import {TableField} from "../models/TableField";
+
+import iTableField = crudTable.models.iTableField;
+import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 
 export class Templater {
 
     constructor(
-        public config: any,
+        public config: iCrudTableConfig,
         public ctrlAs: string
     ) {}
 
@@ -158,7 +159,7 @@ export class Templater {
         return res.join("\n")
     }
 
-    getCell(obj: string, f: TableField): string {
+    getCell(obj: string, f: iTableField): string {
         if(f.formly=="switch"){
             res =`<md-button ng-if="${obj}.${f.name}" class="md-raised md-primary md-button">Дa</md-button><md-button ng-if="!${obj}.${f.name}" class="md-raised md-accent md-button">Нет</md-button>`
         } else {
@@ -173,7 +174,7 @@ export class Templater {
         return res
     }
 
-    getObjCell(obj: string, n, f: TableField): string {
+    getObjCell(obj: string, n, f: iTableField): string {
         let rel = this.config.getRel(f.name);
         var res: string;
         if (rel && rel.type == "one") {

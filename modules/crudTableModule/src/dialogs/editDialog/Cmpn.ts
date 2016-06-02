@@ -1,6 +1,6 @@
 import {Schema} from "../../Schema";
 import IDialogService = angular.material.IDialogService;
-import {CrudTableConfig} from "../../crudTable/CrudTableConfig";
+import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 
 class Ctrl {
 
@@ -11,7 +11,7 @@ class Ctrl {
     res:any;
     url;
 
-    constructor(public config: CrudTableConfig,public original , public source, public $http:ng.IHttpService, public $mdDialog:IDialogService) {
+    constructor(public config: iCrudTableConfig, public original , public source, public $http:ng.IHttpService, public $mdDialog:IDialogService) {
 
         this.schema = Schema.getSchema(config.fields, config.rels);
         this.url = config.url;
@@ -31,7 +31,7 @@ class Ctrl {
 }
 
 
-export function getDialog( config: CrudTableConfig, original, source): ng.material.IDialogOptions {
+export function getDialog(config: iCrudTableConfig, original, source): ng.material.IDialogOptions {
     var parentEl = angular.element(document.body);
     return {
         parent: parentEl,

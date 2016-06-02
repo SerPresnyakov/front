@@ -18,7 +18,7 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
                 s['config'] = config;
             }],
             resolve: {
-                config: ["$stateParams", "$injector", "$q", (stateParams: iStateParams, inj: ng.auto.IInjectorService, $q: ng.IQService): ng.IPromise<CrudTableConfig> => {
+                config: ["$stateParams", "$injector", "$q", "myDao", (stateParams: iStateParams, inj: ng.auto.IInjectorService, $q: ng.IQService): ng.IPromise<CrudTableConfig> => {
                     let deferred = $q.defer<CrudTableConfig>();
                     console.log(stateParams.name);
                     let tableName = stateParams.name;

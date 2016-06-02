@@ -1,10 +1,10 @@
-import {IntField} from "../../../../../modules/crudTableModule/src/fieldTypes/IntField";
-import {StrField} from "../../../../../modules/crudTableModule/src/fieldTypes/StrField";
-import {BoolField} from "../../../../../modules/crudTableModule/src/fieldTypes/BoolField";
-import {ObjField} from "../../../../../modules/crudTableModule/src/fieldTypes/ObjField";
-import {TableField} from "../../../../../modules/crudTableModule/src/models/TableField";
-import {TableRel} from "../../../../../modules/crudTableModule/src/models/TableRel";
-import {CrudTableConfig} from "../../../../../modules/crudTableModule/src/crudTable/CrudTableConfig";
+import {CrudTableConfig} from "../../../../src/models/CrudTableConfig";
+import {ObjField} from "../../../../src/fieldTypes/ObjField";
+import {IntField} from "../../../../src/fieldTypes/IntField";
+import {StrField} from "../../../../src/fieldTypes/StrField";
+import {TableField} from "../../../../src/models/TableField";
+import {BoolField} from "../../../../src/fieldTypes/BoolField";
+import {TableRel} from "../../../../src/models/TableRel";
 
 export const table =
     new CrudTableConfig("Группы объявлений", "/api/crud", "direct.bannerGroups")

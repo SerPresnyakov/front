@@ -2,7 +2,9 @@ import {TableField} from "../models/TableField";
 import {TableRel} from "../models/TableRel";
 import {ObjField} from "../fieldTypes/ObjField";
 
-export class CrudTableConfig {
+import iCrudTableConfig = crudTable.models.iCrudTableConfig;
+
+export class CrudTableConfig implements iCrudTableConfig {
 
     fields: TableField[] = [];
     rels: TableRel[] = [];

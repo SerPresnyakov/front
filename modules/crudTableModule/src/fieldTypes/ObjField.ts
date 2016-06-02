@@ -1,12 +1,6 @@
-import {TableField} from "../models/TableField";
-import {fieldType} from "../models/TableField";
-import {Schema} from "../Schema";
-import {TableRel} from "../models/TableRel";
+import iObjField = crudTable.models.fields.iObjField;
 
-export interface IObjField extends fieldType {
-}
-
-export class ObjField implements IObjField {
+export class ObjField implements iObjField {
 
     static _type = "obj";
 

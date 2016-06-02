@@ -1,6 +1,6 @@
-import {TableField} from "../../models/TableField";
-import {TableRel} from "../../models/TableRel";
 import {Helper} from "../../../../utils/Helper";
+import iTableField = crudTable.models.iTableField;
+import iTableRel = crudTable.models.iTableRel;
 
 class Ctrl {
 
@@ -10,11 +10,11 @@ class Ctrl {
     searchText: string;
 
     constructor(
-        public field: TableField,
+        public field: iTableField,
         public origin: any,
         public $http: ng.IHttpService,
         public $event: ng.IAngularEvent,
-        public rel: TableRel,
+        public rel: iTableRel,
         public mdDialog:any,
         public source:any,
         inj: ng.auto.IInjectorService
@@ -45,7 +45,7 @@ class Ctrl {
     }
 }
 
-export const getDialog = (event: any, field: TableField, origin: any, rel: TableRel , mdDialog, source): ng.material.IDialogOptions => {
+export const getDialog = (event: any, field: iTableField, origin: any, rel: iTableRel , mdDialog, source): ng.material.IDialogOptions => {
     var parentEl = angular.element(document.body);
     return {
         controllerAs: "ctrlVM",

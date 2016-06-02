@@ -1,10 +1,10 @@
 import {TableField} from "../models/TableField";
-import {CrudTableConfig} from "../crudTable/CrudTableConfig";
+import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 
 export class FieldTableTemplater {
 
-    constructor(public config:CrudTableConfig,
-                public ctrlAs:string) {
+    constructor(public config: iCrudTableConfig,
+                public ctrlAs: string) {
     }
 
     //getTableNumb():number{

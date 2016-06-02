@@ -1,11 +1,6 @@
-import {fieldType} from "../models/TableField";
+import iIntField = crudTable.models.fields.iIntField;
 
-interface IIntField extends fieldType {
-    min?: number
-    max?: number
-}
-
-export class IntField implements IIntField {
+export class IntField implements iIntField {
 
     static _type = "int";
 

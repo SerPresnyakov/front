@@ -1,10 +1,4 @@
-import {fieldType} from "../models/TableField";
-
-interface IStrField extends fieldType {
-    pattern: string
-    minLength: string
-    maxLength: string
-}
+import IStrField = crudTable.models.fields.iStrField;
 
 export class StrField implements IStrField {
 

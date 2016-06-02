@@ -1,14 +1,9 @@
-export interface fieldType {
-    type: string
-    toSchema(): Object
-}
-
-export class TableField {
+export class TableField implements crudTable.models.iTableField {
 
     constructor(
         public name: string,
         public title: string,
-        public fieldType: fieldType,
+        public fieldType: crudTable.models.fields.iFieldType,
         public nullable: boolean,
         public editable: boolean,
         public formly: string,

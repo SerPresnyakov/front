@@ -1,6 +1,6 @@
 export class AngularModule {
 
-  private module: ng.IModule;
+  module: ng.IModule;
 
   constructor(public moduleName: string, deps: string[]) {
     this.module = angular.module(moduleName, deps)

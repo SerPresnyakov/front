@@ -1,8 +1,6 @@
-import {fieldType} from "../models/TableField";
+import iBoolField = crudTable.models.fields.iBoolField;
 
-interface IBoolField extends fieldType {}
-
-export class BoolField implements IBoolField {
+export class BoolField implements iBoolField {
 
     static _type = "bool";
 

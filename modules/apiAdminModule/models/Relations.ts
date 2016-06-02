@@ -1,10 +1,10 @@
-import {Source} from "../../../dao/Source";
-import {TableField} from "./TableField";
-import {Page} from "../../../dao/Page";
-import {ObjField} from "../fieldTypes/ObjField";
-import {IntField} from "../fieldTypes/IntField";
-import {StrField} from "../fieldTypes/StrField";
-import {BoolField} from "../fieldTypes/BoolField";
+import {Source} from "../../dao/Source";
+import {TableField} from "./../../crudTableModule/src/models/TableField";
+import {Page} from "../../dao/Page";
+import {ObjField} from "../../crudTableModule/src/fieldTypes/ObjField";
+import {IntField} from "../../crudTableModule/src/fieldTypes/IntField";
+import {StrField} from "../../crudTableModule/src/fieldTypes/StrField";
+import {BoolField} from "../../crudTableModule/src/fieldTypes/BoolField";
 import iPageResponse = api.iPageResponse;
 
 

@@ -1,16 +1,13 @@
-import {Pager} from "../../../dao/Pager";
-import {StrField} from "../fieldTypes/StrField";
-import {IntField} from "../fieldTypes/IntField";
-import {TableField} from "./TableField";
-import {ObjField} from "../fieldTypes/ObjField";
-import {TableRel} from "./TableRel";
-import {BoolField} from "../fieldTypes/BoolField";
-import {Source} from "../../../dao/Source";
-import {Page} from "../../../dao/Page";
-import {CrudTableConfig} from "../crudTable/CrudTableConfig";
 import apiUrls from "../../../utils/apiUrls";
 import iPageResponse = api.iPageResponse;
 import {relationsConfig} from "./Relations";
+import {Source} from "../../dao/Source";
+import {CrudTableConfig} from "../../crudTableModule/src/crudTable/CrudTableConfig";
+import {TableField} from "../../crudTableModule/src/models/TableField";
+import {IntField} from "../../crudTableModule/src/fieldTypes/IntField";
+import {StrField} from "../../crudTableModule/src/fieldTypes/StrField";
+import {BoolField} from "../../crudTableModule/src/fieldTypes/BoolField";
+import {ObjField} from "../../crudTableModule/src/fieldTypes/ObjField";
 
 
 export class ConfigBuilder {
@@ -34,7 +31,7 @@ export class ConfigBuilder {
         if (typeof tableUrl !== "string") {
             deferred.reject("tableName is required")
         } else {
-                this.fieldsSource.getPage(new Page().setPage(1,100),[{field: "base.table.url", op: "eq", value: tableUrl}])
+                this.fieldsSource.getFullPage([{field: "base.table.url", op: "eq", value: tableUrl}])
                     .then((table: iPageResponse<apiAdmin.iField>) => {
                         let fields = ConfigBuilder.getFields(table.data);
 

@@ -1,13 +1,14 @@
+import apiUrls from "../../../utils/apiUrls";
 import iPageResponse = api.iPageResponse;
-
+import {relationsConfig} from "./Relations";
 import {Source} from "../../dao/Source";
-import apiUrls from "../../utils/apiUrls";
 import {CrudTableConfig} from "../../crudTableModule/src/crudTable/CrudTableConfig";
 import {TableField} from "../../crudTableModule/src/models/TableField";
 import {IntField} from "../../crudTableModule/src/fieldTypes/IntField";
 import {StrField} from "../../crudTableModule/src/fieldTypes/StrField";
 import {BoolField} from "../../crudTableModule/src/fieldTypes/BoolField";
 import {ObjField} from "../../crudTableModule/src/fieldTypes/ObjField";
+
 
 export class ConfigBuilder {
 
@@ -22,7 +23,6 @@ export class ConfigBuilder {
     }
 
     build(tableUrl: string, adminMode: boolean): ng.IPromise<CrudTableConfig> {
-
         let deferred = this.$q.defer<CrudTableConfig>();
         let crudUrl = adminMode ? apiUrls.admin : apiUrls.crud;
         let rels : any[] = [];
@@ -31,37 +31,22 @@ export class ConfigBuilder {
         if (typeof tableUrl !== "string") {
             deferred.reject("tableName is required")
         } else {
-            if (adminMode) {
-                this.fieldsSource.getFullPage([{field:"base.table.url", op:"eq", value: tableUrl}])
-                    .then((table) => {
-
-                    })
-            } else {
                 this.fieldsSource.getFullPage([{field: "base.table.url", op: "eq", value: tableUrl}])
                     .then((table: iPageResponse<apiAdmin.iField>) => {
                         let fields = ConfigBuilder.getFields(table.data);
 
                         config = new CrudTableConfig(table.data[0].table.tableName, crudUrl, table.data[0].table.url);
                         config.setFields(fields);
-
+                        new relationsConfig(tableUrl,this.relsSource,this.fieldsSource,this.$q).getRelationsConfig()
+                            .then((relFields:TableField[]) => {
+                                config.setFields(relFields);
+                                deferred.resolve(config);
+                            })
+                            .catch((err)=>{
+                                deferred.resolve(config);
+                            })
                     })
                     .catch((err) => { deferred.reject({msg: "Can't resolve table", err: err })});
-
-                this.relsSource.getFullPage([{field:"base.leftTable.url",op:"eq", value: tableUrl}])
-                    .then((table:iPageResponse<apiAdmin.iRelation>)=>{
-                        table.data.forEach((t)=>{
-                            rels.push({tableName:t.rightTable.url, name:t.name});
-                        });
-                        console.log(rels);
-                        this.fieldsSource.getFullPage([{field:"base.table.url", op:"in", value:rels}])
-                            .then((table:iPageResponse<apiAdmin.iField>) => {
-                                let fields = ConfigBuilder.getFields(table.data);
-                                config.setFields(fields);
-                                deferred.resolve(config)
-                            });
-                    });
-
-            }
         }
 
         return deferred.promise

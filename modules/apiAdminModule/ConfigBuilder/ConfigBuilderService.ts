@@ -1,7 +1,7 @@
 import {IState} from "angular-ui-router";
-import {CrudTableConfig} from "../../crudTableModule/src/crudTable/CrudTableConfig";
 import {ConfigBuilder} from "../models/ConfigBuilder";
 import IPromise = angular.IPromise;
+import {CrudTableConfig} from "../../crudTableModule/src/models/CrudTableConfig";
 
 export class ConfigBuilderService {
     static serviceName = "configBuilderService";

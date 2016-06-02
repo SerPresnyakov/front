@@ -8,7 +8,8 @@ import {Run} from "./Run";
 
 const module = new AngularModule("app", [
     Modules.crudTable,
-    Deps.uiRouter
+    Deps.uiRouter,
+    Modules.auth
 ]);
 
 module.module.provider(ConfigsService.angularName, ConfigsService);

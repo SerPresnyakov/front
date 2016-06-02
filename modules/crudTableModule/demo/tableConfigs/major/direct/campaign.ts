@@ -13,5 +13,5 @@ export const table = new CrudTableConfig("Кампании", "/api/crud", "direc
         new TableField("statusShow", "Медиаплан", new BoolField(), true, false, "switch"),
         new TableField("track", "Отслеживать", new BoolField(), true, true, "switch"),
     ])
-    .setTabs([{title:"Direct",url:"index.directCampaigs",selected:true},{title:"Adwords",url:"index.adwordsCampaigs"}]);
+    //.setTabs([{title:"Direct",url:"index.directCampaigs",selected:true},{title:"Adwords",url:"index.adwordsCampaigs"}]);
 

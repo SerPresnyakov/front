@@ -1,10 +1,11 @@
 import {indexState} from "./states/IndexState"
 import {ConfigBuilder} from "./models/ConfigBuilder";
-import {CrudTableConfig} from "../crudTableModule/src/crudTable/CrudTableConfig";
+
 import {Source} from "../dao/Source";
 import apiUrls from "../utils/apiUrls";
 import {Page} from "../dao/Page";
 import iPageResponse = api.iPageResponse;
+import {CrudTableConfig} from "../crudTableModule/src/models/CrudTableConfig";
 
 class ConfigBuilderResolver {
 
@@ -68,7 +69,19 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
                 s['config'] = config;
             }],
             resolve:{
-                config: ConfigBuilderResolver
+                config: ["$stateParams","$injector", "$q", (stateParams:iStateParams, inj: ng.auto.IInjectorService, $q:ng.IQService):ng.IPromise<CrudTableConfig> => {
+                    let deferred = $q.defer<CrudTableConfig>();
+                    let tableName = stateParams.name;
+                    if(!tableName){
+                        deferred.reject({msg:"can't build config", err: "tableName isn,t scecified"})
+                    } else {
+                        console.log('else');
+                        new ConfigBuilder(inj).build(tableName, true)
+                            .then((res)=>deferred.resolve(res))
+                            .catch((err)=>deferred.reject({msg:"can't build config",err:err}))
+                    }
+                    return deferred.promise
+                }]
             }
         }
     },

@@ -20,18 +20,30 @@ export class StatesRegister {
         stateProvider.state(indexState.name, indexState.config);
 
         angular.forEach(configs.configs, (config: iCrudTableConfig) => {
-            console.log(`Registering state ${config.tableName}`, config);
-            stateProvider.state(config.tableName, {
-                url: config.tableName,
-                template: "<ak-crud-table config=\"config\">",
-                controller: ["config", "$scope", (config, s) => {
-                    s['config'] = config
+            let stateName = getStateName(config.tableName);
+            console.log(`Registering state ${stateName}`, config);
+            stateProvider.state(`index.${stateName}`, {
+                url: getStateName(config.tableName),
+                template: "<ak-crud-table config=\"config\" stateName=\"stateName\">",
+                controller: ["config", "$scope", "stateName", (config, s, stateName) => {
+                    s['config'] = config;
+                    s['stateName'] = stateName;
+                    //s.getStateName(tableName:string) = { return getStateName(tableName)}
                 }],
                 resolve: {
+                    stateName: (): string => stateName,
                     config: (): iCrudTableConfig => config
                 }
             })
         })
     }
 
+
+
+}
+
+export function getStateName(tableName):string{
+    let res = tableName.replace('.','_');
+    console.log(res);
+    return res;
 }

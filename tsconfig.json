@@ -13,8 +13,8 @@
     "./dts/global.d.ts",
     "./dts/mdTable.d.ts",
     "./dts/modules.d.ts",
-    "./dts/api.d.ts",
     "./dts/apiAdmin.d.ts",
-    "./modules/crudTableModule/dts/all.d.ts"
+    "./modules/crudTableModule/dts/all.d.ts",
+    "./modules/jsonDAO/dts/all.d.ts"
   ]
 }

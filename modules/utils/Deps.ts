@@ -18,4 +18,5 @@ export class Modules {
     static crudTable = "crudTable";
     static auth = "a.auth";
     static apiAdmin = "apiAdmin";
+    static jsonDAO = "jsonDAO"
 }

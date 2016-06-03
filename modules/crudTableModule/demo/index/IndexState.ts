@@ -1,5 +1,6 @@
 import {ConfigsService} from "../ConfigsService";
 import {StatesRegister} from "../StatesRegister";
+import {AuthService} from "../../../authModule/AuthService";
 
 class Ctrl {
 
@@ -30,7 +31,12 @@ export const indexState: iRegisterMeta<ng.ui.IState> = {
         url: "/",
         template: require<string>("./template.html"),
         controllerAs: "vm",
-        controller: Ctrl
+        controller: Ctrl,
+        resolve:{
+            user:[AuthService.serviceName,(auth):ng.IPromise<any> => {
+                return auth.me();
+            }]
+        }
     }
 
 };

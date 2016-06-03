@@ -120,13 +120,27 @@ class Ctrl {
         });
     };
 
-    refreshPage(filters?): void {
-        let filter = filters ? filters : [];
+    refreshPage(): void {
+        console.log(this.filters);
+        let filter = this.setFilters();
         this.source.getPage(new Page().setPage(1,15),filter)
             .then((res) => {
                 this.pager.data = res.data;
                 this.pager.total = 1;
             })
+    }
+
+    setFilters():apiAdmin.iFilter[]{
+        let res:apiAdmin.iFilter[] = [];
+        if(this.filters.hasOwnProperty('model')){
+            Object.getOwnPropertyNames(this.filters.model).forEach((f)=>{
+                res.push({field:f,op:"eq",value:this.filters.model[f]})
+            });
+
+        } else {
+            res = [];
+        }
+        return res;
     }
 
     refreshResource(origin: any) {

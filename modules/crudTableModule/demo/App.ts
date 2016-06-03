@@ -9,7 +9,8 @@ import {Run} from "./Run";
 const module = new AngularModule("app", [
     Modules.crudTable,
     Deps.uiRouter,
-    Modules.auth
+    Modules.auth,
+    Modules.jsonDAO
 ]);
 
 module.module.provider(ConfigsService.angularName, ConfigsService);

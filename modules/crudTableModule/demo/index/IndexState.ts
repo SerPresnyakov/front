@@ -1,6 +1,5 @@
 import {ConfigsService} from "../ConfigsService";
-import {getStateName} from "../StatesRegister";
-
+import {StatesRegister} from "../StatesRegister";
 
 class Ctrl {
 
@@ -18,8 +17,8 @@ class Ctrl {
         a.toggle().then((inst) => console.debug("nav", inst))
     }
 
-    getStateNames(name):string{
-        return getStateName(name);
+    getStateName(tableName: string): string {
+        return StatesRegister.getStateName(tableName)
     }
 
 }

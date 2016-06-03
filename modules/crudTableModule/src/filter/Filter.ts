@@ -12,7 +12,7 @@ export class Filters{
     }
 
     create(field) {
-            let res:iFilter = {
+            let res: iFilter = {
                 name: "",
                 title: "",
                 parent: "",
@@ -42,10 +42,10 @@ export class Filters{
         }
     };
 
-    getRestFilters():string{
+    getRestFilters():string {
         let res= "";
         angular.forEach(this.filters,(f)=>{
-            if(this.model[f.name]!=undefined) {
+            if (this.model[f.name] != undefined) {
                 if (f.fieldType.type == "str") {
                     if (f.parent == null) {
                         res = "base." + f.name + "_like_" + this.model[f.name] + ";" + res;
@@ -57,7 +57,7 @@ export class Filters{
 
 
                 }
-            }else{
+            } else {
                 if (f.fieldType.type == "bool") {
                     res = "base." + f.name + "_eqB_false;" + res;
                 }

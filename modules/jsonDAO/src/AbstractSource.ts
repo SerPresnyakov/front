@@ -9,10 +9,10 @@ export abstract class AbstractSource<M> {
     constructor(
         public crudUrl: string,
         public tableName: string,
-        inj: ng.auto.IInjectorService
+        public inj: ng.auto.IInjectorService
     ) {
-        this.$http = inj.get<ng.IHttpService>("$http");
-        this.$q = inj.get<ng.IQService>("$q");
+        this.$http = this.inj.get<ng.IHttpService>("$http");
+        this.$q = this.inj.get<ng.IQService>("$q");
     }
 
     getFullPage(filters: apiAdmin.iFilter[] = []): ng.IPromise<iPageResponse<M>> {

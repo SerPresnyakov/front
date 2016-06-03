@@ -9,10 +9,9 @@
     "inlineSources": true
   },
   "files": [
-    "./typings/main.d.ts",
+    "./typings/index.d.ts",
     "./dts/global.d.ts",
     "./dts/mdTable.d.ts",
-    "./dts/modules.d.ts",
     "./dts/apiAdmin.d.ts",
     "./modules/crudTableModule/dts/all.d.ts",
     "./modules/jsonDAO/dts/all.d.ts"

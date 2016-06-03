@@ -1,5 +1,6 @@
 import {Schema} from "../Schema";
 import {Helper} from "../../../utils/Helper";
+import iFilter = crudTable.filters.iFilter;
 
 export class Filters{
     schema = [];

@@ -20,7 +20,7 @@ export class LoginCtrl {
 
     options = {};
 
-    fields: iFieldGroup[] = [
+    fields: AngularFormly.IFieldConfigurationObject[] = [
         {
             key: 'email',
             type: 'input',

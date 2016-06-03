@@ -130,10 +130,10 @@ class Ctrl {
             })
     }
 
-    setFilters():apiAdmin.iFilter[]{
+    setFilters():apiAdmin.iFilter[] {
         let res:apiAdmin.iFilter[] = [];
         if(this.filters.hasOwnProperty('model')){
-            Object.getOwnPropertyNames(this.filters.model).forEach((f)=>{
+            Object.getOwnPropertyNames(this.filters.model).forEach( (f)=> {
                 res.push({field:f,op:"eq",value:this.filters.model[f]})
             });
 

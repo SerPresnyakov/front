@@ -6,6 +6,10 @@ import {Source} from "../jsonDAO/src/Source";
 import {Page} from "../jsonDAO/src/Page";
 import iPageResponse = jsonDAO.iPageResponse;
 
+interface iStateParams{
+    name: string;
+}
+
 export const states: iRegisterMeta<ng.ui.IState>[] = [
     indexState,
     {

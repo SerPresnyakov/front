@@ -1,6 +1,7 @@
+import iFilter = crudTable.filters.iFilter;
 export class Helper {
     static createFilter(field, filters) {
-        let res:iFilter = {
+        let res: iFilter = {
             name: "",
             title: "",
             parent: "",

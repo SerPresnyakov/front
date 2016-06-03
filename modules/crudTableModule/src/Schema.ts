@@ -2,33 +2,33 @@ import {TableField} from "./models/TableField";
 import {ObjField} from "./fieldTypes/ObjField";
 import {TableRel} from "./models/TableRel";
 
+import IFieldConfigurationObject = AngularFormly.IFieldConfigurationObject;
+
 export class Schema {
 
-    static getSchema(fields,rels?): iFieldGroup[] {
+    static getSchema(fields,rels?): any[] {
 
-        var schema:iFieldGroup[] = [];
+        var schema = [];
 
         angular.forEach(fields, (f: TableField) => {
-            if (f.fieldType.type=="obj") {
-                let res = {
+            if (f.fieldType.type == "obj") {
+                schema.push({
                     key: f.name,
                     wrapper: "panel",
                     templateOptions: {
                         label: f.title
                     },
                     fieldGroup: []
-                };
-
-                schema.push(res);
+                });
             }
-            else{
+            else {
                 let res = {
                     key: f.name,
                     type: f.formly,
                     templateOptions: {
                         label: f.title
                     },
-                    data:{
+                    data: {
                         test:()=>{
                             console.log("test!")
                         }
@@ -44,7 +44,7 @@ export class Schema {
                     });
                 }
 
-                if (f.formly=="switch") {
+                if (f.formly == "switch") {
                     res["defaultValue"] = false;
                 }
 
@@ -59,13 +59,13 @@ export class Schema {
                 }
 
                 if (f.parent) {
-                    angular.forEach(schema, (s)=>{
+                    angular.forEach(schema, (s) => {
                         if(s.key == f.parent){
                             s.fieldGroup.push(res);
                         }
                     })
                 }
-                else{
+                else {
                     schema.push(res);
                 }
             }

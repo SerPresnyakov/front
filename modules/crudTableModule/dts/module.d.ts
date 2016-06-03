@@ -26,7 +26,6 @@ declare module crudTable {
 
         }
 
-
         interface iTableField {
             name: string
             title: string
@@ -72,6 +71,24 @@ declare module crudTable {
             setTabs(tabs: any): iCrudTableConfig
 
         }
+    }
+
+    module filters {
+
+        interface iFilter {
+            name: string
+            title: string
+            parent: string
+            formly: string
+            options: {
+                props: string
+            }[]
+            fieldType: {
+                type: string
+            },
+            value: string
+        }
+
     }
 
 

@@ -14,10 +14,11 @@ import iPager = jsonDAO.iPager;
 
 import {Deps} from "../../../jsonDAO/Deps";
 import {Page} from "../../../jsonDAO/src/Page";
+import {Pager} from "../../../jsonDAO/src/Pager";
 
 class Ctrl {
 
-    static $inject = ["$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", Deps.daoFactoryService];
+    static $inject = ["$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", Deps.daoFactoryService, "$state"];
 
     config: iCrudTableConfig;
 
@@ -31,8 +32,10 @@ class Ctrl {
         private $http: ng.IHttpService,
         public $scope,
         public $q: ng.IQService,
-        public daoFactory: jsonDAO.iDAOFactoryService<any>
+        public daoFactory: jsonDAO.iDAOFactoryService<any>,
+        public $state
     ) {
+        this.pager = new Pager(1, 15, this.$q);
         //$scope.$watchCollection((scope) => { return scope["vm"].pager; } ,(newVal, oldVal, scope) => {
         //    if (newVal.page!=oldVal.page || newVal.per!=oldVal.per) {
         //        this.refreshPage();
@@ -117,8 +120,9 @@ class Ctrl {
         });
     };
 
-    refreshPage(): void {
-        this.source.getPage(new Page().setPage(1,15),[])
+    refreshPage(filters?): void {
+        let filter = filters ? filters : [];
+        this.source.getPage(new Page().setPage(1,15),filter)
             .then((res) => {
                 this.pager.data = res.data;
                 this.pager.total = 1;

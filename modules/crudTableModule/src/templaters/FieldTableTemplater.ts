@@ -38,13 +38,13 @@ export class FieldTableTemplater {
             '<div class="md-toolbar-tools">' +
             `<span>Таблица: {{${this.ctrlAs}.stateParams.name}}</span>` +
             '<span flex></span>' +
-                //`<filter-button filter="${this.ctrlAs}.filters" fields="${this.ctrlAs}.config.fields" refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
+            `<filter-button filter="${this.ctrlAs}.filters" fields="${this.ctrlAs}.config.fields" refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
             `<md-button class="md-raised md-primary" ng-if='${this.config.allowedMethods.create}' ng-click="${this.ctrlAs}.create()">Создать</md-button>` +
             '</div>' +
             '</md-toolbar>' +
             `<md-content class="layout-padding flex" ng-show='${this.ctrlAs}.filters.filters.length>0'>` +
-                //`<filter-fields class="layout-padding flex" filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' fields="${this.ctrlAs}.config.fields" rels="${this.ctrlAs}.config.rels" rest="${this.ctrlAs}.config.rest"></filter-fields>`+
-                //`<md-button ng-if='${this.ctrlAs}.filters.length>0' ng-click="${this.ctrlAs}.refreshPage()">Применить</md-button>` +
+                `<filter-fields class="layout-padding flex" filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' fields="${this.ctrlAs}.config.fields" rels="${this.ctrlAs}.config.rels" rest="${this.ctrlAs}.config.rest"></filter-fields>`+
+                `<md-button ng-if='${this.ctrlAs}.filters.length>0' ng-click="${this.ctrlAs}.refreshPage()">Применить</md-button>` +
             `</md-content>`
     }
 

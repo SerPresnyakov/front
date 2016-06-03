@@ -45,14 +45,14 @@ class Ctrl {
         }
     }
 
-    submit(){
+    submit():void{
         this.state.params.filters = JSON.stringify(this.filter.model);
         //this.localStorage.set(this.state.current.name, JSON.stringify(this.filter.model));
-        this.state.go(this.state.current.name,this.state.params);
+        this.state.go(this.state.current.name, this.state.params);
         this.refreshPage();
     };
 
-    showPrompt(ev) {
+    showPrompt(ev):void{
         // Appending dialog to document.body to cover sidenav in docs app
         var confirm = this.$mdDialog.prompt()
             .title('Введите название фильтра:')

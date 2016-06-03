@@ -27,7 +27,7 @@ export class StatesRegister {
             let stateName = StatesRegister.getStateName(config.tableName);
             console.log(`Registering state ${stateName}`, config);
             stateProvider.state(`index.${stateName}`, {
-                url: stateName,
+                url: `${stateName}?filters`,
                 template: "<ak-crud-table config=\"config\">",
                 controller: ["config", "$scope", (config, s) => {
                     s['config'] = config;

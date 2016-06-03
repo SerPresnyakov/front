@@ -1,14 +1,14 @@
 
-import iPageResponse = api.iPageResponse;
 import {relationsConfig} from "./Relations";
-import {Source} from "../../jsonDAO/Source";
-import {CrudTableConfig} from "../../crudTableModule/src/crudTable/CrudTableConfig";
 import {TableField} from "../../crudTableModule/src/models/TableField";
 import {IntField} from "../../crudTableModule/src/fieldTypes/IntField";
 import {StrField} from "../../crudTableModule/src/fieldTypes/StrField";
 import {BoolField} from "../../crudTableModule/src/fieldTypes/BoolField";
 import {ObjField} from "../../crudTableModule/src/fieldTypes/ObjField";
 import apiUrls from "../../utils/apiUrls";
+import {Source} from "../../jsonDAO/src/Source";
+import {CrudTableConfig} from "../../crudTableModule/src/models/CrudTableConfig";
+import iPageResponse = jsonDAO.iPageResponse;
 
 
 export class ConfigBuilder {

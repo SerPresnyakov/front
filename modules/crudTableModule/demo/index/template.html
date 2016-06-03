@@ -9,21 +9,21 @@
 
         <md-content role="navigation">
             <md-list>
-                <md-list-item ng-repeat="">
-                    <a class="md-button" ng-click="toState('index.directAdGroups')">Группы обьявлений</a>
+                <md-list-item ng-repeat="config in vm.configs.configs">
+                    <a class="md-button" ui-sref='index.{{vm.getStateNames(config.tableName)}}' >{{config.sourceName}}</a>
                 </md-list-item>
-                <md-list-item>
-                    <a class="md-button" ng-click="toState('index.directCampaigs')">Кампании</a>
-                </md-list-item>
-                <md-list-item>
-                    <md-button ui-sref="index.brands">Бренды</md-button>
-                </md-list-item>
-                <md-list-item>
-                    <md-button ui-sref="index.regions">Регионы</md-button>
-                </md-list-item>
-                <md-list-item>
-                    <md-button ui-sref="index.users">Пользователи</md-button>
-                </md-list-item>
+                <!--<md-list-item>-->
+                    <!--<a class="md-button" ng-click="toState('index.directCampaigs')">Кампании</a>-->
+                <!--</md-list-item>-->
+                <!--<md-list-item>-->
+                    <!--<md-button ui-sref="index.brands">Бренды</md-button>-->
+                <!--</md-list-item>-->
+                <!--<md-list-item>-->
+                    <!--<md-button ui-sref="index.regions">Регионы</md-button>-->
+                <!--</md-list-item>-->
+                <!--<md-list-item>-->
+                    <!--<md-button ui-sref="index.users">Пользователи</md-button>-->
+                <!--</md-list-item>-->
             </md-list>
         </md-content>
     </md-sidenav>

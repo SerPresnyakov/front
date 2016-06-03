@@ -1,4 +1,4 @@
-import apiUrls from "../../../utils/apiUrls";
+
 import iPageResponse = api.iPageResponse;
 import {relationsConfig} from "./Relations";
 import {Source} from "../../jsonDAO/Source";
@@ -8,6 +8,7 @@ import {IntField} from "../../crudTableModule/src/fieldTypes/IntField";
 import {StrField} from "../../crudTableModule/src/fieldTypes/StrField";
 import {BoolField} from "../../crudTableModule/src/fieldTypes/BoolField";
 import {ObjField} from "../../crudTableModule/src/fieldTypes/ObjField";
+import apiUrls from "../../utils/apiUrls";
 
 
 export class ConfigBuilder {

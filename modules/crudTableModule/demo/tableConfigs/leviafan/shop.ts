@@ -15,7 +15,7 @@ export const table = new CrudTableConfig("Магазины", "/api/crud", "price
         new TableField("reportExport", 'Экспорт отчета', new ObjField(), false, false, "object"),
         new TableField("password", 'Пароль', new StrField(), false, false, "input", "reportExport"),
         new TableField("url", 'URL', new StrField(), false, false, "input", "reportExport")
-    ])
-    .setRels([
-       new TableRel("clientId", "client", "/left/client", "one", false)
     ]);
+    //.setRels([
+    //   new TableRel("clientId", "client", "/left/client", "one", false)
+    //]);

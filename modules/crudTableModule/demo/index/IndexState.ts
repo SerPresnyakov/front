@@ -1,4 +1,6 @@
 import {ConfigsService} from "../ConfigsService";
+import {getStateName} from "../StatesRegister";
+
 
 class Ctrl {
 
@@ -14,6 +16,10 @@ class Ctrl {
     toggleNav(name: string) {
         var a = this.sidenav(name);
         a.toggle().then((inst) => console.debug("nav", inst))
+    }
+
+    getStateNames(name):string{
+        return getStateName(name);
     }
 
 }

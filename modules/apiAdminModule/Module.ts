@@ -3,6 +3,7 @@ import {Deps, Modules} from "../utils/Deps";
 import {states} from "./States";
 import {Config} from "./Config"
 import {SidenavDirective} from "./sidenavDirective/SidenavDirective";
+import {ConfigBuilderService} from "./ConfigBuilder/ConfigBuilderService";
 
 let module = new AngularModule(Modules.apiAdmin, [
     Deps.uiRouter,
@@ -15,5 +16,7 @@ let module = new AngularModule(Modules.apiAdmin, [
 module.registerStates(states);
 
 module.directive("akSidenav",["$compile", (($compile)=> SidenavDirective($compile))]);
+
+module.registerServices([{name:ConfigBuilderService.serviceName ,config: ConfigBuilderService}]);
 
 module.config(Config);

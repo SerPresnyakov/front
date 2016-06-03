@@ -10,7 +10,7 @@
         <md-content role="navigation">
             <md-list>
                 <md-list-item ng-repeat="config in vm.configs.configs">
-                    <a class="md-button" ui-sref='index.{{vm.getStateNames(config.tableName)}}' >{{config.sourceName}}</a>
+                    <a class="md-button" ui-sref='index.{{vm.getStateName(config.tableName)}}' >{{config.sourceName}}</a>
                 </md-list-item>
                 <!--<md-list-item>-->
                     <!--<a class="md-button" ng-click="toState('index.directCampaigs')">Кампании</a>-->

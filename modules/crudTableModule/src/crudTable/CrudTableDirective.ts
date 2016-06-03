@@ -16,7 +16,7 @@ import {Deps} from "../../../jsonDAO/Deps";
 
 class Ctrl {
 
-    static $inject = ["$injector", "$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", Deps.daoFactoryService];
+    static $inject = ["$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", Deps.daoFactoryService];
 
     config: iCrudTableConfig;
 
@@ -30,13 +30,13 @@ class Ctrl {
         private $http: ng.IHttpService,
         public $scope,
         public $q: ng.IQService,
-        public daoFactory: jsonDAO.iDAOFactoryService
+        public daoFactory: jsonDAO.iDAOFactoryService<any>
     ) {
-        $scope.$watchCollection((scope) => { return scope["vm"].pager; } ,(newVal, oldVal, scope) => {
-            if (newVal.page!=oldVal.page || newVal.per!=oldVal.per) {
-                this.refreshPage();
-            }
-        });
+        //$scope.$watchCollection((scope) => { return scope["vm"].pager; } ,(newVal, oldVal, scope) => {
+        //    if (newVal.page!=oldVal.page || newVal.per!=oldVal.per) {
+        //        this.refreshPage();
+        //    }
+        //});
     }
 
     init(config: iCrudTableConfig) {

@@ -13,6 +13,7 @@ import iSource = jsonDAO.iSource;
 import iPager = jsonDAO.iPager;
 
 import {Deps} from "../../../jsonDAO/Deps";
+import {Page} from "../../../jsonDAO/src/Page";
 
 class Ctrl {
 
@@ -117,7 +118,7 @@ class Ctrl {
     };
 
     refreshPage(): void {
-        this.source.getPage(this.pager, [])
+        this.source.getPage(new Page().setPage(1,15),[])
             .then((res) => {
                 this.pager.data = res.data;
                 this.pager.total = 1;

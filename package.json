@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "buildAuth": "cd modules/authModule && webpack",
+    "buildCrud": "cd modules/crudTableModule && webpack",
+    "buildDAO": "cd modules/jsonDAO && webpack"
   },
   "author": "Alexander Kondaurov",
   "license": "ISC",

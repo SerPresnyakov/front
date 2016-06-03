@@ -30,24 +30,6 @@ getOutputConfig = () ->
   path: "<%= dirs.root %>/js"
 
 module.exports =
-  buildDemo: getConfig(
-    context: "<%= dirs.root %>/demo/src"
-    entry:
-      demo: "./App"
-    output: getOutputConfig()
-  )
-  auth: getConfig(
-    context: "<%= dirs.root %>/modules/authModule",
-    entry:
-      auth: "./Module"
-    output: getOutputConfig()
-  )
-  crudTable: getConfig(
-    context: "<%= dirs.root %>/modules/crudTableModule",
-    entry:
-      crudTable: "./Module"
-    output: getOutputConfig()
-  )
   apiAdmin: getConfig(
     context: "<%= dirs.root %>/modules/apiAdminModule",
     entry:

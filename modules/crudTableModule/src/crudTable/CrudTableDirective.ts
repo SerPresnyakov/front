@@ -30,7 +30,7 @@ class Ctrl {
         private $http: ng.IHttpService,
         public $scope,
         public $q: ng.IQService,
-        public daoFactory: jsonDAO.iDAOFactoryService
+        public daoFactory: jsonDAO.iDAOFactoryService<any>
     ) {
         $scope.$watchCollection((scope) => { return scope["vm"].pager; } ,(newVal, oldVal, scope) => {
             if (newVal.page!=oldVal.page || newVal.per!=oldVal.per) {

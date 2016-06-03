@@ -1,8 +1,7 @@
-import {Source} from "../../jsonDAO/Source";
 import apiUrls from "../../utils/apiUrls";
 import {TableField} from "./../../crudTableModule/src/models/TableField";
-import {Page} from "../../jsonDAO/Page";
-import iPageResponse = api.iPageResponse;
+import {Source} from "../../jsonDAO/src/Source";
+import iPageResponse = jsonDAO.iPageResponse;
 
 export class dbAdminConfigBuilder{
 
@@ -19,11 +18,12 @@ export class dbAdminConfigBuilder{
         if(typeof tableName != "string"){
             deferred.reject({msg:"tableName is required"})
         } else {
-            this.fieldSource.getPage(new Page().setPage(1,100),[{field:"base.table.url",op:"eq",value:tableName}])
+            this.fieldSource.getFullPage([{field:"base.table.url",op:"eq",value:tableName}])
                 .then((fields:iPageResponse<apiAdmin.iField>)=>{
                     this.getConfig(fields.data);
                 })
         }
+        return deferred.promise;
     }
 
     getConfig(fields:apiAdmin.iField[]){

@@ -20,11 +20,11 @@ export class Config {
     ) {
         $url.when("", "/");
         configs.addConfig(directAdGroup);
-        configs.addConfig(adWordsAdGroup);
-        //configs.addConfig(directCampaign);
+        //configs.addConfig(adWordsAdGroup);
+        configs.addConfig(directCampaign);
         //configs.addConfig(adWordsCampaign);
-        //configs.addConfig(brands);
-        //configs.addConfig(regions);
+        configs.addConfig(brands);
+        configs.addConfig(regions);
         //configs.addConfig(users);
     }
 

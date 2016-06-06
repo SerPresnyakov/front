@@ -19,6 +19,7 @@ declare module jsonDAO {
         crudUrl: string
         tableName: string
         pager: iPager
+        getFullPage(filters: apiAdmin.iFilter[]): ng.IPromise<iPageResponse<M>>
         getPage(page: iPage, filters: apiAdmin.iFilter[]): ng.IPromise<iPageResponse<M>>
         getOne(filters: apiAdmin.iFilter[]): ng.IPromise<M>
         getById(id: number): ng.IPromise<M>

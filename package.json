@@ -7,12 +7,12 @@
     "buildAuth": "cd modules/authModule && webpack",
     "buildCrud": "cd modules/crudTableModule && webpack",
     "buildDAO": "cd modules/jsonDAO && webpack",
+    "buildApiAdmin": "cd modules/apiAdminModule && webpack",
     "buildAll": "npm run buildAuth & npm run buildCrud & npm run buildDAO"
   },
   "author": "Alexander Kondaurov",
   "license": "ISC",
   "dependencies": {
-    "grunt": "^1.0.1",
     "grunt-contrib-compress": "^1.2.0",
     "grunt-contrib-concat": "^1.0.1",
     "grunt-contrib-cssmin": "^1.0.1",
@@ -22,13 +22,11 @@
     "grunt-usemin": "^3.1.1",
     "load-grunt-config": "^0.19.2",
     "load-grunt-tasks": "^3.5.0",
-    "grunt-webpack": "^1.0.11",
     "html-loader": "^0.4.3",
     "recursive-merge": "^1.2.1",
     "ts-loader": "^0.8.1",
     "typescript": "^1.8.7",
     "typings": "0.8.1",
-    "webpack": "^1.13.1",
     "style-loader": "^0.13.1",
     "css-loader": "^0.23.1"
   },

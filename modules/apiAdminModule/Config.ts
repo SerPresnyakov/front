@@ -1,4 +1,5 @@
 export class Config {
+
     static $inject = [
         "$urlRouterProvider",
         "$mdThemingProvider",
@@ -6,10 +7,11 @@ export class Config {
     ];
 
     constructor(
-      $url :ng.ui.IUrlRouterProvider,
-      $theming :ng.material.IThemingProvider,
-      $icon : ng.material.IIconProvider
-    ){
+      $url: ng.ui.IUrlRouterProvider,
+      $theming: ng.material.IThemingProvider,
+      $icon: ng.material.IIconProvider
+    ) {
         $url.when("","/");
     }
+
 }

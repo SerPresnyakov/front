@@ -1,25 +1,28 @@
 
 import {relationsConfig} from "./Relations";
-import {TableField} from "../../crudTableModule/src/models/TableField";
-import {IntField} from "../../crudTableModule/src/fieldTypes/IntField";
-import {StrField} from "../../crudTableModule/src/fieldTypes/StrField";
-import {BoolField} from "../../crudTableModule/src/fieldTypes/BoolField";
-import {ObjField} from "../../crudTableModule/src/fieldTypes/ObjField";
 import apiUrls from "../../utils/apiUrls";
-import {Source} from "../../jsonDAO/src/Source";
-import {CrudTableConfig} from "../../crudTableModule/src/models/CrudTableConfig";
-import iPageResponse = jsonDAO.iPageResponse;
 
+import iPageResponse = jsonDAO.iPageResponse;
+import iSource = jsonDAO.iSource;
+
+import {Deps} from "../../../jsonDAO/Deps"
+import {CrudTableConfig} from "../../../crudTableModule/src/models/CrudTableConfig";
+import {TableField} from "../../../crudTableModule/src/models/TableField";
+import {ObjField} from "../../../crudTableModule/src/fieldTypes/ObjField";
+import {BoolField} from "../../../crudTableModule/src/fieldTypes/BoolField";
+import {StrField} from "../../../crudTableModule/src/fieldTypes/StrField";
+import {IntField} from "../../../crudTableModule/src/fieldTypes/IntField";
 
 export class ConfigBuilder {
 
-    fieldsSource: Source<apiAdmin.iField>;
-    relsSource: Source<apiAdmin.iRelation>;
+    fieldsSource: iSource<apiAdmin.iField>;
+    relsSource: iSource<apiAdmin.iRelation>;
     $q: ng.IQService;
 
     constructor(inj: ng.auto.IInjectorService) {
-        this.fieldsSource = new Source(apiUrls.admin, "fields", inj);
-        this.relsSource = new Source(apiUrls.admin, "rels", inj);
+        let sourceFactory = inj.get<jsonDAO.iDAOFactoryService>(Deps.daoFactoryService);
+        this.fieldsSource = sourceFactory.build("fields", apiUrls.admin);
+        this.relsSource = sourceFactory.build("rels", apiUrls.admin);
         this.$q = inj.get<ng.IQService>("$q")
     }
 
@@ -32,20 +35,19 @@ export class ConfigBuilder {
         if (typeof tableUrl !== "string") {
             deferred.reject("tableName is required")
         } else {
-                this.fieldsSource.getFullPage([{field: "base.table.url", op: "eq", value: tableUrl}])
+                this.fieldsSource
+                    .getFullPage([{field: "base.table.url", op: "eq", value: tableUrl}])
                     .then((table: iPageResponse<apiAdmin.iField>) => {
                         let fields = ConfigBuilder.getFields(table.data);
 
                         config = new CrudTableConfig(table.data[0].table.tableName, crudUrl, table.data[0].table.url);
                         config.setFields(fields);
-                        new relationsConfig(tableUrl,this.relsSource,this.fieldsSource,this.$q).getRelationsConfig()
-                            .then((relFields:TableField[]) => {
+                        new relationsConfig(tableUrl, this.relsSource,this.fieldsSource,this.$q).getRelationsConfig()
+                            .then((relFields: TableField[]) => {
                                 config.setFields(relFields);
                                 deferred.resolve(config);
                             })
-                            .catch((err)=>{
-                                deferred.resolve(config);
-                            })
+                            .catch((err) => deferred.reject(err))
                     })
                     .catch((err) => { deferred.reject({msg: "Can't resolve table", err: err })});
         }

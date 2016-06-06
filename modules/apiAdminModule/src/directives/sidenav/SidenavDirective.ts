@@ -7,9 +7,8 @@ interface SidenaveScope extends IScope{
 
 export function SidenavDirective($compile:ng.ICompileService):ng.IDirective{
     return{
-        scope:{
-            tables: "=",
-            state: "="
+        scope: {
+            tables: "="
         },
         restrict: "E",
         link:( scope: SidenaveScope, element: ng.IAugmentedJQuery, attrs: ng.IAttributes )=>{

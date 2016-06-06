@@ -1,22 +1,18 @@
-import {Source} from "../../jsonDAO/Source";
-import {TableField} from "./../../crudTableModule/src/models/TableField";
-import {Page} from "../../jsonDAO/Page";
-import {ObjField} from "../../crudTableModule/src/fieldTypes/ObjField";
-import {IntField} from "../../crudTableModule/src/fieldTypes/IntField";
-import {StrField} from "../../crudTableModule/src/fieldTypes/StrField";
-import {BoolField} from "../../crudTableModule/src/fieldTypes/BoolField";
-import iPageResponse = api.iPageResponse;
+import iSource = jsonDAO.iSource;
 
-
-interface iRelsTableName{
-    relsName:string;
-    tableName:string;
+interface iRelsTableName {
+    relsName: string
+    tableName: string
 }
 
-export class relationsConfig{
-    constructor(public tableName:string, public relSource:Source<apiAdmin.iRelation>, public fieldSource:Source<apiAdmin.iField>, public $q:ng.IQService){
+export class relationsConfig {
 
-    }
+    constructor(
+        public tableName: string,
+        public relSource: iSource<apiAdmin.iRelation>,
+        public fieldSource: iSource<apiAdmin.iField>,
+        public $q:ng.IQService
+    ) {}
 
     getRelationsConfig():ng.IPromise<TableField[]> {
         let deferred = this.$q.defer<TableField[]>();
@@ -98,6 +94,7 @@ export class relationsConfig{
 }
 
 class relsTables {
+
     rels:iRelsTableName[] = [];
 
     constructor(private tables:apiAdmin.iRelation[]) {
@@ -114,6 +111,7 @@ class relsTables {
 
         return res;
     }
+
 }
 
 class relsFields {

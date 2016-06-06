@@ -1,20 +1,23 @@
 import apiUrls from "../../utils/apiUrls";
-import {TableField} from "./../../crudTableModule/src/models/TableField";
-import {Source} from "../../jsonDAO/src/Source";
+
 import iPageResponse = jsonDAO.iPageResponse;
+import iSource = jsonDAO.iSource;
+import {Deps} from "../../../jsonDAO/Deps"
+import iTableField = crudTable.models.iTableField;
 
 export class dbAdminConfigBuilder{
 
-    fieldSource: Source<apiAdmin.iField>;
+    fieldSource: iSource<apiAdmin.iField>;
     $q : ng.IQService;
 
     constructor(inj:ng.auto.IInjectorService){
-        this.fieldSource = new Source(apiUrls.admin, "fields", inj);
+        this.fieldSource = inj.get<jsonDAO.iDAOFactoryService<apiAdmin.iField>>(Deps.daoFactoryService)
+            .build("fields", apiUrls.admin);
         this.$q = inj.get<ng.IQService>("$q");
     }
 
-    build(tableName:string){
-        let deferred = this.$q.defer<TableField[]>();
+    build(tableName:string) {
+        let deferred = this.$q.defer<iTableField[]>();
         if(typeof tableName != "string"){
             deferred.reject({msg:"tableName is required"})
         } else {
@@ -26,8 +29,8 @@ export class dbAdminConfigBuilder{
         return deferred.promise;
     }
 
-    getConfig(fields:apiAdmin.iField[]){
-        fields.forEach((f)=>{
+    getConfig(fields:apiAdmin.iField[]) {
+        fields.forEach((f) => {
             Object.getOwnPropertyNames(f).forEach(name =>{
                 console.log(f[name]);
             })

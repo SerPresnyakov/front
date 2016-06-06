@@ -1,8 +1,8 @@
 import {AngularModule} from "../utils/AngularModule";
 import {Deps, Modules} from "../utils/Deps";
-import {states} from "./States";
+import {states} from "./src/states/States";
 import {Config} from "./Config"
-import {SidenavDirective} from "./sidenavDirective/SidenavDirective";
+import {SidenavDirective} from "./src/directives/sidenav/SidenavDirective";
 import {ConfigBuilderService} from "./ConfigBuilder/ConfigBuilderService";
 
 let module = new AngularModule(Modules.apiAdmin, [

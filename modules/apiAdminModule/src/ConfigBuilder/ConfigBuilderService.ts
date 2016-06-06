@@ -1,25 +1,26 @@
-import {IState} from "angular-ui-router";
 import {ConfigBuilder} from "../models/ConfigBuilder";
 import IPromise = angular.IPromise;
-import {CrudTableConfig} from "../../crudTableModule/src/models/CrudTableConfig";
 import {dbAdminConfigBuilder} from "../models/dbAdminConfigBuilder";
+import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 
 export class ConfigBuilderService {
+
     static serviceName = "configBuilderService";
 
-    static $inject = ["$state", "$injector", "$q"];
+    static $inject = ["$injector", "$q"];
 
-    constructor(public $state:IState, public inj:ng.auto.IInjectorService, public $q:ng.IQService){
+    constructor(
+        public inj:ng.auto.IInjectorService,
+        public $q:ng.IQService)
+    {}
 
-    }
-
-    getConfig(tableName:string, dbAdminMode:boolean):IPromise<CrudTableConfig>{
+    getConfig(tableName:string, dbAdminMode:boolean): IPromise<iCrudTableConfig> {
         console.log(tableName);
-        let deferred = this.$q.defer<CrudTableConfig>();
+        let deferred = this.$q.defer<iCrudTableConfig>();
         if (!tableName) {
             deferred.reject({msg: "can't build config", err: "tableName isn't specified"})
         } else {
-            if(dbAdminMode){
+            if (dbAdminMode) {
                 new dbAdminConfigBuilder(this.inj).build(tableName)
                     .then((res) => deferred.resolve(res))
                     .catch((err) => deferred.reject({msg: "can't build config", err: err}));

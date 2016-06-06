@@ -21,6 +21,7 @@ export abstract class AbstractSource<M> {
 
     getPage(page:Page, filters: apiAdmin.iFilter[] = []): ng.IPromise<iPageResponse<M>> {
         let result = this.$q.defer<iPageResponse<M>>();
+        //noinspection TypeScriptValidateTypes
         this.$http
             .post(this.crudUrl, {
                 method: "get",
@@ -29,7 +30,7 @@ export abstract class AbstractSource<M> {
                 filters: filters
             })
             .then((res: ng.IHttpPromiseCallbackArg<iPageResponse<M>>) => result.resolve(res.data))
-            .catch((err) => {result.reject(err);console.log(err)});
+            .catch((err) => result.reject(err));
 
         return result.promise
     };

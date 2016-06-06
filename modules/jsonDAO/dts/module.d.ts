@@ -28,8 +28,8 @@ declare module jsonDAO {
         remove(doc: Object): ng.IPromise<any>
     }
 
-    interface iDAOFactoryService<T> {
-        build(tableName: string, crudUrl: string): iSource<T>
+    interface iDAOFactoryService {
+        build<T>(tableName: string, crudUrl: string): iSource<T>
     }
 
 }

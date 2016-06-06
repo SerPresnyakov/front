@@ -1,19 +1,19 @@
 import iPageResponse = jsonDAO.iPageResponse;
-import {Source} from "../../../jsonDAO/src/Source";
-import {Page} from "../../../jsonDAO/src/Page";
+import {Deps} from "../../../jsonDAO/Deps"
+import iDAOFactoryService = jsonDAO.iDAOFactoryService;
 import {AuthService} from "../../../authModule/AuthService";
-import apiUrls from "../../../utils/apiUrls";
+import {ApiUrls} from "../../../utils/ApiUrls";
 
 class Ctrl {
 
-    static $inject = ["$mdSidenav","$state","tables" ];
+    static $inject = ["$mdSidenav", "tables"];
 
     constructor(
         private sidenav: ng.material.ISidenavService,
-        public state:ng.ui.IStateService,
-        public tables:apiAdmin.iTable[]
-
-    ) {}
+        public tables: apiAdmin.iTable[]
+    ) {
+        //blabla
+    }
 
     toggleNav(name: string) {
         var a = this.sidenav(name);
@@ -26,18 +26,17 @@ export const indexState: iRegisterMeta<ng.ui.IState> = {
     name: "index",
     config: {
         url: "/",
-        template: "<ak-sidenav tables='vm.tables' state='vm.state'></ak-sidenav>",
-        controllerAs: "vm",
+        template: "<ak-sidenav tables='tables'></ak-sidenav>",
         controller: Ctrl,
         resolve: {
-            tables:["$q", "$injector", ($q:ng.IQService, $inj:ng.auto.IInjectorService) : ng.IPromise<apiAdmin.iTable[]> => {
-                let deffered = $q.defer<apiAdmin.iTable[]>();
-                new Source(apiUrls.admin,"tables",$inj).getPage(new Page().setPage(1,15))
-                    .then((res:iPageResponse<apiAdmin.iTable>)=>{
-                        deffered.resolve(res.data)
-                    })
-                    .catch((err)=>{deffered.reject({msg:"Can't resolve table",err:err})});
-                return deffered.promise;
+            tables: ["$q", "$injector", Deps.daoFactoryService, ($q:ng.IQService, $inj:ng.auto.IInjectorService, daoFactory: iDAOFactoryService) : ng.IPromise<apiAdmin.iTable[]> => {
+                let deferred = $q.defer<apiAdmin.iTable[]>();
+                daoFactory
+                    .build<apiAdmin.iTable>("tables", ApiUrls.admin)
+                    .getFullPage([])
+                    .then((res: iPageResponse<apiAdmin.iTable>) => deferred.resolve(res.data))
+                    .catch((err)=> deferred.reject({ msg:"Can't resolve tables", err: err }));
+                return deferred.promise;
             }],
             user: [AuthService.serviceName, (auth: AuthService): ng.IPromise<any> => {
                 return auth.me()

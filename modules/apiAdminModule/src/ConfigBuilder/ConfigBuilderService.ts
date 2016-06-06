@@ -1,6 +1,5 @@
 import {ConfigBuilder} from "../models/ConfigBuilder";
 import IPromise = angular.IPromise;
-import {dbAdminConfigBuilder} from "../models/dbAdminConfigBuilder";
 import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 
 export class ConfigBuilderService {
@@ -14,22 +13,14 @@ export class ConfigBuilderService {
         public $q:ng.IQService)
     {}
 
-    getConfig(tableName:string, dbAdminMode:boolean): IPromise<iCrudTableConfig> {
-        console.log(tableName);
+    getConfig(tableName:string): IPromise<iCrudTableConfig> {
         let deferred = this.$q.defer<iCrudTableConfig>();
         if (!tableName) {
             deferred.reject({msg: "can't build config", err: "tableName isn't specified"})
         } else {
-            if (dbAdminMode) {
-                new dbAdminConfigBuilder(this.inj).build(tableName)
-                    .then((res) => deferred.resolve(res))
-                    .catch((err) => deferred.reject({msg: "can't build config", err: err}));
-            } else {
-                new ConfigBuilder(this.inj).build(tableName, false)
-                    .then((res) => deferred.resolve(res))
-                    .catch((err) => deferred.reject({msg: "can't build config", err: err}));
-            }
-
+            new ConfigBuilder(this.inj).build(tableName, false)
+                .then((res) => deferred.resolve(res))
+                .catch((err) => deferred.reject({msg: "can't build config", err: err}));
         }
         return deferred.promise
     }

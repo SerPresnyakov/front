@@ -40,11 +40,10 @@ export class AngularModule {
       this.module.service(service.name, service.config)
     })
   }
+
   directive(name: string, inlineAnnotatedFunction: any[]){
     this.module.directive(name, inlineAnnotatedFunction);
   }
-
-
 
   config(initializationFunction: Function) { this.module.config(initializationFunction) }
   run(initializationFunction: Function) { this.module.run(initializationFunction) }

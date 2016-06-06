@@ -1,6 +1,5 @@
 
 import {relationsConfig} from "./Relations";
-import apiUrls from "../../utils/apiUrls";
 
 import iPageResponse = jsonDAO.iPageResponse;
 import iSource = jsonDAO.iSource;
@@ -12,6 +11,7 @@ import {ObjField} from "../../../crudTableModule/src/fieldTypes/ObjField";
 import {BoolField} from "../../../crudTableModule/src/fieldTypes/BoolField";
 import {StrField} from "../../../crudTableModule/src/fieldTypes/StrField";
 import {IntField} from "../../../crudTableModule/src/fieldTypes/IntField";
+import {ApiUrls} from "../../../utils/ApiUrls";
 
 export class ConfigBuilder {
 
@@ -21,14 +21,14 @@ export class ConfigBuilder {
 
     constructor(inj: ng.auto.IInjectorService) {
         let sourceFactory = inj.get<jsonDAO.iDAOFactoryService>(Deps.daoFactoryService);
-        this.fieldsSource = sourceFactory.build("fields", apiUrls.admin);
-        this.relsSource = sourceFactory.build("rels", apiUrls.admin);
+        this.fieldsSource = sourceFactory.build("fields", ApiUrls.admin);
+        this.relsSource = sourceFactory.build("rels", ApiUrls.admin);
         this.$q = inj.get<ng.IQService>("$q")
     }
 
     build(tableUrl: string, adminMode: boolean): ng.IPromise<CrudTableConfig> {
         let deferred = this.$q.defer<CrudTableConfig>();
-        let crudUrl = adminMode ? apiUrls.admin : apiUrls.crud;
+        let crudUrl = adminMode ? ApiUrls.admin : ApiUrls.crud;
         let rels : any[] = [];
         let config;
 

@@ -22,9 +22,7 @@ export class Run {
       $state.go("login");
     }
 
-    $rootScope.$on("$stateChangeError", (e:ng.IAngularEvent, toState:IState, p1:any, fromState:IState, p2:any, error:any) => {
-
-      console.log("state change error");
+    $rootScope.$on("$stateChangeError", (e: ng.IAngularEvent, toState:IState, p1: any, fromState:IState, p2: any, error: any) => {
 
       if (error.status == 401) {
         console.debug("authModule: go to login");

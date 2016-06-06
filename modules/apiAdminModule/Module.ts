@@ -3,20 +3,18 @@ import {Deps, Modules} from "../utils/Deps";
 import {states} from "./src/states/States";
 import {Config} from "./Config"
 import {SidenavDirective} from "./src/directives/sidenav/SidenavDirective";
-import {ConfigBuilderService} from "./ConfigBuilder/ConfigBuilderService";
 
 let module = new AngularModule(Modules.apiAdmin, [
     Deps.uiRouter,
     Deps.material,
     Deps.mdTable,
+    Modules.jsonDAO,
     Modules.crudTable,
     Modules.auth
 ]);
 
 module.registerStates(states);
 
-module.directive("akSidenav",["$compile", (($compile)=> SidenavDirective($compile))]);
-
-module.registerServices([{name:ConfigBuilderService.serviceName ,config: ConfigBuilderService}]);
+module.module.directive("akSidenav", SidenavDirective.factory());
 
 module.config(Config);

@@ -1,4 +1,10 @@
 import iSource = jsonDAO.iSource;
+import {TableField} from "../../../crudTableModule/src/models/TableField";
+import iPageResponse = jsonDAO.iPageResponse;
+import {ObjField} from "../../../crudTableModule/src/fieldTypes/ObjField";
+import {IntField} from "../../../crudTableModule/src/fieldTypes/IntField";
+import {StrField} from "../../../crudTableModule/src/fieldTypes/StrField";
+import {BoolField} from "../../../crudTableModule/src/fieldTypes/BoolField";
 
 interface iRelsTableName {
     relsName: string
@@ -17,14 +23,14 @@ export class relationsConfig {
     getRelationsConfig():ng.IPromise<TableField[]> {
         let deferred = this.$q.defer<TableField[]>();
         let res: TableField[] = [];
-        this.relSource.getPage(new Page().setPage(1, 100), [{field: "base.leftTable.url", op: "eq", value: this.tableName}])
+        this.relSource.getFullPage([{field: "base.leftTable.url", op: "eq", value: this.tableName}])
             .then((tables:iPageResponse<apiAdmin.iRelation>)=> {
                 if(tables.data.length==0) {
                     deferred.reject({msg:"Table don't have relations"})
                 }
                 else {
                     var relsTable = new relsTables(tables.data);
-                    this.fieldSource.getPage(new Page().setPage(1, 100), [{
+                    this.fieldSource.getFullPage([{
                             field: "base.table.url",
                             op: "in",
                             value: relsTable.getTablesNames()
@@ -36,7 +42,7 @@ export class relationsConfig {
                             });
                             deferred.resolve(res);
                         })
-                        .catch((err)=>deferred.reject(res))
+                        .catch((err) => deferred.reject(res))
                 }
             });
         return deferred.promise;

@@ -32,7 +32,7 @@ class Ctrl {
         private $http: ng.IHttpService,
         public $scope,
         public $q: ng.IQService,
-        public daoFactory: jsonDAO.iDAOFactoryService<any>,
+        public daoFactory: jsonDAO.iDAOFactoryService,
         public $state
     ) {
         this.pager = new Pager(1, 15, this.$q);
@@ -151,6 +151,10 @@ class Ctrl {
 
 interface CtrlScope extends ng.IScope {
     config: iCrudTableConfig
+}
+
+class CrudTableDirective implements ng.IDirective {
+
 }
 
 export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective {

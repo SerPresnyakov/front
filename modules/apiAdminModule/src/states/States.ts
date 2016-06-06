@@ -3,8 +3,7 @@ import {indexState} from "./IndexState"
 import iPageResponse = jsonDAO.iPageResponse;
 import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 import {ConfigBuilder} from "../models/ConfigBuilder";
-import apiUrls from "../../../utils/apiUrls";
-
+import {ApiUrls} from "../../../utils/ApiUrls";
 import {Deps} from "../../../jsonDAO/Deps"
 import iDAOFactoryService = jsonDAO.iDAOFactoryService;
 
@@ -79,7 +78,7 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
                 tables:["$q","$injector", Deps.daoFactoryService, ($q:ng.IQService, inj:ng.auto.IInjectorService, daoFactory: iDAOFactoryService):ng.IPromise<apiAdmin.iTable[]> =>{
                     let deferred = $q.defer<apiAdmin.iTable[]>();
 
-                    daoFactory.build("tables", apiUrls.admin)
+                    daoFactory.build("tables", ApiUrls.admin)
                         .getFullPage([])
                         .then((tables:iPageResponse<apiAdmin.iTable>)=>{
                             deferred.resolve(tables.data);

@@ -3,7 +3,8 @@ import {Deps, Modules} from "../utils/Deps";
 import {states} from "./src/states/States";
 import {Config} from "./Config"
 import {SidenavDirective} from "./src/directives/sidenav/SidenavDirective";
-import {ConfigBuilderService} from "./ConfigBuilder/ConfigBuilderService";
+import {ConfigBuilderService} from "./src/ConfigBuilder/ConfigBuilderService";
+
 
 let module = new AngularModule(Modules.apiAdmin, [
     Deps.uiRouter,

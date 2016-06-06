@@ -36,4 +36,14 @@ export class Helper {
     }
   }
 
+  static getArrElementByName(arr:any[],name:string):{}{
+    let res;
+    arr.forEach((element)=>{
+      if(element.key == name){
+        res = element;
+      }
+    });
+    return res;
+  }
+
 }

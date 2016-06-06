@@ -75,18 +75,59 @@ declare module crudTable {
 
     module filters {
 
+        import iTableField = crudTable.models.iTableField;
         interface iFilter {
             name: string
             title: string
-            parent: string
+            parent?: string
             formly: string
-            options: {
+            options?: {
                 props: string
             }[]
             fieldType: {
                 type: string
             },
-            value: string
+            value?: string
+        }
+
+        interface INewFilter{
+            name: string,
+            applied: boolean,
+            field: crudTable.models.iTableField,
+            schema : AngularFormly.IFieldGroup[]
+        }
+
+        interface IModel{
+            [key:string]: any;
+        }
+
+        interface ISavedFilters {
+            name:string
+            model:IModel
+        }
+
+        interface ISaveFilter {
+            searchText: string
+            selectedItem : ISavedFilters
+        }
+
+        interface iFilter {
+            schema: AngularFormly.IFieldGroup[]
+            applyedFilters: iFilter[]
+            model: IModel
+            savedFilters: ISavedFilters[]
+            saveFilter: ISaveFilter;
+            filters: INewFilter[]
+            getNewFilters(fields:iTableField[]):INewFilter[]
+            apply(filter:INewFilter):void
+            removeField(index:number, name:string):void
+            getRestFilters():string
+            unapply(name:string):void
+            getParamsFilters(params: any):void
+            exist():boolean
+            resetFilter():void
+            getFilterByName(name):INewFilter
+            remove?(index:number, name:string):void
         }
 
     }

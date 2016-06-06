@@ -1,10 +1,8 @@
-import {AuthService} from "../../../modules/authModule/AuthService";
-
-import apiUrls from "../../../modules/utils/apiUrls";
 import iPageResponse = jsonDAO.iPageResponse;
-import {Source} from "../../jsonDAO/src/Source";
-import {Page} from "../../jsonDAO/src/Page";
-
+import {Source} from "../../../jsonDAO/src/Source";
+import {Page} from "../../../jsonDAO/src/Page";
+import {AuthService} from "../../../authModule/AuthService";
+import apiUrls from "../../../utils/apiUrls";
 
 class Ctrl {
 

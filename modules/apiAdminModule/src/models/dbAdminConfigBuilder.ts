@@ -1,9 +1,9 @@
-import apiUrls from "../../utils/apiUrls";
-
 import iPageResponse = jsonDAO.iPageResponse;
 import iSource = jsonDAO.iSource;
 import {Deps} from "../../../jsonDAO/Deps"
 import iTableField = crudTable.models.iTableField;
+import apiUrls from "../../../utils/apiUrls";
+import {CrudTableConfig} from "../../../crudTableModule/src/models/CrudTableConfig";
 
 export class dbAdminConfigBuilder{
 
@@ -17,7 +17,7 @@ export class dbAdminConfigBuilder{
     }
 
     build(tableName:string) {
-        let deferred = this.$q.defer<iTableField[]>();
+        let deferred = this.$q.defer<CrudTableConfig>();
         if(typeof tableName != "string"){
             deferred.reject({msg:"tableName is required"})
         } else {

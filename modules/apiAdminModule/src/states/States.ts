@@ -76,7 +76,7 @@ export const states: iRegisterMeta<ng.ui.IState>[] = [
                 s['tables'] = tables;
             }],
             resolve: {
-                tables:["$q","$injector", Deps.daoFactoryService, ($q:ng.IQService, inj:ng.auto.IInjectorService, daoFactory: iDAOFactoryService):ng.IPromise<apiAdmin.iTable[]> =>{
+                tables:["$q","$injector", Deps.daoFactoryService, ($q:ng.IQService, inj:ng.auto.IInjectorService, daoFactory: iDAOFactoryService<any>):ng.IPromise<apiAdmin.iTable[]> =>{
                     let deferred = $q.defer<apiAdmin.iTable[]>();
 
                     daoFactory.build("tables", apiUrls.admin)

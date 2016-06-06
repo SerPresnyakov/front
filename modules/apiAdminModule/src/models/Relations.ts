@@ -1,4 +1,11 @@
 import iSource = jsonDAO.iSource;
+import {TableField} from "../../../crudTableModule/src/models/TableField";
+import {Page} from "../../../jsonDAO/src/Page";
+import iPageResponse = jsonDAO.iPageResponse;
+import {ObjField} from "../../../crudTableModule/src/fieldTypes/ObjField";
+import {IntField} from "../../../crudTableModule/src/fieldTypes/IntField";
+import {StrField} from "../../../crudTableModule/src/fieldTypes/StrField";
+import {BoolField} from "../../../crudTableModule/src/fieldTypes/BoolField";
 
 interface iRelsTableName {
     relsName: string

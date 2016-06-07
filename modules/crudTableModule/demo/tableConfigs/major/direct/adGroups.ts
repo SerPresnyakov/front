@@ -26,8 +26,8 @@ export const table =
             new TableField("getAds", "Тикеты", new BoolField(), true, true, "switch")
         ])
         .setRels([
-            new TableRel("brandId", "brand", "/api/refs/brand", "one", true),
-            new TableRel("regionId", "region", "/api/refs/region", "one", true),
+            new TableRel("brandId", "public.brands", "/api/crud", "one", true),
+            new TableRel("regionId", "public.regions", "/api/crud", "one", true),
             new TableRel("campaignId", "campaign", "/api/direct/campaign", "one", true)
         ])
         .setTabs([{title:"Direct",url:"index.directAdGroups",selected:true},{title:"Adwords",url:"index.adwordsAdGroups"}]);

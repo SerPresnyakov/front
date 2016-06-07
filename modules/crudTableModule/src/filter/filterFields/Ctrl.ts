@@ -19,7 +19,7 @@ class Ctrl {
         if(state.params["filters"]){
             this.filter.getParamsFilters(state.params["filters"]);
         } else if(localStorage.get(state.current.name)){
-            this.filter.savedFilters = JSON.parse(localStorage.get(state.current.name));
+            this.filter.savedFilters = JSON.parse(localStorage.get<string>(state.current.name));
         }
         this.filter.remove=(index:number, name:string)=>{
             this.filter.removeField(index,name);
@@ -64,7 +64,7 @@ class Ctrl {
         });
     };
 
-    saveFilter(){
+    saveFilter():void{
         console.log(this.savedFilter)
     }
 }

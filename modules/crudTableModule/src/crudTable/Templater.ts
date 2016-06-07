@@ -104,20 +104,7 @@ export class Templater {
                         break;
 
                     case "autocomplete" :
-                        let relName = "";
-                        let isInclude = false;
-                        angular.forEach(this.config.rels, (r) => {
-                            if(r.name == f.name){
-                                relName = r.field;
-                                if(r.isInclude)isInclude=true;
-                            }
-                        });
-                        if (isInclude) {
-                            res.push(`<td md-cell><a ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")' class="editable-click" >{{o._relations.${relName}.name || 'Не указано'}}</a></td>`);
-                        }
-                        else {
-                            res.push(`<td md-cell><a ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")' class="editable-click" >{{o.${f.name} || 'Не указано'}}</a></td>`);
-                        }
+                        res.push(`<td md-cell><a ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")' class="editable-click" >{{o.${f.name} || 'Не указано'}}</a></td>`);
                         break;
 
                     case "input" :

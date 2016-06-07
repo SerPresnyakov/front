@@ -1,49 +1,39 @@
 import {Helper} from "../../../../utils/Helper";
+import {Deps} from "../../../../jsonDAO/Deps";
 
 class Ctrl {
 
-    static $inject = [ "$http", "$scope","localStorageService"];
+    static $inject = [ "$http", "$scope","localStorageService", Deps.daoFactoryService,"$q"];
 
     selectedItem: any;
     searchText: string;
     token:string;
+    RelSource:jsonDAO.iSource<any>;
 
     constructor(
         public $http: ng.IHttpService,
         public scope,
-        public localStorage: ng.local.storage.ILocalStorageService
+        public localStorage: ng.local.storage.ILocalStorageService,
+        public daoFactory: jsonDAO.iDAOFactoryService,
+        public $q
     ) {
-        if(scope.options.data.dao != "/left/client" && scope.options.data.dao != "/left/pricelab/shop") {
-            this.token = this.localStorage.get<string>("token");
-        }
-        else {
-            this.token = "1:6273543320";
-        }
-        if (scope.model[scope.options.key]) {
-            if(scope.model._relations){
-                scope.searchText = scope.model._relations[scope.options.data.rels].name;
-            }
-            else{
-                this.$http.get(scope.options.data.dao, {
-                    params: {
-                        filter: `id_eqN_${scope.model[scope.options.key]}`,
-                    },
-                    headers: {
-                        token: this.token
-                    }
-                }).then((res:any) => scope.searchText =res.data.data[0].name);
-            }
-        }
+        this.RelSource = this.daoFactory.build(scope.options.data.rels, scope.options.data.dao);
 
-        scope.querySearch = (text: string) => {
-            return this.$http.get(scope.options.data.dao, {
-                params: {
-                    filter: `name_like_${text}`,
-                },
-                headers: {
-                    token: this.token
-                }
-            }).then((res: any) => res.data.data);
+        this.getDefaultValue(scope).then((res)=>{
+                scope.searchText = res.name;
+            }).catch((err)=>{err})
+        scope.querySearch=(value:string)=>{
+            if (value) {
+                let defer = this.$q.defer();
+                this.RelSource.getFullPage([{field: "name", op: "eq", value: value}])
+                    .then((res)=> {
+                        defer.resolve(res.data)
+                    })
+                    .catch((err)=> {
+                        defer.reject(err)
+                    });
+                return defer.promise;
+            }
         };
 
         scope.selectedItemChange = (item) =>{
@@ -61,6 +51,23 @@ class Ctrl {
             scope.searchText = "";
         };
 
+    }
+
+    getDefaultValue(scope):angular.IPromise<any>{
+        let defer = this.$q.defer();
+        if(scope.model[scope.options.key]){
+            this.RelSource.getById(scope.model[scope.options.key])
+                .then((res)=> {
+                    defer.resolve(res)
+                })
+                .catch((err)=> {
+                    defer.reject(err)
+                });
+
+        }else{
+            defer.reject({msg:"Default value isn't specify"})
+        }
+        return defer.promise;
     }
 
     finish($event){

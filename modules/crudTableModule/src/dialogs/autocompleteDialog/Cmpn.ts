@@ -1,13 +1,18 @@
 import {Helper} from "../../../../utils/Helper";
 import iTableField = crudTable.models.iTableField;
 import iTableRel = crudTable.models.iTableRel;
+import iSource = jsonDAO.iSource;
+import IModel = crudTable.filters.IModel;
+import {Deps} from "../../../../jsonDAO/Deps";
 
 class Ctrl {
 
-    static $inject = ["field", "origin", "$http", "event", "rel","mdDialog","source"];
+    static $inject = ["field", "origin", "$http", "event", "rel","mdDialog","originSource", Deps.daoFactoryService, "$q"];
 
     selectedItem: any;
     searchText: string;
+    RelSource;
+    data;
 
     constructor(
         public field: iTableField,
@@ -15,37 +20,51 @@ class Ctrl {
         public $http: ng.IHttpService,
         public $event: ng.IAngularEvent,
         public rel: iTableRel,
-        public mdDialog:any,
-        public source:any,
+        public mdDialog: ng.material.IDialogService,
+        public originSource,
+        public daoFactory: jsonDAO.iDAOFactoryService,
+        public $q:ng.IQService,
         inj: ng.auto.IInjectorService
     ) {
+        this.RelSource = this.daoFactory.build(rel.field, rel.dao);
     }
 
-    querySearch(text: string): ng.IPromise<any[]> {
+    querySearch(value:string) {
+        if(value){
+            let defer = this.$q.defer();
+            this.RelSource.getFullPage([{field:"name",op:"eq",value:value}])
+                .then((res)=>{defer.resolve(res.data)})
+                .catch((err)=>{defer.reject(err)});
+            return defer.promise;
+        }
+        //return this.source.getFullPage()
 
-        return this.$http.get(this.rel.dao, {
-            params: {
-                filter: `name_like_${text}`,
-
-            },
-            headers: {token: this.source.getToken()}
-        }).then((res: any) => res.data.data);
+        //return this.$http.get(this.rel.dao, {
+        //    params: {
+        //        filter: `name_like_${text}`,
+        //
+        //    },
+        //    headers: {token: this.source.getToken()}
+        //}).then((res: any) => res.data.data);
     }
 
     finish($event) {
         this.origin[this.field.name] = this.selectedItem.id;
-        let res = {};
+        let res = {"id":this.origin.id};
         res[this.field.name]=this.selectedItem.id;
-        this.source.patch(this.origin.id,res);
-        this.source.getOne(this.origin.id)
-            .then((res)=>{
-                Helper.assignegValueOfObjElement(res, this.origin);
-            });
+        console.log(res);
+        this.originSource.update(res);
+
+        //this.source.patch(this.origin.id,res);
+        //this.source.getOne(this.origin.id)
+        //    .then((res)=>{
+        //        Helper.assignegValueOfObjElement(res, this.origin);
+        //    });
         this.mdDialog.hide();
     }
 }
 
-export const getDialog = (event: any, field: iTableField, origin: any, rel: iTableRel , mdDialog, source): ng.material.IDialogOptions => {
+export const getDialog = (event: any, field: iTableField, origin: any, rel: iTableRel , mdDialog, originSource): ng.material.IDialogOptions => {
     var parentEl = angular.element(document.body);
     return {
         controllerAs: "ctrlVM",
@@ -60,7 +79,7 @@ export const getDialog = (event: any, field: iTableField, origin: any, rel: iTab
             event: event,
             rel: rel,
             mdDialog:mdDialog,
-            source:source
+            originSource:originSource
         }
     }
 };

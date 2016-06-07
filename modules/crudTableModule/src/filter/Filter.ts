@@ -5,6 +5,8 @@ import {TableField} from "../models/TableField";
 import {TableRel} from "../models/TableRel";
 import iTableField = crudTable.models.iTableField;
 import filters = crudTable.filters;
+import iTableRel = crudTable.models.iTableRel;
+
 
 
 
@@ -17,12 +19,12 @@ export class Filters implements filters.iFilterClass{
     saveFilter: filters.ISaveFilter;
     filters: filters.INewFilter[] = [];
 
-    constructor(private fields:iTableField[], private rels:TableRel[]){
-        this.filters = this.getNewFilters(fields);
+    constructor(private fields:iTableField[], private rels:iTableRel[]){
+        this.filters = this.getNewFilters(fields,rels);
     }
 
-    getNewFilters(fields:iTableField[]):filters.INewFilter[]{
-        let schema = Schema.getSchema(fields);
+    getNewFilters(fields:iTableField[],rels:iTableRel[]):filters.INewFilter[]{
+        let schema = Schema.getSchema(fields,rels);
         let res: filters.INewFilter[] = [];
         fields.forEach((f:TableField)=>{
             let filter:filters.INewFilter = {

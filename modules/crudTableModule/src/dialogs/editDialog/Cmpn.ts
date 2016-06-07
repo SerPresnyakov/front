@@ -19,13 +19,15 @@ class Ctrl {
 
     }
 
-    submit(){
-        this.source.patch(this.res.id, this.res).then((res)=>{
-            console.log(res);
-            if(res){
-                this.$mdDialog.hide()
-            }
-        })
+    submit():void{
+        this.source.update(this.res);
+        this.$mdDialog.hide();
+        //this.source.patch(this.res.id, this.res).then((res)=>{
+        //    console.log(res);
+        //    if(res){
+        //        this.$mdDialog.hide()
+        //    }
+        //})
     }
 
 }

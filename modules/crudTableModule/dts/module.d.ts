@@ -76,6 +76,7 @@ declare module crudTable {
     module filters {
 
         import iTableField = crudTable.models.iTableField;
+        import iTableRel = crudTable.models.iTableRel;
         interface iFilter {
             name: string
             title: string
@@ -111,14 +112,14 @@ declare module crudTable {
             selectedItem : ISavedFilters
         }
 
-        interface iFilter {
+        interface iFilterClass {
             schema: AngularFormly.IFieldGroup[]
             applyedFilters: iFilter[]
             model: IModel
             savedFilters: ISavedFilters[]
             saveFilter: ISaveFilter;
             filters: INewFilter[]
-            getNewFilters(fields:iTableField[]):INewFilter[]
+            getNewFilters(fields:iTableField[],rels:iTableRel[]):INewFilter[]
             apply(filter:INewFilter):void
             removeField(index:number, name:string):void
             getRestFilters():string

@@ -2,16 +2,14 @@ import {Helper} from "../../../../utils/Helper";
 
 export class Ctrl {
 
-    static $inject = [ "$http", "$scope", "Restangular" ];
+    static $inject = [ "$http", "$scope" ];
 
     selectedItem: any;
     searchText: string;
 
     constructor(
         public $http: ng.IHttpService,
-        public scope,
-        public rest: restangular.IService
-
+        public scope
     ) {
         console.log(scope.model);
         //console.log(scope.options.data.dao);

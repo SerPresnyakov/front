@@ -1,34 +1,34 @@
 import {TableField} from "../../models/TableField";
 import IComponentOptions = angular.IComponentOptions;
+import filtersDts = crudTable.filters
+import iTableField = crudTable.models.iTableField;
 
 class Ctrl {
 
     fields : TableField;
-    filter;
-    originatorEv;
+    filter: filtersDts.iFilterClass;
+    originatorEv:MouseEvent;
     fieldsLength = this.fieldsCount();
     refreshPage:()=>void;
-    saveFilter={};
 
     constructor() {
     }
 
-    openMenu($mdOpenMenu, ev) {
+    openMenu($mdOpenMenu, ev:MouseEvent):void {
         this.originatorEv = ev;
         $mdOpenMenu(ev);
     };
 
-    selectFilter(filter){
-        if(filter) {
-            let res;
+    selectFilter(savedFilterName:string):void{
+        if(savedFilterName) {
+            let res:filtersDts.IModel;
             this.filter.savedFilters.forEach((f)=> {
-                if (f.name == filter) {
+                if (f.name == savedFilterName) {
                     res = f.model;
                 }
             });
             this.filter.getParamsFilters(res);
             this.refreshPage();
-            console.log(res);
         }else{
             this.filter.resetFilter();
             this.filter.saveFilter["selectedItem"] = null;
@@ -44,8 +44,8 @@ class Ctrl {
     //    console.log(quest)
     //}
 
-    fieldsCount(){
-        let res = 0;
+    fieldsCount():number{
+        let res:number = 0;
         angular.forEach(this.fields,(f)=>{
             if(f.formly!='object'&& f.parent==null){
                 res = res + 1;
@@ -54,8 +54,8 @@ class Ctrl {
         return res;
     };
 
-    isSet(field):boolean{
-        let res = false;
+    isSet(field:iTableField):boolean{
+        let res:boolean = false;
         angular.forEach(this.filter.filters,(f)=>{
             if(field.name === f.name){
                 res = true;

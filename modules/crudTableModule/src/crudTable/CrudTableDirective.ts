@@ -15,6 +15,8 @@ import iPager = jsonDAO.iPager;
 import {Deps} from "../../../jsonDAO/Deps";
 import {Page} from "../../../jsonDAO/src/Page";
 import {Pager} from "../../../jsonDAO/src/Pager";
+import iFilterClass = crudTable.filters.iFilterClass;
+import iTableRel = crudTable.models.iTableRel;
 
 class Ctrl {
 
@@ -24,16 +26,16 @@ class Ctrl {
 
     source: iSource<any>;
     pager: iPager;
-    filters;
+    filters: iFilterClass;
 
     constructor(
         public $editDialog: mdTable.EditDialogService,
         public $mdDialog: ng.material.IDialogService,
         private $http: ng.IHttpService,
-        public $scope,
+        public $scope: ng.IScope,
         public $q: ng.IQService,
         public daoFactory: jsonDAO.iDAOFactoryService,
-        public $state
+        public $state : ng.ui.IStateProvider
     ) {
         this.pager = new Pager(1, 15, this.$q);
         //$scope.$watchCollection((scope) => { return scope["vm"].pager; } ,(newVal, oldVal, scope) => {
@@ -43,26 +45,24 @@ class Ctrl {
         //});
     }
 
-    init(config: iCrudTableConfig) {
+    init(config: iCrudTableConfig):void {
         this.config = config;
         this.source = this.daoFactory.build(this.config.tableName, this.config.url);
         this.filters = new Filters(config.fields, config.rels);
         this.refreshPage();
     }
 
-    editProp($event: ng.IAngularEvent, origin: any, fieldName: string) {
+    editProp($event: ng.IAngularEvent, origin: any, fieldName: string):void {
 
         $event.stopPropagation();
         let field: iTableField  = this.config.getField(fieldName);
 
-        let rel = this.config.getRel(fieldName);
+        let rel:iTableRel = this.config.getRel(fieldName);
 
         if (field) {
-
             if (field.formly == "autocomplete") {
-                this.$mdDialog.show(autocompleteDialog($event, field, origin, rel, this.$mdDialog, this.source))
+                this.$mdDialog.show(autocompleteDialog($event, field, origin, rel, this.$mdDialog,this.source))
             } else if (field.formly=="input") {
-
                 this.$editDialog.small({
                     modelValue: origin[fieldName],
                     type: "text",
@@ -76,39 +76,33 @@ class Ctrl {
                     },
                     placeholder: field.title
                 })
-
-            } else {
-                console.log('Unsupported field type', field.fieldType,StrField)
-            }
-
-        } else {
-            console.error(`Field '${fieldName}' not configured`)
-        }
+            } else {console.log('Unsupported field type', field.fieldType,StrField)}
+        } else {console.error(`Field '${fieldName}' not configured`)}
 
     }
 
-    onPaginate(page: any, limit: any) {
+    onPaginate(page: any, limit: any):void {
         this.refreshPage();
     }
 
-    onChange(item,id,name){
+    onChange(item,id,name):void {
         console.log(item,id,name);
         let res = {};
         res[name] = item;
         this.source.update(res);
     }
 
-    create($event: ng.IAngularEvent) {
+    create($event: ng.IAngularEvent):void {
         this.$mdDialog.show(createDialog($event, this.config)).then((res)=>this.refreshPage())
     }
 
-    edit(item) {
+    edit(item):void {
         let field;
         let rels;
         this.$mdDialog.show(editDialog(this.config,item,this.source)).then((res)=>this.refreshPage())
     };
 
-    delete(item) {
+    delete(item):void {
         this.$mdDialog.show(deleteDialog(this.$mdDialog,item.name)).then((res)=> {
             this.source.remove(item)
                 .then((res)=> {
@@ -120,8 +114,7 @@ class Ctrl {
         });
     };
 
-    refreshPage(): void {
-        console.log(this.filters);
+    refreshPage():void {
         let filter = this.setFilters();
         this.source.getPage(new Page().setPage(1,15),filter)
             .then((res) => {
@@ -153,9 +146,9 @@ interface CtrlScope extends ng.IScope {
     config: iCrudTableConfig
 }
 
-class CrudTableDirective implements ng.IDirective {
-
-}
+//class CrudTableDirective implements ng.IDirective {
+//
+//}
 
 export function CrudTableDirective($compile: ng.ICompileService): ng.IDirective {
     return {

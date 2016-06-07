@@ -1,5 +1,5 @@
 import iPageResponse = jsonDAO.iPageResponse;
-import {Deps} from "../../../jsonDAO/Deps"
+import {Deps} from "../../../jsonDAOModule/Deps"
 import iDAOFactoryService = jsonDAO.iDAOFactoryService;
 import {AuthService} from "../../../authModule/AuthService";
 import {ApiUrls} from "../../../utils/ApiUrls";

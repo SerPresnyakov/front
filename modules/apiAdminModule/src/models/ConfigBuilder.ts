@@ -4,7 +4,7 @@ import {relationsConfig} from "./Relations";
 import iPageResponse = jsonDAO.iPageResponse;
 import iSource = jsonDAO.iSource;
 
-import {Deps} from "../../../jsonDAO/Deps"
+import {Deps} from "../../../jsonDAOModule/Deps"
 import {CrudTableConfig} from "../../../crudTableModule/src/models/CrudTableConfig";
 import {TableField} from "../../../crudTableModule/src/models/TableField";
 import {ObjField} from "../../../crudTableModule/src/fieldTypes/ObjField";

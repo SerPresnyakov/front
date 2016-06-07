@@ -6,9 +6,9 @@
   "scripts": {
     "buildAuth": "cd modules/authModule && webpack",
     "buildCrud": "cd modules/crudTableModule && webpack",
-    "buildDAO": "cd modules/jsonDAO && webpack",
+    "buildDAO": "cd modules/jsonDAOModule && webpack",
     "buildApiAdmin": "cd modules/apiAdminModule && webpack",
-    "buildAll": "npm run buildAuth & npm run buildCrud & npm run buildDAO"
+    "buildAll": "npm run-script buildAuth & npm run-script buildCrud & npm run-script buildDAO"
   },
   "author": "Alexander Kondaurov",
   "license": "ISC",

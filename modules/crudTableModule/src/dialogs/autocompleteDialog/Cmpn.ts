@@ -3,7 +3,7 @@ import iTableField = crudTable.models.iTableField;
 import iTableRel = crudTable.models.iTableRel;
 import iSource = jsonDAO.iSource;
 import IModel = crudTable.filters.IModel;
-import {Deps} from "../../../../jsonDAO/Deps";
+import {Deps} from "../../../../jsonDAOModule/Deps";
 
 class Ctrl {
 

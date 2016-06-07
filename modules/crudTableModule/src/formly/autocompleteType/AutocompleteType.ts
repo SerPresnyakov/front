@@ -1,5 +1,5 @@
 import {Helper} from "../../../../utils/Helper";
-import {Deps} from "../../../../jsonDAO/Deps";
+import {Deps} from "../../../../jsonDAOModule/Deps";
 
 class Ctrl {
 

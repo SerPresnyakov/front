@@ -12,9 +12,9 @@ import iTableField = crudTable.models.iTableField;
 import iSource = jsonDAO.iSource;
 import iPager = jsonDAO.iPager;
 
-import {Deps} from "../../../jsonDAO/Deps";
-import {Page} from "../../../jsonDAO/src/Page";
-import {Pager} from "../../../jsonDAO/src/Pager";
+import {Deps} from "../../../jsonDAOModule/Deps";
+import {Page} from "../../../jsonDAOModule/src/Page";
+import {Pager} from "../../../jsonDAOModule/src/Pager";
 
 class Ctrl {
 

@@ -4,7 +4,7 @@ import iPageResponse = jsonDAO.iPageResponse;
 import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 import {ConfigBuilder} from "../models/ConfigBuilder";
 import {ApiUrls} from "../../../utils/ApiUrls";
-import {Deps} from "../../../jsonDAO/Deps"
+import {Deps} from "../../../jsonDAOModule/Deps"
 import iDAOFactoryService = jsonDAO.iDAOFactoryService;
 
 interface iStateParams{

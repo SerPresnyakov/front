@@ -4,8 +4,6 @@ declare var require: {
     ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void
 };
 
-declare type modalMode = "create" | "update"
-
 declare interface iRegisterMeta<T> {
     name: string
     config: T

@@ -1,8 +1,7 @@
 {
-  "name": "TableAdmin",
-  "version": "0.1.0",
+  "name": "front",
+  "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "buildAuth": "cd modules/authModule && webpack",
     "buildCrud": "cd modules/crudTableModule && webpack",

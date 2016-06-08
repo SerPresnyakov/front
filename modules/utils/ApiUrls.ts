@@ -1,4 +1,6 @@
-export class ApiUrls {
-    static admin = "/api/admin/crud";
-    static crud = "/api/crud";
+class ApiUrls implements front.utils.iApiUrls {
+    admin = "/api/admin/crud";
+    crud = "/api/crud";
 }
+
+export default new ApiUrls()

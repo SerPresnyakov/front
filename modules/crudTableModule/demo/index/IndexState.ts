@@ -1,6 +1,6 @@
 import {ConfigsService} from "../ConfigsService";
 import {StatesRegister} from "../StatesRegister";
-import {AuthService} from "../../../authModule/AuthService";
+import {AuthService} from "../../../authModule/src/AuthService";
 
 class Ctrl {
 

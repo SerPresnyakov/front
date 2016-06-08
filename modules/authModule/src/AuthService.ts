@@ -17,8 +17,6 @@ interface successLogin {
 
 export class AuthService {
 
-    static serviceName = "mjrAuthService";
-
     static $inject = ["$http", "localStorageService"];
 
     constructor(

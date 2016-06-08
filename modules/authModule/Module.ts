@@ -1,10 +1,9 @@
-
 import {AngularModule} from "../utils/AngularModule"
-import {AuthService} from "./AuthService";
+import {AuthService} from "./src/AuthService";
 import {Run} from "./Run";
 import {Config} from "./Config";
 import {Deps} from "../utils/Deps";
-import {States} from "./States";
+import {States} from "./src/States";
 
 let module = new AngularModule("a.auth", [
     Deps.localStorage,
@@ -16,7 +15,7 @@ let module = new AngularModule("a.auth", [
 module.config(Config);
 module.run(Run);
 
-module.registerServices([{name: AuthService.serviceName, config: AuthService}]);
+module.registerServices([{name: Deps.ser, config: AuthService}]);
 
 module.registerStates(States);
 

@@ -2,6 +2,11 @@ import {TableField} from "../../models/TableField";
 import IComponentOptions = angular.IComponentOptions;
 import filtersDts = crudTable.filters
 import iTableField = crudTable.models.iTableField;
+import {Deps} from "../../../../jsonDAOModule/Deps";
+import iDAOFactoryService = jsonDAO.iDAOFactoryService;
+import iSource = jsonDAO.iSource;
+import {ApiUrls} from "../../../../utils/ApiUrls";
+import ISavedFilters = crudTable.filters.ISavedFilters;
 
 class Ctrl {
 
@@ -24,16 +29,15 @@ class Ctrl {
             let res:filtersDts.IModel;
             this.filter.savedFilters.forEach((f)=> {
                 if (f.name == savedFilterName) {
-                    res = f.model;
+                    res = this.getModel(f.filters);
                 }
             });
             this.filter.getParamsFilters(res);
             this.refreshPage();
-        }else{
+        } else {
             this.filter.resetFilter();
             this.filter.saveFilter["selectedItem"] = null;
             this.refreshPage();
-
         }
     }
 
@@ -43,6 +47,14 @@ class Ctrl {
     //    quest.css('height','120px');
     //    console.log(quest)
     //}
+
+    getModel(model:any[]):{}{
+        let res = {};
+        model.forEach((f)=>{
+            res[f.field]= f.value;
+        });
+        return res;
+    }
 
     fieldsCount():number{
         let res:number = 0;

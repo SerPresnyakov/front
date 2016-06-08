@@ -21,6 +21,7 @@ class CreateCtrl {
     }
 
     submit() {
+        this.$mdDialog.hide(this.res);
         console.log("debug: created!")
     }
 

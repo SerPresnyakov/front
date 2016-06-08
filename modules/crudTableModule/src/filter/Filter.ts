@@ -7,9 +7,6 @@ import iTableField = crudTable.models.iTableField;
 import filters = crudTable.filters;
 import iTableRel = crudTable.models.iTableRel;
 
-
-
-
 export class Filters implements filters.iFilterClass{
 
     schema: AngularFormly.IFieldGroup[] = [];
@@ -19,7 +16,10 @@ export class Filters implements filters.iFilterClass{
     saveFilter: filters.ISaveFilter;
     filters: filters.INewFilter[] = [];
 
-    constructor(private fields:iTableField[], private rels:iTableRel[]){
+    constructor(private fields:iTableField[],
+                private rels:iTableRel[],
+                public tableUrl:string
+    ){
         this.filters = this.getNewFilters(fields,rels);
     }
 

@@ -49,7 +49,7 @@ class Ctrl {
     init(config: iCrudTableConfig):void {
         this.config = config;
         this.source = this.daoFactory.build(this.config.tableName, this.config.url);
-        this.filters = new Filters(config.fields, config.rels);
+        this.filters = new Filters(config.fields, config.rels, config.tableName);
         this.refreshPage();
     }
 
@@ -94,13 +94,22 @@ class Ctrl {
     }
 
     create($event: ng.IAngularEvent):void {
-        this.$mdDialog.show(createDialog($event, this.config)).then((res)=>this.refreshPage())
+        this.$mdDialog.show(createDialog($event, this.config))
+            .then((res)=>{
+                console.log(res);
+                this.source.create(res);
+                this.refreshPage()
+            })
     }
 
     edit(item):void {
         let field;
         let rels;
-        this.$mdDialog.show(editDialog(this.config,item,this.source)).then((res)=>this.refreshPage())
+        this.$mdDialog.show(editDialog(this.config,item)).then((res)=>{
+            console.log(res);
+            this.source.update(res);
+            this.refreshPage()}
+        )
     };
 
     delete(item):void {

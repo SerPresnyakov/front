@@ -1,4 +1,4 @@
-import {AngularModule} from "../utils/AngularModule";
+ import {AngularModule} from "../utils/AngularModule";
 import {Modules} from "../utils/Deps";
 import {FactoryDAO} from "./FactoryDAO";
 import {Deps} from "./Deps";

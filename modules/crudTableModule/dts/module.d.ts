@@ -103,8 +103,12 @@ declare module crudTable {
         }
 
         interface ISavedFilters {
+            filters:any[],
             name:string
-            model:IModel
+            table:{}
+            tableId:number
+            user:{}
+            userId:number
         }
 
         interface ISaveFilter {
@@ -119,6 +123,7 @@ declare module crudTable {
             savedFilters: ISavedFilters[]
             saveFilter: ISaveFilter;
             filters: INewFilter[]
+            tableUrl:string
             getNewFilters(fields:iTableField[],rels:iTableRel[]):INewFilter[]
             apply(filter:INewFilter):void
             removeField(index:number, name:string):void

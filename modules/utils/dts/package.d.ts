@@ -1,6 +1,12 @@
+declare var require: {
+    <T>(path: string): T
+    (paths: string[], callback: (...modules: any[]) => void): void
+    ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void
+};
+
 declare module ak.utils {
 
-    interface iDeps {
+    interface Deps {
         uiRouter: string
         fileModel: string
         ngAnimate: string
@@ -16,49 +22,13 @@ declare module ak.utils {
         ngMessages: string
     }
 
-    interface iApiUrls {
-        admin: string
-        crud: string
-    }
-
-    interface iModules {
-        crudTable: string
-        auth: string
-        apiAdmin: string
-        jsonDAO: string
-    }
-
-    interface iRegisterMeta<T> {
+    interface config<T> {
         name: string
         config: T
     }
 
-    interface iAngularModuleConstructor {
-        new (moduleName: string, deps: string[]): iAngularModule
-    }
-
-    interface iAngularModule {
-
-        module: ng.IModule
-
-        getModuleName(): string
-
-        registerStates(states: iRegisterMeta<ng.ui.IState>[]): void
-
-        registerComponent(components: iRegisterMeta<ng.IComponentOptions>[]): void
-
-        registerDirective(directive: iRegisterMeta<() => ng.IDirective>): void
-
-        registerFilter(filter: iRegisterMeta<() => (input: string) => string>): void
-
-        registerServices(services: iRegisterMeta<Function>[]): void
-
-        directive(name: string, inlineAnnotatedFunction: any[]): void
-
-        config(initializationFunction: Function): void
-
-        run(initializationFunction: Function): void
-
+    interface uiHelper {
+        registerStates(module: ng.IModule, states: config<ng.ui.IState>[]): void
     }
 
 }

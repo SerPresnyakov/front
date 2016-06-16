@@ -8,5 +8,5 @@
   },
   "author": "",
   "license": "ISC",
-  "typings": "dts/all.d.ts"
+  "typings": "dts/package.d.ts"
 }

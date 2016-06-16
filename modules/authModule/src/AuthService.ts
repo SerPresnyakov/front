@@ -1,10 +1,10 @@
 export interface credentials {
-    email: string,
+    email: string
     password: string
 }
 
 interface token {
-    code: string,
+    code: string
     expire: Date
 }
 
@@ -18,6 +18,8 @@ interface successLogin {
 export class AuthService {
 
     static $inject = ["$http", "localStorageService"];
+
+    static serviceName = "ak.authService";
 
     constructor(
       private $http: ng.IHttpService,

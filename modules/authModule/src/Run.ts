@@ -1,6 +1,5 @@
 import IState = ng.ui.IState
-
-import {AuthService} from "./src/AuthService";
+import {AuthService} from "./AuthService";
 
 function isTokenForm(t: string): boolean {
   return t.match(/^\d+:.*/) != null

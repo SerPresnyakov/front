@@ -1,4 +1,4 @@
-class Deps implements ak.utils.iDeps {
+class Deps implements ak.utils.Deps {
     uiRouter = "ui.router";
     fileModel  = "file-model";
     ngAnimate = "ngAnimate";
@@ -14,9 +14,4 @@ class Deps implements ak.utils.iDeps {
     ngMessages = "ngMessages";
 }
 
-class Modules implements ak.utils.iModules {
-    crudTable = "crudTable";
-    auth = "a.auth";
-    apiAdmin = "apiAdmin";
-    jsonDAO = "jsonDAO"
-}
+export default new Deps()

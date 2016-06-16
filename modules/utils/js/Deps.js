@@ -1,3 +1,4 @@
+"use strict";
 var Deps = (function () {
     function Deps() {
         this.uiRouter = "ui.router";
@@ -15,13 +16,6 @@ var Deps = (function () {
         this.ngMessages = "ngMessages";
     }
     return Deps;
-})();
-var Modules = (function () {
-    function Modules() {
-        this.crudTable = "crudTable";
-        this.auth = "a.auth";
-        this.apiAdmin = "apiAdmin";
-        this.jsonDAO = "jsonDAO";
-    }
-    return Modules;
-})();
+}());
+exports.__esModule = true;
+exports["default"] = new Deps();

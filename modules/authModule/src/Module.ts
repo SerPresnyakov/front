@@ -1,22 +1,21 @@
-import {AngularModule} from "../utils/AngularModule"
-import {AuthService} from "./src/AuthService";
 import {Run} from "./Run";
 import {Config} from "./Config";
-import {Deps} from "../utils/Deps";
-import {States} from "./src/States";
+import {AuthService} from "./AuthService";
+import {States} from "./States"
 
-let module = new AngularModule("a.auth", [
-    Deps.localStorage,
-    Deps.uiRouter,
-    Deps.formlyMaterial,
-    Deps.ngMessages
+let uiHelper = require<ak.utils.uiHelper>("ak.utils/js/Angular");
+let moduleNames = require<ak.utils.Deps>("ak.utils/js/Deps");
+
+let module = angular.module("ak.auth", [
+    moduleNames.localStorage,
+    moduleNames.uiRouter,
+    moduleNames.formlyMaterial
 ]);
 
 module.config(Config);
 module.run(Run);
+module.service(AuthService.serviceName, AuthService);
 
-module.registerServices([{name: Deps.ser, config: AuthService}]);
+uiHelper.registerStates(module, States);
 
-module.registerStates(States);
-
-export default module.getModuleName();
+export default module.name;

@@ -4,7 +4,6 @@
     "outDir": "js"
   },
   "filesGlob": [
-    "./dts/all.d.ts",
-    ""
+    "./dts/all.d.ts"
   ]
 }

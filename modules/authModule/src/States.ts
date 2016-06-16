@@ -1,6 +1,7 @@
 import {LoginCtrl} from "./login/Ctrl";
+import config = ak.utils.config;
 
-export const States: iRegisterMeta<ng.ui.IState>[] = [{
+export const States: config<ng.ui.IState>[] = [{
     name: "login",
     config: {
         url: "/login?from",

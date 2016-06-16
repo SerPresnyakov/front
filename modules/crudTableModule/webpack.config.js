@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        module: "./Module",
+        module: "./src/Module",
         demo: "./demo/App"
     },
     output: {
@@ -11,7 +11,7 @@ module.exports = {
         extensions: ["", ".webpack.js", ".web.js", ".js", ".ts"]
     },
     resolveLoader: {
-        moduleDirectories: ["../../node_modules"]
+        moduleDirectories: ["../node_modules"]
     },
     module: {
         loaders: [

@@ -1,6 +1,7 @@
 import {TableField} from "../../models/TableField";
 import {Helper} from "../Helper";
 import IComponentOptions = angular.IComponentOptions;
+import iRegisterMeta = ak.utils.iRegisterMeta;
 
 class Ctrl {
 

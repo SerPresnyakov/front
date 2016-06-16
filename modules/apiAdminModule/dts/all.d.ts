@@ -33,10 +33,6 @@ declare module apiAdmin {
         hasMany: boolean
     }
 
-    interface iFilter {
-        field: string
-        op: string
-        value: any
-    }
+
 
 }

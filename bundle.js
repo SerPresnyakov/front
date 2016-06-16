@@ -49,8 +49,8 @@
 	var Deps_1 = __webpack_require__(2);
 	var SidenavDirective_1 = __webpack_require__(3);
 	var module = new AngularModule_1.AngularModule("sidenav", [
-	    Deps_1.Deps.material,
-	    Deps_1.Deps.mdTable
+	    Deps_1.iDeps.material,
+	    Deps_1.iDeps.mdTable
 	]);
 	module.directive("akSidenav", ["$compile", (function ($compile) { return SidenavDirective_1.SidenavDirective($compile); })]);
 	Object.defineProperty(exports, "__esModule", { value: true });

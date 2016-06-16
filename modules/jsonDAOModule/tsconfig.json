@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "js"
+  },
+  "files": [
+    "./dts/all.d.ts",
+    "./node_modules/ak.utils/dts/all.d.ts"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "outDir": "js"
+  },
+  "filesGlob": [
+    "./dts/all.d.ts",
+    ""
+  ]
+}

@@ -1,5 +1,6 @@
 import {Schema} from "../../Schema";
 import {Helper} from "../Helper";
+import iRegisterMeta = ak.utils.iRegisterMeta;
 
 class fieldCtrl{
     data = {};

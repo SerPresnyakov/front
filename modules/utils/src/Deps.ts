@@ -1,4 +1,4 @@
-class Deps implements ak.utils.Deps {
+class Deps implements ak.Deps {
     uiRouter = "ui.router";
     fileModel  = "file-model";
     ngAnimate = "ngAnimate";

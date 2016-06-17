@@ -1,4 +1,3 @@
-"use strict";
 var UiHelper = (function () {
     function UiHelper() {
     }
@@ -11,6 +10,5 @@ var UiHelper = (function () {
             }]);
     };
     return UiHelper;
-}());
-exports.__esModule = true;
-exports["default"] = new UiHelper();
+})();
+export default new UiHelper();

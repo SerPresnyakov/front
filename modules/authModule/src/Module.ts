@@ -3,8 +3,8 @@ import {Config} from "./Config";
 import {AuthService} from "./AuthService";
 import {States} from "./States"
 
-let uiHelper = require<ak.utils.uiHelper>("ak.utils/js/Angular");
-let moduleNames = require<ak.utils.Deps>("ak.utils/js/Deps");
+let uiHelper = require<ak.uiHelper>("ak.utils/js/Angular");
+let moduleNames = require<ak.Deps>("ak.utils/js/Deps");
 
 let module = angular.module("ak.auth", [
     moduleNames.localStorage,

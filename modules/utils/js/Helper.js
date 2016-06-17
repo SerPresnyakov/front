@@ -33,4 +33,4 @@ var Helper = (function () {
         }
     };
     return Helper;
-}());
+})();

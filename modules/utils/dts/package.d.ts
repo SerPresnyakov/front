@@ -4,7 +4,12 @@ declare var require: {
     ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void
 };
 
-declare module ak.utils {
+declare module ak {
+
+    interface config<T> {
+        name: string
+        config: T
+    }
 
     interface Deps {
         uiRouter: string
@@ -22,13 +27,32 @@ declare module ak.utils {
         ngMessages: string
     }
 
-    interface config<T> {
-        name: string
-        config: T
-    }
-
     interface uiHelper {
         registerStates(module: ng.IModule, states: config<ng.ui.IState>[]): void
+    }
+
+    interface iAngularModule {
+
+        module: ng.IModule
+
+        getModuleName(): string
+
+        registerStates(states: config<ng.ui.IState>[]): void
+
+        registerComponent(components: config<ng.IComponentOptions>[]): void
+
+        registerDirective(directive: config<() => ng.IDirective>): void
+
+        registerFilter(filter: config<() => (input: string) => string>): void
+
+        registerServices(services: config<Function>[]): void
+
+        directive(name: string, inlineAnnotatedFunction: any[]): void
+
+        config(initializationFunction: Function): void
+
+        run(initializationFunction: Function): void
+
     }
 
 }

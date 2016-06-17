@@ -1,5 +1,5 @@
-class UiHelper implements ak.utils.uiHelper {
-    registerStates(module: ng.IModule, states: ak.utils.config<angular.ui.IState>[]):void {
+class UiHelper implements ak.uiHelper {
+    registerStates(module: ng.IModule, states: ak.config<angular.ui.IState>[]):void {
         module.config(["$stateProvider", (stateProvider: ng.ui.IStateProvider) => {
             states.forEach(state => {
                 console.info(`Регистрируем состояние '${state.name}' в модуле ${module.name}`);

@@ -1,4 +1,3 @@
-"use strict";
 var Deps = (function () {
     function Deps() {
         this.uiRouter = "ui.router";
@@ -16,6 +15,5 @@ var Deps = (function () {
         this.ngMessages = "ngMessages";
     }
     return Deps;
-}());
-exports.__esModule = true;
-exports["default"] = new Deps();
+})();
+export default new Deps();

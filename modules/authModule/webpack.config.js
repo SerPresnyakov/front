@@ -1,6 +1,7 @@
 module.exports = {
     entry: {
-        module: "./src/Module"
+        module: "./src/Module",
+        vendors: [""]
     },
     output: {
         filename: "[name].bundle.js",

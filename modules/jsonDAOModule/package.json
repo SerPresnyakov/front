@@ -1,0 +1,11 @@
+{
+  "name": "jsondaomodule",
+  "version": "0.1.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ser <s.presnyakov@realweb.ru>",
+  "license": "ISC"
+}

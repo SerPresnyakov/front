@@ -1,3 +1,4 @@
+window["AngularModule"] = AngularModule;
 export class AngularModule {
 
   module: ng.IModule;

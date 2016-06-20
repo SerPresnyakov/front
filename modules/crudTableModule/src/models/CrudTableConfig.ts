@@ -14,7 +14,8 @@ export class CrudTableConfig implements iCrudTableConfig {
     constructor(
         public sourceName: string,
         public url: string,
-        public tableName: string
+        public tableName: string,
+        public connName: string
     ) {
     }
 

@@ -48,6 +48,7 @@ class Ctrl {
 
     init(config: iCrudTableConfig):void {
         this.config = config;
+        this.$http.defaults.headers.common['connName'] = this.config.connName;
         this.source = this.daoFactory.build(this.config.tableName, this.config.url);
         this.filters = new Filters(config.fields, config.rels, config.tableName);
         this.refreshPage();

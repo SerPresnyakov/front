@@ -1,5 +1,5 @@
 export interface credentials {
-    email: string,
+    login: string,
     password: string
 }
 
@@ -22,13 +22,15 @@ export class AuthService {
     static $inject = ["$http", "localStorageService"];
 
     constructor(
-      private $http: ng.IHttpService,
-      private $localStorage: ng.local.storage.ILocalStorageService) {}
+        private $http: ng.IHttpService,
+        private $localStorage: ng.local.storage.ILocalStorageService) {
+
+    }
 
     login(cred: credentials): ng.IPromise<Boolean> {
 
       return this.$http.post("/api/auth/login", cred).then((res: ng.IHttpPromiseCallbackArg<successLogin>) => {
-        let token = `${res.data.data.userId}:${res.data.data.token.code}`
+        let token = `${res.data.data.userId}:${res.data.data.token.code}`;
         this.$localStorage.set("token", token);
         this.$http.defaults.headers.common['token'] = token;
         return true
@@ -40,7 +42,6 @@ export class AuthService {
     }
 
     logout(): ng.IPromise<any> {
-
       return this.$http.post("/api/auth/logout", {}).then(() => {
         this.$localStorage.remove('token');
       }, (err) => {
@@ -50,11 +51,9 @@ export class AuthService {
     }
 
     me(): ng.IPromise<any> {
-
       return this.$http.post("/api/auth/me", {}).then((res: ng.IHttpPromiseCallbackArg<any>) => {
         return res.data.data
       })
 
     }
-
 }

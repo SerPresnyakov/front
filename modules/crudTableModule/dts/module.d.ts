@@ -58,6 +58,7 @@ declare module crudTable {
             sourceName: string
             url: string
             tableName: string
+            connName: string
 
             allowedMethods: {
                 create: boolean
@@ -103,6 +104,7 @@ declare module crudTable {
         }
 
         interface ISavedFilters {
+            id:number
             filters:any[],
             name:string
             table:{}

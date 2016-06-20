@@ -25,7 +25,7 @@ export abstract class AbstractSource<M> {
         this.$http
             .post(this.crudUrl, {
                 method: "get",
-                table: this.tableName,
+                tableName: this.tableName,
                 pager: page,
                 filters: filters
             })
@@ -59,7 +59,7 @@ export abstract class AbstractSource<M> {
         this.$http
             .post(`${this.crudUrl}`, {
                 method: method,
-                table: this.tableName,
+                tableName: this.tableName,
                 data: doc
             })
             .then((res: ng.IHttpPromiseCallbackArg<any>) => result.resolve(res.data))

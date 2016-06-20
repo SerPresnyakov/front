@@ -5,7 +5,7 @@ export class LoginCtrl {
     static $inject = [AuthService.serviceName, "$state", "$scope"];
 
     cred: credentials = {
-        email: "", password: ""
+        login: "", password: ""
     };
 
     from: string;
@@ -22,7 +22,7 @@ export class LoginCtrl {
 
     fields: AngularFormly.IFieldConfigurationObject[] = [
         {
-            key: 'email',
+            key: 'login',
             type: 'input',
             templateOptions: {
                 label: 'Логин'

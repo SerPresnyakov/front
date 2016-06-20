@@ -7,7 +7,7 @@ import {BoolField} from "../../../../src/fieldTypes/BoolField";
 import {TableRel} from "../../../../src/models/TableRel";
 
 export const table =
-    new CrudTableConfig("Группы объявлений", "/api/crud", "direct.bannerGroups")
+    new CrudTableConfig("Группы объявлений", "/api/crud", "direct.bannerGroups", "major2")
         .setFields([
             new TableField("campaign", 'Кампания', new ObjField(), false, false, "object"),
             new TableField("id", 'ID', new IntField(), false, false, "input", "campaign"),

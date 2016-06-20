@@ -27,7 +27,7 @@ class Ctrl {
                 public $q:ng.IQService
 
     ){
-        this.filtersSource = daoFactory.build("filters",ApiUrls.admin);
+        this.filtersSource = daoFactory.build("savedFilter",ApiUrls.admin);
         this.getSavedFilters().then((res)=>this.filter.savedFilters=res);
 
         if(state.params["filters"]){
@@ -66,13 +66,16 @@ class Ctrl {
 
     removeSavedFilters(filter:ISavedFilters):void{
         console.log(filter);
-        this.filtersSource.remove(filter)
+        this.filtersSource.remove({id:filter.id})
     }
 
     updateSavedFilters(filter:ISavedFilters):void{
-        console.log(filter);
-        filter.filters = this.getFilter(this.filter.model);
-        this.filtersSource.update(filter)
+        let data ={
+            id:filter.id,
+            name:filter.name,
+            filters: this.getFilter(this.filter.model)
+        };
+        this.filtersSource.update(data)
     }
 
     showPrompt(ev):void{
@@ -86,9 +89,11 @@ class Ctrl {
             .cancel('Отменить');
 
         this.$mdDialog.show(confirm).then((result)=> {
-            this.savedFilter.name = result;
-            this.savedFilter.filters = this.getFilter(this.filter.model);
-            this.filter.savedFilters.push(this.savedFilter);
+            this.filtersSource.update({
+                name:result,
+                filters:this.getFilter(this.filter.model)
+            });
+            console.log(result,this.filter.model)
         });
     };
 

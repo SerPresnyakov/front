@@ -1,0 +1,9 @@
+{
+  "name": "ak.auth",
+  "dependencies": {},
+  "globalDependencies": {
+    "angular-formly": "registry:dt/angular-formly#7.2.3+20160316171810",
+    "angular-local-storage": "registry:dt/angular-local-storage#0.1.5+20160602154142",
+    "angular-material": "registry:dt/angular-material#1.0.0-rc5.0+20160602130258"
+  }
+}

@@ -1,6 +1,6 @@
 module.exports = {
     entry: {
-        module: "./Module"
+        module: "./src/Module"
     },
     output: {
         filename: "[name].bundle.js",

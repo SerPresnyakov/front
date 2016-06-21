@@ -1,5 +1,6 @@
 import {TableField} from "../models/TableField";
 import iCrudTableConfig = crudTable.models.iCrudTableConfig;
+import iTableField = crudTable.models.iTableField;
 
 export class FieldTableTemplater {
 
@@ -98,7 +99,7 @@ export class FieldTableTemplater {
     getTds(obj:string):string {
         let obj1 = obj;
         let res = [];
-        angular.forEach(this.config.fields, (f) => {
+        angular.forEach(this.config.fields, (f:iTableField) => {
             if (f.editable) {
                 switch (f.formly) {
                     case "switch" :
@@ -130,7 +131,7 @@ export class FieldTableTemplater {
             else {
                 if (f.fieldType.type == "obj") {
                     let childs = "";
-                    angular.forEach(this.config.fields, (n) => {
+                    angular.forEach(this.config.fields, (n:iTableField) => {
                         if (f.name == n.parent) {
                             childs = childs + `${this.getObjCell(obj, n, f)}`;
                         }
@@ -161,7 +162,7 @@ export class FieldTableTemplater {
         return res.join("\n")
     }
 
-    getCell(obj:string, f:TableField):string {
+    getCell(obj:string, f:iTableField):string {
         if (f.formly == "switch") {
             res = `<md-button ng-if="${obj}.${f.name}" class="md-raised md-primary md-button">Дa</md-button><md-button ng-if="!${obj}.${f.name}" class="md-raised md-accent md-button">Нет</md-button>`
         } else {
@@ -176,7 +177,7 @@ export class FieldTableTemplater {
         return res
     }
 
-    getObjCell(obj:string, n, f:TableField):string {
+    getObjCell(obj:string, n, f:iTableField):string {
         let rel = this.config.getRel(f.name);
         var res:string;
         if (rel && rel.type == "one") {

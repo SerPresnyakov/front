@@ -143,3 +143,10 @@ declare module crudTable {
 
 
 }
+
+declare module ak {
+    interface crudTableModule{
+        name:string;
+    }
+    var crudTableModule:crudTableModule;
+}

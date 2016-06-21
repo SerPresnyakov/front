@@ -1,9 +1,16 @@
 import {Schema} from "../../Schema";
-import filtersDts = crudTable.filters
-import {Deps} from "../../../../jsonDAOModule/Deps";
-import ISavedFilters = crudTable.filters.ISavedFilters;
-import {ApiUrls} from "../../../../utils/ApiUrls";
-import IPromise = angular.IPromise;
+import {Helper} from "../Helper";
+import iRegisterMeta = ak.utils.iRegisterMeta;
+
+class fieldCtrl{
+    data = {};
+    wrapper = "FilterWrapper";
+
+    constructor(private filters){
+        this.data = {scope:filters};
+        delete(this.filters)
+    }
+}
 
 class Ctrl {
 

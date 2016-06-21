@@ -1,11 +1,11 @@
 {
-  "name": "crudtablemodule",
-  "version": "0.0.1",
+  "name": "ak.crud_table",
+  "version": "1.0.0",
   "description": "",
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Ser <s.presnyakov@realweb.ru>",
+  "author": "",
   "license": "ISC"
 }

@@ -1,15 +1,13 @@
-import {AngularModule} from "../utils/AngularModule"
-import {Deps} from "../utils/Deps";
 import {AuthService} from "./AuthService";
 import {Run} from "./Run";
 import {Config} from "./Config";
 import {States} from "./States";
 
-let module = new AngularModule("a.auth", [
-    Deps.localStorage,
-    Deps.uiRouter,
-    Deps.formlyMaterial,
-    Deps.ngMessages
+let module = ak.utils.angularModule(ak.authModule.name, [
+    ak.utils.Deps.localStorage,
+    ak.utils.Deps.uiRouter,
+    ak.utils.Deps.formlyMaterial,
+    ak.utils.Deps.ngMessages
 ]);
 
 module.config(Config);
@@ -19,7 +17,8 @@ module.registerServices([{name: AuthService.serviceName, config: AuthService}]);
 
 module.registerStates(States);
 
-window["akAuth"] = {
+window["ak"].authModule = {
+    name: "authModule",
     authService: {
         serviceName: AuthService.serviceName
     }

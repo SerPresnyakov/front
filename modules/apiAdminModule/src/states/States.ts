@@ -11,7 +11,7 @@ interface iStateParams{
     name: string
 }
 
-export const states: iRegisterMeta<ng.ui.IState>[] = [
+export const states: ak.config<ng.ui.IState>[] = [
     indexState,
     {
         name: "index.table",

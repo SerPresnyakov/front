@@ -32,11 +32,12 @@ declare module apiAdmin {
         onCondition: Object
         hasMany: boolean
     }
+}
 
-    interface iFilter {
-        field: string
-        op: string
-        value: any
+declare module ak {
+    interface apiAdminModule{
+        name:string;
     }
+    var apiAdminModule:apiAdminModule;
 
 }

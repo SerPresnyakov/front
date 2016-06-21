@@ -9,8 +9,8 @@ import {Templater} from "./Templater";
 
 import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 import iTableField = crudTable.models.iTableField;
-import iSource = jsonDAO.iSource;
-import iPager = jsonDAO.iPager;
+import iSource = ak.json_dao.iSource;
+import iPager = ak.json_dao.iPager;
 
 
 import iFilterClass = crudTable.filters.iFilterClass;

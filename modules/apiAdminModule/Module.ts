@@ -1,17 +1,21 @@
 import {AngularModule} from "../utils/AngularModule";
-import {Deps, Modules} from "../utils/Deps";
 import {states} from "./src/states/States";
 import {Config} from "./Config"
 import {SidenavDirective} from "./src/directives/sidenav/SidenavDirective";
 
-let module = new AngularModule(Modules.apiAdmin, [
-    Deps.uiRouter,
-    Deps.material,
-    Deps.mdTable,
-    Modules.jsonDAO,
-    Modules.crudTable,
-    Modules.auth
+let module = new AngularModule(ak.apiAdminModule.name, [
+    ak.utils.Deps.Deps.uiRouter,
+    ak.utils.Deps.material,
+    ak.utils.Deps.mdTable,
+    ak.jsonDaoModule.name,
+    ak.crudTableModule.name,
+    ak.authModule.name
+
 ]);
+
+window["ak"].apiAdminModule = {
+    name:"apiAdmin"
+};
 
 module.registerStates(states);
 

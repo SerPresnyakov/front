@@ -13,3 +13,10 @@ declare namespace auth {
         password: string
     }
 }
+
+declare module ak {
+    interface authModule{
+        name:string;
+    }
+    var authModule:authModule;
+}

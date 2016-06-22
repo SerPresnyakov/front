@@ -24,7 +24,7 @@ class Ctrl {
 
 }
 
-export const indexState: iRegisterMeta<ng.ui.IState> = {
+export const indexState: ak.config<ng.ui.IState> = {
 
     name: "index",
     config: {

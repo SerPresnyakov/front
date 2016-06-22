@@ -1,20 +1,18 @@
 import {Schema} from "../Schema";
-import {Helper} from "../../../utils/Helper";
-import iFilter = crudTable.filters.iFilter;
+
 import {TableField} from "../models/TableField";
 import {TableRel} from "../models/TableRel";
 import iTableField = crudTable.models.iTableField;
-import filters = crudTable.filters;
 import iTableRel = crudTable.models.iTableRel;
 
-export class Filters implements filters.iFilterClass{
+export class Filters implements  ak.crudTableModule.filters.iFilterClass{
 
     schema: AngularFormly.IFieldGroup[] = [];
-    applyedFilters: iFilter[] = [];
-    model: filters.IModel;
-    savedFilters: filters.ISavedFilters[] = [];
-    saveFilter: filters.ISaveFilter;
-    filters: filters.INewFilter[] = [];
+    applyedFilters: ak.crudTableModule.filters.iFilter[] = [];
+    model:  ak.crudTableModule.filters.IModel;
+    savedFilters:  ak.crudTableModule.filters.ISavedFilters[] = [];
+    saveFilter:  ak.crudTableModule.filters.ISaveFilter;
+    filters:  ak.crudTableModule.filters.INewFilter[] = [];
 
     constructor(private fields:iTableField[],
                 private rels:iTableRel[],
@@ -23,15 +21,15 @@ export class Filters implements filters.iFilterClass{
         this.filters = this.getNewFilters(fields,rels);
     }
 
-    getNewFilters(fields:iTableField[],rels:iTableRel[]):filters.INewFilter[]{
+    getNewFilters(fields:iTableField[],rels:iTableRel[]): ak.crudTableModule.filters.INewFilter[]{
         let schema = Schema.getSchema(fields,rels);
-        let res: filters.INewFilter[] = [];
+        let res:  ak.crudTableModule.filters.INewFilter[] = [];
         fields.forEach((f:TableField)=>{
-            let filter:filters.INewFilter = {
+            let filter: ak.crudTableModule.filters.INewFilter = {
                 name:f.name,
                 applied:false,
                 field:f,
-                schema:[Helper.getArrElementByName(schema,f.name)]
+                schema:[ak.utils.Helper.getArrElementByName(schema,f.name)]
             };
             res.push(filter);
         });
@@ -39,14 +37,14 @@ export class Filters implements filters.iFilterClass{
     }
 
 
-    apply(filter:filters.INewFilter):void {
+    apply(filter: ak.crudTableModule.filters.INewFilter):void {
         filter.applied = true;
         this.applyedFilters.push(filter.field);
         this.schema = this.schema.concat(filter.schema);
     }
 
     unapply(name:string):void {
-        this.filters.forEach((f:filters.INewFilter)=>{
+        this.filters.forEach((f: ak.crudTableModule.filters.INewFilter)=>{
             if(f.name==name && f.field.parent == null){
                 f.applied = false;
             }
@@ -98,7 +96,7 @@ export class Filters implements filters.iFilterClass{
         this.schema = [];
         this.applyedFilters = [];
         Object.getOwnPropertyNames(this.model).forEach(r =>{
-            angular.forEach(this.filters,(f:filters.INewFilter)=>{
+            angular.forEach(this.filters,(f: ak.crudTableModule.filters.INewFilter)=>{
                 if(r === f.name && f.field.parent == null){
                     this.apply(f);
                 }
@@ -124,9 +122,9 @@ export class Filters implements filters.iFilterClass{
         this.model = {};
     }
 
-    getFilterByName(name):filters.INewFilter{
-        let res:filters.INewFilter;
-        this.filters.forEach((f:filters.INewFilter)=>{
+    getFilterByName(name): ak.crudTableModule.filters.INewFilter{
+        let res: ak.crudTableModule.filters.INewFilter;
+        this.filters.forEach((f: ak.crudTableModule.filters.INewFilter)=>{
             if(f.name==name && f.field.parent == null){
                 res= f;
             }

@@ -2,20 +2,24 @@ import {Run} from "./Run";
 import {Config} from "./Config";
 import {AuthService} from "./AuthService";
 import {States} from "./States"
+import authService = ak.authService;
 
-let uiHelper = require<ak.uiHelper>("ak.utils/js/Angular");
-let moduleNames = require<ak.Deps>("ak.utils/js/Deps");
 
-let module = angular.module("ak.auth", [
-    moduleNames.localStorage,
-    moduleNames.uiRouter,
-    moduleNames.formlyMaterial
+let module = ak.utils.angularModule(ak.authModule.name, [
+    ak.utils.Deps.localStorage,
+    ak.utils.Deps.uiRouter,
+    ak.utils.Deps.formlyMaterial,
+    ak.utils.Deps.ngMessages
 ]);
-
 module.config(Config);
 module.run(Run);
-module.service(AuthService.serviceName, AuthService);
 
-uiHelper.registerStates(module, States);
+module.registerServices([{name: ak.authModule.authService.serviceName, config: authService}]);
 
-export default module.name;
+module.registerStates(States);
+const authModule =  {
+    name: "authModule",
+    authService: AuthService
+};
+
+window["ak"]["authModule"] = authModule;

@@ -1,13 +1,9 @@
-import {Helper} from "../../../../utils/Helper";
 import iTableField = crudTable.models.iTableField;
 import iTableRel = crudTable.models.iTableRel;
-import iSource = jsonDAO.iSource;
-import IModel = crudTable.filters.IModel;
-import {Deps} from "../../../../jsonDAOModule/Deps";
 
 class Ctrl {
 
-    static $inject = ["field", "origin", "$http", "event", "rel","mdDialog","originSource", Deps.daoFactoryService, "$q"];
+    static $inject = ["field", "origin", "$http", "event", "rel","mdDialog","originSource", ak.jsonDaoModule.Deps.daoFactoryService, "$q"];
 
     selectedItem: any;
     searchText: string;
@@ -22,7 +18,7 @@ class Ctrl {
         public rel: iTableRel,
         public mdDialog: ng.material.IDialogService,
         public originSource,
-        public daoFactory: jsonDAO.iDAOFactoryService,
+        public daoFactory: ak.jsonDaoModule.iDAOFactoryService,
         public $q:ng.IQService,
         inj: ng.auto.IInjectorService
     ) {

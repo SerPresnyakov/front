@@ -1,4 +1,4 @@
-declare module apiAdmin {
+declare module ak.apiAdminModule {
 
     interface iTable {
         id: number
@@ -35,6 +35,7 @@ declare module apiAdmin {
 }
 
 declare module ak {
+    import iRelation = ak.apiAdminModule.iRelation;
     interface apiAdminModule{
         name:string;
     }

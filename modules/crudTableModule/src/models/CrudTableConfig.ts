@@ -1,4 +1,4 @@
-import {ObjField} from "../fieldTypes/ObjField";
+
 
 import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 import iTableField = crudTable.models.iTableField;

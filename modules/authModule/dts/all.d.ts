@@ -1,6 +1,4 @@
-declare var authModule: auth.authService;
-
-declare namespace auth {
+declare namespace ak.authModule {
     export interface authService{
         serviceName: string
         $inject:any[]
@@ -15,8 +13,11 @@ declare namespace auth {
 }
 
 declare module ak {
+    import authService = ak.authModule.authService;
+
     interface authModule{
         name:string;
+        authService:authService;
     }
     var authModule:authModule;
 }

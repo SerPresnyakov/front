@@ -1,4 +1,4 @@
-import iPage = ak.json_dao.iPage;
+import iPage = ak.jsonDaoModule.iPage;
 
 export class Page implements iPage {
 

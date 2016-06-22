@@ -1,6 +1,4 @@
 import {Schema} from "../../Schema";
-import {Helper} from "../Helper";
-import iRegisterMeta = ak.utils.iRegisterMeta;
 
 class fieldCtrl{
     data = {};
@@ -14,27 +12,27 @@ class fieldCtrl{
 
 class Ctrl {
 
-    static $inject = ["$scope", "$state", "localStorageService", "$mdDialog", Deps.daoFactoryService, "$q"];
+    static $inject = ["$scope", "$state", "localStorageService", "$mdDialog", ak.jsonDaoModule.Deps.daoFactoryService, "$q"];
 
-    filter : filtersDts.iFilterClass;
+    filter : ak.crudTableModule.filters.iFilterClass;
     refreshPage:()=>void;
     options = {
         data:this.filter,
         wrapper:"FilterWrapper"
     };
-    savedFilter:filtersDts.ISavedFilters;
-    savedFilters: filtersDts.ISavedFilters[]=[];
-    filtersSource:jsonDAO.iSource<ISavedFilters>;
+    savedFilter:ak.crudTableModule.filters.ISavedFilters;
+    savedFilters: ak.crudTableModule.filters.ISavedFilters[]=[];
+    filtersSource:ak.jsonDaoModule.iSource<ak.crudTableModule.filters.ISavedFilters>;
 
     constructor(public $scope: ng.IScope,
                 public state:ng.ui.IStateService,
                 public localStorage:angular.local.storage.ILocalStorageService,
                 public $mdDialog:angular.material.IDialogService,
-                public daoFactory: jsonDAO.iDAOFactoryService,
+                public daoFactory: ak.jsonDaoModule.iDAOFactoryService,
                 public $q:ng.IQService
 
     ){
-        this.filtersSource = daoFactory.build("savedFilter",ApiUrls.admin);
+        this.filtersSource = daoFactory.build("savedFilter",ak.utils.ApiUrls.admin);
         this.getSavedFilters().then((res)=>this.filter.savedFilters=res);
 
         if(state.params["filters"]){
@@ -64,19 +62,19 @@ class Ctrl {
         this.refreshPage();
     };
 
-    getSavedFilters():IPromise<ISavedFilters[]>{
-        let defer = this.$q.defer<ISavedFilters[]>();
+    getSavedFilters():ng.IPromise<ak.crudTableModule.filters.ISavedFilters[]>{
+        let defer = this.$q.defer<ak.crudTableModule.filters.ISavedFilters[]>();
         this.filtersSource.getFullPage([{field:"base.table.url", op:"eq",value:this.filter.tableUrl}])
             .then((res)=>defer.resolve(res.data));
         return defer.promise;
     }
 
-    removeSavedFilters(filter:ISavedFilters):void{
+    removeSavedFilters(filter:ak.crudTableModule.filters.ISavedFilters):void{
         console.log(filter);
         this.filtersSource.remove({id:filter.id})
     }
 
-    updateSavedFilters(filter:ISavedFilters):void{
+    updateSavedFilters(filter:ak.crudTableModule.filters.ISavedFilters):void{
         let data ={
             id:filter.id,
             name:filter.name,
@@ -119,7 +117,7 @@ class Ctrl {
     }
 }
 
-export const filterFieldsDirective: iRegisterMeta<ng.IComponentOptions> = {
+export const filterFieldsDirective: ak.config<ng.IComponentOptions> = {
     name: "filterFields",
     config: {
         bindings: {

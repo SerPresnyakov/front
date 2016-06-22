@@ -3,8 +3,11 @@ import {FactoryDAO} from "./FactoryDAO";
 
 const module = ak.utils.angularModule(ak.jsonDaoModule.name, []);
 
-module.module.provider(Deps.daoFactoryService, FactoryDAO);
+module.module.provider(ak.jsonDaoModule.Deps.daoFactoryService, FactoryDAO);
 
-window["ak"].jsonDaoModule = {
-    name: "jsonDaoModule"
+const jsonDaoModule = {
+    name:"jsonDaoModule",
+    Deps: Deps
 };
+
+window["ak"]["jsonDaoModule"] = jsonDaoModule;

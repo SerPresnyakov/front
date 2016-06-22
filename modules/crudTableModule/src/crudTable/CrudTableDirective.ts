@@ -9,25 +9,17 @@ import {Templater} from "./Templater";
 
 import iCrudTableConfig = crudTable.models.iCrudTableConfig;
 import iTableField = crudTable.models.iTableField;
-import iSource = ak.json_dao.iSource;
-import iPager = ak.json_dao.iPager;
-
-
-import iFilterClass = crudTable.filters.iFilterClass;
 import iTableRel = crudTable.models.iTableRel;
-import {Deps} from "../../../jsonDAOModule/Deps";
-import {Pager} from "../../../jsonDAOModule/src/Pager";
-import {Page} from "../../../jsonDAOModule/src/Page";
 
 class Ctrl {
 
-    static $inject = ["$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", Deps.daoFactoryService, "$state"];
+    static $inject = ["$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", ak.jsonDaoModule.Deps.daoFactoryService, "$state"];
 
     config: iCrudTableConfig;
 
-    source: iSource<any>;
-    pager: iPager;
-    filters: iFilterClass;
+    source: ak.jsonDaoModule.iSource<any>;
+    pager: ak.jsonDaoModule.iPager;
+    filters: ak.crudTableModule.filters.iFilterClass;
 
     constructor(
         public $editDialog: mdTable.EditDialogService,
@@ -35,10 +27,10 @@ class Ctrl {
         private $http: ng.IHttpService,
         public $scope: ng.IScope,
         public $q: ng.IQService,
-        public daoFactory: jsonDAO.iDAOFactoryService,
+        public daoFactory: ak.jsonDaoModule.iDAOFactoryService,
         public $state : ng.ui.IStateProvider
     ) {
-        this.pager = new Pager(1, 15, this.$q);
+        this.pager = ak.jsonDaoModule.iPager(1, 15, this.$q);
         //$scope.$watchCollection((scope) => { return scope["vm"].pager; } ,(newVal, oldVal, scope) => {
         //    if (newVal.page!=oldVal.page || newVal.per!=oldVal.per) {
         //        this.refreshPage();
@@ -127,15 +119,15 @@ class Ctrl {
 
     refreshPage():void {
         let filter = this.setFilters();
-        this.source.getPage(new Page().setPage(1,15),filter)
+        this.source.getPage(ak.jsonDaoModule.iPage().setPage(1,15),filter)
             .then((res) => {
                 this.pager.data = res.data;
                 this.pager.total = 1;
             })
     }
 
-    setFilters():apiAdmin.iFilter[] {
-        let res:apiAdmin.iFilter[] = [];
+    setFilters():ak.jsonDaoModule.iFilter[] {
+        let res:ak.jsonDaoModule.iFilter[] = [];
         if(this.filters.hasOwnProperty('model')){
             Object.getOwnPropertyNames(this.filters.model).forEach( (f)=> {
                 res.push({field:f,op:"eq",value:this.filters.model[f]})

@@ -1,12 +1,18 @@
-declare module ak.json_dao {
+declare module ak.jsonDaoModule {
 
     interface iPageResponse<T> {
         data: T[]
     }
 
+    interface Deps {
+        daoFactoryService: string;
+        daoFactoryServiceProvide: string;
+    }
+
     interface iPage {
         page: number
         per: number
+        setPage(page: number, per: number): iPage
     }
 
     interface iPager extends iPage {
@@ -41,8 +47,18 @@ declare module ak.json_dao {
 }
 
 declare module ak {
-    interface jsonDaoModule{
+    import iSource = ak.jsonDaoModule.iSource;
+    import Deps = ak.jsonDaoModule.Deps;
+    import iPager = ak.jsonDaoModule.iPager;
+    import iPage = ak.jsonDaoModule.iPage;
+    import iFilter = ak.jsonDaoModule.iFilter;
+    interface JsonDaoModule {
         name:string;
+        iSource: iSource<any>;
+        Deps: Deps;
+        iPager:(page: number, per: number, $q: ng.IQService)=>iPager
+        iPage:()=>iPage
+        iFilter: iFilter
     }
-    var jsonDaoModule:jsonDaoModule;
+    var jsonDaoModule:JsonDaoModule;
 }

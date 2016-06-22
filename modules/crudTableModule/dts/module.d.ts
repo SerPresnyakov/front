@@ -74,8 +74,22 @@ declare module crudTable {
         }
     }
 
-    module filters {
 
+
+
+
+}
+declare module ak.crudTableModule {
+
+    interface filters{
+        iFilter:ak.crudTableModule.filters.iFilter
+        INewFilter:ak.crudTableModule.filters.INewFilter
+        IModel:ak.crudTableModule.filters.IModel
+        ISavedFilters:ak.crudTableModule.filters.ISavedFilters;
+        ISaveFilter:ak.crudTableModule.filters.ISaveFilter
+        iFilterClass:ak.crudTableModule.filters.iFilterClass
+    }
+    module filters {
         import iTableField = crudTable.models.iTableField;
         import iTableRel = crudTable.models.iTableRel;
         interface iFilter {
@@ -137,16 +151,13 @@ declare module crudTable {
             getFilterByName(name):INewFilter
             remove?(index:number, name:string):void
         }
-
     }
-
-
-
 }
 
 declare module ak {
     interface crudTableModule{
         name:string;
+        filters:ak.crudTableModule.filters
     }
     var crudTableModule:crudTableModule;
 }

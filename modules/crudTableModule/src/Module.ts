@@ -1,7 +1,10 @@
-import {CrudTableDirective} from "./crudTable/CrudTableDirective"
-import {Run} from "./Run";
+
 import {filterButtonDirective} from "./filter/filterButton/Ctrl";
 import {filterFieldsDirective} from "./filter/filterFields/Ctrl";
+import {CrudTableDirective} from "./crudTable/CrudTableDirective";
+import {Run} from "./Run";
+
+
 
 
 let module = angular.module(ak.crudTableModule.name, [
@@ -17,8 +20,10 @@ module.component(filterFieldsDirective.name, filterFieldsDirective);
 
 module.run(Run);
 
-window["ak"].crudTableModule = {
-    name: "crudTableModule",
+const crudTableModule = {
+    name: "crudTableModule"
 };
+
+window["ak"]["crudTableModule"] = crudTableModule;
 
 export default module.name

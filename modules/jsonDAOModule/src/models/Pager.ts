@@ -1,5 +1,4 @@
-import iPager = ak.json_dao.iPager;
-export class Pager implements iPager {
+export class Pager implements ak.jsonDaoModule.iPager {
 
   deffered: ng.IDeferred<any[]>;
   data: any[] = [];

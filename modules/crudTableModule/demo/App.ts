@@ -1,16 +1,13 @@
-import {Modules, Deps} from "../../utils/Deps";
-import {AngularModule} from "../../utils/AngularModule";
-
 import {ConfigsService} from "./ConfigsService"
 import {Config} from "./Config"
 import {StatesRegister} from "./StatesRegister";
 import {Run} from "./Run";
 
-const module = new AngularModule("app", [
-    Modules.crudTable,
-    Deps.uiRouter,
-    Modules.auth,
-    Modules.jsonDAO
+const module = ak.utils.angularModule("app", [
+    ak.crudTableModule.name,
+    ak.utils.Deps.uiRouter,
+    ak.authModule.name,
+    ak.jsonDaoModule.name
 ]);
 
 module.module.provider(ConfigsService.angularName, ConfigsService);

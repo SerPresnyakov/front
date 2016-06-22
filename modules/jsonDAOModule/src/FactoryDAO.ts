@@ -1,5 +1,5 @@
 import {Source} from "./models/Source";
-import iDAOFactoryService = ak.json_dao.iDAOFactoryService;
+import iDAOFactoryService = ak.jsonDaoModule.iDAOFactoryService;
 
 export class FactoryDAO implements ng.IServiceProvider {
 

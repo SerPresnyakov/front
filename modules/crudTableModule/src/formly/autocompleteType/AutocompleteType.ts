@@ -1,20 +1,17 @@
-import {Helper} from "../../../../utils/Helper";
-import {Deps} from "../../../../jsonDAOModule/Deps";
-
 class Ctrl {
 
-    static $inject = [ "$http", "$scope","localStorageService", Deps.daoFactoryService,"$q"];
+    static $inject = [ "$http", "$scope","localStorageService", ak.jsonDaoModule.Deps.daoFactoryService, "$q"];
 
     selectedItem: any;
     searchText: string;
     token:string;
-    RelSource:jsonDAO.iSource<any>;
+    RelSource: ak.jsonDaoModule.iSource<any>;
 
     constructor(
         public $http: ng.IHttpService,
         public scope,
         public localStorage: ng.local.storage.ILocalStorageService,
-        public daoFactory: jsonDAO.iDAOFactoryService,
+        public daoFactory: ak.jsonDaoModule.iDAOFactoryService,
         public $q
     ) {
         this.RelSource = this.daoFactory.build(scope.options.data.rels, scope.options.data.dao);
@@ -47,7 +44,7 @@ class Ctrl {
         };
 
         scope.options.resetModel = () => {
-            Helper.nullObj(scope.model);
+            ak.utils.Helper.nullObj(scope.model);
             scope.searchText = "";
         };
 

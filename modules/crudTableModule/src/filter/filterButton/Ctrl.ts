@@ -1,17 +1,10 @@
-import {TableField} from "../../models/TableField";
 import IComponentOptions = angular.IComponentOptions;
-import filtersDts = crudTable.filters
 import iTableField = crudTable.models.iTableField;
-import {Deps} from "../../../../jsonDAOModule/Deps";
-import iDAOFactoryService = jsonDAO.iDAOFactoryService;
-import iSource = jsonDAO.iSource;
-import {ApiUrls} from "../../../../utils/ApiUrls";
-import ISavedFilters = crudTable.filters.ISavedFilters;
 
 class Ctrl {
 
-    fields : TableField;
-    filter: filtersDts.iFilterClass;
+    fields : iTableField;
+    filter: ak.crudTableModule.filters.iFilterClass;
     originatorEv:MouseEvent;
     fieldsLength = this.fieldsCount();
     refreshPage:()=>void;
@@ -26,7 +19,7 @@ class Ctrl {
 
     selectFilter(savedFilterName:string):void{
         if(savedFilterName) {
-            let res:filtersDts.IModel;
+            let res:ak.crudTableModule.filters.IModel;
             this.filter.savedFilters.forEach((f)=> {
                 if (f.name == savedFilterName) {
                     res = this.getModel(f.filters);
@@ -78,7 +71,7 @@ class Ctrl {
 
 }
 
-export const filterButtonDirective: iRegisterMeta<IComponentOptions> = {
+export const filterButtonDirective: ak.config<IComponentOptions> = {
     name: "filterButton",
     config: {
         bindings: {

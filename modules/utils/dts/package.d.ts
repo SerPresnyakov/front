@@ -4,6 +4,11 @@ declare var require: {
     ensure: (paths: string[], callback: (require: <T>(path: string) => T) => void) => void
 };
 
+declare interface Array<T> {
+    find(predicate: (search: T) => boolean) : T;
+}
+
+
 declare module ak.utils {
 
     interface Deps {
@@ -20,6 +25,21 @@ declare module ak.utils {
         angularFormly: string
         formlyMaterial: string
         ngMessages: string
+    }
+
+    interface ApiUrls {
+        admin:string,
+        crud:string
+    }
+
+    interface Helper {
+        capitalize(v:string): string
+        withPrefix(prefix:string, v:string)
+        applyMixins(derivedCtor:any, baseCtors:any[])
+        nullObj(obj:{})
+        assignegValueOfObjElement(data, obj)
+        handleNull(o:() => any): string
+        getArrElementByName?(arr:any[], name:string)
     }
 
     interface AngularModule {
@@ -52,6 +72,8 @@ declare module ak {
 
     import Deps = ak.utils.Deps;
     import AngularModule = ak.utils.AngularModule;
+    import ApiUrls = ak.utils.ApiUrls;
+    import Helper = ak.utils.Helper;
 
     interface config<T> {
         name: string
@@ -60,7 +82,9 @@ declare module ak {
 
     interface Utils {
         Deps: Deps,
-        angularModule: (name: string, deps: string[]) => AngularModule
+        angularModule: (name: string, deps: string[]) => AngularModule,
+        ApiUrls: ApiUrls,
+        Helper: Helper
     }
 
     var utils: Utils;

@@ -1,6 +1,6 @@
 import {Page} from "./Page";
-import iFilter = ak.json_dao.iFilter;
-import iPageResponse = ak.json_dao.iPageResponse;
+import iFilter = ak.jsonDaoModule.iFilter;
+import iPageResponse = ak.jsonDaoModule.iPageResponse;
 
 export abstract class AbstractSource<M> {
 

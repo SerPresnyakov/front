@@ -1,6 +1,6 @@
 import {AbstractSource} from "./AbstractSource";
 import {Pager} from "./Pager";
-import iSource = ak.json_dao.iSource;
+import iSource = ak.jsonDaoModule.iSource;
 
 export class Source<M> extends AbstractSource<M> implements iSource<M> {
 

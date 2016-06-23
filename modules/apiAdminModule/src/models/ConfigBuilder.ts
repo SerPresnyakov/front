@@ -33,7 +33,7 @@ export class ConfigBuilder {
                         config = ak.crudTableModule.CrudTableConfig("res", "res", "res", "res");
                         config.setFields(fields);
                         new relationsConfig(tableUrl, this.relsSource,this.fieldsSource,this.$q).getRelationsConfig()
-                            .then((relFields: ak.crudTableModule.filters.iTableField[]) => {
+                            .then((relFields: ak.crudTableModule.TableField[]) => {
                                 config.setFields(relFields);
                                 deferred.resolve(config);
                             })
@@ -46,9 +46,9 @@ export class ConfigBuilder {
 
     }
 
-    static getFields(fields: ak.apiAdminModule.iField[]): ak.crudTableModule.filters.iTableField[] {
+    static getFields(fields: ak.apiAdminModule.iField[]): ak.crudTableModule.TableField[] {
 
-        let result: ak.crudTableModule.filters.iTableField[] = [];
+        let result: ak.crudTableModule.TableField[] = [];
 
         let errors = [];
 
@@ -91,9 +91,7 @@ export class ConfigBuilder {
                 null
             ))
         });
-
         return result;
-
     }
 
 }

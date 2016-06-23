@@ -2,6 +2,12 @@ import {states} from "./src/states/States";
 import {Config} from "./Config"
 import {SidenavDirective} from "./src/directives/sidenav/SidenavDirective";
 
+const apiAdminModule = {
+    name:"apiAdmin"
+};
+
+window["ak"]["apiAdminModule"] = apiAdminModule;
+
 let module = ak.utils.angularModule(ak.apiAdminModule.name, [
     ak.utils.Deps.uiRouter,
     ak.utils.Deps.material,
@@ -11,12 +17,6 @@ let module = ak.utils.angularModule(ak.apiAdminModule.name, [
     ak.authModule.name
 
 ]);
-
-const apiAdminModule = {
-    name:"apiAdmin"
-};
-
-window["ak"]["apiAdminModule"] = apiAdminModule;
 
 module.registerStates(states);
 

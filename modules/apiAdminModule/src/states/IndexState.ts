@@ -35,7 +35,7 @@ export const indexState: ak.config<ng.ui.IState> = {
                     .catch((err)=> deferred.reject({ msg:"Can't resolve tables", err: err }));
                 return deferred.promise;
             }],
-            user: [ak.authModule.authService.serviceName, (auth: ak.authModule.authService): ng.IPromise<any> => {
+            user: [ak.authModule.authServiceName, (auth): ng.IPromise<any> => {
                 return auth.me()
             }]
         }

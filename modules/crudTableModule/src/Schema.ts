@@ -1,7 +1,7 @@
 import {TableField} from "./models/TableField";
 import {ObjField} from "./fieldTypes/ObjField";
 import {TableRel} from "./models/TableRel";
-import iTableField = crudTable.models.iTableField;
+import iTableField = ak.crudTableModule.TableField;
 
 export class Schema {
 

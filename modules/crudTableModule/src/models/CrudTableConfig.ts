@@ -1,13 +1,7 @@
+export class CrudTableConfig implements ak.crudTableModule.CrudTableConfig {
 
-
-import iCrudTableConfig = crudTable.models.iCrudTableConfig;
-import iTableField = crudTable.models.iTableField;
-import iTableRel = crudTable.models.iTableRel;
-
-export class CrudTableConfig implements iCrudTableConfig {
-
-    fields: iTableField[] = [];
-    rels: iTableRel[] = [];
+    fields: ak.crudTableModule.TableField[] = [];
+    rels: ak.crudTableModule.filters.iTableRel[] = [];
     tab = {selected:null,tabs:[]};
     allowedMethods = {patch:true, delete:true, create:true};
 
@@ -19,12 +13,12 @@ export class CrudTableConfig implements iCrudTableConfig {
     ) {
     }
 
-    setFields(fields: iTableField[]): CrudTableConfig {
+    setFields(fields: ak.crudTableModule.TableField[]): CrudTableConfig {
         this.fields = this.fields.concat(fields);
         return this;
     }
 
-    setRels(rels: iTableRel[]): CrudTableConfig {
+    setRels(rels: ak.crudTableModule.filters.iTableRel[]): CrudTableConfig {
         this.rels = rels;
         return this
     }
@@ -34,11 +28,11 @@ export class CrudTableConfig implements iCrudTableConfig {
         return this
     }
 
-    getRel(fieldName: string): iTableRel {
+    getRel(fieldName: string): ak.crudTableModule.filters.iTableRel {
         return this.rels.find((r) => r.name == fieldName)
     }
 
-    getField(fieldName: string): iTableField {
+    getField(fieldName: string): ak.crudTableModule.TableField {
         return this.fields.find((r) => r.name == fieldName)
     }
 

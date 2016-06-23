@@ -19,7 +19,7 @@
 
 <body>
 
-<div ui-view style="height: 100%;">admin</div>
+<div ui-view style="height: 100%;"></div>
 
 <!-- build:js js/vendor.js -->
 <script src="/bower/angular/angular.min.js"></script>
@@ -30,9 +30,10 @@
 <script src="/bower/angular-material-data-table/dist/md-data-table.min.js"></script>
 <script src="/bower/angular-local-storage/dist/angular-local-storage.min.js"></script>
 <script src="/bower/angular-sanitize/angular-sanitize.min.js"></script>
+<script src="/bower/api-check/dist/api-check.min.js"></script>
 <script src="/bower/angular-formly/dist/formly.js"></script>
 <script src="/bower/angular-formly-material/dist/formly-material.min.js"></script>
-<script src="/bower/api-check/dist/api-check.min.js"></script>
+
 
 <script src="/bower/angular-schema-form/dist/schema-form.min.js"></script>
 <script src="/bower/angular-schema-form/dist/bootstrap-decorator.min.js"></script>
@@ -41,10 +42,13 @@
 <!-- endbuild -->
 
 <!-- build:js js/app.js -->
-<script src="/modules/crudTableModule/js/module.bundle.js"></script>
-<script src="/modules/crudTableModule/js/demo.bundle.js"></script>
+
+<script src="/modules/utils/js/utils.bundle.js"></script>
 <script src="/modules/authModule/js/module.bundle.js"></script>
 <script src="/modules/jsonDAOModule/js/module.bundle.js"></script>
+<script src="/modules/crudTableModule/js/module.bundle.js"></script>
+<script src="/modules/crudTableModule/js/demo.bundle.js"></script>
+
 <!-- endbuild -->
 
 </body>

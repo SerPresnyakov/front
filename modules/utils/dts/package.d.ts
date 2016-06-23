@@ -8,6 +8,10 @@ declare interface Array<T> {
     find(predicate: (search: T) => boolean) : T;
 }
 
+interface angFunction {
+    $inject?: string[];
+}
+
 
 declare module ak.utils {
 
@@ -56,7 +60,7 @@ declare module ak.utils {
 
         registerFilter(filter: ak.config<() => (input: string) => string>): void
 
-        registerServices(services: ak.config<Function>[]): void
+        registerServices(services: ak.config<angFunction>[]): void
 
         directive(name: string, inlineAnnotatedFunction: any[]): void
 

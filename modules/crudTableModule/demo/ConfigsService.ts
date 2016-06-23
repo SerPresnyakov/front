@@ -1,4 +1,4 @@
-import iCrudTableConfig = crudTable.models.iCrudTableConfig;
+import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 
 export class ConfigsService implements ng.IServiceProvider {
 

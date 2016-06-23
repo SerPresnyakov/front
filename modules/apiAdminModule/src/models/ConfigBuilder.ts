@@ -1,34 +1,24 @@
-
 import {relationsConfig} from "./Relations";
+import iPageResponse = ak.jsonDaoModule.iPageResponse;
+import iSource = ak.jsonDaoModule.iSource;
 
-import iPageResponse = jsonDAO.iPageResponse;
-import iSource = jsonDAO.iSource;
-
-import {Deps} from "../../../jsonDAOModule/Deps"
-import {CrudTableConfig} from "../../../crudTableModule/src/models/CrudTableConfig";
-import {TableField} from "../../../crudTableModule/src/models/TableField";
-import {ObjField} from "../../../crudTableModule/src/fieldTypes/ObjField";
-import {BoolField} from "../../../crudTableModule/src/fieldTypes/BoolField";
-import {StrField} from "../../../crudTableModule/src/fieldTypes/StrField";
-import {IntField} from "../../../crudTableModule/src/fieldTypes/IntField";
-import {ApiUrls} from "../../../utils/ApiUrls";
 
 export class ConfigBuilder {
 
-    fieldsSource: iSource<apiAdmin.iField>;
-    relsSource: iSource<apiAdmin.iRelation>;
+    fieldsSource: iSource<ak.apiAdminModule.iField>;
+    relsSource: iSource<ak.apiAdminModule.iRelation>;
     $q: ng.IQService;
 
     constructor(inj: ng.auto.IInjectorService) {
-        let sourceFactory = inj.get<jsonDAO.iDAOFactoryService>(Deps.daoFactoryService);
-        this.fieldsSource = sourceFactory.build("fields", ApiUrls.admin);
-        this.relsSource = sourceFactory.build("rels", ApiUrls.admin);
+        let sourceFactory = inj.get<ak.jsonDaoModule.iDAOFactoryService>(ak.jsonDaoModule.Deps.daoFactoryService);
+        this.fieldsSource = sourceFactory.build("fields", ak.utils.ApiUrls.admin);
+        this.relsSource = sourceFactory.build("rels", ak.utils.ApiUrls.admin);
         this.$q = inj.get<ng.IQService>("$q")
     }
 
-    build(tableUrl: string, adminMode: boolean): ng.IPromise<CrudTableConfig> {
-        let deferred = this.$q.defer<CrudTableConfig>();
-        let crudUrl = adminMode ? ApiUrls.admin : ApiUrls.crud;
+    build(tableUrl: string, adminMode: boolean): ng.IPromise<ak.crudTableModule.CrudTableConfig> {
+        let deferred = this.$q.defer<ak.crudTableModule.CrudTableConfig>();
+        let crudUrl = adminMode ? ak.utils.ApiUrls.admin : ak.utils.ApiUrls.crud;
         let rels : any[] = [];
         let config;
 
@@ -37,13 +27,13 @@ export class ConfigBuilder {
         } else {
                 this.fieldsSource
                     .getFullPage([{field: "base.table.url", op: "eq", value: tableUrl}])
-                    .then((table: iPageResponse<apiAdmin.iField>) => {
+                    .then((table: iPageResponse<ak.apiAdminModule.iField>) => {
                         let fields = ConfigBuilder.getFields(table.data);
 
-                        config = new CrudTableConfig(table.data[0].table.tableName, crudUrl, table.data[0].table.url);
+                        config = ak.crudTableModule.CrudTableConfig("res", "res", "res", "res");
                         config.setFields(fields);
                         new relationsConfig(tableUrl, this.relsSource,this.fieldsSource,this.$q).getRelationsConfig()
-                            .then((relFields: TableField[]) => {
+                            .then((relFields: ak.crudTableModule.filters.iTableField[]) => {
                                 config.setFields(relFields);
                                 deferred.resolve(config);
                             })
@@ -56,32 +46,32 @@ export class ConfigBuilder {
 
     }
 
-    static getFields(fields: apiAdmin.iField[]): TableField[] {
+    static getFields(fields: ak.apiAdminModule.iField[]): ak.crudTableModule.filters.iTableField[] {
 
-        let result: TableField[] = [];
+        let result: ak.crudTableModule.filters.iTableField[] = [];
 
         let errors = [];
 
-        angular.forEach(fields, (f: apiAdmin.iField, i) => {
+        angular.forEach(fields, (f: ak.apiAdminModule.iField, i) => {
 
             var fieldType;
             var formly;
 
             switch(f.fieldType.variant) {
                 case 'number':
-                    fieldType = new IntField();
+                    fieldType = ak.crudTableModule.fieldTypes.IntField;
                     formly = 'input';
                     break;
                 case 'str':
-                    fieldType = new StrField();
+                    fieldType = ak.crudTableModule.fieldTypes.StrField;
                     formly = 'input';
                     break;
                 case 'bool':
-                    fieldType = new BoolField();
+                    fieldType = ak.crudTableModule.fieldTypes.BoolField;
                     formly = 'switch';
                     break;
                 case 'object':
-                    fieldType = new ObjField();
+                    fieldType = ak.crudTableModule.fieldTypes.ObjField;
                     formly = 'object';
                     break;
                 default: errors.push({
@@ -90,7 +80,7 @@ export class ConfigBuilder {
                 })
             }
 
-            result.push(new TableField(
+            result.push(ak.crudTableModule.TableField(
                 f.name,
                 f.name,
                 fieldType,

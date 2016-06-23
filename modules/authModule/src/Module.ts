@@ -2,8 +2,13 @@ import {Run} from "./Run";
 import {Config} from "./Config";
 import {AuthService} from "./AuthService";
 import {States} from "./States"
-import authService = ak.authService;
 
+const authModule:ak.authModule =  {
+    name: "authModule",
+    authServiceName: AuthService.serviceName
+};
+
+window["ak"]["authModule"] = authModule;
 
 let module = ak.utils.angularModule(ak.authModule.name, [
     ak.utils.Deps.localStorage,
@@ -14,12 +19,6 @@ let module = ak.utils.angularModule(ak.authModule.name, [
 module.config(Config);
 module.run(Run);
 
-module.registerServices([{name: ak.authModule.authService.serviceName, config: authService}]);
+module.registerServices([{name: AuthService.serviceName, config: AuthService}]);
 
 module.registerStates(States);
-const authModule =  {
-    name: "authModule",
-    authService: AuthService
-};
-
-window["ak"]["authModule"] = authModule;

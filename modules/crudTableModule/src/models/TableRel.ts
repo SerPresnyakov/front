@@ -1,10 +1,10 @@
-export class TableRel implements crudTable.models.iTableRel {
+export class TableRel implements ak.crudTableModule.filters.iTableRel {
 
     constructor(
         public name: string,
         public field: string,
         public dao: string,
-        public type: crudTable.models.iTableRelType,
+        public type: ak.crudTableModule.filters.iTableRelType,
         public isInclude: boolean,
         public displayField: string = "name"
     ) {}

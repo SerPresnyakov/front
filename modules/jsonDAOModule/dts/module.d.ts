@@ -12,7 +12,7 @@ declare module ak.jsonDaoModule {
     interface iPage {
         page: number
         per: number
-        setPage(page: number, per: number): iPage
+        setPage?(page: number, per: number): iPage
     }
 
     interface iPager extends iPage {

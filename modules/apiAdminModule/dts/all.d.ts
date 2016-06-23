@@ -36,8 +36,13 @@ declare module ak.apiAdminModule {
 
 declare module ak {
     import iRelation = ak.apiAdminModule.iRelation;
+    import iTable = ak.apiAdminModule.iTable;
+    import iField = ak.apiAdminModule.iField;
     interface apiAdminModule{
         name:string;
+        iTable:iTable;
+        iField:iField;
+        iRelation:iRelation;
     }
     var apiAdminModule:apiAdminModule;
 

@@ -2,7 +2,7 @@ import {SideNavTemplateBuilder} from "./SideNavTemplateBuilder";
 import IScope = angular.IScope;
 
 interface SidenaveScope extends IScope {
-    tables: apiAdmin.iTable[]
+    tables: ak.apiAdminModule.iTable[]
 }
 
 export class SidenavDirective implements ng.IDirective {

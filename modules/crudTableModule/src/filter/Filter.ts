@@ -1,11 +1,10 @@
 import {Schema} from "../Schema";
-
 import {TableField} from "../models/TableField";
 import {TableRel} from "../models/TableRel";
-import iTableField = crudTable.models.iTableField;
-import iTableRel = crudTable.models.iTableRel;
+import iTableField = ak.crudTableModule.TableField;
+import iTableRel = ak.crudTableModule.filters.iTableRel;
 
-export class Filters implements  ak.crudTableModule.filters.iFilterClass{
+export class Filters implements ak.crudTableModule.filters.iFilterClass{
 
     schema: AngularFormly.IFieldGroup[] = [];
     applyedFilters: ak.crudTableModule.filters.iFilter[] = [];

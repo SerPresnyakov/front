@@ -7,9 +7,9 @@ import {StrField} from "../fieldTypes/StrField";
 import {Filters} from "../filter/Filter";
 import {Templater} from "./Templater";
 
-import iCrudTableConfig = crudTable.models.iCrudTableConfig;
-import iTableField = crudTable.models.iTableField;
-import iTableRel = crudTable.models.iTableRel;
+import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
+import iTableField = ak.crudTableModule.TableField;
+import iTableRel = ak.crudTableModule.filters.iTableRel;
 
 class Ctrl {
 

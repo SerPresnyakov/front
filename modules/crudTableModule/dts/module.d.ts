@@ -4,39 +4,94 @@ declare module crudTable {
 
         module fields {
 
-            interface iFieldType {
-                type: string
-                toSchema(): Object
-            }
-
-            interface iStrField extends iFieldType {
-                pattern: string
-                minLength: string
-                maxLength: string
-            }
-
-            interface iBoolField extends iFieldType {}
-
-            interface iIntField extends iFieldType {
-                min?: number
-                max?: number
-            }
-
-            interface iObjField extends iFieldType {}
 
         }
 
-        interface iTableField {
-            name: string
-            title: string
-            fieldType: fields.iFieldType
-            nullable: boolean
-            editable: boolean
-            formly: string
-            parent?: string
-            options?: any
+    }
+
+}
+declare module ak.crudTableModule {
+
+    import FieldType = ak.crudTableModule.fieldTypes.FieldType;
+    interface TableField {
+        name: string
+        title: string
+        fieldType: FieldType
+        nullable: boolean
+        editable: boolean
+        formly: string
+        parent?: string
+        options?: any
+    }
+
+    interface CrudTableConfig {
+
+        tab: any
+
+        fields: ak.crudTableModule.TableField[]
+        rels: ak.crudTableModule.filters.iTableRel[]
+
+        sourceName: string
+        url: string
+        tableName: string
+        connName: string
+
+        allowedMethods: {
+            create: boolean
+            patch: boolean
+            delete: boolean
         }
 
+        getRel(fieldName: string): ak.crudTableModule.filters.iTableRel
+        getField(fieldName: string): ak.crudTableModule.TableField
+
+        setTabs(tabs: any): CrudTableConfig
+
+    }
+
+    interface filters {
+        iFilter:ak.crudTableModule.filters.iFilter
+        INewFilter:ak.crudTableModule.filters.INewFilter
+        IModel:ak.crudTableModule.filters.IModel
+        ISavedFilters:ak.crudTableModule.filters.ISavedFilters;
+        ISaveFilter:ak.crudTableModule.filters.ISaveFilter
+        iFilterClass:ak.crudTableModule.filters.iFilterClass
+        iTableRel:ak.crudTableModule.filters.iTableRel
+    }
+
+    interface fieldTypes {
+        FieldType?: ak.crudTableModule.fieldTypes.FieldType,
+        ObjField: ak.crudTableModule.fieldTypes.ObjField,
+        StrField: ak.crudTableModule.fieldTypes.StrField,
+        IntField: ak.crudTableModule.fieldTypes.IntField,
+        BoolField: ak.crudTableModule.fieldTypes.BoolField
+    }
+
+    module fieldTypes {
+        interface FieldType {
+            type: string
+            toSchema(): Object
+        }
+
+        interface StrField extends FieldType {
+            pattern: string
+            minLength: string
+            maxLength: string
+        }
+
+        interface BoolField extends FieldType {}
+
+        interface IntField extends FieldType {
+            min?: number
+            max?: number
+        }
+
+        interface ObjField extends FieldType {}
+
+    }
+
+    module filters {
+        import FieldType = ak.crudTableModule.fieldTypes.FieldType;
         type iTableRelType = "one" | "many"
 
         interface iTableRel {
@@ -48,50 +103,7 @@ declare module crudTable {
             displayField: string
         }
 
-        interface iCrudTableConfig {
 
-            tab: any
-
-            fields: models.iTableField[]
-            rels: models.iTableRel[]
-
-            sourceName: string
-            url: string
-            tableName: string
-            connName: string
-
-            allowedMethods: {
-                create: boolean
-                patch: boolean
-                delete: boolean
-            }
-
-            getRel(fieldName: string): models.iTableRel
-            getField(fieldName: string): models.iTableField
-
-            setTabs(tabs: any): iCrudTableConfig
-
-        }
-    }
-
-
-
-
-
-}
-declare module ak.crudTableModule {
-
-    interface filters{
-        iFilter:ak.crudTableModule.filters.iFilter
-        INewFilter:ak.crudTableModule.filters.INewFilter
-        IModel:ak.crudTableModule.filters.IModel
-        ISavedFilters:ak.crudTableModule.filters.ISavedFilters;
-        ISaveFilter:ak.crudTableModule.filters.ISaveFilter
-        iFilterClass:ak.crudTableModule.filters.iFilterClass
-    }
-    module filters {
-        import iTableField = crudTable.models.iTableField;
-        import iTableRel = crudTable.models.iTableRel;
         interface iFilter {
             name: string
             title: string
@@ -109,7 +121,7 @@ declare module ak.crudTableModule {
         interface INewFilter{
             name: string,
             applied: boolean,
-            field: crudTable.models.iTableField,
+            field: TableField,
             schema : AngularFormly.IFieldGroup[]
         }
 
@@ -140,7 +152,7 @@ declare module ak.crudTableModule {
             saveFilter: ISaveFilter;
             filters: INewFilter[]
             tableUrl:string
-            getNewFilters(fields:iTableField[],rels:iTableRel[]):INewFilter[]
+            getNewFilters(fields:TableField[],rels:iTableRel[]):INewFilter[]
             apply(filter:INewFilter):void
             removeField(index:number, name:string):void
             getRestFilters():string
@@ -155,9 +167,19 @@ declare module ak.crudTableModule {
 }
 
 declare module ak {
-    interface crudTableModule{
-        name:string;
-        filters:ak.crudTableModule.filters
+
+    interface crudTableModule {
+        name:string
+        CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string) => ak.crudTableModule.CrudTableConfig,
+        fieldTypes: ak.crudTableModule.fieldTypes
+        TableField:(name: string,
+                    title: string,
+                    fieldType: ak.crudTableModule.fieldTypes.FieldType,
+                    nullable: boolean,
+                    editable: boolean,
+                    formly: string,
+                    parent: string,
+                    options: any) => ak.crudTableModule.TableField
     }
     var crudTableModule:crudTableModule;
 }

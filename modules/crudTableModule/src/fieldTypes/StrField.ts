@@ -1,4 +1,4 @@
-import IStrField = crudTable.models.fields.iStrField;
+import IStrField = ak.crudTableModule.fieldTypes.StrField;
 
 export class StrField implements IStrField {
 

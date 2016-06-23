@@ -1,11 +1,9 @@
 import {indexState} from "./IndexState"
 
-import iPageResponse = jsonDAO.iPageResponse;
-import iCrudTableConfig = crudTable.models.iCrudTableConfig;
+import iPageResponse = ak.jsonDaoModule.iPageResponse;
+import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 import {ConfigBuilder} from "../models/ConfigBuilder";
-import {ApiUrls} from "../../../utils/ApiUrls";
-import {Deps} from "../../../jsonDAOModule/Deps"
-import iDAOFactoryService = jsonDAO.iDAOFactoryService;
+import iDAOFactoryService = ak.jsonDaoModule.iDAOFactoryService;
 
 interface iStateParams{
     name: string
@@ -75,12 +73,12 @@ export const states: ak.config<ng.ui.IState>[] = [
                 s['tables'] = tables;
             }],
             resolve: {
-                tables:["$q","$injector", Deps.daoFactoryService, ($q:ng.IQService, inj:ng.auto.IInjectorService, daoFactory: iDAOFactoryService<any>):ng.IPromise<apiAdmin.iTable[]> =>{
-                    let deferred = $q.defer<apiAdmin.iTable[]>();
+                tables:["$q","$injector", ak.jsonDaoModule.Deps.daoFactoryService, ($q:ng.IQService, inj:ng.auto.IInjectorService, daoFactory: iDAOFactoryService):ng.IPromise<ak.apiAdminModule.iTable[]> =>{
+                    let deferred = $q.defer<ak.apiAdminModule.iTable[]>();
 
-                    daoFactory.build("tables", ApiUrls.admin)
+                    daoFactory.build("tables", ak.utils.ApiUrls.admin)
                         .getFullPage([])
-                        .then((tables:iPageResponse<apiAdmin.iTable>)=>{
+                        .then((tables:iPageResponse<ak.apiAdminModule.iTable>)=>{
                             deferred.resolve(tables.data);
                         });
 

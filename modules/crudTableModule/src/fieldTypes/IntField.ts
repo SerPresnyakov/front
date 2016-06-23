@@ -1,4 +1,4 @@
-import iIntField = crudTable.models.fields.iIntField;
+import iIntField = ak.crudTableModule.fieldTypes.IntField;
 
 export class IntField implements iIntField {
 

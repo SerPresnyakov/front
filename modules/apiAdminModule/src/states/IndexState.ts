@@ -1,8 +1,5 @@
-import iPageResponse = jsonDAO.iPageResponse;
-import {Deps} from "../../../jsonDAOModule/Deps"
-import iDAOFactoryService = jsonDAO.iDAOFactoryService;
-import {AuthService} from "../../../authModule/AuthService";
-import {ApiUrls} from "../../../utils/ApiUrls";
+import iPageResponse = ak.jsonDaoModule.iPageResponse;
+import iDAOFactoryService = ak.jsonDaoModule.iDAOFactoryService;
 
 class Ctrl {
 
@@ -10,7 +7,7 @@ class Ctrl {
 
     constructor(
         private sidenav: ng.material.ISidenavService,
-        public tables: apiAdmin.iTable[]
+        public tables: ak.apiAdminModule.iTable[]
     ) {
         //blabla
     }
@@ -22,23 +19,23 @@ class Ctrl {
 
 }
 
-export const indexState: iRegisterMeta<ng.ui.IState> = {
+export const indexState: ak.config<ng.ui.IState> = {
     name: "index",
     config: {
         url: "/",
         template: "<ak-sidenav tables='tables'></ak-sidenav>",
         controller: Ctrl,
         resolve: {
-            tables: ["$q", "$injector", Deps.daoFactoryService, ($q:ng.IQService, $inj:ng.auto.IInjectorService, daoFactory: iDAOFactoryService) : ng.IPromise<apiAdmin.iTable[]> => {
-                let deferred = $q.defer<apiAdmin.iTable[]>();
+            tables: ["$q", "$injector", ak.jsonDaoModule.Deps.daoFactoryService, ($q:ng.IQService, $inj:ng.auto.IInjectorService, daoFactory: iDAOFactoryService) : ng.IPromise<ak.apiAdminModule.iTable[]> => {
+                let deferred = $q.defer<ak.apiAdminModule.iTable[]>();
                 daoFactory
-                    .build<apiAdmin.iTable>("tables", ApiUrls.admin)
+                    .build<ak.apiAdminModule.iTable>("tables", ak.utils.ApiUrls.admin)
                     .getFullPage([])
-                    .then((res: iPageResponse<apiAdmin.iTable>) => deferred.resolve(res.data))
+                    .then((res: iPageResponse<ak.apiAdminModule.iTable>) => deferred.resolve(res.data))
                     .catch((err)=> deferred.reject({ msg:"Can't resolve tables", err: err }));
                 return deferred.promise;
             }],
-            user: [AuthService.serviceName, (auth: AuthService): ng.IPromise<any> => {
+            user: [ak.authModule.authService.serviceName, (auth: ak.authModule.authService): ng.IPromise<any> => {
                 return auth.me()
             }]
         }

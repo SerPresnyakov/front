@@ -1,11 +1,5 @@
 declare namespace ak.authModule {
-    export interface authService{
-        serviceName: string
-        $inject:any[]
-        login(cred: credentials): ng.IPromise<Boolean>
-        logout(): ng.IPromise<any>
-        me(): ng.IPromise<any>
-    }
+
     interface credentials {
         email: string,
         password: string
@@ -13,11 +7,9 @@ declare namespace ak.authModule {
 }
 
 declare module ak {
-    import authService = ak.authModule.authService;
-
     interface authModule{
         name:string;
-        authService:authService;
+        authServiceName:string
     }
     var authModule:authModule;
 }

@@ -1,4 +1,4 @@
-import IFormlyConfig = AngularFormly.IFormlyConfig;
+ import IFormlyConfig = AngularFormly.IFormlyConfig;
 import {AutocompleteType} from "./formly/autocompleteType/AutocompleteType";
 import {PanelWrapper, InputContainerWrapper,FilterWrapper} from "./formly/Wrappers";
 

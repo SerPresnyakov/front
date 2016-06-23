@@ -1,6 +1,6 @@
 import {indexState} from "./index/IndexState"
 
-import iCrudTableConfig = crudTable.models.iCrudTableConfig;
+import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 import {ConfigsService} from "./ConfigsService";
 
 export class StatesRegister {

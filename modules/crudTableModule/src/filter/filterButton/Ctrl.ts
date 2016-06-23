@@ -1,5 +1,5 @@
 import IComponentOptions = angular.IComponentOptions;
-import iTableField = crudTable.models.iTableField;
+import iTableField = ak.crudTableModule.TableField;
 
 class Ctrl {
 

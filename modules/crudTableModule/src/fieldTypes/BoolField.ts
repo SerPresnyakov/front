@@ -1,4 +1,4 @@
-import iBoolField = crudTable.models.fields.iBoolField;
+import iBoolField = ak.crudTableModule.fieldTypes.BoolField;
 
 export class BoolField implements iBoolField {
 

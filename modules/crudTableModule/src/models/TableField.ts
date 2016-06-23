@@ -1,9 +1,9 @@
-export class TableField implements crudTable.models.iTableField {
+export class TableField implements ak.crudTableModule.TableField {
 
     constructor(
         public name: string,
         public title: string,
-        public fieldType: crudTable.models.fields.iFieldType,
+        public fieldType: ak.crudTableModule.fieldTypes.FieldType,
         public nullable: boolean,
         public editable: boolean,
         public formly: string,

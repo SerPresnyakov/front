@@ -1,6 +1,6 @@
-import iSource = jsonDAO.iSource;
+import iSource = ak.jsonDaoModule.iSource;
 import {TableField} from "../../../crudTableModule/src/models/TableField";
-import iPageResponse = jsonDAO.iPageResponse;
+import iPageResponse = ak.jsonDaoModule.iPageResponse;
 import {ObjField} from "../../../crudTableModule/src/fieldTypes/ObjField";
 import {IntField} from "../../../crudTableModule/src/fieldTypes/IntField";
 import {StrField} from "../../../crudTableModule/src/fieldTypes/StrField";
@@ -15,8 +15,8 @@ export class relationsConfig {
 
     constructor(
         public tableName: string,
-        public relSource: iSource<apiAdmin.iRelation>,
-        public fieldSource: iSource<apiAdmin.iField>,
+        public relSource: iSource<ak.apiAdminModule.iRelation>,
+        public fieldSource: iSource<ak.apiAdminModule.iField>,
         public $q:ng.IQService
     ) {}
 
@@ -24,7 +24,7 @@ export class relationsConfig {
         let deferred = this.$q.defer<TableField[]>();
         let res: TableField[] = [];
         this.relSource.getFullPage([{field: "base.leftTable.url", op: "eq", value: this.tableName}])
-            .then((tables:iPageResponse<apiAdmin.iRelation>)=> {
+            .then((tables:iPageResponse<ak.apiAdminModule.iRelation>)=> {
                 if(tables.data.length==0) {
                     deferred.reject({msg:"Table don't have relations"})
                 }
@@ -35,7 +35,7 @@ export class relationsConfig {
                             op: "in",
                             value: relsTable.getTablesNames()
                         }])
-                        .then((fields:iPageResponse<apiAdmin.iField>)=> {
+                        .then((fields:iPageResponse<ak.apiAdminModule.iField>)=> {
                             var relsField = new relsFields(fields.data);
                             relsTable.rels.forEach((r)=> {
                                 res = res.concat(this.setConfig(r.relsName, relsField.getFieldsByTableName(r.tableName)));
@@ -48,7 +48,7 @@ export class relationsConfig {
         return deferred.promise;
     }
 
-    setConfig(parent:string, fileds:apiAdmin.iField[]):TableField[] {
+    setConfig(parent:string, fileds:ak.apiAdminModule.iField[]):TableField[] {
         let res:TableField[]=[];
         res.push(new TableField(
             parent,
@@ -61,7 +61,7 @@ export class relationsConfig {
             null
         ));
 
-        angular.forEach(fileds, (f: apiAdmin.iField, i) => {
+        angular.forEach(fileds, (f: ak.apiAdminModule.iField, i) => {
             var fieldType;
             var formly;
 
@@ -103,7 +103,7 @@ class relsTables {
 
     rels:iRelsTableName[] = [];
 
-    constructor(private tables:apiAdmin.iRelation[]) {
+    constructor(private tables:ak.apiAdminModule.iRelation[]) {
         tables.forEach((t)=> {
             this.rels.push({tableName: t.rightTable.url, relsName: t.name})
         })
@@ -121,10 +121,10 @@ class relsTables {
 }
 
 class relsFields {
-    constructor(public fields:apiAdmin.iField[]){
+    constructor(public fields:ak.apiAdminModule.iField[]){
     }
-    getFieldsByTableName(tableName):apiAdmin.iField[]{
-        let res:apiAdmin.iField[]=[];
+    getFieldsByTableName(tableName):ak.apiAdminModule.iField[]{
+        let res:ak.apiAdminModule.iField[]=[];
         this.fields.forEach((f)=>{
             if(f.table.url==tableName){
                 res.push(f);

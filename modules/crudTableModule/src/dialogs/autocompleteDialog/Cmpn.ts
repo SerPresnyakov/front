@@ -1,5 +1,5 @@
-import iTableField = crudTable.models.iTableField;
-import iTableRel = crudTable.models.iTableRel;
+import iTableField = ak.crudTableModule.TableField;
+import iTableRel = ak.crudTableModule.filters.iTableRel;
 
 class Ctrl {
 

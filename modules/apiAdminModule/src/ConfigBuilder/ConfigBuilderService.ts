@@ -1,6 +1,6 @@
 import {ConfigBuilder} from "../models/ConfigBuilder";
 import IPromise = angular.IPromise;
-import iCrudTableConfig = crudTable.models.iCrudTableConfig;
+import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 
 export class ConfigBuilderService {
 

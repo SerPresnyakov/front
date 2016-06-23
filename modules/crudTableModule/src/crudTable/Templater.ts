@@ -1,6 +1,6 @@
 
-import iTableField = crudTable.models.iTableField;
-import iCrudTableConfig = crudTable.models.iCrudTableConfig;
+import iTableField = ak.crudTableModule.TableField;
+import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 
 export class Templater {
 

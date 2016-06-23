@@ -1,8 +1,8 @@
 export class SideNavTemplateBuilder {
 
-    tables: apiAdmin.iTable[] = [];
+    tables: ak.apiAdminModule.iTable[] = [];
 
-    constructor(_tables: apiAdmin.iTable[]) {
+    constructor(_tables: ak.apiAdminModule.iTable[]) {
         if (_tables != null) {
             this.tables = _tables;
         } else {

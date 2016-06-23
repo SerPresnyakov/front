@@ -1,4 +1,4 @@
-import iObjField = crudTable.models.fields.iObjField;
+import iObjField = ak.crudTableModule.fieldTypes.ObjField;
 
 export class ObjField implements iObjField {
 

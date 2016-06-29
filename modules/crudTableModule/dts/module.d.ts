@@ -44,6 +44,7 @@ declare module ak.crudTableModule {
 
         getRel(fieldName: string): ak.crudTableModule.filters.iTableRel
         getField(fieldName: string): ak.crudTableModule.TableField
+        getRelsName():ak.jsonDaoModule.iRelation[]
 
         setTabs(tabs: any): CrudTableConfig
 
@@ -80,6 +81,13 @@ declare module ak.crudTableModule {
         }
 
         interface BoolField extends FieldType {}
+
+        interface AdField extends FieldType {
+            title: string
+            text1: string
+            text2: string
+            finalUrls : string[]
+        }
 
         interface IntField extends FieldType {
             min?: number

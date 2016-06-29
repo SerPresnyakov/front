@@ -40,6 +40,6 @@ let module = ak.utils.angularModule(ak.crudTableModule.name, [
 ]);
 
 module.directive("akCrudTable", ["$compile", ($compile => CrudTableDirective($compile))]);
-module.registerComponent([{name:filterButtonDirective.name, config: filterButtonDirective},{ name:filterFieldsDirective.name, config: filterFieldsDirective}]);
+module.registerComponent([{name:filterButtonDirective.name, config: filterButtonDirective.config},{ name:filterFieldsDirective.name, config: filterFieldsDirective.config}]);
 
 module.run(Run);

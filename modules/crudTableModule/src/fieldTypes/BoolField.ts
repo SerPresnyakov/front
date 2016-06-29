@@ -2,9 +2,7 @@ import iBoolField = ak.crudTableModule.fieldTypes.BoolField;
 
 export class BoolField implements iBoolField {
 
-    static _type = "bool";
-
-    type = BoolField._type;
+    type = "bool";
 
     toSchema(): Object {
         return {
@@ -12,9 +10,9 @@ export class BoolField implements iBoolField {
         }
     }
 
-    static map(v: Object): string[]|BoolField {
-        return new BoolField()
-    }
+    //static map(v: Object): string[]|BoolField {
+    //    return new BoolField()
+    //}
 
     constructor() {};
 

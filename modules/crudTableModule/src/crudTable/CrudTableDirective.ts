@@ -119,7 +119,7 @@ class Ctrl {
 
     refreshPage():void {
         let filter = this.setFilters();
-        this.source.getPage(ak.jsonDaoModule.iPage().setPage(1,15),filter)
+        this.source.getPage(ak.jsonDaoModule.iPage().setPage(1,15),filter,this.config.getRelsName())
             .then((res) => {
                 this.pager.data = res.data;
                 this.pager.total = 1;
@@ -131,6 +131,7 @@ class Ctrl {
         if(this.filters.hasOwnProperty('model')){
             Object.getOwnPropertyNames(this.filters.model).forEach( (f)=> {
                 res.push({field:f,op:"eq",value:this.filters.model[f]})
+                console.log(f, this.filters.model[f])
             });
 
         } else {

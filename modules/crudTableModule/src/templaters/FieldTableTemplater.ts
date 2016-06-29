@@ -1,6 +1,6 @@
 import {TableField} from "../models/TableField";
-import iCrudTableConfig = crudTable.models.iCrudTableConfig;
-import iTableField = crudTable.models.iTableField;
+import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
+import iTableField = ak.crudTableModule.TableField;
 
 export class FieldTableTemplater {
 
@@ -140,6 +140,8 @@ export class FieldTableTemplater {
 
                 } else if (f.parent) {
 
+                } else if (f.fieldType.type == "ad") {
+                    this.getAdCell(f);
                 }
                 else {
                     res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
@@ -183,9 +185,14 @@ export class FieldTableTemplater {
         if (rel && rel.type == "one") {
             res = `{{${obj}._relations.${rel.name}.${rel.displayField ? rel.displayField : "name"}}}`
         } else {
-
             res = `${n.title}: {{${obj}.${f.name}.${n.name}}}<br>`
         }
         return res
+    }
+
+    getAdCell(f:iTableField):string{
+        let res:string;
+            console.log(f.fieldType.toSchema());
+        return res;
     }
 }

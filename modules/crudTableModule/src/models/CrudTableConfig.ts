@@ -28,6 +28,14 @@ export class CrudTableConfig implements ak.crudTableModule.CrudTableConfig {
         return this
     }
 
+    getRelsName():ak.jsonDaoModule.iRelation[]{
+        let res:ak.jsonDaoModule.iRelation[]=[];
+        this.rels.forEach((r)=>{
+            res.push({name:r.field});
+        });
+        return res;
+    }
+
     getRel(fieldName: string): ak.crudTableModule.filters.iTableRel {
         return this.rels.find((r) => r.name == fieldName)
     }

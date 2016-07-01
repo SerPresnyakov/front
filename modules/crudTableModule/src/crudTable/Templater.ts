@@ -209,14 +209,21 @@ class AdCell {
         Object.getOwnPropertyNames(this.field.fieldType.fields.title).forEach(title=>{
             Object.getOwnPropertyNames(this.field.fieldType.fields.url).forEach(url=> {
                 if (this.field.fieldType.fields.url[url] == "array") {
-                    res = `<a class="advertTitle" href="{{${this.obj}.${this.field.name}.${url}[0]}}">{{${this.obj}.${this.field.name}.${title}}}</a><br>`
+                    res = `<a class="advertTitle" href="{{${this.obj}.${this.field.name}.${url}[0]}}">{{${this.obj}.${this.field.name}.${title}}}</a>`
                 } else {
-                    res = `<a class="advertTitle" href="{{${this.obj}.${this.field.name}.${url}}}">{{${this.obj}.${this.field.name}.${title}}}</a><br>`
+                    res = `<a class="advertTitle" href="{{${this.obj}.${this.field.name}.${url}}}">{{${this.obj}.${this.field.name}.${title}}}</a>`
                 }
             })
         });
         console.log("title: ",res);
         return res;
+    }
+
+    getTicketButton(){
+
+        let res:string = "<md-button>Тикет</md-button></br>"
+        return res;
+
     }
 
     getDescription():string{
@@ -231,7 +238,7 @@ class AdCell {
     }
 
     getCell():string{
-        let res:string = this.getTitle() + this.getUrl() + this.getDescription();
+        let res:string = this.getTitle() + this.getTicketButton() + this.getUrl() + this.getDescription();
         console.log("cell: ",res);
         return res;
     }

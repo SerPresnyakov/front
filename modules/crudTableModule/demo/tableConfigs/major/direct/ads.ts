@@ -14,7 +14,7 @@ export const table =
             new TableField("visitCardId", 'visitCardId', new IntField(), false, false, "input"),
             new TableField("siteLinksId", 'siteLinksId', new IntField(), false, false, "input"),
             new TableField("comment", "Комментарий", new StrField(), false, false, "input"),
-            new TableField("textAd", "Обьявление", new AdField(), false, false, "input" )
+            new TableField("banner", "Обьявление", new AdField({title:{title:"string"}, url:{url:"url"}, desc:{text:"string"}}), false, false, "input" )
 
         ])
         .setTabs([{title:"Direct",url:"directAds",selected:true},{title:"Adwords",url:"adwordsAds"}]);

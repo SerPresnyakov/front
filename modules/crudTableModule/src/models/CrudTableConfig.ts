@@ -1,6 +1,7 @@
+import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 export class CrudTableConfig implements ak.crudTableModule.CrudTableConfig {
 
-    fields: ak.crudTableModule.TableField[] = [];
+    fields: ak.crudTableModule.TableField<FieldType>[] = [];
     rels: ak.crudTableModule.filters.iTableRel[] = [];
     tab = {selected:null,tabs:[]};
     allowedMethods = {patch:true, delete:true, create:true};
@@ -13,7 +14,7 @@ export class CrudTableConfig implements ak.crudTableModule.CrudTableConfig {
     ) {
     }
 
-    setFields(fields: ak.crudTableModule.TableField[]): CrudTableConfig {
+    setFields(fields: ak.crudTableModule.TableField<FieldType>[]): CrudTableConfig {
         this.fields = this.fields.concat(fields);
         return this;
     }
@@ -40,7 +41,7 @@ export class CrudTableConfig implements ak.crudTableModule.CrudTableConfig {
         return this.rels.find((r) => r.name == fieldName)
     }
 
-    getField(fieldName: string): ak.crudTableModule.TableField {
+    getField(fieldName: string): ak.crudTableModule.TableField<FieldType> {
         return this.fields.find((r) => r.name == fieldName)
     }
 

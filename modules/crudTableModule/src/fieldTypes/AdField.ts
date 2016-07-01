@@ -1,6 +1,6 @@
 import iAdField = ak.crudTableModule.fieldTypes.AdField;
 
-export class AdField extends iAdField{
+export class AdField implements iAdField{
 
     type = "ad";
 
@@ -10,5 +10,5 @@ export class AdField extends iAdField{
         }
     }
 
-    constructor() {};
+    constructor(public fields) {};
 }

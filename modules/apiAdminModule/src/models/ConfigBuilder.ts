@@ -1,6 +1,7 @@
 import {relationsConfig} from "./Relations";
 import iPageResponse = ak.jsonDaoModule.iPageResponse;
 import iSource = ak.jsonDaoModule.iSource;
+import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 
 
 export class ConfigBuilder {
@@ -33,7 +34,7 @@ export class ConfigBuilder {
                         config = ak.crudTableModule.CrudTableConfig("res", "res", "res", "res");
                         config.setFields(fields);
                         new relationsConfig(tableUrl, this.relsSource,this.fieldsSource,this.$q).getRelationsConfig()
-                            .then((relFields: ak.crudTableModule.TableField[]) => {
+                            .then((relFields: ak.crudTableModule.TableField<FieldType>[]) => {
                                 config.setFields(relFields);
                                 deferred.resolve(config);
                             })
@@ -46,9 +47,9 @@ export class ConfigBuilder {
 
     }
 
-    static getFields(fields: ak.apiAdminModule.iField[]): ak.crudTableModule.TableField[] {
+    static getFields(fields: ak.apiAdminModule.iField[]): ak.crudTableModule.TableField<FieldType>[] {
 
-        let result: ak.crudTableModule.TableField[] = [];
+        let result: ak.crudTableModule.TableField<any>[] = [];
 
         let errors = [];
 

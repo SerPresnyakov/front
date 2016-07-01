@@ -1,6 +1,9 @@
 
 import iTableField = ak.crudTableModule.TableField;
 import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
+import AdField = ak.crudTableModule.fieldTypes.AdField;
+import {ObjField} from "../fieldTypes/ObjField";
+import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 
 export class Templater {
 
@@ -124,6 +127,8 @@ export class Templater {
 
                 } else if (f.parent) {
 
+                } else if (f.fieldType.type == "ad") {
+                    res.push(`<td md-cell><div class="advert">${this.getAdCell(obj, f)}</div></td>`);
                 }
                 else{
                     res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
@@ -146,7 +151,7 @@ export class Templater {
         return res.join("\n")
     }
 
-    getCell(obj: string, f: iTableField): string {
+    getCell(obj: string, f: iTableField<FieldType>): string {
         if(f.formly=="switch"){
             res =`<md-button ng-if="${obj}.${f.name}" class="md-raised md-primary md-button">Дa</md-button><md-button ng-if="!${obj}.${f.name}" class="md-raised md-accent md-button">Нет</md-button>`
         } else {
@@ -161,7 +166,7 @@ export class Templater {
         return res
     }
 
-    getObjCell(obj: string, n, f: iTableField): string {
+    getObjCell(obj: string, n, f: iTableField<ObjField>): string {
         let rel = this.config.getRel(f.name);
         var res: string;
         if (rel && rel.type == "one") {
@@ -173,4 +178,61 @@ export class Templater {
         return res
     }
 
+    getAdCell(obj:string, f:iTableField<AdField>){
+        return new AdCell(obj, f).getCell()
+    }
+
+}
+
+class AdCell {
+    constructor(public obj:string, public field:iTableField<AdField>){}
+
+    getUrl():string{
+
+        let res:string;
+
+        Object.getOwnPropertyNames(this.field.fieldType.fields.url).forEach(url=>{
+            if(this.field.fieldType.fields.url[url]=="array"){
+                res = `<div class="advertUrl" ng-repeat="url in ${this.obj}.${this.field.name}.${url}">{{url | domain}}</div>`
+            }else{
+                res = `<span class="advertUrl">{{${this.obj}.${this.field.name}.${url} | domain }}</span><br>`;
+            }
+        });
+        console.log("url: ",res);
+        return res;
+    }
+
+    getTitle():string{
+
+        let res:string;
+
+        Object.getOwnPropertyNames(this.field.fieldType.fields.title).forEach(title=>{
+            Object.getOwnPropertyNames(this.field.fieldType.fields.url).forEach(url=> {
+                if (this.field.fieldType.fields.url[url] == "array") {
+                    res = `<a class="advertTitle" href="{{${this.obj}.${this.field.name}.${url}[0]}}">{{${this.obj}.${this.field.name}.${title}}}</a><br>`
+                } else {
+                    res = `<a class="advertTitle" href="{{${this.obj}.${this.field.name}.${url}}}">{{${this.obj}.${this.field.name}.${title}}}</a><br>`
+                }
+            })
+        });
+        console.log("title: ",res);
+        return res;
+    }
+
+    getDescription():string{
+
+        let res:string = "";
+        Object.getOwnPropertyNames(this.field.fieldType.fields.desc).forEach(desc=> {
+            res = res + `{{${this.obj}.${this.field.name}.${desc}}}`
+        });
+
+        console.log("desc: ",res);
+        return res;
+    }
+
+    getCell():string{
+        let res:string = this.getTitle() + this.getUrl() + this.getDescription();
+        console.log("cell: ",res);
+        return res;
+    }
 }

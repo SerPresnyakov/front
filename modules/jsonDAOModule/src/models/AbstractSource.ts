@@ -1,6 +1,7 @@
 import {Page} from "./Page";
 import iFilter = ak.jsonDaoModule.iFilter;
 import iPageResponse = ak.jsonDaoModule.iPageResponse;
+import iRelation = ak.jsonDaoModule.iRelation;
 
 export abstract class AbstractSource<M> {
 
@@ -20,15 +21,16 @@ export abstract class AbstractSource<M> {
         return this.getPage(new Page().setPage(1, 100), filters)
     }
 
-    getPage(page:Page, filters: iFilter[] = []): ng.IPromise<iPageResponse<M>> {
+    getPage(page:Page, filters: iFilter[] = [], rels: iRelation[] = []): ng.IPromise<iPageResponse<M>> {
         let result = this.$q.defer<iPageResponse<M>>();
         //noinspection TypeScriptValidateTypes
         this.$http
             .post(this.crudUrl, {
                 method: "get",
-                tableName: this.tableName,
+                table: this.tableName,
                 pager: page,
-                filters: filters
+                filters: filters,
+                rels: rels
             })
             .then((res: ng.IHttpPromiseCallbackArg<iPageResponse<M>>) => result.resolve(res.data))
             .catch((err) => result.reject(err));
@@ -60,7 +62,7 @@ export abstract class AbstractSource<M> {
         this.$http
             .post(`${this.crudUrl}`, {
                 method: method,
-                tableName: this.tableName,
+                table: this.tableName,
                 data: doc
             })
             .then((res: ng.IHttpPromiseCallbackArg<any>) => result.resolve(res.data))

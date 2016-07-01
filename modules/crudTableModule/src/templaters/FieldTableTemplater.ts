@@ -1,6 +1,9 @@
 import {TableField} from "../models/TableField";
 import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 import iTableField = ak.crudTableModule.TableField;
+import ObjField = ak.crudTableModule.fieldTypes.ObjField;
+import {AdField} from "../fieldTypes/AdField";
+import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 
 export class FieldTableTemplater {
 
@@ -99,7 +102,7 @@ export class FieldTableTemplater {
     getTds(obj:string):string {
         let obj1 = obj;
         let res = [];
-        angular.forEach(this.config.fields, (f:iTableField) => {
+        angular.forEach(this.config.fields, (f:iTableField<FieldType>) => {
             if (f.editable) {
                 switch (f.formly) {
                     case "switch" :
@@ -131,7 +134,7 @@ export class FieldTableTemplater {
             else {
                 if (f.fieldType.type == "obj") {
                     let childs = "";
-                    angular.forEach(this.config.fields, (n:iTableField) => {
+                    angular.forEach(this.config.fields, (n:iTableField<ObjField>) => {
                         if (f.name == n.parent) {
                             childs = childs + `${this.getObjCell(obj, n, f)}`;
                         }
@@ -141,7 +144,7 @@ export class FieldTableTemplater {
                 } else if (f.parent) {
 
                 } else if (f.fieldType.type == "ad") {
-                    this.getAdCell(f);
+                    res.push(`<td md-cell>${this.getAdCell(obj, f)}</td>`);
                 }
                 else {
                     res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
@@ -164,7 +167,7 @@ export class FieldTableTemplater {
         return res.join("\n")
     }
 
-    getCell(obj:string, f:iTableField):string {
+    getCell(obj:string, f:iTableField<FieldType>):string {
         if (f.formly == "switch") {
             res = `<md-button ng-if="${obj}.${f.name}" class="md-raised md-primary md-button">Дa</md-button><md-button ng-if="!${obj}.${f.name}" class="md-raised md-accent md-button">Нет</md-button>`
         } else {
@@ -179,7 +182,7 @@ export class FieldTableTemplater {
         return res
     }
 
-    getObjCell(obj:string, n, f:iTableField):string {
+    getObjCell(obj:string, n, f:iTableField<ObjField>):string {
         let rel = this.config.getRel(f.name);
         var res:string;
         if (rel && rel.type == "one") {
@@ -190,9 +193,9 @@ export class FieldTableTemplater {
         return res
     }
 
-    getAdCell(f:iTableField):string{
+    getAdCell(obj:string, f:iTableField<AdField>):string{
         let res:string;
-            console.log(f.fieldType.toSchema());
+            res = `{{${obj}.${f.name}}}`;
         return res;
     }
 }

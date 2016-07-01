@@ -33,7 +33,13 @@ declare module ak.utils {
 
     interface ApiUrls {
         admin:string,
-        crud:string
+        crud:string,
+        connName:string
+    }
+
+    interface Domain {
+        name:string
+        config():(input:string)=>string
     }
 
     interface Helper {
@@ -78,6 +84,7 @@ declare module ak {
     import AngularModule = ak.utils.AngularModule;
     import ApiUrls = ak.utils.ApiUrls;
     import Helper = ak.utils.Helper;
+    import Domain = ak.utils.Domain;
 
     interface config<T> {
         name: string
@@ -88,7 +95,8 @@ declare module ak {
         Deps: Deps,
         angularModule: (name: string, deps: string[]) => AngularModule,
         ApiUrls: ApiUrls,
-        Helper: Helper
+        Helper: Helper,
+        Domain: Domain
     }
 
     var utils: Utils;

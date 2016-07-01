@@ -13,10 +13,10 @@ declare module crudTable {
 declare module ak.crudTableModule {
 
     import FieldType = ak.crudTableModule.fieldTypes.FieldType;
-    interface TableField {
+    interface TableField<T> {
         name: string
         title: string
-        fieldType: FieldType
+        fieldType: T
         nullable: boolean
         editable: boolean
         formly: string
@@ -28,7 +28,7 @@ declare module ak.crudTableModule {
 
         tab: any
 
-        fields: ak.crudTableModule.TableField[]
+        fields: ak.crudTableModule.TableField<any>[]
         rels: ak.crudTableModule.filters.iTableRel[]
 
         sourceName: string
@@ -43,7 +43,7 @@ declare module ak.crudTableModule {
         }
 
         getRel(fieldName: string): ak.crudTableModule.filters.iTableRel
-        getField(fieldName: string): ak.crudTableModule.TableField
+        getField(fieldName: string): ak.crudTableModule.TableField<FieldType>
         getRelsName():ak.jsonDaoModule.iRelation[]
 
         setTabs(tabs: any): CrudTableConfig
@@ -83,10 +83,12 @@ declare module ak.crudTableModule {
         interface BoolField extends FieldType {}
 
         interface AdField extends FieldType {
-            title: string
-            text1: string
-            text2: string
-            finalUrls : string[]
+            fields:{
+                title:{[name:string]:string},
+                url:{[name:string]:string}
+                desc:{[name:string]:string}
+
+            }
         }
 
         interface IntField extends FieldType {
@@ -129,7 +131,7 @@ declare module ak.crudTableModule {
         interface INewFilter{
             name: string,
             applied: boolean,
-            field: TableField,
+            field: TableField<FieldType>,
             schema : AngularFormly.IFieldGroup[]
         }
 
@@ -160,7 +162,7 @@ declare module ak.crudTableModule {
             saveFilter: ISaveFilter;
             filters: INewFilter[]
             tableUrl:string
-            getNewFilters(fields:TableField[],rels:iTableRel[]):INewFilter[]
+            getNewFilters(fields:TableField<FieldType>[],rels:iTableRel[]):INewFilter[]
             apply(filter:INewFilter):void
             removeField(index:number, name:string):void
             getRestFilters():string
@@ -176,6 +178,7 @@ declare module ak.crudTableModule {
 
 declare module ak {
 
+    import FieldType = ak.crudTableModule.fieldTypes.FieldType;
     interface crudTableModule {
         name:string
         CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string) => ak.crudTableModule.CrudTableConfig,
@@ -187,7 +190,7 @@ declare module ak {
                     editable: boolean,
                     formly: string,
                     parent: string,
-                    options: any) => ak.crudTableModule.TableField
+                    options: any) => ak.crudTableModule.TableField<FieldType>
     }
     var crudTableModule:crudTableModule;
 }

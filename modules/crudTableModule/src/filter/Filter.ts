@@ -3,6 +3,7 @@ import {TableField} from "../models/TableField";
 import {TableRel} from "../models/TableRel";
 import iTableField = ak.crudTableModule.TableField;
 import iTableRel = ak.crudTableModule.filters.iTableRel;
+import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 
 export class Filters implements ak.crudTableModule.filters.iFilterClass{
 
@@ -13,14 +14,14 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
     saveFilter:  ak.crudTableModule.filters.ISaveFilter;
     filters:  ak.crudTableModule.filters.INewFilter[] = [];
 
-    constructor(private fields:iTableField[],
+    constructor(private fields:iTableField<FieldType>[],
                 private rels:iTableRel[],
                 public tableUrl:string
     ){
         this.filters = this.getNewFilters(fields,rels);
     }
 
-    getNewFilters(fields:iTableField[],rels:iTableRel[]): ak.crudTableModule.filters.INewFilter[]{
+    getNewFilters(fields:iTableField<FieldType>[],rels:iTableRel[]): ak.crudTableModule.filters.INewFilter[]{
         let schema = Schema.getSchema(fields,rels);
         let res:  ak.crudTableModule.filters.INewFilter[] = [];
         fields.forEach((f:TableField)=>{

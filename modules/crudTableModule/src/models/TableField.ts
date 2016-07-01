@@ -1,4 +1,4 @@
-export class TableField implements ak.crudTableModule.TableField {
+export class TableField implements ak.crudTableModule.TableField<any> {
 
     constructor(
         public name: string,

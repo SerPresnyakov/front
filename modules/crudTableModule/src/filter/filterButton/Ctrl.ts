@@ -1,9 +1,10 @@
 import IComponentOptions = angular.IComponentOptions;
 import iTableField = ak.crudTableModule.TableField;
+import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 
 class Ctrl {
 
-    fields : iTableField;
+    fields : iTableField<FieldType>;
     filter: ak.crudTableModule.filters.iFilterClass;
     originatorEv:MouseEvent;
     fieldsLength = this.fieldsCount();
@@ -59,7 +60,7 @@ class Ctrl {
         return res;
     };
 
-    isSet(field:iTableField):boolean{
+    isSet(field:iTableField<any>):boolean{
         let res:boolean = false;
         angular.forEach(this.filter.filters,(f)=>{
             if(field.name === f.name){

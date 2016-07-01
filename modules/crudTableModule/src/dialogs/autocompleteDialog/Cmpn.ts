@@ -1,5 +1,6 @@
 import iTableField = ak.crudTableModule.TableField;
 import iTableRel = ak.crudTableModule.filters.iTableRel;
+import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 
 class Ctrl {
 
@@ -11,7 +12,7 @@ class Ctrl {
     data;
 
     constructor(
-        public field: iTableField,
+        public field: iTableField<FieldType>,
         public origin: any,
         public $http: ng.IHttpService,
         public $event: ng.IAngularEvent,
@@ -60,7 +61,7 @@ class Ctrl {
     }
 }
 
-export const getDialog = (event: any, field: iTableField, origin: any, rel: iTableRel , mdDialog, originSource): ng.material.IDialogOptions => {
+export const getDialog = (event: any, field: iTableField<FieldType>, origin: any, rel: iTableRel , mdDialog, originSource): ng.material.IDialogOptions => {
     var parentEl = angular.element(document.body);
     return {
         controllerAs: "ctrlVM",

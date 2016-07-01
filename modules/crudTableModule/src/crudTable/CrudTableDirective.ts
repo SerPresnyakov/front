@@ -10,6 +10,7 @@ import {Templater} from "./Templater";
 import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 import iTableField = ak.crudTableModule.TableField;
 import iTableRel = ak.crudTableModule.filters.iTableRel;
+import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 
 class Ctrl {
 
@@ -49,7 +50,7 @@ class Ctrl {
     editProp($event: ng.IAngularEvent, origin: any, fieldName: string):void {
 
         $event.stopPropagation();
-        let field: iTableField  = this.config.getField(fieldName);
+        let field: iTableField<FieldType>  = this.config.getField(fieldName);
 
         let rel:iTableRel = this.config.getRel(fieldName);
 

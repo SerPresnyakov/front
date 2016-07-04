@@ -1,5 +1,3 @@
-import crud = ak.crudTableModule;
-
 declare namespace ak.crudTableModule {
 
     import FieldType = ak.crudTableModule.fieldTypes.FieldType;

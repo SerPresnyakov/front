@@ -78,7 +78,7 @@ declare module ak.utils {
 
 }
 
-declare module ak {
+declare namespace ak {
 
     import Deps = ak.utils.Deps;
     import AngularModule = ak.utils.AngularModule;

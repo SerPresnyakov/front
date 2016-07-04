@@ -14,10 +14,10 @@ const crudTableModule : ak.crudTableModule = {
         return new CrudTableConfig(sourceName, url, tableName, connName)
     },
     fieldTypes:{
-        BoolField: new BoolField(),
-        IntField: new IntField(),
-        ObjField: new ObjField(),
-        StrField: new StrField()
+        BoolField:():BoolField =>{return new BoolField()},
+        IntField:():IntField =>{return new IntField()},
+        ObjField:():ObjField =>{return new ObjField()},
+        StrField:():StrField =>{return new StrField()}
     },
     TableField:(
         name: string,

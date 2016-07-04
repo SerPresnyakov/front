@@ -1,16 +1,6 @@
-declare module crudTable {
+import crud = ak.crudTableModule;
 
-    module models {
-
-        module fields {
-
-
-        }
-
-    }
-
-}
-declare module ak.crudTableModule {
+declare namespace ak.crudTableModule {
 
     import FieldType = ak.crudTableModule.fieldTypes.FieldType;
     interface TableField<T> {
@@ -61,11 +51,11 @@ declare module ak.crudTableModule {
     }
 
     interface fieldTypes {
-        FieldType?: ak.crudTableModule.fieldTypes.FieldType,
-        ObjField: ak.crudTableModule.fieldTypes.ObjField,
-        StrField: ak.crudTableModule.fieldTypes.StrField,
-        IntField: ak.crudTableModule.fieldTypes.IntField,
-        BoolField: ak.crudTableModule.fieldTypes.BoolField
+        FieldType?():ak.crudTableModule.fieldTypes.FieldType,
+        ObjField():ak.crudTableModule.fieldTypes.ObjField,
+        StrField():ak.crudTableModule.fieldTypes.StrField,
+        IntField():ak.crudTableModule.fieldTypes.IntField,
+        BoolField():ak.crudTableModule.fieldTypes.BoolField
     }
 
     module fieldTypes {
@@ -192,5 +182,5 @@ declare module ak {
                     parent: string,
                     options: any) => ak.crudTableModule.TableField<FieldType>
     }
-    var crudTableModule:crudTableModule;
+    let crudTableModule:crudTableModule;
 }

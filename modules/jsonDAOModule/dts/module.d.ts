@@ -1,4 +1,4 @@
-declare module ak.jsonDaoModule {
+declare namespace ak.jsonDaoModule {
 
     interface iPageResponse<T> {
         data: T[]

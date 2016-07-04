@@ -11,6 +11,7 @@
   },
   "author": "Alexander Kondaurov",
   "license": "ISC",
+  "typings":"dts/mdTable.d.ts",
   "dependencies": {
     "html-loader": "^0.4.3",
     "recursive-merge": "^1.2.1",

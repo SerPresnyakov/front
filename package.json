@@ -8,6 +8,7 @@
   },
   "author": "Alexander Kondaurov",
   "license": "ISC",
+  "typings":"dts/mdTable.d.ts",
   "dependencies": {
     "grunt": "^1.0.1",
     "grunt-contrib-compress": "^1.2.0",

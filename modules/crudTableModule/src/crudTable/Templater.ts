@@ -1,4 +1,3 @@
-
 import iTableField = ak.crudTableModule.TableField;
 import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 import AdField = ak.crudTableModule.fieldTypes.AdField;

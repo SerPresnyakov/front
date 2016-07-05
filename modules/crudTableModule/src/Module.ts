@@ -8,6 +8,7 @@ import {IntField} from "./fieldTypes/IntField";
 import {ObjField} from "./fieldTypes/ObjField";
 import {StrField} from "./fieldTypes/StrField";
 import {TableField} from "./models/TableField";
+import {AdField} from "./fieldTypes/AdField";
 const crudTableModule : ak.crudTableModule = {
     name: "crudTableModule",
     CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string): CrudTableConfig => {
@@ -17,7 +18,8 @@ const crudTableModule : ak.crudTableModule = {
         BoolField:():BoolField =>{return new BoolField()},
         IntField:():IntField =>{return new IntField()},
         ObjField:():ObjField =>{return new ObjField()},
-        StrField:():StrField =>{return new StrField()}
+        StrField:():StrField =>{return new StrField()},
+        AdField:(fields:ak.crudTableModule.fieldTypes.fields):AdField=>{return new AdField(fields)}
     },
     TableField:(
         name: string,

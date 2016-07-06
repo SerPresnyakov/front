@@ -143,8 +143,6 @@ export class FieldTableTemplater {
 
                 } else if (f.parent) {
 
-                } else if (f.fieldType.type == "ad") {
-                    res.push(`<td md-cell>${this.getAdCell(obj, f)}</td>`);
                 }
                 else {
                     res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);

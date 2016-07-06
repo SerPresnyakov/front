@@ -3,6 +3,7 @@ export class CrudTableConfig implements ak.crudTableModule.CrudTableConfig {
 
     fields: ak.crudTableModule.TableField<FieldType>[] = [];
     rels: ak.crudTableModule.filters.iTableRel[] = [];
+    addFunc: ak.crudTableModule.AddFunc[]=[]
     tab = {selected:null,tabs:[]};
     allowedMethods = {patch:true, delete:true, create:true};
 
@@ -21,6 +22,11 @@ export class CrudTableConfig implements ak.crudTableModule.CrudTableConfig {
 
     setRels(rels: ak.crudTableModule.filters.iTableRel[]): CrudTableConfig {
         this.rels = rels;
+        return this
+    }
+
+    setAddFunc(addFunc: ak.crudTableModule.AddFunc[]):CrudTableConfig {
+        this.addFunc = addFunc;
         return this
     }
 

@@ -9,6 +9,7 @@ import {ObjField} from "./fieldTypes/ObjField";
 import {StrField} from "./fieldTypes/StrField";
 import {TableField} from "./models/TableField";
 import {AdField} from "./fieldTypes/AdField";
+import {AddFunc} from "./crudTable/AddFunc";
 const crudTableModule : ak.crudTableModule = {
     name: "crudTableModule",
     CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string): CrudTableConfig => {
@@ -31,6 +32,13 @@ const crudTableModule : ak.crudTableModule = {
         parent: string = null,
         options: any = null):TableField=>{
         return new TableField(name, title, fieldType, nullable, editable, formly, parent, options)
+    },
+    AddFunc:(
+        type:string,
+        ths:string,
+        field:ak.crudTableModule.TableField<any>,
+        getTds:(obj,f)=>string):AddFunc=>{
+        return new AddFunc(type, ths, field, getTds)
     }
 };
 window["ak"]["crudTableModule"] = crudTableModule;

@@ -75,6 +75,11 @@ export class Templater {
         if(this.config.allowedMethods.patch||this.config.allowedMethods.delete) {
             res.push("<th md-column>Действия</th>");
         }
+        if(this.config.addFunc.length>0){
+            angular.forEach(this.config.addFunc, (f) => {
+                res.push(`<th md-column>${f.ths}</th>`)
+            });
+        }
         return res.join("\n")
     }
 
@@ -126,15 +131,18 @@ export class Templater {
 
                 } else if (f.parent) {
 
-                } else if (f.fieldType.type == "ad") {
-                    res.push(`<td md-cell><div class="advert">${this.getAdCell(obj, f)}</div></td>`);
-                }
-                else{
+                } else{
                     res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
                 }
             }
 
         });
+
+        if(this.config.addFunc.length>0){
+            angular.forEach(this.config.addFunc, (prop) => {
+                res.push(`<td md-cell>${prop.tds(obj, prop.field)}</th>`)
+            });
+        }
 
         if(this.config.allowedMethods.patch||this.config.allowedMethods.create) {
             let cell = "";
@@ -178,67 +186,8 @@ export class Templater {
     }
 
     getAdCell(obj:string, f:iTableField<AdField>){
-        return new AdCell(obj, f).getCell()
+
     }
 
 }
 
-class AdCell {
-    constructor(public obj:string, public field:iTableField<AdField>){}
-
-    getUrl():string{
-
-        let res:string;
-
-        Object.getOwnPropertyNames(this.field.fieldType.fields.url).forEach(url=>{
-            if(this.field.fieldType.fields.url[url]=="array"){
-                res = `<div class="advertUrl" ng-repeat="url in ${this.obj}.${this.field.name}.${url}">{{url | domain}}</div>`
-            }else{
-                res = `<span class="advertUrl">{{${this.obj}.${this.field.name}.${url} | domain }}</span><br>`;
-            }
-        });
-        console.log("url: ",res);
-        return res;
-    }
-
-    getTitle():string{
-
-        let res:string;
-
-        Object.getOwnPropertyNames(this.field.fieldType.fields.title).forEach(title=>{
-            Object.getOwnPropertyNames(this.field.fieldType.fields.url).forEach(url=> {
-                if (this.field.fieldType.fields.url[url] == "array") {
-                    res = `<a class="advertTitle" href="{{${this.obj}.${this.field.name}.${url}[0]}}">{{${this.obj}.${this.field.name}.${title}}}</a>`
-                } else {
-                    res = `<a class="advertTitle" href="{{${this.obj}.${this.field.name}.${url}}}">{{${this.obj}.${this.field.name}.${title}}}</a>`
-                }
-            })
-        });
-        console.log("title: ",res);
-        return res;
-    }
-
-    getTicketButton(){
-
-        let res:string = "<md-button>Тикет</md-button></br>"
-        return res;
-
-    }
-
-    getDescription():string{
-
-        let res:string = "";
-        Object.getOwnPropertyNames(this.field.fieldType.fields.desc).forEach(desc=> {
-            res = res + `{{${this.obj}.${this.field.name}.${desc}}}`
-        });
-
-        console.log("desc: ",res);
-        return res;
-    }
-
-    getCell():string{
-        let res:string = this.getTitle() + this.getTicketButton() + this.getUrl() + this.getDescription();
-        console.log("cell: ",res);
-        return res;
-    }
-}

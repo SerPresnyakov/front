@@ -20,6 +20,7 @@ declare namespace ak.crudTableModule {
 
         fields: ak.crudTableModule.TableField<any>[]
         rels: ak.crudTableModule.filters.iTableRel[]
+        addFunc : ak.crudTableModule.AddFunc[]
 
         sourceName: string
         url: string
@@ -37,16 +38,15 @@ declare namespace ak.crudTableModule {
         getRelsName():ak.jsonDaoModule.iRelation[]
         setFields(fields: ak.crudTableModule.TableField<FieldType>[]):CrudTableConfig
         setTabs(tabs: any): CrudTableConfig
+        setAddFunc(addFunc: ak.crudTableModule.AddFunc[]): CrudTableConfig
 
     }
 
     interface AddFunc{
         type:string
-        config:AddFuncConfig
-
-    }
-
-    interface AddFuncConfig{
+        ths:string
+        field:ak.crudTableModule.TableField<any>
+        tds(obj:string, f:ak.crudTableModule.TableField<any>):string
 
     }
 
@@ -184,6 +184,7 @@ declare module ak {
     import FieldType = ak.crudTableModule.fieldTypes.FieldType;
     interface crudTableModule {
         name:string
+        AddFunc:(type:string, ths:string, field:ak.crudTableModule.TableField<any>, getTds:(obj:string,f:ak.crudTableModule.TableField<any>)=>string) =>ak.crudTableModule.AddFunc;
         CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string) => ak.crudTableModule.CrudTableConfig,
         fieldTypes: ak.crudTableModule.fieldTypes
         TableField:(name: string,

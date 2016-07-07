@@ -5,9 +5,10 @@
   },
   "files": [
     "./typings/index.d.ts",
+    "./dts/all.d.ts",
     "./node_modules/ak.utils/dts/package.d.ts",
     "./node_modules/ak.crud_table/dts/all.d.ts",
-    "./node_modules/ak.json_dao/dts/all.d.ts",
+    "./node_modules/ak.json_dao/dts/module.d.ts",
     "./node_modules/ak.auth/dts/all.d.ts"
   ]
 }

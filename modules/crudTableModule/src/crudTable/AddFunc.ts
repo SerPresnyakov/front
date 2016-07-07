@@ -1,8 +1,8 @@
 export class AddFunc implements ak.crudTableModule.AddFunc{
 
-    constructor(public type:string, public ths:string, public field:ak.crudTableModule.TableField<any>, public getTds:(obj:string, f:ak.crudTableModule.TableField<any>)=>string){}
+    constructor(public type:string, public ths:string, public getTds:(obj:string)=>string){}
 
-    tds(obj:string, f:ak.crudTableModule.TableField<any>):string{
-        return this.getTds(obj, f)
+    tds(obj:string):string{
+        return this.getTds(obj)
     }
 }

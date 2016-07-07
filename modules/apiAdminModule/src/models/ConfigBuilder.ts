@@ -12,8 +12,8 @@ export class ConfigBuilder {
 
     constructor(inj: ng.auto.IInjectorService) {
         let sourceFactory = inj.get<ak.jsonDaoModule.iDAOFactoryService>(ak.jsonDaoModule.Deps.daoFactoryService);
-        this.fieldsSource = sourceFactory.build("fields", ak.utils.ApiUrls.admin);
-        this.relsSource = sourceFactory.build("rels", ak.utils.ApiUrls.admin);
+        this.fieldsSource = sourceFactory.build("field", ak.utils.ApiUrls.admin);
+        this.relsSource = sourceFactory.build("rel", ak.utils.ApiUrls.admin);
         this.$q = inj.get<ng.IQService>("$q")
     }
 

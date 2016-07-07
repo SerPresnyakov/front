@@ -8,7 +8,6 @@ import {IntField} from "./fieldTypes/IntField";
 import {ObjField} from "./fieldTypes/ObjField";
 import {StrField} from "./fieldTypes/StrField";
 import {TableField} from "./models/TableField";
-import {AdField} from "./fieldTypes/AdField";
 import {AddFunc} from "./crudTable/AddFunc";
 const crudTableModule : ak.crudTableModule = {
     name: "crudTableModule",
@@ -19,8 +18,7 @@ const crudTableModule : ak.crudTableModule = {
         BoolField:():BoolField =>{return new BoolField()},
         IntField:():IntField =>{return new IntField()},
         ObjField:():ObjField =>{return new ObjField()},
-        StrField:():StrField =>{return new StrField()},
-        AdField:(fields:ak.crudTableModule.fieldTypes.fields):AdField=>{return new AdField(fields)}
+        StrField:():StrField =>{return new StrField()}
     },
     TableField:(
         name: string,
@@ -36,9 +34,8 @@ const crudTableModule : ak.crudTableModule = {
     AddFunc:(
         type:string,
         ths:string,
-        field:ak.crudTableModule.TableField<any>,
-        getTds:(obj,f)=>string):AddFunc=>{
-        return new AddFunc(type, ths, field, getTds)
+        getTds:(obj)=>string):AddFunc=>{
+        return new AddFunc(type, ths, getTds)
     }
 };
 window["ak"]["crudTableModule"] = crudTableModule;

@@ -6,7 +6,7 @@ export class SideNavTemplateBuilder {
         if (_tables != null) {
             this.tables = _tables;
         } else {
-            throw {error: "tables is null"}
+            console.error("tables is null");
         }
     }
 

@@ -1,5 +1,4 @@
 import {indexState} from "./IndexState"
-
 import iPageResponse = ak.jsonDaoModule.iPageResponse;
 import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 import {ConfigBuilder} from "../models/ConfigBuilder";

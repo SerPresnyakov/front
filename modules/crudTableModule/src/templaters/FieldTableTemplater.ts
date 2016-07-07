@@ -2,7 +2,6 @@ import {TableField} from "../models/TableField";
 import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 import iTableField = ak.crudTableModule.TableField;
 import ObjField = ak.crudTableModule.fieldTypes.ObjField;
-import {AdField} from "../fieldTypes/AdField";
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 
 export class FieldTableTemplater {
@@ -189,11 +188,5 @@ export class FieldTableTemplater {
             res = `${n.title}: {{${obj}.${f.name}.${n.name}}}<br>`
         }
         return res
-    }
-
-    getAdCell(obj:string, f:iTableField<AdField>):string{
-        let res:string;
-            res = `{{${obj}.${f.name}}}`;
-        return res;
     }
 }

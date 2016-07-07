@@ -45,8 +45,7 @@ declare namespace ak.crudTableModule {
     interface AddFunc{
         type:string
         ths:string
-        field:ak.crudTableModule.TableField<any>
-        tds(obj:string, f:ak.crudTableModule.TableField<any>):string
+        tds(obj:string):string
 
     }
 
@@ -66,7 +65,6 @@ declare namespace ak.crudTableModule {
         StrField():ak.crudTableModule.fieldTypes.StrField,
         IntField():ak.crudTableModule.fieldTypes.IntField,
         BoolField():ak.crudTableModule.fieldTypes.BoolField
-        AdField(fields:ak.crudTableModule.fieldTypes.fields):ak.crudTableModule.fieldTypes.AdField
     }
 
     module fieldTypes {
@@ -184,7 +182,7 @@ declare module ak {
     import FieldType = ak.crudTableModule.fieldTypes.FieldType;
     interface crudTableModule {
         name:string
-        AddFunc:(type:string, ths:string, field:ak.crudTableModule.TableField<any>, getTds:(obj:string,f:ak.crudTableModule.TableField<any>)=>string) =>ak.crudTableModule.AddFunc;
+        AddFunc:(type:string, ths:string, getTds:(obj:string)=>string) =>ak.crudTableModule.AddFunc;
         CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string) => ak.crudTableModule.CrudTableConfig,
         fieldTypes: ak.crudTableModule.fieldTypes
         TableField:(name: string,

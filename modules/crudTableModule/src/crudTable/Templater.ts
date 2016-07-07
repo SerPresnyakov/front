@@ -140,7 +140,7 @@ export class Templater {
 
         if(this.config.addFunc.length>0){
             angular.forEach(this.config.addFunc, (prop) => {
-                res.push(`<td md-cell>${prop.tds(obj, prop.field)}</th>`)
+                res.push(`<td md-cell>${prop.tds(obj)}</th>`)
             });
         }
 

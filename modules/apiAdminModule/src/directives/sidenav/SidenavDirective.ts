@@ -8,7 +8,8 @@ interface SidenaveScope extends IScope {
 export class SidenavDirective implements ng.IDirective {
 
     scope: {
-        tables: "="
+        tables: "=",
+        state: "="
     };
 
     restrict: "E";

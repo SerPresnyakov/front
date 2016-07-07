@@ -3,13 +3,17 @@ import iDAOFactoryService = ak.jsonDaoModule.iDAOFactoryService;
 
 class Ctrl {
 
-    static $inject = ["$mdSidenav", "tables"];
+    static $inject = ["$mdSidenav", "tables","$scope", "$state"];
 
     constructor(
         private sidenav: ng.material.ISidenavService,
-        public tables: ak.apiAdminModule.iTable[]
+        public tables: ak.apiAdminModule.iTable[],
+        scope: ng.IScope,
+        public state: ng.ui.IState
     ) {
-        //blabla
+        scope["tables"]=tables;
+        scope["state"]=state;
+        console.log(tables,scope);
     }
 
     toggleNav(name: string) {
@@ -23,15 +27,15 @@ export const indexState: ak.config<ng.ui.IState> = {
     name: "index",
     config: {
         url: "/",
-        template: "<ak-sidenav tables='tables'></ak-sidenav>",
+        template: "<ak-sidenav tables='tables' state='state'></ak-sidenav>",
         controller: Ctrl,
         resolve: {
             tables: ["$q", "$injector", ak.jsonDaoModule.Deps.daoFactoryService, ($q:ng.IQService, $inj:ng.auto.IInjectorService, daoFactory: iDAOFactoryService) : ng.IPromise<ak.apiAdminModule.iTable[]> => {
                 let deferred = $q.defer<ak.apiAdminModule.iTable[]>();
                 daoFactory
-                    .build<ak.apiAdminModule.iTable>("tables", ak.utils.ApiUrls.admin)
+                    .build<ak.apiAdminModule.iTable>("table", ak.utils.ApiUrls.admin)
                     .getFullPage([])
-                    .then((res: iPageResponse<ak.apiAdminModule.iTable>) => deferred.resolve(res.data))
+                    .then((res: iPageResponse<ak.apiAdminModule.iTable>) => {console.log(res.data);deferred.resolve(res.data)})
                     .catch((err)=> deferred.reject({ msg:"Can't resolve tables", err: err }));
                 return deferred.promise;
             }],

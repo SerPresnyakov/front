@@ -64,7 +64,7 @@ class Ctrl {
 
     getSavedFilters():ng.IPromise<ak.crudTableModule.filters.ISavedFilters[]>{
         let defer = this.$q.defer<ak.crudTableModule.filters.ISavedFilters[]>();
-        this.filtersSource.getFullPage([{field:"base.table.url", op:"eq",value:this.filter.tableUrl}])
+        this.filtersSource.getFullPage([{field:"base.table.url", op:"eq",value:this.filter.tableUrl}],[])
             .then((res)=>defer.resolve(res.data));
         return defer.promise;
     }

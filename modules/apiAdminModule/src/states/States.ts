@@ -27,10 +27,9 @@ export const states: ak.config<ng.ui.IState>[] = [
                     if (!tableName) {
                         deferred.reject({msg: "can't build config", err: "tableName isn't specified"})
                     } else {
-                        console.log('else');
                         new ConfigBuilder(inj).build(tableName, false)
-                            .then((res) => deferred.resolve(res))
-                            .catch((err) => deferred.reject({msg: "can't build config", err: err}));
+                            .then((res) => {deferred.resolve(res); console.log("test",res)})
+                            .catch((err) => {deferred.reject({msg: "can't build config", err: err}),console.log("test",err)});
                     }
                     return deferred.promise
                 }]
@@ -76,7 +75,7 @@ export const states: ak.config<ng.ui.IState>[] = [
                     let deferred = $q.defer<ak.apiAdminModule.iTable[]>();
 
                     daoFactory.build("tables", ak.utils.ApiUrls.admin)
-                        .getFullPage([])
+                        .getFullPage([],[])
                         .then((tables:iPageResponse<ak.apiAdminModule.iTable>)=>{
                             deferred.resolve(tables.data);
                         });

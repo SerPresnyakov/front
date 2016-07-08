@@ -60,11 +60,11 @@ declare namespace ak.crudTableModule {
     }
 
     interface fieldTypes {
-        FieldType?():ak.crudTableModule.fieldTypes.FieldType,
-        ObjField():ak.crudTableModule.fieldTypes.ObjField,
-        StrField():ak.crudTableModule.fieldTypes.StrField,
-        IntField():ak.crudTableModule.fieldTypes.IntField,
-        BoolField():ak.crudTableModule.fieldTypes.BoolField
+        FieldType?:ak.crudTableModule.fieldTypes.FieldType,
+        ObjField:ak.crudTableModule.fieldTypes.ObjField,
+        StrField:ak.crudTableModule.fieldTypes.StrField,
+        IntField:ak.crudTableModule.fieldTypes.IntField,
+        BoolField:ak.crudTableModule.fieldTypes.BoolField
     }
 
     module fieldTypes {

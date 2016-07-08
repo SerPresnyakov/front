@@ -8,6 +8,15 @@ declare module ak.apiAdminModule {
         relations?: iRelation[]
     }
 
+    interface iDbConn {
+        id: number,
+        name: string,
+        dbId: number,
+        login: string,
+        password: string
+
+    }
+
     interface iField {
         id: number
         tableId: number

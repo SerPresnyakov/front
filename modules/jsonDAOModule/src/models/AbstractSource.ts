@@ -17,8 +17,8 @@ export abstract class AbstractSource<M> {
         this.$q = this.inj.get<ng.IQService>("$q");
     }
 
-    getFullPage(filters: iFilter[] = []): ng.IPromise<iPageResponse<M>> {
-        return this.getPage(new Page().setPage(1, 100), filters)
+    getFullPage(filters: iFilter[] = [],  rels: iRelation[] = []): ng.IPromise<iPageResponse<M>> {
+        return this.getPage(new Page().setPage(1, 100), filters, rels)
     }
 
     getPage(page:Page, filters: iFilter[] = [], rels: iRelation[] = []): ng.IPromise<iPageResponse<M>> {

@@ -23,7 +23,7 @@ export class relationsConfig {
     getRelationsConfig():ng.IPromise<TableField[]> {
         let deferred = this.$q.defer<TableField[]>();
         let res: TableField[] = [];
-        this.relSource.getFullPage([{field: "base.leftTable.url", op: "eq", value: this.tableName}])
+        this.relSource.getFullPage([{field: "base.leftTable.url", op: "eq", value: this.tableName}], [{name:"leftTable"}])
             .then((tables:iPageResponse<ak.apiAdminModule.iRelation>)=> {
                 if(tables.data.length==0) {
                     deferred.reject({msg:"Table don't have relations"})
@@ -34,7 +34,7 @@ export class relationsConfig {
                             field: "base.table.url",
                             op: "in",
                             value: relsTable.getTablesNames()
-                        }])
+                        }], [])
                         .then((fields:iPageResponse<ak.apiAdminModule.iField>)=> {
                             var relsField = new relsFields(fields.data);
                             relsTable.rels.forEach((r)=> {

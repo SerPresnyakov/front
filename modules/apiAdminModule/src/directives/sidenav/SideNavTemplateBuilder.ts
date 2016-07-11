@@ -27,6 +27,7 @@ export class SideNavTemplateBuilder {
                 <div layout="column" style="height: 100%;" flex>
                     <md-toolbar layout="row">
                         <md-button ng-click="vm.toggleNav('leftNav')" hide-gt-sm>BTN</md-button>
+                        <h3><md-button ng-click="vm.setConnName(ev)">Выбрать connName</md-button></h3>
                         <h3 ng-if="state.includes('index')"><md-button ui-sref="dbAdmin">Редактировать базу данных</md-button></h3>
                         <h3 ng-if="state.includes('dbAdmin')"><md-button ui-sref="index">Редактировать данныe</md-button></h3>
                     </md-toolbar>

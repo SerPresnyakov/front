@@ -37,12 +37,6 @@ export class ConfigBuilder {
                         config.setFields(fields);
                         console.log(fields);
                         deferred.resolve(config);
-                        //new relationsConfig(tableUrl, this.relsSource,this.fieldsSource,this.$q).getRelationsConfig()
-                        //    .then((relFields: ak.crudTableModule.TableField<FieldType>[]) => {
-                        //        config.setFields(relFields);
-                        //        deferred.resolve(config);
-                        //    })
-                        //    .catch((err) => deferred.reject(err))
 
                     })
                     .catch((err) => { deferred.reject({msg: "Can't resolve table", err: err })});
@@ -59,44 +53,49 @@ export class ConfigBuilder {
         let errors = [];
 
         angular.forEach(fields, (f: ak.apiAdminModule.iField, i) => {
+            if(f.hasDefault == false){
+                var fieldType;
+                var formly;
 
-            var fieldType;
-            var formly;
+                switch(f.fieldType.variant) {
+                    case 'number':
+                        fieldType = ak.crudTableModule.fieldTypes.IntField;
+                        formly = 'input';
+                        break;
+                    case 'str':
+                        fieldType = ak.crudTableModule.fieldTypes.StrField;
+                        formly = 'input';
+                        break;
+                    case 'bool':
+                        fieldType = ak.crudTableModule.fieldTypes.BoolField;
+                        formly = 'switch';
+                        break;
+                    case 'json':
+                        fieldType = ak.crudTableModule.fieldTypes.ObjField;
+                        formly = 'object';
+                        break;
+                    case 'date':
+                        fieldType = ak.crudTableModule.fieldTypes.StrField;
+                        formly = 'input';
+                        break;
+                    case 'timestamp':
+                        fieldType = ak.crudTableModule.fieldTypes.TimestampField.type;
+                        formly = 'input';
+                        break;
+                    default:console.error(`Field type ${fieldType} isn't supported`,f)
+                }
 
-            switch(f.fieldType.variant) {
-                case 'number':
-                    fieldType = ak.crudTableModule.fieldTypes.IntField;
-                    formly = 'input';
-                    break;
-                case 'str':
-                    fieldType = ak.crudTableModule.fieldTypes.StrField;
-                    formly = 'input';
-                    break;
-                case 'bool':
-                    fieldType = ak.crudTableModule.fieldTypes.BoolField;
-                    formly = 'switch';
-                    break;
-                case 'json':
-                    fieldType = ak.crudTableModule.fieldTypes.ObjField;
-                    formly = 'object';
-                    break;
-                case 'timestamp':
-                    fieldType = ak.crudTableModule.fieldTypes.StrField;
-                    formly = 'input';
-                    break;
-                default:console.error(`Field type ${fieldType} isn't supported`,f)
+                result.push(ak.crudTableModule.TableField(
+                    f.name,
+                    f.name,
+                    fieldType,
+                    f.nullable,
+                    false,
+                    formly,
+                    null,
+                    null
+                ))
             }
-
-            result.push(ak.crudTableModule.TableField(
-                f.name,
-                f.name,
-                fieldType,
-                f.nullable,
-                false,
-                formly,
-                null,
-                null
-            ))
         });
         return result;
     }

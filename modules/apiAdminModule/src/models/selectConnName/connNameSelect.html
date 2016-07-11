@@ -1,0 +1,43 @@
+<md-dialog aria-label="Select ConnName:"  ng-cloak>
+    <form>
+        <md-toolbar>
+            <div class="md-toolbar-tools">
+                <h2>Select ConnName:</h2>
+                <span flex></span>
+                <md-button class="md-icon-button" ng-click="$mdDialog.hide()">
+                    <md-icon aria-label="Close dialog"><i class="fa fa-times" aria-hidden="true"></i></md-icon>
+                </md-button>
+            </div>
+        </md-toolbar>
+        <md-dialog-content>
+                <div class="md-dialog-content">
+                    <form ng-submit="$event.preventDefault()">
+                        <h2>Введите название ConnName:</h2>
+                        <md-autocomplete
+                                md-selected-item="vm.selectedItem"
+                                md-search-text="vm.searchText"
+                                md-items="item in vm.querySearch(vm.searchText)"
+                                md-item-text="item.name"
+                                md-min-length="0"
+                                placeholder="">
+                            <md-item-template>
+                                <span md-highlight-text="vm.searchText" md-highlight-flags="^i">{{item.name}}</span>
+                            </md-item-template>
+                            <md-not-found>
+                                Не найдено "{{vm.searchText}}".
+                            </md-not-found>
+                        </md-autocomplete>
+                    </form>
+                </div>
+        </md-dialog-content>
+        <md-dialog-actions layout="row">
+            <span flex></span>
+            <md-button ng-click="answer('not useful')">
+                Отменить
+            </md-button>
+            <md-button ng-click="vm.save()">
+                Сохранить
+            </md-button>
+        </md-dialog-actions>
+    </form>
+</md-dialog>

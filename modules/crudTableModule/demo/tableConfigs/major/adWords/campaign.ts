@@ -4,7 +4,7 @@ import {TableField} from "../../../../src/models/TableField";
 import {StrField} from "../../../../src/fieldTypes/StrField";
 import {BoolField} from "../../../../src/fieldTypes/BoolField";
 
-export const table = new CrudTableConfig("Кампании", "/api/crud", "adwords_campaigns")
+export const table = new CrudTableConfig("Кампании", "/api/crud", "adwords_campaigns", "majorAdmin")
     .setFields([
         new TableField("id", 'ID', new IntField(), false, false, "input"),
         new TableField("name", 'Имя', new StrField(), false, false, "input"),

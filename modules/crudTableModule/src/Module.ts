@@ -10,6 +10,7 @@ import {StrField} from "./fieldTypes/StrField";
 import {TableField} from "./models/TableField";
 import {AddFunc} from "./crudTable/AddFunc";
 import {TimestampField} from "./fieldTypes/TimestampField";
+import {DefaultField} from "./fieldTypes/DefaultField";
 const crudTableModule : ak.crudTableModule = {
     name: "crudTableModule",
     CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string): CrudTableConfig => {
@@ -20,6 +21,7 @@ const crudTableModule : ak.crudTableModule = {
         IntField:new IntField(),
         ObjField: new ObjField(),
         StrField: new StrField(),
+        DefaultField: new DefaultField(),
         TimestampField: new TimestampField()
     },
     TableField:(

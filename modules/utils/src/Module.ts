@@ -1,6 +1,5 @@
 import {AngularModule} from "./AngularModule";
 import Deps from "./Deps";
-import {ApiUrls} from "./apiUrls";
 import {Helper} from "./Helper";
 import {DomainFilter} from "./Domain";
 
@@ -9,7 +8,6 @@ const utils:ak.Utils = {
         return new AngularModule(name, deps)
     },
     Deps: Deps,
-    ApiUrls: ApiUrls,
     Helper: new Helper(),
     Domain: DomainFilter
 };

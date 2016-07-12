@@ -121,8 +121,9 @@ class relsTables {
 }
 
 class relsFields {
-    constructor(public fields:ak.apiAdminModule.iField[]){
-    }
+
+    constructor(public fields:ak.apiAdminModule.iField[]){}
+
     getFieldsByTableName(tableName):ak.apiAdminModule.iField[]{
         let res:ak.apiAdminModule.iField[]=[];
         this.fields.forEach((f)=>{

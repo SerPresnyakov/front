@@ -94,7 +94,6 @@ declare namespace ak {
     interface Utils {
         Deps: Deps,
         angularModule: (name: string, deps: string[]) => AngularModule,
-        ApiUrls: ApiUrls,
         Helper: Helper,
         Domain: Domain
     }

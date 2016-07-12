@@ -140,10 +140,11 @@ export class FieldTableTemplater {
                     });
                     res.push(`<td md-cell>${childs}</td>`);
 
+                } else if(f.fieldType.type == "default"){
+                    res.push(`<td md-cell>{{${obj}.${f.name}}}</td>`);
                 } else if (f.parent) {
 
-                }
-                else {
+                } else {
                     res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
                 }
             }

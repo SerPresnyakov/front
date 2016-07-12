@@ -12,6 +12,7 @@ export class Config {
       $icon: ng.material.IIconProvider
     ) {
         $url.when("","/");
+
     }
 
 }

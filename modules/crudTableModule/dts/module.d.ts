@@ -65,6 +65,7 @@ declare namespace ak.crudTableModule {
         StrField:ak.crudTableModule.fieldTypes.StrField,
         IntField:ak.crudTableModule.fieldTypes.IntField,
         BoolField:ak.crudTableModule.fieldTypes.BoolField
+        DefaultField: ak.crudTableModule.fieldTypes.DefaultField
         TimestampField:ak.crudTableModule.fieldTypes.TimestampField
     }
 
@@ -82,21 +83,12 @@ declare namespace ak.crudTableModule {
 
         interface BoolField extends FieldType {}
 
-        interface AdField extends FieldType {
-            fields:fields
-        }
-
-        interface fields {
-            title:{[name:string]:string},
-            url:{[name:string]:string}
-            desc:{[name:string]:string}
-
-        }
-
         interface IntField extends FieldType {
             min?: number
             max?: number
         }
+
+        interface DefaultField extends FieldType {}
 
         interface TimestampField extends FieldType {
 

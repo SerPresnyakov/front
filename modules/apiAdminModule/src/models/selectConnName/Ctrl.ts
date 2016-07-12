@@ -16,7 +16,8 @@ export class connNameCtrl {
         public mdDialog: ng.material.IDialogService,
         public daoFactory: ak.jsonDaoModule.iDAOFactoryService,
         public $q:ng.IQService,
-        public localStorage: ng.local.storage.ILocalStorageService
+        public localStorage: ng.local.storage.ILocalStorageService,
+        public state:ng.ui.IStateService
     ) {
         this.connSource = this.daoFactory.build("dbConn", Const.admin);
     }
@@ -42,13 +43,15 @@ export class connNameCtrl {
 
     save(){
         console.log(this.selectedItem);
+        this.localStorage.set("connName", JSON.stringify({name: this.selectedItem.name, dbId: this.selectedItem.dbId}));
+        console.log("local:", JSON.parse(this.localStorage.get<string>("connName")));
+        this.state.go("index", {connName:JSON.parse(this.localStorage.get<string>("connName")).name})
         this.mdDialog.hide();
-        //this.localStorage.set("connName", )
     }
-    //
-    //cancel(){
-    //
-    //}
+
+    cancel(){
+        this.mdDialog.hide();
+    }
 
     //finish($event) {
     //    this.origin[this.field.name] = this.selectedItem.id;

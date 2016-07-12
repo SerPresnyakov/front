@@ -7,7 +7,7 @@ import IDialogOptions = angular.material.IDialogOptions;
 
 class Ctrl {
 
-    static $inject = ["$mdSidenav", "tables", "$scope", "$state", "$mdDialog",ak.jsonDaoModule.Deps.daoFactoryService, "$q", ak.utils.Deps.localStorage, "$mdMedia"];
+    static $inject = ["$mdSidenav", "tables", "$scope", "$state", "$mdDialog",ak.jsonDaoModule.Deps.daoFactoryService, "$q", "localStorageService", "$mdMedia"];
 
     constructor(private sidenav:ng.material.ISidenavService,
                 public tables:ak.apiAdminModule.iTable[],
@@ -44,7 +44,8 @@ class Ctrl {
                 mdDialog: this.mdDialog,
                 daoFactory: this.daoFactory,
                 $q :this.$q,
-                localStorage: this.localStorage
+                localStorage: this.localStorage,
+                state: this.state
             }
         })
     }
@@ -58,17 +59,38 @@ export const indexState: ak.config<ng.ui.IState> = {
         controller: Ctrl,
         controllerAs: "vm",
         resolve: {
-            tables: ["$q", "$injector", ak.jsonDaoModule.Deps.daoFactoryService, ($q:ng.IQService, $inj:ng.auto.IInjectorService, daoFactory: iDAOFactoryService) : ng.IPromise<ak.apiAdminModule.iTable[]> => {
+            tables: ["$q", "$injector", "$stateParams", "localStorageService", "$http", ak.jsonDaoModule.Deps.daoFactoryService, ($q:ng.IQService, $inj:ng.auto.IInjectorService, stateParams:ng.ui.IStateParamsService, localStorage: ng.local.storage.ILocalStorageService, $http, daoFactory: iDAOFactoryService) : ng.IPromise<ak.apiAdminModule.iTable[]> => {
                 let deferred = $q.defer<ak.apiAdminModule.iTable[]>();
-                getDbId($q,daoFactory)
-                    .then((dbId:number)=>{
-                        daoFactory
-                            .build<ak.apiAdminModule.iTable>("table", ak.utils.ApiUrls.admin)
-                            .getFullPage([{field:"base.dbId",op:"eq", value:dbId}],[])
-                            .then((res: iPageResponse<ak.apiAdminModule.iTable>) => {
-                                deferred.resolve(res.data)})
-                            .catch((err)=> deferred.reject({ msg:"Can't resolve tables", err: err }));
-                    });
+                if(stateParams["connName"]){
+                    if(JSON.parse(localStorage.get<string>("connName")).name == stateParams["connName"]){
+                        console.log(true)
+                    } else{
+                        this.connSource = daoFactory.build("dbConn", Const.admin);
+                        this.connSource.getOne([{field:"name",op:"eq",value:stateParams["connName"]}])
+                            .then((res)=>{
+                                console.log("res: ", res);
+                                localStorage.set("connName", JSON.stringify({name: res.name, dbId:res.dbId}));
+                                console.log(JSON.parse(localStorage.get<string>("connName")));
+                            })
+                    }
+                    console.log("name: ",JSON.parse(localStorage.get<string>("connName")).name);
+                    $http.defaults.headers.common['connName'] = JSON.parse(localStorage.get<string>("connName")).name;
+                    daoFactory
+                                .build<ak.apiAdminModule.iTable>("table", Const.admin)
+                                .getFullPage([{field:"base.dbId",op:"eq", value:getDbId(localStorage)}],[])
+                                .then((res: iPageResponse<ak.apiAdminModule.iTable>) => {
+                                    deferred.resolve(res.data)})
+                                .catch((err)=> deferred.reject({ msg:"Can't resolve tables", err: err }));
+
+                } else {
+                    if(JSON.parse(localStorage.get<string>("connName")).name){
+
+                    }else{
+
+                    }
+                }
+                console.log("state: ",stateParams);
+
                 return deferred.promise;
             }],
             user: [ak.authModule.authServiceName, (auth): ng.IPromise<any> => {

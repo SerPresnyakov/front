@@ -32,7 +32,7 @@ class Ctrl {
                 public $q:ng.IQService
 
     ){
-        this.filtersSource = daoFactory.build("savedFilter",ak.utils.ApiUrls.admin);
+        this.filtersSource = daoFactory.build("savedFilter","majorAdmin");
         this.getSavedFilters().then((res)=>this.filter.savedFilters=res);
 
         if(state.params["filters"]){

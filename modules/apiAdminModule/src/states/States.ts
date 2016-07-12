@@ -3,6 +3,7 @@ import iPageResponse = ak.jsonDaoModule.iPageResponse;
 import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 import {ConfigBuilder} from "../models/ConfigBuilder";
 import iDAOFactoryService = ak.jsonDaoModule.iDAOFactoryService;
+import {Const} from "../const/const";
 
 interface iStateParams{
     name: string
@@ -13,7 +14,7 @@ export const states: ak.config<ng.ui.IState>[] = [
     {
         name: "index.table",
         config: {
-            url: "table/:name",
+            url: "/:name",
             template: "<ak-crud-table config=\"config\">",
             controller: ["config",  "$scope", (config, s) => {
                 console.log("controller is initialized");
@@ -23,11 +24,12 @@ export const states: ak.config<ng.ui.IState>[] = [
                 config: ["$stateParams", "$injector", "$q", (stateParams: iStateParams, inj: ng.auto.IInjectorService, $q: ng.IQService): ng.IPromise<iCrudTableConfig> => {
                     let deferred = $q.defer<iCrudTableConfig>();
                     console.log(stateParams.name);
+                    console.log(stateParams);
                     let tableName = stateParams.name;
                     if (!tableName) {
                         deferred.reject({msg: "can't build config", err: "tableName isn't specified"})
                     } else {
-                        new ConfigBuilder(inj).build(tableName, false)
+                        new ConfigBuilder(inj).build(tableName, false, stateParams["connName"])
                             .then((res) => {deferred.resolve(res); console.log("test",res)})
                             .catch((err) => {deferred.reject({msg: "can't build config", err: err}),console.log("test",err)});
                     }
@@ -52,7 +54,7 @@ export const states: ak.config<ng.ui.IState>[] = [
                     if(!tableName){
                         deferred.reject({msg:"can't build config", err: "tableName isn,t scecified"})
                     } else {
-                        new ConfigBuilder(inj).build(tableName, true)
+                        new ConfigBuilder(inj).build(tableName, true, stateParams["connName"])
                             .then((res)=>deferred.resolve(res))
                             .catch((err)=>deferred.reject({msg:"can't build config",err:err}))
                     }
@@ -74,7 +76,7 @@ export const states: ak.config<ng.ui.IState>[] = [
                 tables:["$q","$injector", ak.jsonDaoModule.Deps.daoFactoryService, ($q:ng.IQService, inj:ng.auto.IInjectorService, daoFactory: iDAOFactoryService):ng.IPromise<ak.apiAdminModule.iTable[]> =>{
                     let deferred = $q.defer<ak.apiAdminModule.iTable[]>();
 
-                    daoFactory.build("tables", ak.utils.ApiUrls.admin)
+                    daoFactory.build("tables", Const.admin)
                         .getFullPage([],[])
                         .then((tables:iPageResponse<ak.apiAdminModule.iTable>)=>{
                             deferred.resolve(tables.data);

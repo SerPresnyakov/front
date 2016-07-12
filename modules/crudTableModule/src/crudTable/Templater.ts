@@ -1,6 +1,5 @@
 import iTableField = ak.crudTableModule.TableField;
 import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
-import AdField = ak.crudTableModule.fieldTypes.AdField;
 import {ObjField} from "../fieldTypes/ObjField";
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 
@@ -183,10 +182,6 @@ export class Templater {
             res = `${n.title}: {{${obj}.${f.name}.${n.name}}}<br>`
         }
         return res
-    }
-
-    getAdCell(obj:string, f:iTableField<AdField>){
-
     }
 
 }

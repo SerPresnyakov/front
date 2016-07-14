@@ -33,7 +33,7 @@ export function getDialog(config: iCrudTableConfig, original): ng.material.IDial
     var parentEl = angular.element(document.body);
     return {
         parent: parentEl,
-        template: require<string>("./Template.html"),
+        template: require<string>('./MaterialTemplate.html'),
         controller: Ctrl,
         controllerAs: "vm",
         clickOutsideToClose: true,

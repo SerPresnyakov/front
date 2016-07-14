@@ -1,10 +1,10 @@
 
 export class Run {
 
-    static $inject = ["$rootScope", "$mdSidenav", "$mdMedia","$state"];
+    static $inject = ["$rootScope", "$mdSidenav", "$mdMedia","$state", "$http"];
 
-    constructor($rootScope, sidenav: ng.material.ISidenavService, mdMedia: ng.material.IMedia, state: ng.ui.IStateService) {
-
+    constructor($rootScope, sidenav: ng.material.ISidenavService, mdMedia: ng.material.IMedia, state: ng.ui.IStateService, $http:ng.IHttpProvider) {
+        $http.defaults.headers.post["connName"] = "majorAdmin";
         $rootScope.$on('$stateChangeSuccess', () => {
             var nav;
             if (!mdMedia('gt-sm')) nav = sidenav("leftNav");

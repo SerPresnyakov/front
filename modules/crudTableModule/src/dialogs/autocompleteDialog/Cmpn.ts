@@ -61,14 +61,19 @@ class Ctrl {
     }
 }
 
-export const getDialog = (event: any, field: iTableField<FieldType>, origin: any, rel: iTableRel , mdDialog, originSource): ng.material.IDialogOptions => {
+export const getDialog = (event: any, field: iTableField<FieldType>, origin: any, rel: iTableRel , mdDialog, originSource, framework:string): ng.material.IDialogOptions => {
     var parentEl = angular.element(document.body);
+    if(framework=="material"){
+        var template = require<string>("./MaterialTemplate.html");
+    }else if(framework=="inspinia"){
+        var template = require<string>("./MaterialTemplate.html");
+    }
     return {
         controllerAs: "ctrlVM",
         parent: parentEl,
         controller: Ctrl,
         targetEvent: event,
-        template: require<string>("./Template.html"),
+        template: template,
         clickOutsideToClose:true,
         locals: {
             field: field,

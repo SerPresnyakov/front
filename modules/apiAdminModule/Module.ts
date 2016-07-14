@@ -19,7 +19,7 @@ let module = ak.utils.angularModule(ak.apiAdminModule.name, [
 module.registerStates(states);
 
 module.config(Config);
-module.run(Run);
+//module.run(Run);
 
 module.module.directive("akSidenav", SidenavDirective.factory());
 

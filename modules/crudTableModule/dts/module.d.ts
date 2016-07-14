@@ -26,6 +26,7 @@ declare namespace ak.crudTableModule {
         url: string
         tableName: string
         connName: string
+        framework:string
 
         allowedMethods: {
             create: boolean
@@ -38,6 +39,7 @@ declare namespace ak.crudTableModule {
         getRelsName():ak.jsonDaoModule.iRelation[]
         setFields(fields: ak.crudTableModule.TableField<FieldType>[]):CrudTableConfig
         setTabs(tabs: any): CrudTableConfig
+        setFramework(framework:string):CrudTableConfig
         setAddFunc(addFunc: ak.crudTableModule.AddFunc[]): CrudTableConfig
 
     }

@@ -11,8 +11,14 @@ export class CrudTableConfig implements ak.crudTableModule.CrudTableConfig {
         public sourceName: string,
         public url: string,
         public tableName: string,
-        public connName: string
+        public connName: string,
+        public framework: string = "material"
     ) {
+    }
+
+    setFramework(framework:string):CrudTableConfig {
+        this.framework = framework;
+        return this;
     }
 
     setFields(fields: ak.crudTableModule.TableField<FieldType>[]): CrudTableConfig {

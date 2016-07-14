@@ -1,5 +1,3 @@
-import {Helper} from "../../../../utils/Helper";
-
 export class Ctrl {
 
     static $inject = [ "$http", "$scope" ];

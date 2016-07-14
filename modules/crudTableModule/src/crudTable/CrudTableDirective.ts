@@ -14,7 +14,7 @@ import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 
 class Ctrl {
 
-    static $inject = ["$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", ak.jsonDaoModule.Deps.daoFactoryService, "$state"];
+    static $inject = ["$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", ak.jsonDaoModule.Deps.daoFactoryService, "$state", '$uibModal'];
 
     config: iCrudTableConfig;
 
@@ -56,7 +56,7 @@ class Ctrl {
 
         if (field) {
             if (field.formly == "autocomplete") {
-                this.$mdDialog.show(autocompleteDialog($event, field, origin, rel, this.$mdDialog,this.source))
+                this.$mdDialog.show(autocompleteDialog($event, field, origin, rel, this.$mdDialog,this.source, this.config.framework))
             } else if (field.formly=="input") {
                 this.$editDialog.small({
                     modelValue: origin[fieldName],

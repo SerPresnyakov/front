@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-6">
+    <div class="ibox">
+      <div class="ibox-title">
+        <div class="ibox-tools">
+          <a class="btn btn-primary btn-xs" ng-click="vm.create()">
+            <i class="fa fa-plus"></i>
+            Добавить
+          </a>
+        </div>
+      </div>
+      <div class="ibox-content">
+        <table class="table table-condensed table-bordered">
+          <thead>
+          <tr>
+            <th>Имя</th>
+            <th>Роль</th>
+            <th>Email</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr ng-repeat="user in vm.pager.data">
+            <td>{{user.name}}</td>
+            <td>{{user.role.name}}</td>
+            <td>{{user.email}}</td>
+            <td>
+              <a class="btn btn-xs btn-info" ng-click="vm.patch(user)"><i class="fa fa-edit"></i></a>&nbsp;
+              <a class="btn btn-xs btn-danger" ng-click="vm.remove(user.id, $index)"><i class="fa fa-remove"></i></a>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <a-pager pager="vm.pager"></a-pager>
+  </div>
+</div>

@@ -33,7 +33,8 @@
     "angular-formly-material": "0.14.1",
     "angular-ui-router": "~0.3.0",
     "angular-formly-templates-bootstrap": "6.3.2",
-    "angular-bootstrap" : "1.1.0"
+    "angular-bootstrap" : "1.1.0",
+    "angular-confirm-modal": "~1.2.3"
   },
   "resolutions": {
     "angular-formly": "8.1.0",

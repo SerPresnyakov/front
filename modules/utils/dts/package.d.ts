@@ -28,7 +28,10 @@ declare module ak.utils {
         mdTable: string
         angularFormly: string
         formlyMaterial: string
+        formlyBootstrap: string
         ngMessages: string
+        uiBootstrap:string
+        confirm: string
     }
 
     interface ApiUrls {

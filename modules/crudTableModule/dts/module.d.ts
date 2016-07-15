@@ -13,6 +13,14 @@ declare namespace ak.crudTableModule {
         parent?: string
         options?: any
     }
+    interface TableRel {
+        name: string
+        field: string
+        dao: string
+        type: ak.crudTableModule.filters.iTableRelType
+        isInclude: boolean
+        displayField: string
+    }
 
     interface CrudTableConfig {
 
@@ -108,7 +116,7 @@ declare namespace ak.crudTableModule {
             name: string
             field: string
             dao: string
-            type: iTableRelType
+            type: ak.crudTableModule.filters.iTableRelType
             isInclude: boolean
             displayField: string
         }
@@ -179,6 +187,7 @@ declare namespace ak.crudTableModule {
 declare module ak {
 
     import FieldType = ak.crudTableModule.fieldTypes.FieldType;
+    import iTableRelType = ak.crudTableModule.filters.iTableRelType;
     interface crudTableModule {
         name:string
         AddFunc:(type:string, ths:string, getTds:(obj:string)=>string) =>ak.crudTableModule.AddFunc;
@@ -192,6 +201,13 @@ declare module ak {
                     formly: string,
                     parent?: string,
                     options?: any) => ak.crudTableModule.TableField<FieldType>
+        TableRel:(
+            name: string,
+            field: string,
+            dao: string,
+            type: iTableRelType,
+            isInclude: boolean,
+            displayField?: string)=>ak.crudTableModule.TableRel
     }
     let crudTableModule:crudTableModule;
 }

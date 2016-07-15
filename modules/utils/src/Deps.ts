@@ -1,4 +1,5 @@
 export class Deps implements ak.utils.Deps {
+    uiBootstrap  = "ui.bootstrap";
     uiRouter = "ui.router";
     fileModel  = "file-model";
     ngAnimate = "ngAnimate";
@@ -11,7 +12,9 @@ export class Deps implements ak.utils.Deps {
     mdTable = 'md.data.table';
     angularFormly = "formly";
     formlyMaterial = "formlyMaterial";
+    formlyBootstrap = "formlyBootstrap";
     ngMessages = "ngMessages";
+    confirm = "angular-confirm";
 }
 
 export default new Deps()

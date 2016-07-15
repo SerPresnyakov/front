@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <h3 class="modal-title">Редактировать</h3>
+</div>
+<div class="modal-body">
+    <formly-form model="vm.res" fields="vm.schema" options="vm.options" form="vm.form">
+    </formly-form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="vm.ok()">OK</button>
+    <button class="btn btn-warning" ng-click="vm.cancel()">Cancel</button>
+</div>

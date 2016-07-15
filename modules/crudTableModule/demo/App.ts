@@ -7,7 +7,8 @@ const module = ak.utils.angularModule("app", [
     ak.crudTableModule.name,
     ak.utils.Deps.uiRouter,
     ak.authModule.name,
-    ak.jsonDaoModule.name
+    ak.jsonDaoModule.name,
+    ak.utils.Deps.confirm
 ]);
 
 module.module.provider(ConfigsService.angularName, ConfigsService);

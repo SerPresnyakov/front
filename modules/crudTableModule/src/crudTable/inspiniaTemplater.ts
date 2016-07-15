@@ -84,10 +84,10 @@ export class inspiniaTemplater{
         if(this.config.allowedMethods.patch||this.config.allowedMethods.create) {
             let cell = "";
             if (this.config.allowedMethods.patch) {
-                cell = cell + `<a class="btn btn-xs btn-info" ng-click='${this.ctrlAs}.patch(o)'><i class="fa fa-edit"></i></a>`;
+                cell = cell + `<a class="btn btn-xs btn-info" ng-click='${this.ctrlAs}.edit(o)'><i class="fa fa-edit"></i></a>`;
             }
             if (this.config.allowedMethods.delete) {
-                cell = cell + ` <a class="btn btn-xs btn-danger" ng-click='${this.ctrlAs}.remove(o)'><i class="fa fa-remove"></i></a>`;
+                cell = cell + ` <a class="btn btn-xs btn-danger" ng-click='${this.ctrlAs}.delete(o)'><i class="fa fa-remove"></i></a>`;
             }
             res.push(`<td>`,`${cell}`,`</td>`);
         }

@@ -10,6 +10,7 @@
   },
   "files": [
     "./dts/all.d.ts",
+    "../../dts/confirm.d.ts",
     "./typings/index.d.ts",
     "./node_modules/ak.utils/dts/package.d.ts",
     "./node_modules/ak.json_dao/dts/module.d.ts",

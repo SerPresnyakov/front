@@ -32,7 +32,7 @@ export class Ctrl {
         };
 
         scope.options.resetModel = () => {
-            Helper.nullObj(scope.model);
+
             scope.searchText = "";
         };
 

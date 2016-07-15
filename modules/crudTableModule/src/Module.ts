@@ -11,6 +11,8 @@ import {TableField} from "./models/TableField";
 import {AddFunc} from "./crudTable/AddFunc";
 import {TimestampField} from "./fieldTypes/TimestampField";
 import {DefaultField} from "./fieldTypes/DefaultField";
+import iTableRelType = ak.crudTableModule.filters.iTableRelType;
+import {TableRel} from "./models/TableRel";
 const crudTableModule : ak.crudTableModule = {
     name: "crudTableModule",
     CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string): CrudTableConfig => {
@@ -35,6 +37,15 @@ const crudTableModule : ak.crudTableModule = {
         options: any = null):TableField=>{
         return new TableField(name, title, fieldType, nullable, editable, formly, parent, options)
     },
+    TableRel:(
+        name: string,
+        field: string,
+        dao: string,
+        type: iTableRelType,
+        isInclude: boolean,
+        displayField: string = "name"):TableRel=>{
+        return new TableRel(name, field, dao, type, isInclude, displayField)
+    },
     AddFunc:(
         type:string,
         ths:string,
@@ -47,7 +58,9 @@ let module = ak.utils.angularModule(ak.crudTableModule.name, [
     ak.utils.Deps.localStorage,
     ak.utils.Deps.material,
     ak.utils.Deps.mdTable,
-    ak.utils.Deps.angularFormly
+    ak.utils.Deps.angularFormly,
+    ak.utils.Deps.formlyBootstrap,
+    ak.utils.Deps.uiBootstrap
 ]);
 
 module.directive("akCrudTable", ["$compile", ($compile => CrudTableDirective($compile))]);

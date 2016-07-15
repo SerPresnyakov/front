@@ -11,10 +11,12 @@ import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 import iTableField = ak.crudTableModule.TableField;
 import iTableRel = ak.crudTableModule.filters.iTableRel;
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
+import {getBootstrapDialog} from "../dialogs/bootstrap/editDialog/Cmpn";
+import {getBootstrapCreateDialog} from "../dialogs/bootstrap/createDialog/Cmpn";
 
 class Ctrl {
 
-    static $inject = ["$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", ak.jsonDaoModule.Deps.daoFactoryService, "$state", '$uibModal'];
+    static $inject = ["$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", ak.jsonDaoModule.Deps.daoFactoryService, "$state", '$uibModal' , '$confirm'];
 
     config: iCrudTableConfig;
 
@@ -29,7 +31,9 @@ class Ctrl {
         public $scope: ng.IScope,
         public $q: ng.IQService,
         public daoFactory: ak.jsonDaoModule.iDAOFactoryService,
-        public $state : ng.ui.IStateProvider
+        public $state : ng.ui.IStateProvider,
+        public $uibModal: ng.ui.bootstrap.IModalService,
+        public $confirm: ng.confirm.IConfirmService
     ) {
         this.pager = ak.jsonDaoModule.iPager(1, 15, this.$q);
         //$scope.$watchCollection((scope) => { return scope["vm"].pager; } ,(newVal, oldVal, scope) => {
@@ -56,7 +60,7 @@ class Ctrl {
 
         if (field) {
             if (field.formly == "autocomplete") {
-                this.$mdDialog.show(autocompleteDialog($event, field, origin, rel, this.$mdDialog,this.source, this.config.framework))
+                this.$mdDialog.show(autocompleteDialog($event, field, origin, rel, this.$mdDialog,this.source))
             } else if (field.formly=="input") {
                 this.$editDialog.small({
                     modelValue: origin[fieldName],
@@ -88,34 +92,60 @@ class Ctrl {
     }
 
     create($event: ng.IAngularEvent):void {
-        this.$mdDialog.show(createDialog($event, this.config))
-            .then((res)=>{
+        if(this.config.framework=="material") {
+            this.$mdDialog.show(createDialog($event, this.config))
+                .then((res)=> {
+                    console.log(res);
+                    this.source.create(res);
+                    this.refreshPage()
+                })
+        }else if(this.config.framework=="inspinia"){
+            this.$uibModal.open(getBootstrapCreateDialog(this.config)).result.then((res)=>{
                 console.log(res);
-                this.source.create(res);
-                this.refreshPage()
+                this.source.create(res).then((res)=>{
+                    this.refreshPage();
+                })
             })
+        }
     }
 
     edit(item):void {
         let field;
         let rels;
-        this.$mdDialog.show(editDialog(this.config,item)).then((res)=>{
-            console.log(res);
-            this.source.update(res);
-            this.refreshPage()}
-        )
+        if(this.config.framework=="material"){
+            this.$mdDialog.show(editDialog(this.config,item)).then((res)=>{
+                console.log(res);
+                this.source.update(res);
+                this.refreshPage()}
+            )
+        }else if(this.config.framework=="inspinia"){
+            this.$uibModal.open(getBootstrapDialog(this.config,item)).result.then((res)=>{
+                console.log(res);
+                this.source.update(res).then((res)=>{
+                    this.refreshPage();
+                })
+            })
+        }
     };
 
     delete(item):void {
-        this.$mdDialog.show(deleteDialog(this.$mdDialog,item.name)).then((res)=> {
-            this.source.remove(item)
-                .then((res)=> {
-                    if (res) {
-                        this.$mdDialog.hide();
-                        this.refreshPage()
-                    }
-                });
-        });
+        if(this.config.framework=="material") {
+            this.$mdDialog.show(deleteDialog(this.$mdDialog, item.name)).then((res)=> {
+                this.source.remove(item)
+                    .then((res)=> {
+                        if (res) {
+                            this.$mdDialog.hide();
+                            this.refreshPage()
+                        }
+                    });
+            });
+        }else if(this.config.framework=="inspinia"){
+            this.$confirm({title: "Удалить запись", text: "Вы уверены?", ok: "Да, удалить", cancel: "Отмена"}).then((res)=> {
+                this.source.remove(item).then((res)=>{
+                    this.refreshPage();
+                })
+            })
+        }
     };
 
     refreshPage():void {

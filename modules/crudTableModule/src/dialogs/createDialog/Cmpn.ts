@@ -5,7 +5,7 @@ import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 
 class CreateCtrl {
 
-    static $inject = [ "config", "$http", "$mdDialog", "localStorageService"];
+    static $inject = [ "config", "$mdDialog"];
 
     schema: any;
     from: string;
@@ -13,7 +13,6 @@ class CreateCtrl {
 
     constructor(
         public config: iCrudTableConfig,
-        public $http:ng.IHttpService,
         public $mdDialog:IDialogService
     ) {
         this.schema = Schema.getSchema(config.fields, config.rels);

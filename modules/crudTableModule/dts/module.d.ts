@@ -47,6 +47,7 @@ declare namespace ak.crudTableModule {
         getRelsName():ak.jsonDaoModule.iRelation[]
         setFields(fields: ak.crudTableModule.TableField<FieldType>[]):CrudTableConfig
         setTabs(tabs: any): CrudTableConfig
+        setRels(rels: ak.crudTableModule.filters.iTableRel[]): CrudTableConfig
         setFramework(framework:string):CrudTableConfig
         setAddFunc(addFunc: ak.crudTableModule.AddFunc[]): CrudTableConfig
 

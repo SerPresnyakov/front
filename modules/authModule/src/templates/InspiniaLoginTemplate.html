@@ -1,0 +1,13 @@
+<div class="middle-box text-center loginscreen  animated fadeInDown">
+    <div>
+        <h3>Major. Вход в систему</h3>
+        <div>
+            <form ng-submit="vm.login()" name="vm.form" novalidate>
+                <formly-form model="vm.cred" fields="vm.fields" options="vm.options" form="vm.form">
+                    <button type="submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" ng-disabled="vm.form.$invalid">Войти</button>
+                </formly-form>
+            </form>
+        </div>
+        <p class="m-t"> <small>RealWeb &copy; 2016</small> </p>
+    </div>
+</div>

@@ -13,7 +13,8 @@ let module = ak.utils.angularModule(ak.apiAdminModule.name, [
     ak.utils.Deps.mdTable,
     ak.jsonDaoModule.name,
     ak.crudTableModule.name,
-    ak.authModule.name
+    ak.authModule.name,
+    ak.utils.Deps.confirm
 ]);
 
 module.registerStates(states);

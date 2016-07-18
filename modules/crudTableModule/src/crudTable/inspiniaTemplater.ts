@@ -7,9 +7,32 @@ export class inspiniaTemplater{
     ) {}
 
     getTemplate(): string {
-        return "" +
-            this.getTitle() +
-            this.getContent()
+        if (this.config.tab.tabs.length){
+            return"" +
+                this.getTabs() +
+                this.getTitle() +
+                this.getContent()
+
+        } else {
+            return "" +
+                this.getTitle() +
+                this.getContent()
+        }
+    }
+
+    getTabs():string{
+        let tabs: string[] = [];
+        angular.forEach(this.config.tab.tabs, (t) => {
+            let tab = `<li`;
+            if(t.selected){
+                tab = tab + ` class="active">`;
+            }else{
+                tab = tab + `>`;
+            }
+            tab = tab + `<a data-toggle="tab" ui-sref="${t.url}" aria-expanded="true">${t.title}</a></li>`;
+            tabs.push(tab);
+        });
+        return `<ul class="nav nav-tabs">` + tabs.join("\n") + `</ul>`;
     }
 
     getTitle(): string {
@@ -96,7 +119,11 @@ export class inspiniaTemplater{
 
     getCell(obj: string, f){
         var res:string;
-        res = `{{${obj}.${f.name}}}`;
+        if(f.formly=="switch"){
+            res =`<button ng-if="${obj}.${f.name}" class="btn btn-sm btn-primary">Дa</button><button ng-if="!${obj}.${f.name}" class="btn btn-sm btn-danger">Нет</button>`
+        } else {
+            res = `{{${obj}.${f.name}}}`;
+        }
         return res
     }
 

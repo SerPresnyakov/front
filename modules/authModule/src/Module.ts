@@ -1,7 +1,8 @@
 import {Run} from "./Run";
 import {Config} from "./Config";
 import {AuthService} from "./AuthService";
-import {States} from "./States"
+import {states} from "./States";
+import {AuthModuleTemplateProvider} from "./AuthModuleTemplateConfig";
 
 const authModule:ak.authModule =  {
     name: "authModule",
@@ -18,7 +19,8 @@ let module = ak.utils.angularModule(ak.authModule.name, [
 ]);
 module.config(Config);
 module.run(Run);
+module.module.provider("AuthModuleTemplate", AuthModuleTemplateProvider);
 
 module.registerServices([{name: AuthService.serviceName, config: AuthService}]);
 
-module.registerStates(States);
+module.registerStates(states);

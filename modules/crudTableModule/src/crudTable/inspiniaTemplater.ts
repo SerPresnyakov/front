@@ -77,6 +77,11 @@ export class inspiniaTemplater{
                 res.push(`<th >${f.title}</th>`)
             }
         });
+        if(this.config.addFunc.length>0){
+            angular.forEach(this.config.addFunc, (f) => {
+                res.push(`<th>${f.ths}</th>`)
+            });
+        }
         if(this.config.allowedMethods.patch||this.config.allowedMethods.delete) {
             res.push("<th>Действия</th>");
         }
@@ -86,21 +91,32 @@ export class inspiniaTemplater{
     getTds(obj: string): string{
         let res = [];
         angular.forEach(this.config.fields, (f) => {
-            if (f.fieldType.type=="obj") {
+            if (f.parent) {
+
+            } else if (f.fieldType.type=="obj") {
                 let childs = "";
                 angular.forEach(this.config.fields, (n) => {
                     if(f.name == n.parent){
-                        childs = childs + `${this.getObjCell(obj, n, f)}`;
+                        if(n.fieldType.type=="obj"){
+
+                        }else{
+                            childs = childs + `${this.getObjCell(obj, n, f)}`;
+                        }
+
                     }
                 });
                 res.push(`<td>${childs}</td>`);
-
-            } else if (f.parent) {
 
             } else{
                 res.push(`<td>${this.getCell(obj, f)}</td>`);
             }
         });
+
+        if(this.config.addFunc.length>0){
+            angular.forEach(this.config.addFunc, (prop) => {
+                res.push(`<td>${prop.tds(obj)}</th>`)
+            });
+        }
 
 
 

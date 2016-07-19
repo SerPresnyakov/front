@@ -140,7 +140,7 @@ class Ctrl {
                     });
             });
         }else if(this.config.framework=="inspinia"){
-            this.$confirm({title: "Удалить запись", text: "Вы уверены?", ok: "Да, удалить", cancel: "Отмена"}).then((res)=> {
+            this.$confirm({title: "Удалить", text: "Вы уверены?", ok: "Да, удалить", cancel: "Отмена"}).then((res)=> {
                 this.source.remove(item).then((res)=>{
                     this.refreshPage();
                 })

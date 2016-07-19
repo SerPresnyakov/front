@@ -52,7 +52,7 @@ export class AuthService {
 
     me(): ng.IPromise<any> {
       return this.$http.post("/api/auth/me", {}).then((res: ng.IHttpPromiseCallbackArg<any>) => {
-        return res.data.data
+        return res.data
       })
 
     }

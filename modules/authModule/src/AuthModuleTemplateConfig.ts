@@ -1,5 +1,3 @@
-import IServiceProvider = angular.IServiceProvider;
-
 export class  AuthModuleTemplateProvider implements ng.IServiceProvider{
     framework: string = "material";
 

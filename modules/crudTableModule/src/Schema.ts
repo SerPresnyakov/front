@@ -17,7 +17,7 @@ export class Schema {
                     templateOptions: {
                         label: f.title
                     },
-                    fieldGroup: []
+                    fieldGroup: this.getSchema(f.childs)
                 });
             }
             else {
@@ -64,52 +64,44 @@ export class Schema {
                     res.templateOptions["required"] = true;
                 }
 
-                if (f.parent) {
-                    angular.forEach(schema, (s) => {
-                        if(s.key == f.parent){
-                            s.fieldGroup.push(res);
-                        }
-                    })
-                }
-                else {
-                    schema.push(res);
-                }
+                schema.push(res);
+
             }
         });
+
+        //for(var i =  (schema.length -1), len =0; i > len; i--){
+        //    if(schema[i].templateOptions["parent"]){
+        //        this.setFieldGroup(schema, schema[i]);
+        //        schema.splice(i,1);
+        //    }
+        //}
 
         return schema;
     }
 
-    static setFieldGroup( schema:AngularFormly.IFieldGroup[], res: AngularFormly.IFieldGroup){
-        for(var i = 0, len = schema.length; i < len; i++){
-            if(schema[i].key == res.templateOptions["parent"]){
-                schema[i].fieldGroup.push(res);
-                break;
-            }else{
-                if(schema[i].fieldGroup){
-                    res = this.searchParent(schema[i], res.templateOptions["parent"])
-                    if(res){
-                        res.fieldGroup.push(res);
-                    }
-                }
-            }
-        }
-    }
+    //static setFieldGroup( schema:AngularFormly.IFieldGroup[], res: AngularFormly.IFieldGroup){
+    //    for(var i =  (schema.length -1), len =0; i > len; i--){
+    //        if(schema[i].key == res.templateOptions["parent"]){
+    //            schema[i].fieldGroup.push(res);
+    //            break;
+    //        }
+    //    }
+    //}
 
-    static searchParent(obj, parent:string):AngularFormly.IFieldGroup{
-        let res;
-
-            for(var i = 0, len = obj.fieldGroup.length; i < len; i++){
-                if(obj.fieldGroup[i].key==parent){
-                    res =  obj.fieldGroup[i];
-                }else{
-                    if(obj.fieldGroup[i].fieldGroup) {
-                        this.searchParent(obj.fieldGroup[i], parent);
-                    }
-                }
-            }
-        return res;
-    }
+    //static searchParent(obj, parent:string):AngularFormly.IFieldGroup{
+    //    let res;
+    //
+    //        for(var i = 0, len = obj.fieldGroup.length; i < len; i++){
+    //            if(obj.fieldGroup[i].key==parent){
+    //                res =  obj.fieldGroup[i];
+    //            }else{
+    //                if(obj.fieldGroup[i].fieldGroup) {
+    //                    this.searchParent(obj.fieldGroup[i], parent);
+    //                }
+    //            }
+    //        }
+    //    return res;
+    //}
 
 
 

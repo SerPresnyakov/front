@@ -9,8 +9,9 @@ declare namespace ak.crudTableModule {
         fieldType: T
         nullable: boolean
         editable: boolean
+        showInTemplate: boolean
         formly: string
-        parent?: string
+        childs?: ak.crudTableModule.TableField<FieldType>[]
         options?: any
     }
     interface TableRel {
@@ -199,8 +200,9 @@ declare module ak {
                     fieldType: ak.crudTableModule.fieldTypes.FieldType,
                     nullable: boolean,
                     editable: boolean,
+                    showInTemplate: boolean,
                     formly: string,
-                    parent?: string,
+                    childs?: ak.crudTableModule.TableField<FieldType>[],
                     options?: any) => ak.crudTableModule.TableField<FieldType>
         TableRel:(
             name: string,

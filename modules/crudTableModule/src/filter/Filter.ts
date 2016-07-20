@@ -45,7 +45,7 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
 
     unapply(name:string):void {
         this.filters.forEach((f: ak.crudTableModule.filters.INewFilter)=>{
-            if(f.name==name && f.field.parent == null){
+            if(f.name==name){
                 f.applied = false;
             }
         });
@@ -97,7 +97,7 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
         this.applyedFilters = [];
         Object.getOwnPropertyNames(this.model).forEach(r =>{
             angular.forEach(this.filters,(f: ak.crudTableModule.filters.INewFilter)=>{
-                if(r === f.name && f.field.parent == null){
+                if(r === f.name){
                     this.apply(f);
                 }
             });
@@ -125,7 +125,7 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
     getFilterByName(name): ak.crudTableModule.filters.INewFilter{
         let res: ak.crudTableModule.filters.INewFilter;
         this.filters.forEach((f: ak.crudTableModule.filters.INewFilter)=>{
-            if(f.name==name && f.field.parent == null){
+            if(f.name==name){
                 res= f;
             }
         });

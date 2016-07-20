@@ -13,6 +13,7 @@ import {TimestampField} from "./fieldTypes/TimestampField";
 import {DefaultField} from "./fieldTypes/DefaultField";
 import iTableRelType = ak.crudTableModule.filters.iTableRelType;
 import {TableRel} from "./models/TableRel";
+import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 const crudTableModule : ak.crudTableModule = {
     name: "crudTableModule",
     CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string): CrudTableConfig => {
@@ -32,10 +33,11 @@ const crudTableModule : ak.crudTableModule = {
         fieldType: ak.crudTableModule.fieldTypes.FieldType,
         nullable: boolean,
         editable: boolean,
+        showInTemplate: boolean,
         formly: string,
-        parent: string = null,
+        childs: ak.crudTableModule.TableField<FieldType>[] = null,
         options: any = null):TableField=>{
-        return new TableField(name, title, fieldType, nullable, editable, formly, parent, options)
+        return new TableField(name, title, fieldType, nullable, editable,showInTemplate, formly, childs, options)
     },
     TableRel:(
         name: string,

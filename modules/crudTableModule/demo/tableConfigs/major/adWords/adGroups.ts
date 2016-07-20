@@ -9,13 +9,14 @@ import {TableRel} from "../../../../src/models/TableRel";
 export const table  =
     new CrudTableConfig("Группы объявлений", "/api/crud", "adwords.adGroups", "majorAdmin")
         .setFields([
-            new TableField("campaign", 'Кампания', new ObjField(), false, false, "object"),
-            new TableField("id", 'ID', new IntField(), false, false, "input", "campaign"),
-            new TableField("name", 'Название', new StrField(), false, false,"input", "campaign"),
-            new TableField("status", 'Статус', new StrField(), false, false,"input", "campaign"),
-            new TableField("isActive", "Активна", new BoolField(), true, false, "switch", "campaign"),
-            new TableField("statusShow", "Медиаплан", new BoolField(), true, false, "switch", "campaign"),
-            new TableField("track", "Отслеживать", new BoolField(), true, false, "switch", "campaign"),
+            new TableField("campaign", 'Кампания', new ObjField(), false, false, "object", [
+                new TableField("id", 'ID', new IntField(), false, false, "input"),
+                new TableField("name", 'Название', new StrField(), false, false,"input"),
+                new TableField("status", 'Статус', new StrField(), false, false,"input"),
+                new TableField("isActive", "Активна", new BoolField(), true, false, "switch"),
+                new TableField("statusShow", "Медиаплан", new BoolField(), true, false, "switch"),
+                new TableField("track", "Отслеживать", new BoolField(), true, false, "switch")
+            ]),
             new TableField("id", "ID", new IntField(), false,false, "input"),
             new TableField("name", "Название", new StrField(), false, false, "input"),
             new TableField("status", 'Статус', new StrField(), false, false, "select",null,[{prop:"ACCEPTED"},{prop:"REJECTED"}]),

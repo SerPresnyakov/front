@@ -2,6 +2,7 @@ import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
 import iTableField = ak.crudTableModule.TableField;
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 import ObjField = ak.crudTableModule.fieldTypes.ObjField;
+import TableField = ak.crudTableModule.TableField;
 
 
 export class materialTemplater {
@@ -67,10 +68,8 @@ export class materialTemplater {
 
     getThs(): string {
         let res = [];
-        angular.forEach(this.config.fields, (f) => {
-            if(f.parent==null){
-                res.push(`<th md-column>${f.title}</th>`)
-            }
+        angular.forEach(this.config.fields, (f:TableField<FieldType>) => {
+            res.push(`<th md-column>${f.title}</th>`)
         });
         if(this.config.allowedMethods.patch||this.config.allowedMethods.delete) {
             res.push("<th md-column>Действия</th>");
@@ -103,7 +102,7 @@ export class materialTemplater {
     getTds(obj: string): string {
         let obj1= obj;
         let res = [];
-        angular.forEach(this.config.fields, (f) => {
+        angular.forEach(this.config.fields, (f:TableField<FieldType>) => {
             if(f.editable){
                 switch(f.formly){
                     case "switch" :
@@ -122,14 +121,10 @@ export class materialTemplater {
             else{
                 if (f.fieldType.type=="obj") {
                     let childs = "";
-                    angular.forEach(this.config.fields, (n) => {
-                        if(f.name == n.parent){
-                            childs = childs + `${this.getObjCell(obj, n, f)}`;
-                        }
+                    angular.forEach(f.childs, (n: TableField<FieldType>) => {
+                        childs = childs + `${this.getObjCell(obj, n, f)}`;
                     });
                     res.push(`<td md-cell>${childs}</td>`);
-
-                } else if (f.parent) {
 
                 } else{
                     res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);

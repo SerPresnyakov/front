@@ -1,4 +1,6 @@
 import iCrudTableConfig = ak.crudTableModule.CrudTableConfig;
+import TableField = ak.crudTableModule.TableField;
+import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 
 export class inspiniaTemplater{
     constructor(
@@ -72,9 +74,9 @@ export class inspiniaTemplater{
 
     getThs(): string {
         let res = [];
-        angular.forEach(this.config.fields, (f) => {
-            if(f.parent==null){
-                res.push(`<th >${f.title}</th>`)
+        angular.forEach(this.config.fields, (f:TableField<FieldType>) => {
+            if(f.showInTemplate){
+                res.push(`<th >${f.title}</th>`);
             }
         });
         if(this.config.addFunc.length>0){
@@ -88,27 +90,28 @@ export class inspiniaTemplater{
         return res.join("\n")
     }
 
+    getObjChilds(field: TableField<FieldType>, obj, res){
+        let childs = "";
+        angular.forEach(field.childs, (f: TableField<FieldType>) => {
+            if (f.fieldType.type=="obj") {
+                childs = childs + `<tr><td>${this.getObjCell(f, `</td><td>${this.getObjChilds(f,`${obj}.${field.name}` , res)}</td>`)}`;
+            } else {
+                childs = childs + `${this.getObjCell(f,  this.getObjCellValue(obj, f, field))}`;
+            }
+        });
+        return childs;
+    }
+
     getTds(obj: string): string{
         let res = [];
-        angular.forEach(this.config.fields, (f) => {
-            if (f.parent) {
-
-            } else if (f.fieldType.type=="obj") {
-                let childs = "";
-                angular.forEach(this.config.fields, (n) => {
-                    if(f.name == n.parent){
-                        if(n.fieldType.type=="obj"){
-
-                        }else{
-                            childs = childs + `${this.getObjCell(obj, n, f)}`;
-                        }
-
-                    }
-                });
-                res.push(`<td>${childs}</td>`);
-
-            } else{
-                res.push(`<td>${this.getCell(obj, f)}</td>`);
+        angular.forEach(this.config.fields, (f:TableField<FieldType>) => {
+            if(f.showInTemplate) {
+                if (f.fieldType.type == "obj") {
+                    res.push(`<td><table class="table"><tbody>${this.getObjChilds(f, obj, res)}</tbody></table></td>`);
+                    console.log(res[res.length - 1]);
+                } else {
+                    res.push(`<td>${this.getCell(obj, f)}</td>`);
+                }
             }
         });
 
@@ -143,9 +146,14 @@ export class inspiniaTemplater{
         return res
     }
 
-    getObjCell(obj: string, n, f): string {
+    getObjCell(n, value: string): string {
         var res: string;
-        res = `${n.title}: {{${obj}.${f.name}.${n.name}}}<br>`;
+        res = `${n.title}: ${value}<br>`;
         return res
     }
+
+     getObjCellValue(obj: string, n, f){
+         var res: string = `{{${obj}.${f.name}.${n.name}}}`;
+         return res
+     }
 }

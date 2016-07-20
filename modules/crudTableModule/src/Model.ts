@@ -10,10 +10,7 @@ export class Model {
         angular.forEach(fields, (f: TableField) => {
 
             if (f.fieldType.type=="obj") {
-                model[f.name] = {};
-            }
-            else if (f.parent) {
-                model[f.parent][f.name] = "";
+                model[f.name] = this.getChilds(f);
             }
             else {
                 model[f.name] = "";
@@ -22,6 +19,19 @@ export class Model {
         });
 
         return model;
+    }
+
+    static getChilds(f: TableField){
+        let res = {};
+        f.childs.forEach((f:TableField)=>{
+            if(f.fieldType.type == "obj"){
+                res[f.name] = this.getChilds(f);
+            }
+            else{
+                res[f.name] = "";
+            }
+        });
+        return res;
     }
 
 }

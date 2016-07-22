@@ -11,14 +11,21 @@ export class inspiniaTemplater{
     getTemplate(): string {
         if (this.config.tab.tabs.length){
             return"" +
+                `<div class='ibox'>` +
                 this.getTabs() +
                 this.getTitle() +
-                this.getContent()
+                this.getContent() +
+                `</div>` +
+                this.getPager()
+
 
         } else {
             return "" +
+                `<div class='ibox'>` +
                 this.getTitle() +
-                this.getContent()
+                this.getContent() +
+                `</div>` +
+                this.getPager()
         }
     }
 
@@ -90,13 +97,15 @@ export class inspiniaTemplater{
         return res.join("\n")
     }
 
-    getObjChilds(field: TableField<FieldType>, obj, res){
+    getObjChilds(field: TableField<FieldType>, obj:string){
         let childs = "";
         angular.forEach(field.childs, (f: TableField<FieldType>) => {
-            if (f.fieldType.type=="obj") {
-                childs = childs + `<tr><td>${this.getObjCell(f, `</td><td>${this.getObjChilds(f,`${obj}.${field.name}` , res)}</td>`)}`;
-            } else {
-                childs = childs + `${this.getObjCell(f,  this.getObjCellValue(obj, f, field))}`;
+            if(f.showInTemplate) {
+                if (f.fieldType.type == "obj") {
+                    childs = childs + `<tr><td>${this.getObjCell(f, `</td><td>${this.getObjChilds(f, `${obj}.${field.name}`)}</td>`)}`;
+                } else {
+                    childs = childs + `${this.getObjCell(f, this.getObjCellValue(obj, f, field))}`;
+                }
             }
         });
         return childs;
@@ -107,7 +116,7 @@ export class inspiniaTemplater{
         angular.forEach(this.config.fields, (f:TableField<FieldType>) => {
             if(f.showInTemplate) {
                 if (f.fieldType.type == "obj") {
-                    res.push(`<td><table class="table"><tbody>${this.getObjChilds(f, obj, res)}</tbody></table></td>`);
+                    res.push(`<td><table class="table"><tbody>${this.getObjChilds(f, obj)}</tbody></table></td>`);
                     console.log(res[res.length - 1]);
                 } else {
                     res.push(`<td>${this.getCell(obj, f)}</td>`);
@@ -152,8 +161,12 @@ export class inspiniaTemplater{
         return res
     }
 
-     getObjCellValue(obj: string, n, f){
-         var res: string = `{{${obj}.${f.name}.${n.name}}}`;
-         return res
-     }
+    getObjCellValue(obj: string, n, f){
+        var res: string = `{{${obj}.${f.name}.${n.name}}}`;
+        return res
+    }
+
+    getPager(){
+        return `<a-pager pager="${this.ctrlAs}.pager"></a-pager>`
+    }
 }

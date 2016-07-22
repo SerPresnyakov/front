@@ -5,7 +5,7 @@ import {StrField} from "../../../../src/fieldTypes/StrField";
 import {DefaultField} from "../../../../src/fieldTypes/DefaultField";
 
 export const table =
-    new CrudTableConfig("Обьявления", "/api/crud", "direct.banners", "majorAdmin")
+    new CrudTableConfig("Обьявления", "/api/crud", "direct.banners", "majorAdmin",{patch:true, delete:true, create:true})
         .setFields([
             new TableField("id", 'ID', new IntField(), false, false,true, "input"),
             new TableField("bannerGroupId", 'bannerGroupId', new IntField(), false, false,true, "input"),

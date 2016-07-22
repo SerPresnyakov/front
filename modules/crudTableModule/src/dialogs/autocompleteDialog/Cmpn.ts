@@ -1,6 +1,7 @@
 import iTableField = ak.crudTableModule.TableField;
 import iTableRel = ak.crudTableModule.filters.iTableRel;
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
+import iSource = ak.jsonDaoModule.iSource;
 
 class Ctrl {
 
@@ -8,7 +9,7 @@ class Ctrl {
 
     selectedItem: any;
     searchText: string;
-    RelSource;
+    RelSource:iSource<any>;
     data;
 
     constructor(
@@ -18,18 +19,18 @@ class Ctrl {
         public $event: ng.IAngularEvent,
         public rel: iTableRel,
         public mdDialog: ng.material.IDialogService,
-        public originSource,
+        public originSource: iSource<any>,
         public daoFactory: ak.jsonDaoModule.iDAOFactoryService,
         public $q:ng.IQService,
         inj: ng.auto.IInjectorService
     ) {
-        this.RelSource = this.daoFactory.build(rel.field, rel.dao);
+        this.RelSource = this.daoFactory.build(rel.field, originSource.crudUrl);
     }
 
     querySearch(value:string) {
         if(value){
             let defer = this.$q.defer();
-            this.RelSource.getFullPage([{field:"name",op:"eq",value:value}])
+            this.RelSource.getFullPage([{field:"name",op:"eq",value:value}], [])
                 .then((res)=>{defer.resolve(res.data)})
                 .catch((err)=>{defer.reject(err)});
             return defer.promise;

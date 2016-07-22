@@ -1,17 +1,18 @@
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
+import {TableRel} from "./TableRel";
 export class CrudTableConfig implements ak.crudTableModule.CrudTableConfig {
 
     fields: ak.crudTableModule.TableField<FieldType>[] = [];
     rels: ak.crudTableModule.filters.iTableRel[] = [];
     addFunc: ak.crudTableModule.AddFunc[]=[];
     tab = {selected:null,tabs:[]};
-    allowedMethods = {patch:true, delete:true, create:true};
 
     constructor(
         public sourceName: string,
         public url: string,
         public tableName: string,
         public connName: string,
+        public allowedMethods: ak.crudTableModule.AllowedMethods,
         public framework: string = "material"
     ) {
     }
@@ -41,10 +42,14 @@ export class CrudTableConfig implements ak.crudTableModule.CrudTableConfig {
         return this
     }
 
-    getRelsName():ak.jsonDaoModule.iRelation[]{
+    getRelsName(rels:TableRel[]):ak.jsonDaoModule.iRelation[]{
         let res:ak.jsonDaoModule.iRelation[]=[];
-        this.rels.forEach((r)=>{
-            res.push({name:r.field});
+        rels.forEach((r:TableRel)=>{
+            if(r.include){
+                res.push({name:r.field, include:this.getRelsName(r.include)})
+            }else{
+                res.push({name:r.field})
+            }
         });
         return res;
     }

@@ -7,7 +7,7 @@ import {BoolField} from "../../../../src/fieldTypes/BoolField";
 import {TableRel} from "../../../../src/models/TableRel";
 
 export const table =
-    new CrudTableConfig("Группы объявлений", "/api/crud", "direct.bannerGroups", "majorAdmin")
+    new CrudTableConfig("Группы объявлений", "/api/crud", "direct.bannerGroups", "majorAdmin", {patch:true, delete:true, create:true})
         .setFields([
             new TableField("campaign", 'Кампания', new ObjField(), false, false, true, "object", [
                 new TableField("id", 'ID', new IntField(), false, false, true, "input"),
@@ -27,8 +27,8 @@ export const table =
             new TableField("getAds", "Тикеты", new BoolField(), true, true, true, "switch")
         ])
         .setRels([
-            new TableRel("brandId", "brand", "/api/crud", "one", true),
-            new TableRel("regionId", "region", "/api/crud", "one", true),
-            new TableRel("campaignId", "campaign", "/api/direct/campaign", "one", true)
+            new TableRel("brandId", "brand", null , "one"),
+            new TableRel("regionId", "region",null , "one"),
+            new TableRel("campaignId", "campaign", null, "one")
         ]);
         //.setTabs([{title:"Direct",url:"index.directAdGroups",selected:true},{title:"Adwords",url:"index.adwordsAdGroups"}]);

@@ -150,7 +150,7 @@ class Ctrl {
 
     refreshPage():void {
         let filter = this.setFilters();
-        this.source.getPage(ak.jsonDaoModule.iPage().setPage(1,15),filter,this.config.getRelsName())
+        this.source.getPage(ak.jsonDaoModule.iPage().setPage(1,15),filter,this.config.getRelsName(this.config.rels))
             .then((res) => {
                 this.pager.data = res.data;
                 this.pager.total = 1;

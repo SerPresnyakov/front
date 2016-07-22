@@ -9,65 +9,67 @@ export class Schema {
 
         var schema:AngularFormly.IFieldGroup[] = [];
 
-        angular.forEach(fields, (f: TableField) => {
-            if (f.fieldType.type == "obj") {
-                schema.push({
-                    key: f.name,
-                    wrapper: "panel",
-                    templateOptions: {
-                        label: f.title
-                    },
-                    fieldGroup: this.getSchema(f.childs)
-                });
-            }
-            else {
-                let res = {
-                    key: f.name,
-                    type: f.formly,
-                    templateOptions: {
-                        label: f.title
-                    },
-                    data: {
-                        test:()=>{
-                            console.log("test!")
-                        }
-                    }
-                };
-
-                switch (f.fieldType.type){
-                    case 'int': res.templateOptions["type"] ="number";
-                        break;
-                    case 'bool': res.templateOptions["type"] ="boolean";
-                        break;
-                }
-
-                if (f.formly=="autocomplete") {
-                    angular.forEach(rels,(r:TableRel) => {
-                        if(r.name == f.name){
-                            res["data"]["dao"]= r.dao;
-                            res["data"]["rels"] = r.field;
-                        }
+        for(let field of fields) {
+            if(field.editable) {
+                if (field.fieldType.type == "obj") {
+                    schema.push({
+                        key: field.name,
+                        wrapper: "panel",
+                        templateOptions: {
+                            label: field.title
+                        },
+                        fieldGroup: this.getSchema(field.childs)
                     });
                 }
+                else {
+                    let res = {
+                        key: field.name,
+                        type: field.formly,
+                        templateOptions: {
+                            label: field.title
+                        },
+                        data: {
+                            test: ()=> {
+                                console.log("test!")
+                            }
+                        }
+                    };
 
-                if (f.formly == "switch") {
-                    res["defaultValue"] = false;
+                    switch (field.fieldType.type) {
+                        case 'int':
+                            res.templateOptions["type"] = "number";
+                            break;
+                        case 'bool':
+                            res.templateOptions["type"] = "boolean";
+                            break;
+                    }
+
+                    if (field.formly == "autocomplete") {
+                        angular.forEach(rels, (r:TableRel) => {
+                            if (r.name == field.name) {
+                                res["data"]["rels"] = r.field;
+                            }
+                        });
+                    }
+
+                    if (field.formly == "switch") {
+                        res["defaultValue"] = false;
+                    }
+
+                    if (field.formly == "select") {
+                        res.templateOptions["options"] = field.options;
+                        res.templateOptions["labelProp"] = "prop";
+                        res.templateOptions["valueProp"] = "prop";
+                    }
+
+                    if (!field.nullable) {
+                        res.templateOptions["required"] = true;
+                    }
+
+                    schema.push(res);
                 }
-
-                if (f.formly=="select") {
-                    res.templateOptions["options"] = f.options;
-                    res.templateOptions["labelProp"] = "prop";
-                    res.templateOptions["valueProp"] = "prop";
-                }
-
-                if (!f.nullable) {
-                    res.templateOptions["required"] = true;
-                }
-
-                schema.push(res);
-
             }
-        });
+        }
 
         //for(var i =  (schema.length -1), len =0; i > len; i--){
         //    if(schema[i].templateOptions["parent"]){

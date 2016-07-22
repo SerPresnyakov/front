@@ -17,9 +17,8 @@ declare namespace ak.crudTableModule {
     interface TableRel {
         name: string
         field: string
-        dao: string
+        include: TableRel[]
         type: ak.crudTableModule.filters.iTableRelType
-        isInclude: boolean
         displayField: string
     }
 
@@ -37,15 +36,11 @@ declare namespace ak.crudTableModule {
         connName: string
         framework:string
 
-        allowedMethods: {
-            create: boolean
-            patch: boolean
-            delete: boolean
-        }
+        allowedMethods: AllowedMethods
 
         getRel(fieldName: string): ak.crudTableModule.filters.iTableRel
         getField(fieldName: string): ak.crudTableModule.TableField<FieldType>
-        getRelsName():ak.jsonDaoModule.iRelation[]
+        getRelsName(rels: ak.crudTableModule.filters.iTableRel[]):ak.jsonDaoModule.iRelation[]
         setFields(fields: ak.crudTableModule.TableField<FieldType>[]):CrudTableConfig
         setTabs(tabs: any): CrudTableConfig
         setRels(rels: ak.crudTableModule.filters.iTableRel[]): CrudTableConfig
@@ -59,6 +54,12 @@ declare namespace ak.crudTableModule {
         ths:string
         tds(obj:string):string
 
+    }
+
+    interface AllowedMethods{
+        create: boolean
+        patch: boolean
+        delete: boolean
     }
 
     interface filters {
@@ -117,9 +118,8 @@ declare namespace ak.crudTableModule {
         interface iTableRel {
             name: string
             field: string
-            dao: string
+            include: iTableRel[]
             type: ak.crudTableModule.filters.iTableRelType
-            isInclude: boolean
             displayField: string
         }
 
@@ -193,7 +193,7 @@ declare module ak {
     interface crudTableModule {
         name:string
         AddFunc:(type:string, ths:string, getTds:(obj:string)=>string) =>ak.crudTableModule.AddFunc;
-        CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string) => ak.crudTableModule.CrudTableConfig,
+        CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string, allowedMethods:ak.crudTableModule.AllowedMethods) => ak.crudTableModule.CrudTableConfig,
         fieldTypes: ak.crudTableModule.fieldTypes
         TableField:(name: string,
                     title: string,
@@ -207,9 +207,8 @@ declare module ak {
         TableRel:(
             name: string,
             field: string,
-            dao: string,
+            include: ak.crudTableModule.TableRel[],
             type: iTableRelType,
-            isInclude: boolean,
             displayField?: string)=>ak.crudTableModule.TableRel
     }
     let crudTableModule:crudTableModule;

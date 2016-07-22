@@ -16,8 +16,8 @@ import {TableRel} from "./models/TableRel";
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 const crudTableModule : ak.crudTableModule = {
     name: "crudTableModule",
-    CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string): CrudTableConfig => {
-        return new CrudTableConfig(sourceName, url, tableName, connName)
+    CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string, allowedMethods: ak.crudTableModule.AllowedMethods): CrudTableConfig => {
+        return new CrudTableConfig(sourceName, url, tableName, connName, allowedMethods)
     },
     fieldTypes:{
         BoolField:new BoolField(),
@@ -42,11 +42,10 @@ const crudTableModule : ak.crudTableModule = {
     TableRel:(
         name: string,
         field: string,
-        dao: string,
+        include : TableRel[],
         type: iTableRelType,
-        isInclude: boolean,
         displayField: string = "name"):TableRel=>{
-        return new TableRel(name, field, dao, type, isInclude, displayField)
+        return new TableRel(name, field, include, type, displayField)
     },
     AddFunc:(
         type:string,

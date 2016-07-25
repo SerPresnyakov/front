@@ -25,7 +25,7 @@ export class connNameCtrl {
     querySearch(value:string) {
 
             let defer = this.$q.defer();
-            this.connSource.getFullPage([{field:"name",op:"like",value:value}])
+            this.connSource.getFullPage({fields:[{field:"name",op:"like",value:value}]})
                 .then((res)=>{defer.resolve(res.data)})
                 .catch((err)=>{defer.reject(err)});
             return defer.promise;

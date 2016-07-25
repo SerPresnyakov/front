@@ -77,7 +77,7 @@ export const states: ak.config<ng.ui.IState>[] = [
                     let deferred = $q.defer<ak.apiAdminModule.iTable[]>();
 
                     daoFactory.build("tables", Const.admin)
-                        .getFullPage([],[])
+                        .getFullPage(null,[])
                         .then((tables:iPageResponse<ak.apiAdminModule.iTable>)=>{
                             deferred.resolve(tables.data);
                         });

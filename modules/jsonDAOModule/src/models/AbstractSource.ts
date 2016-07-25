@@ -17,11 +17,11 @@ export abstract class AbstractSource<M> {
         this.$q = this.inj.get<ng.IQService>("$q");
     }
 
-    getFullPage(filters: iFilter[] = [],  rels: iRelation[] = []): ng.IPromise<iPageResponse<M>> {
+    getFullPage(filters: iFilter, rels: iRelation[] = []): ng.IPromise<iPageResponse<M>> {
         return this.getPage(new Page().setPage(1, 100), filters, rels)
     }
 
-    getPage(page:Page, filters: iFilter[] = [], rels: iRelation[] = []): ng.IPromise<iPageResponse<M>> {
+    getPage(page:Page, filters: iFilter, rels: iRelation[] = []): ng.IPromise<iPageResponse<M>> {
         let result = this.$q.defer<iPageResponse<M>>();
         //noinspection TypeScriptValidateTypes
         this.$http
@@ -38,7 +38,7 @@ export abstract class AbstractSource<M> {
         return result.promise
     };
 
-    getOne(filters: iFilter[]): ng.IPromise<M> {
+    getOne(filters: iFilter): ng.IPromise<M> {
         let deffer = this.$q.defer<M>();
         this.getPage(new Page().setPage(1, 1), filters)
             .then((res: iPageResponse<M>) => {
@@ -49,7 +49,7 @@ export abstract class AbstractSource<M> {
     };
 
     getById(id: number): ng.IPromise<M> {
-        return this.getOne([{field: "base.id", op: "eq", value: id}])
+        return this.getOne({fields:[{field: "base.id", op: "eq", value: id}]})
     }
 
     create(doc: M): ng.IPromise<any> { return this.modify(doc, "create") }

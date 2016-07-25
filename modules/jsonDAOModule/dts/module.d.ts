@@ -22,6 +22,10 @@ declare namespace ak.jsonDaoModule {
     }
 
     interface iFilter {
+        fields: iFilterField[]
+    }
+
+    interface iFilterField {
         field: string
         op: string
         value: any
@@ -36,9 +40,9 @@ declare namespace ak.jsonDaoModule {
         crudUrl: string
         tableName: string
         pager: iPager
-        getFullPage(filters: iFilter[], rels:iRelation[]): ng.IPromise<iPageResponse<M>>
-        getPage(page: iPage, filters: iFilter[], rels:iRelation[]): ng.IPromise<iPageResponse<M>>
-        getOne(filters: iFilter[]): ng.IPromise<M>
+        getFullPage(filters: iFilter, rels:iRelation[]): ng.IPromise<iPageResponse<M>>
+        getPage(page: iPage, filters: iFilter, rels:iRelation[]): ng.IPromise<iPageResponse<M>>
+        getOne(filters: iFilter): ng.IPromise<M>
         getById(id: number): ng.IPromise<M>
         create(doc: M): ng.IPromise<any>
         update(doc: Object): ng.IPromise<any>

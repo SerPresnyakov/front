@@ -1,4 +1,4 @@
-import {relationsConfig} from "./Relations";
+
 import iPageResponse = ak.jsonDaoModule.iPageResponse;
 import iSource = ak.jsonDaoModule.iSource;
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
@@ -32,10 +32,10 @@ export class ConfigBuilder {
             deferred.reject("tableName is required")
         } else {
                 this.fieldsSource
-                    .getFullPage([{field: "base.table.url", op: "eq", value: tableUrl},{field: "base.table.dbId", op: "eq", value: getDbId(this.localStorage)}],[{name:"table"}])
+                    .getFullPage({fields:[{field: "base.table.url", op: "eq", value: tableUrl},{field: "base.table.dbId", op: "eq", value: getDbId(this.localStorage)}]},[{name:"table"}])
                     .then((table: iPageResponse<ak.apiAdminModule.iField>) => {
                         let fields = ConfigBuilder.getFields(table.data);
-                        config = ak.crudTableModule.CrudTableConfig(tableUrl, "/api/crud", tableUrl, connName);
+                        config = ak.crudTableModule.CrudTableConfig(tableUrl, "/api/crud", tableUrl, connName, {patch:true, create: true, delete: true});
                         config.setFields(fields);
                         console.log(fields);
                         deferred.resolve(config);
@@ -55,52 +55,57 @@ export class ConfigBuilder {
         let errors = [];
 
         angular.forEach(fields, (f: ak.apiAdminModule.iField, i) => {
-            if(f.hasDefault == false){
-                var fieldType;
-                var formly;
-
-                switch(f.fieldType.variant) {
-                    case 'number':
-                        fieldType = ak.crudTableModule.fieldTypes.IntField;
-                        formly = 'input';
-                        break;
-                    case 'str':
-                        fieldType = ak.crudTableModule.fieldTypes.StrField;
-                        formly = 'input';
-                        break;
-                    case 'bool':
-                        fieldType = ak.crudTableModule.fieldTypes.BoolField;
-                        formly = 'switch';
-                        break;
-                    case 'json':
-                        fieldType = ak.crudTableModule.fieldTypes.ObjField;
-                        formly = 'object';
-                        break;
-                    case 'date':
-                        fieldType = ak.crudTableModule.fieldTypes.StrField;
-                        formly = 'input';
-                        break;
-                    case 'timestamp':
-                        fieldType = ak.crudTableModule.fieldTypes.TimestampField.type;
-                        formly = 'input';
-                        break;
-                    default:
-                        fieldType = ak.crudTableModule.fieldTypes.DefaultField.type;
-                        formly = 'default';
-                        console.error("Using default fieldtype")
-                }
-
-                result.push(ak.crudTableModule.TableField(
-                    f.name,
-                    f.name,
-                    fieldType,
-                    f.nullable,
-                    false,
-                    formly,
-                    null,
-                    null
-                ))
+            let fieldType;
+            let formly;
+            let editable;
+            switch(f.fieldType.variant) {
+                case 'number':
+                    fieldType = ak.crudTableModule.fieldTypes.IntField;
+                    formly = 'input';
+                    break;
+                case 'str':
+                    fieldType = ak.crudTableModule.fieldTypes.StrField;
+                    formly = 'input';
+                    break;
+                case 'bool':
+                    fieldType = ak.crudTableModule.fieldTypes.BoolField;
+                    formly = 'switch';
+                    break;
+                case 'json':
+                    fieldType = ak.crudTableModule.fieldTypes.ObjField;
+                    formly = 'object';
+                    break;
+                case 'date':
+                    fieldType = ak.crudTableModule.fieldTypes.StrField;
+                    formly = 'input';
+                    break;
+                case 'timestamp':
+                    fieldType = ak.crudTableModule.fieldTypes.TimestampField.type;
+                    formly = 'input';
+                    break;
+                default:
+                    fieldType = ak.crudTableModule.fieldTypes.DefaultField.type;
+                    formly = 'default';
+                    console.error("Using default fieldtype")
             }
+
+            if(f.hasDefault == false){
+                editable = true;
+            }else{
+                editable = false;
+            }
+
+            result.push(ak.crudTableModule.TableField(
+                f.name,
+                f.name,
+                fieldType,
+                f.nullable,
+                editable,
+                true,
+                formly,
+                null,
+                null
+            ))
         });
         return result;
     }

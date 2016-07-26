@@ -18,7 +18,7 @@ export class Schema {
                         templateOptions: {
                             label: field.title
                         },
-                        fieldGroup: this.getSchema(field.childs)
+                        fieldGroup:field.childs? this.getSchema(field.childs) : []
                     });
                 }
                 else {

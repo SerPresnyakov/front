@@ -13,6 +13,7 @@ import iTableRel = ak.crudTableModule.filters.iTableRel;
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 import {getBootstrapDialog} from "../dialogs/bootstrap/editDialog/Cmpn";
 import {getBootstrapCreateDialog} from "../dialogs/bootstrap/createDialog/Cmpn";
+import iFilterField = ak.jsonDaoModule.iFilterField;
 
 class Ctrl {
 
@@ -69,13 +70,13 @@ class Ctrl {
                     save: (ctrl: ng.INgModelController) => {
                         origin[fieldName] = ctrl.$modelValue;
                         console.log(ctrl.$modelValue,fieldName);
-                        let res = {};
+                        let res = origin;
                         res[fieldName] = ctrl.$modelValue;
                         this.source.update(res);
                     },
                     placeholder: field.title
                 })
-            } else {console.log('Unsupported field type', field.fieldType,StrField)}
+            } else {console.log('Unsupported field type', field.fieldType, StrField)}
         } else {console.error(`Field '${fieldName}' not configured`)}
 
     }
@@ -157,16 +158,18 @@ class Ctrl {
             })
     }
 
-    setFilters():ak.jsonDaoModule.iFilter[] {
-        let res:ak.jsonDaoModule.iFilter[] = [];
+    setFilters():ak.jsonDaoModule.iFilter {
+        let res:ak.jsonDaoModule.iFilter = {
+            fields:[]
+        };
         if(this.filters.hasOwnProperty('model')){
             Object.getOwnPropertyNames(this.filters.model).forEach( (f)=> {
-                res.push({field:f,op:"eq",value:this.filters.model[f]})
+                res.fields.push({field:f,op:"eq",value:this.filters.model[f]})
                 console.log(f, this.filters.model[f])
             });
 
         } else {
-            res = [];
+            res = null;
         }
         return res;
     }

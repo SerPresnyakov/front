@@ -30,7 +30,7 @@ class Ctrl {
     querySearch(value:string) {
         if(value){
             let defer = this.$q.defer();
-            this.RelSource.getFullPage([{field:"name",op:"eq",value:value}], [])
+            this.RelSource.getFullPage({fields:[{field:"name",op:"eq",value:value}]}, [])
                 .then((res)=>{defer.resolve(res.data)})
                 .catch((err)=>{defer.reject(err)});
             return defer.promise;

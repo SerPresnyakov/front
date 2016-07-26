@@ -12,10 +12,7 @@ export class Config {
       $icon: ng.material.IIconProvider
     ) {
         $url.when("", ['localStorageService', '$state',(localStorage: ng.local.storage.ILocalStorageService, state:ng.ui.IStateService)=>{
-            state.transitionTo("index", {connName:"test"})
-        }]);
-        $url.when("/",['localStorageService', '$state',(localStorage: ng.local.storage.ILocalStorageService, state:ng.ui.IStateService)=>{
-            state.transitionTo("index", {connName:"test2"})
+            state.transitionTo("index", {connName: JSON.parse(localStorage.get<string>("connName")).name})
         }]);
     }
 

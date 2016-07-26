@@ -52,7 +52,7 @@ export abstract class AbstractSource<M> {
         return this.getOne({fields:[{field: "base.id", op: "eq", value: id}]})
     }
 
-    create(doc: M): ng.IPromise<any> { return this.modify(doc, "create") }
+    create(doc: M): ng.IPromise<any> { return this.modify(doc, "insert") }
     update(doc: Object): ng.IPromise<any> { return this.modify(doc, "update") }
     remove(doc: Object): ng.IPromise<any> { return this.modify(doc, "delete") }
 

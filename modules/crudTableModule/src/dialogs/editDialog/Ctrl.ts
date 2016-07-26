@@ -1,3 +1,4 @@
+import IScope = angular.IScope;
 export class Ctrl {
 
     static $inject = [ "$http", "$scope" ];

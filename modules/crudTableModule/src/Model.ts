@@ -8,14 +8,14 @@ export class Model {
         var model = {};
 
         angular.forEach(fields, (f: TableField) => {
-
-            if (f.fieldType.type=="obj") {
-                model[f.name] = this.getChilds(f);
+            if(f.editable){
+                if (f.fieldType.type=="obj") {
+                    model[f.name] = this.getChilds(f);
+                }
+                else {
+                    model[f.name] = "";
+                }
             }
-            else {
-                model[f.name] = "";
-            }
-
         });
 
         return model;

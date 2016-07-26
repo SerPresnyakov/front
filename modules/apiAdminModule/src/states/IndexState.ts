@@ -84,9 +84,17 @@ export const indexState: ak.config<ng.ui.IState> = {
 
                 } else {
                     if(JSON.parse(localStorage.get<string>("connName")).name){
+                    console.log("name: ",JSON.parse(localStorage.get<string>("connName")).name);
+                    $http.defaults.headers.common['connName'] = JSON.parse(localStorage.get<string>("connName")).name;
+                    daoFactory
+                        .build<ak.apiAdminModule.iTable>("table", Const.admin)
+                        .getFullPage({fields:[{field:"base.dbId",op:"eq", value:getDbId(localStorage)}]},[])
+                        .then((res: iPageResponse<ak.apiAdminModule.iTable>) => {
+                            deferred.resolve(res.data)})
+                        .catch((err)=> deferred.reject({ msg:"Can't resolve tables", err: err }));
 
                     }else{
-
+                        deferred.reject({status:500})
                     }
                 }
                 console.log("state: ",stateParams);
@@ -94,6 +102,7 @@ export const indexState: ak.config<ng.ui.IState> = {
                 return deferred.promise;
             }],
             user: [ak.authModule.authServiceName, (auth): ng.IPromise<any> => {
+                console.log("test");
                 return auth.me()
             }]
         }

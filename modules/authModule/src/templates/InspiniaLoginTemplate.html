@@ -4,8 +4,8 @@
         <div>
             <form ng-submit="vm.login()" name="vm.form" novalidate>
                 <formly-form model="vm.cred" fields="vm.fields" options="vm.options" form="vm.form">
-                    <button type="submit" class="btn btn-sm btn-primary pull-right m-t-n-xs" ng-disabled="vm.form.$invalid">Войти</button>
                 </formly-form>
+                <button type="submit" class="btn btn-primary block full-width m-b" ng-disabled="vm.form.$invalid">Войти</button>
             </form>
         </div>
         <p class="m-t"> <small>RealWeb &copy; 2016</small> </p>

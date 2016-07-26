@@ -45,8 +45,7 @@ export class LoginCtrl {
                 if (res) {
                     if (this.from) {
                         this.$state.go(this.from)
-                    } else {
-                        this.$state.go("index.adGroups")
+                        console.log(this.from);
                     }
                 } else {
                     console.log("Не могу войти в систему", "Авторизация");

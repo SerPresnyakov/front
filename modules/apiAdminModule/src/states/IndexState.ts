@@ -102,7 +102,6 @@ export const indexState: ak.config<ng.ui.IState> = {
                 return deferred.promise;
             }],
             user: [ak.authModule.authServiceName, (auth): ng.IPromise<any> => {
-                console.log("test");
                 return auth.me()
             }]
         }

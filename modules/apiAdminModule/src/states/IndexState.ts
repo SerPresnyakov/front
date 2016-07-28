@@ -83,18 +83,26 @@ export const indexState: ak.config<ng.ui.IState> = {
                                 .catch((err)=> deferred.reject({ msg:"Can't resolve tables", err: err }));
 
                 } else {
-                    if(JSON.parse(localStorage.get<string>("connName")).name){
-                    console.log("name: ",JSON.parse(localStorage.get<string>("connName")).name);
-                    $http.defaults.headers.common['connName'] = JSON.parse(localStorage.get<string>("connName")).name;
-                    daoFactory
-                        .build<ak.apiAdminModule.iTable>("table", Const.admin)
-                        .getFullPage({fields:[{field:"base.dbId",op:"eq", value:getDbId(localStorage)}]},[])
-                        .then((res: iPageResponse<ak.apiAdminModule.iTable>) => {
-                            deferred.resolve(res.data)})
-                        .catch((err)=> deferred.reject({ msg:"Can't resolve tables", err: err }));
-
+                    if(localStorage.get<string>("connName")) {
+                        if(JSON.parse(localStorage.get<string>("connName")).name) {
+                            console.log("name: ", JSON.parse(localStorage.get<string>("connName")).name);
+                            $http.defaults.headers.common['connName'] = JSON.parse(localStorage.get<string>("connName")).name;
+                            daoFactory
+                                .build<ak.apiAdminModule.iTable>("table", Const.admin)
+                                .getFullPage({
+                                    fields: [{
+                                        field: "base.dbId",
+                                        op: "eq",
+                                        value: getDbId(localStorage)
+                                    }]
+                                }, [])
+                                .then((res:iPageResponse<ak.apiAdminModule.iTable>) => {
+                                    deferred.resolve(res.data)
+                                })
+                                .catch((err)=> deferred.reject({msg: "Can't resolve tables", err: err}));
+                        }
                     }else{
-                        deferred.reject({status:500})
+                        deferred.resolve([]);
                     }
                 }
                 console.log("state: ",stateParams);

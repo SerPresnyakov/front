@@ -1,0 +1,9 @@
+version: '2'
+services:
+  web:
+    build: .
+    dns:
+      - 192.168.0.111
+      - 192.168.0.88
+    ports:
+      - "5006:80"

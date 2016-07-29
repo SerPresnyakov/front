@@ -44,15 +44,15 @@ export class LoginCtrl {
             this.authService.login(this.cred).then((res) => {
                 if (res) {
                     if (this.from) {
-                        this.$state.go(this.from)
+                        this.$state.go(this.from);
                         console.log(this.from);
+                    }else{
+                        this.$state.go('index');
                     }
                 } else {
                     console.log("Не могу войти в систему", "Авторизация");
                 }
             })
-
-
     }
 
 }

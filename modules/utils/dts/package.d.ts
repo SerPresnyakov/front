@@ -32,6 +32,7 @@ declare module ak.utils {
         ngMessages: string
         uiBootstrap:string
         confirm: string
+        localStorageService: string;
     }
 
     interface ApiUrls {

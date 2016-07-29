@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                     },
                     {
                         expand: true,
-                        cwd: "<%= dirs.app %>/bower/fontawesome",
+                        cwd: "../../bower_components/font-awesome",
                         src: ['fonts/**'],
                         dest: "<%= dirs.release %>"
                     },

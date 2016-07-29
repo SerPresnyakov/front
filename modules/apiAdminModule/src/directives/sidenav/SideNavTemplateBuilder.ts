@@ -10,7 +10,7 @@ export class SideNavTemplateBuilder {
         }
     }
 
-    getTemplate(): string {
+    getTemplate(connName): string {
         return `
             <div layout="row" flex style="height: 100%;">
                 <md-sidenav class="md-sidenav-left md-whiteframe-z3" md-component-id="leftNav" md-is-locked-open="$mdMedia('gt-sm')" layout="column">
@@ -27,9 +27,10 @@ export class SideNavTemplateBuilder {
                 <div layout="column" style="height: 100%;" flex>
                     <md-toolbar layout="row">
                         <md-button ng-click="vm.toggleNav('leftNav')" hide-gt-sm>BTN</md-button>
-                        <h3><md-button ng-click="vm.setConnName(ev)"><p ng-if="!state.params.connName">Выбрать connName</p><p style="text-decoration: underline;" ng-if="state.params.connName">{{state.params.connName}}</p></md-button></h3>
-                        <h3 ng-if="state.includes('index')"><md-button ui-sref="dbAdmin">Редактировать базу данных</md-button></h3>
-                        <h3 ng-if="state.includes('dbAdmin')"><md-button ui-sref="index">Редактировать данныe</md-button></h3>
+                            <h3><md-select placeholder="${connName}" ng-model="vm.conn" md-selected-text="vm.conn.name" md-on-open="vm.loadConnName()" md-on-close="vm.setConnName()" style="margin: 0;">
+                                <md-option ng-value="conn" ng-repeat="conn in vm.conns">{{conn.name}}</md-option>
+                                </md-select>
+                            </h3>
                     </md-toolbar>
                     <md-content ui-view></md-content>
                 </div>

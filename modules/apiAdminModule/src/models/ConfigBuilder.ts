@@ -58,7 +58,13 @@ export class ConfigBuilder {
             let fieldType;
             let formly;
             let editable;
-            switch(f.fieldType.variant) {
+            if(f.hasDefault == false){
+                editable = true;
+            }else{
+                editable = false;
+            }
+
+            switch(f.valType.variant) {
                 case 'number':
                     fieldType = ak.crudTableModule.fieldTypes.IntField;
                     formly = 'input';
@@ -71,33 +77,16 @@ export class ConfigBuilder {
                     fieldType = ak.crudTableModule.fieldTypes.BoolField;
                     formly = 'switch';
                     break;
-                case 'json':
-                    fieldType = ak.crudTableModule.fieldTypes.ObjField;
-                    formly = 'object';
-                    break;
-                case 'date':
-                    fieldType = ak.crudTableModule.fieldTypes.StrField;
-                    formly = 'input';
-                    break;
-                case 'timestamp':
-                    fieldType = ak.crudTableModule.fieldTypes.TimestampField.type;
-                    formly = 'input';
-                    break;
                 default:
                     fieldType = ak.crudTableModule.fieldTypes.DefaultField.type;
                     formly = 'default';
+                    editable = false;
                     console.error("Using default fieldtype")
             }
 
-            if(f.hasDefault == false){
-                editable = true;
-            }else{
-                editable = false;
-            }
-
             result.push(ak.crudTableModule.TableField(
-                f.name,
-                f.name,
+                f.alias,
+                f.alias,
                 fieldType,
                 f.nullable,
                 editable,

@@ -22,5 +22,5 @@ module.registerStates(states);
 module.config(Config);
 //module.run(Run);
 
-module.module.directive("akSidenav", SidenavDirective.factory());
+module.module.directive("akSidenav", ["$compile", ak.utils.Deps.localStorageService, function($compile, localStorage){ return SidenavDirective($compile, localStorage)}]);
 

@@ -1,4 +1,4 @@
-import {Schema} from "../../Schema";
+
 
 class fieldCtrl{
     data = {};
@@ -22,7 +22,7 @@ class Ctrl {
     };
     savedFilter:ak.crudTableModule.filters.ISavedFilters;
     savedFilters: ak.crudTableModule.filters.ISavedFilters[]=[];
-    filtersSource:ak.jsonDaoModule.iSource<ak.crudTableModule.filters.ISavedFilters>;
+    filtersSource:ak.jsonDaoModule.iSource<any>;
 
     constructor(public $scope: ng.IScope,
                 public state:ng.ui.IStateService,
@@ -32,7 +32,7 @@ class Ctrl {
                 public $q:ng.IQService
 
     ){
-        this.filtersSource = daoFactory.build("savedFilter","majorAdmin");
+        this.filtersSource = daoFactory.build("savedFilter", "/api/admin/table");
         this.getSavedFilters().then((res)=>this.filter.savedFilters=res);
 
         if(state.params["filters"]){
@@ -94,7 +94,7 @@ class Ctrl {
             .cancel('Отменить');
 
         this.$mdDialog.show(confirm).then((result)=> {
-            this.filtersSource.update({
+            this.filtersSource.create({
                 name:result,
                 filters:this.getFilter(this.filter.model)
             });

@@ -22,7 +22,7 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
     }
 
     getNewFilters(fields:iTableField<FieldType>[],rels:iTableRel[]): ak.crudTableModule.filters.INewFilter[]{
-        let schema = Schema.getSchema(fields,rels);
+        let schema = Schema.getSchemaWhitEditable(fields,rels);
         let res:  ak.crudTableModule.filters.INewFilter[] = [];
         fields.forEach((f:TableField)=>{
             let filter: ak.crudTableModule.filters.INewFilter = {

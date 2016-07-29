@@ -15,6 +15,7 @@ export class Deps implements ak.utils.Deps {
     formlyBootstrap = "formlyBootstrap";
     ngMessages = "ngMessages";
     confirm = "angular-confirm";
+    localStorageService = "localStorageService";
 }
 
 export default new Deps()

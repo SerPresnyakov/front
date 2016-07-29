@@ -5,12 +5,22 @@ import iTableField = ak.crudTableModule.TableField;
 
 export class Schema {
 
+
     static getSchema(fields, rels?): AngularFormly.IFieldGroup[] {
+        let Fields = fields.filter((field:iTableField<any>)=>{
+            if(field.editable){
+                return false
+            }
+            else{ return true}
+        });
+        return this.getSchemaWhitEditable(Fields, rels)
+    }
+
+    static getSchemaWhitEditable(fields, rels?): AngularFormly.IFieldGroup[] {
 
         var schema:AngularFormly.IFieldGroup[] = [];
 
         for(let field of fields) {
-            if(field.editable) {
                 if (field.fieldType.type == "obj") {
                     schema.push({
                         key: field.name,
@@ -68,42 +78,10 @@ export class Schema {
 
                     schema.push(res);
                 }
-            }
         }
-
-        //for(var i =  (schema.length -1), len =0; i > len; i--){
-        //    if(schema[i].templateOptions["parent"]){
-        //        this.setFieldGroup(schema, schema[i]);
-        //        schema.splice(i,1);
-        //    }
-        //}
 
         return schema;
     }
-
-    //static setFieldGroup( schema:AngularFormly.IFieldGroup[], res: AngularFormly.IFieldGroup){
-    //    for(var i =  (schema.length -1), len =0; i > len; i--){
-    //        if(schema[i].key == res.templateOptions["parent"]){
-    //            schema[i].fieldGroup.push(res);
-    //            break;
-    //        }
-    //    }
-    //}
-
-    //static searchParent(obj, parent:string):AngularFormly.IFieldGroup{
-    //    let res;
-    //
-    //        for(var i = 0, len = obj.fieldGroup.length; i < len; i++){
-    //            if(obj.fieldGroup[i].key==parent){
-    //                res =  obj.fieldGroup[i];
-    //            }else{
-    //                if(obj.fieldGroup[i].fieldGroup) {
-    //                    this.searchParent(obj.fieldGroup[i], parent);
-    //                }
-    //            }
-    //        }
-    //    return res;
-    //}
 
 
 

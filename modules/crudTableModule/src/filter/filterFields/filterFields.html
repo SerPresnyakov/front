@@ -1,14 +1,15 @@
-<md-input-container ng-if="filterFieldsVM.filter.saveFilter.selectedItem">
+<md-input-container>
     <label>Имя сохраненного фильтра</label>
-    <input style="font-size: 25px" ng-model="filterFieldsVM.filter.saveFilter.selectedItem.name">
+    <input placeholder="Новый фильтр" style="font-size: 25px" ng-model="filterFieldsVM.filter.saveFilter.selectedItem.name">
 </md-input-container>
+<md-button ng-click="filterFieldsVM.updateSavedFilters(filterFieldsVM.filter.saveFilter.selectedItem)" class="md-primary md-raised">Обновить сохраненный фильтр</md-button>
+<md-button ng-click="filterFieldsVM.removeSavedFilters(filterFieldsVM.filter.saveFilter.selectedItem)" class=" md-danger">Удалить сохраненный фильтр</md-button>
+
 <form novalidate>
         <formly-form model="filterFieldsVM.filter.model" fields="filterFieldsVM.filter.schema" options="filterFieldsVM.options" >
             <md-button ng-if="filterFieldsVM.filter.exist()" type="submit" ng-click="filterFieldsVM.submit()" ng-disabled="vm.form.$invalid">Применить</md-button>
-            <md-button ng-if="!filterFieldsVM.filter.saveFilter.selectedItem"  class="md-primary md-raised" ng-click="filterFieldsVM.showPrompt($event)">Сохранить фильтр</md-button>
-            <md-button ng-if="filterFieldsVM.filter.saveFilter.selectedItem" ng-click="filterFieldsVM.updateSavedFilters(filterFieldsVM.filter.saveFilter.selectedItem)" class="md-primary md-raised">Обновить сохраненный фильтр</md-button>
-            <md-button ng-if="filterFieldsVM.filter.saveFilter.selectedItem" ng-click="filterFieldsVM.removeSavedFilters(filterFieldsVM.filter.saveFilter.selectedItem)" class=" md-danger">Удалить сохраненный фильтр</md-button>
-        </formly-form>
+            <md-button ng-if="!filterFieldsVM.filter.saveFilter.selectedItem"  class="md-primary md-raised" ng-click="filterFieldsVM.saveFilter()">Сохранить фильтр</md-button>
+                   </formly-form>
  </form>
 
  <!--<input ng-model="filterFieldsVM.test.name">-->

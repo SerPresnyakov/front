@@ -1,5 +1,3 @@
-
-
 class fieldCtrl{
     data = {};
     wrapper = "FilterWrapper";
@@ -92,7 +90,7 @@ class Ctrl {
         this.filtersSource.update(data)
     }
 
-    showPrompt(ev):void{
+    saveFilter():void{
         let tableId;
         let userId;
         this.auth.me()
@@ -104,24 +102,13 @@ class Ctrl {
                     .then((res)=>{
                         tableId = res.id;
                     })
-            })
-            .then(()=>{
-                var confirm = this.$mdDialog.prompt()
-                    .title('Введите название фильтра:')
-                    .placeholder('Название фильтра')
-                    .ariaLabel('Название фильтра')
-                    .targetEvent(ev)
-                    .ok('Создать')
-                    .cancel('Отменить');
-
-                this.$mdDialog.show(confirm).then((result)=> {
-                    this.filtersSource.create({
-                        tableId:tableId,
-                        userId:userId,
-                        name:result,
-                        filters:this.getFilter(this.filter.model)
+                    .then(()=>{this.filtersSource.create({
+                        tableId: tableId,
+                        userId: userId,
+                        name: this.filter.saveFilter.selectedItem.name,
+                        filters: this.getFilter(this.filter.model)
                     }).then(()=>{
-                        this.filtersSource.getOne({fields:[{field:"base.name", op:"eq", value:result}]}).then((res)=>{
+                        this.filtersSource.getOne({fields:[{field:"base.name", op:"eq", value: this.filter.saveFilter.selectedItem.name}]}).then((res)=>{
                             console.log("saveFilt: ",res);
                             this.filter.savedFilters.push(res);
                             this.filter.saveFilter.searchText = res.name;
@@ -144,11 +131,6 @@ class Ctrl {
         return res;
     }
 
-
-
-    saveFilter():void{
-        console.log(this.savedFilter)
-    }
 }
 
 export const filterFieldsDirective: ak.config<ng.IComponentOptions> = {

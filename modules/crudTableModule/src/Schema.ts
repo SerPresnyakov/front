@@ -8,10 +8,7 @@ export class Schema {
 
     static getSchema(fields, rels?): AngularFormly.IFieldGroup[] {
         let Fields = fields.filter((field:iTableField<any>)=>{
-            if(field.editable){
-                return false
-            }
-            else{ return true}
+            return field.editable;
         });
         return this.getSchemaWhitEditable(Fields, rels)
     }

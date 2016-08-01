@@ -11,7 +11,7 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
     applyedFilters: ak.crudTableModule.filters.iFilter[] = [];
     model:  ak.crudTableModule.filters.IModel;
     savedFilters:  ak.crudTableModule.filters.ISavedFilters[] = [];
-    saveFilter:  ak.crudTableModule.filters.ISaveFilter;
+    saveFilter:  ak.crudTableModule.filters.ISaveFilter = { searchText: null, selectedItem : null};
     filters:  ak.crudTableModule.filters.INewFilter[] = [];
 
     constructor(private fields:iTableField<FieldType>[],
@@ -119,6 +119,9 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
         if(this.applyedFilters.length>0) {
             this.applyedFilters = [];
         }
+        this.filters.forEach((f: ak.crudTableModule.filters.INewFilter)=>{
+            f.applied = false;
+        });
         this.model = {};
     }
 

@@ -45,6 +45,7 @@ declare namespace ak.jsonDaoModule {
         getOne(filters: iFilter): ng.IPromise<M>
         getById(id: number): ng.IPromise<M>
         create(doc: M): ng.IPromise<any>
+        upsert(doc: M): ng.IPromise<any>
         update(doc: Object): ng.IPromise<any>
         remove(doc: Object): ng.IPromise<any>
     }

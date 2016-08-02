@@ -11,6 +11,7 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
     applyedFilters: ak.crudTableModule.filters.iFilter[] = [];
     model:  ak.crudTableModule.filters.IModel;
     savedFilters:  ak.crudTableModule.filters.ISavedFilters[] = [];
+    saveFilterName: string;
     saveFilter:  ak.crudTableModule.filters.ISaveFilter = { searchText: null, selectedItem : null};
     filters:  ak.crudTableModule.filters.INewFilter[] = [];
 

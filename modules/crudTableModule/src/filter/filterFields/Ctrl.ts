@@ -10,7 +10,7 @@ class fieldCtrl{
 
 class Ctrl {
 
-    static $inject = ["$scope", "$state", "localStorageService", "$mdDialog", ak.jsonDaoModule.Deps.daoFactoryService, "$q", ak.authModule.authServiceName];
+    static $inject = ["$scope", "$state", "localStorageService", "$mdDialog", ak.jsonDaoModule.Deps.daoFactoryService, "$q", ak.authModule.authServiceName, "$mdToast" ];
 
     filter : ak.crudTableModule.filters.iFilterClass;
     refreshPage:()=>void;
@@ -29,7 +29,8 @@ class Ctrl {
                 public $mdDialog:angular.material.IDialogService,
                 public daoFactory: ak.jsonDaoModule.iDAOFactoryService,
                 public $q:ng.IQService,
-                public auth
+                public auth,
+                public $mdToast:ng.material.IToastService
     ){
         this.filtersSource = daoFactory.build("savedFilter", "/api/admin/table");
         this.tables =  daoFactory.build("table", "/api/admin/table");
@@ -90,7 +91,7 @@ class Ctrl {
         this.filtersSource.update(data)
     }
 
-    saveFilter():void{
+    saveFilter(name:string):void{
         let tableId;
         let userId;
         this.auth.me()
@@ -102,26 +103,42 @@ class Ctrl {
                     .then((res)=>{
                         tableId = res.id;
                     })
-                    .then(()=>{this.filtersSource.create({
+                    .then(()=>{this.filtersSource.upsert({
                         tableId: tableId,
                         userId: userId,
-                        name: this.filter.saveFilter.selectedItem.name,
+                        name: name,
                         filters: this.getFilter(this.filter.model)
                     }).then(()=>{
-                        this.filtersSource.getOne({fields:[{field:"base.name", op:"eq", value: this.filter.saveFilter.selectedItem.name}]}).then((res)=>{
+                        this.$mdToast.show(
+                            this.$mdToast.simple()
+                                .textContent(`Фильтр ${name} создан!`)
+                                .position("top right")
+                                .hideDelay(3000)
+                        );
+                        this.filtersSource.getOne({fields:[{field:"base.name", op:"eq", value: name}]}).then((res)=>{
                             console.log("saveFilt: ",res);
                             this.filter.savedFilters.push(res);
                             this.filter.saveFilter.searchText = res.name;
                             this.filter.saveFilter.selectedItem = res;
                             console.log(this.filter.saveFilter.selectedItem);
                         })
+                    }).catch((err)=> {
+                        this.$mdToast.show(
+                            this.$mdToast.simple()
+                                .textContent(`Фильтр с именем :${name} уже есть !`)
+                                .position("top right")
+                                .hideDelay(3000)
+                        );
                     })
                 });
         });
-
-        // Appending dialog to document.body to cover sidenav in docs app
-
     };
+
+    cancelFilter(){
+        this.filter.resetFilter();
+        this.filter.saveFilter.searchText = null;
+        this.filter.saveFilter.selectedItem = null;
+    }
 
     getFilter(model:{}):any[]{
         let res = [];

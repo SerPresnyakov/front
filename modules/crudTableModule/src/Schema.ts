@@ -17,6 +17,14 @@ export class Schema {
 
         var schema:AngularFormly.IFieldGroup[] = [];
 
+        fields = fields.filter((item:iTableField<any>)=>{
+            if(item.fieldType.type == "default"){
+                return false
+            }else{
+                return true
+            }
+        });
+
         for(let field of fields) {
                 if (field.fieldType.type == "obj") {
                     schema.push({

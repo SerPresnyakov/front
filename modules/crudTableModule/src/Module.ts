@@ -61,7 +61,8 @@ let module = ak.utils.angularModule(ak.crudTableModule.name, [
     ak.utils.Deps.mdTable,
     ak.utils.Deps.angularFormly,
     ak.utils.Deps.formlyBootstrap,
-    ak.utils.Deps.uiBootstrap
+    ak.utils.Deps.uiBootstrap,
+    ak.utils.Deps.ngMessages
 ]);
 
 module.directive("akCrudTable", ["$compile", ($compile => CrudTableDirective($compile))]);

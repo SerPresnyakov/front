@@ -53,6 +53,7 @@ export abstract class AbstractSource<M> {
     }
 
     create(doc: M): ng.IPromise<any> { return this.modify(doc, "insert") }
+    upsert(doc: M): ng.IPromise<any> { return this.modify(doc, "upsert") }
     update(doc: Object): ng.IPromise<any> { return this.modify(doc, "update") }
     remove(doc: Object): ng.IPromise<any> { return this.modify(doc, "delete") }
 

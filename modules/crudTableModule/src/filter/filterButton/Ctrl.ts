@@ -20,6 +20,7 @@ class Ctrl {
 
     selectFilter(savedFilterName:string):void{
         if(savedFilterName) {
+            this.filter.saveFilterName = savedFilterName;
             let res:ak.crudTableModule.filters.IModel;
             this.filter.savedFilters.forEach((f)=> {
                 if (f.name == savedFilterName) {

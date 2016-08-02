@@ -169,6 +169,7 @@ declare namespace ak.crudTableModule {
             applyedFilters: iFilter[]
             model: IModel
             savedFilters: ISavedFilters[]
+            saveFilterName: string
             saveFilter: ISaveFilter;
             filters: INewFilter[]
             tableUrl:string

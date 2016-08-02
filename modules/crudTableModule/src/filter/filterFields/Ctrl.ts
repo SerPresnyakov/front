@@ -80,6 +80,7 @@ class Ctrl {
                     return item.name != filter.name;
                 })
             })
+        this.cancelFilter();
     }
 
     updateSavedFilters(filter:ak.crudTableModule.filters.ISavedFilters):void{
@@ -94,6 +95,7 @@ class Ctrl {
     saveFilter(name:string):void{
         let tableId;
         let userId;
+        let toast;
         this.auth.me()
             .then((res)=>{
                 userId = res.id;
@@ -103,15 +105,37 @@ class Ctrl {
                     .then((res)=>{
                         tableId = res.id;
                     })
-                    .then(()=>{this.filtersSource.upsert({
-                        tableId: tableId,
-                        userId: userId,
-                        name: name,
-                        filters: this.getFilter(this.filter.model)
-                    }).then(()=>{
+                    .then(()=>{
+                        let doc;
+                        console.log(this.getFilter(this.filter.model).length)
+                        if(this.getFilter(this.filter.model).length){
+
+                            if(this.filter.saveFilter.selectedItem){
+                                doc = this.filter.saveFilter.selectedItem;
+                                doc.filters = this.getFilter(this.filter.model);
+                                toast = "обновлен";
+                            }else{
+                                doc = {
+                                    tableId: tableId,
+                                    userId: userId,
+                                    name: name,
+                                    filters: this.getFilter(this.filter.model)
+                                }
+                                toast = "создан";
+                            }
+                        }else{
+                            this.$mdToast.show(
+                                this.$mdToast.simple()
+                                    .textContent(`Выберите фильтры!`)
+                                    .position("top right")
+                                    .hideDelay(3000)
+                            );
+                        }
+                        this.filtersSource.upsert(doc)
+                    .then(()=>{
                         this.$mdToast.show(
                             this.$mdToast.simple()
-                                .textContent(`Фильтр ${name} создан!`)
+                                .textContent(`Фильтр ${name} ${toast}!`)
                                 .position("top right")
                                 .hideDelay(3000)
                         );
@@ -122,10 +146,11 @@ class Ctrl {
                             this.filter.saveFilter.selectedItem = res;
                             console.log(this.filter.saveFilter.selectedItem);
                         })
-                    }).catch((err)=> {
+                    })
+                    .catch((err)=> {
                         this.$mdToast.show(
                             this.$mdToast.simple()
-                                .textContent(`Фильтр с именем :${name} уже есть !`)
+                                .textContent(`Фильтр с именем '${name}' уже есть !`)
                                 .position("top right")
                                 .hideDelay(3000)
                         );
@@ -138,6 +163,7 @@ class Ctrl {
         this.filter.resetFilter();
         this.filter.saveFilter.searchText = null;
         this.filter.saveFilter.selectedItem = null;
+        this.filter.saveFilterName = null;
     }
 
     getFilter(model:{}):any[]{

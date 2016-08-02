@@ -30,6 +30,7 @@ class Ctrl {
             this.filter.getParamsFilters(res);
             this.refreshPage();
         } else {
+            this.filter.saveFilterName = null;
             this.filter.resetFilter();
             this.filter.saveFilter["selectedItem"] = null;
             this.refreshPage();

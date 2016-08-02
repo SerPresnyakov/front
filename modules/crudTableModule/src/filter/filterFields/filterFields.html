@@ -3,7 +3,7 @@
         <label>Имя сохраненного фильтра</label>
         <input name="lastName" placeholder="Новый фильтр" required style="font-size: 25px" ng-model="filterFieldsVM.filter.saveFilterName">
     </md-input-container>
-    <md-button type="submit" style="padding:0 6px" ng-click="filterFieldsVM.saveFilter(filterFieldsVM.filter.saveFilterName)" class="md-primary md-raised">Сохранить</md-button>
+    <md-button type="submit" style="padding:0 6px" ng-click="filterFieldsVM.saveFilter(filterFieldsVM.filter.saveFilterName)" class="md-primary md-raised"><div ng-if="!filterFieldsVM.filter.saveFilter.selectedItem">Сохранить</div><div ng-if="filterFieldsVM.filter.saveFilter.selectedItem">Обновить</div></md-button>
     <md-button style="padding:0" ng-click="filterFieldsVM.removeSavedFilters(filterFieldsVM.filter.saveFilter.selectedItem)" class=" md-danger">Удалить</md-button>
 </form>
 

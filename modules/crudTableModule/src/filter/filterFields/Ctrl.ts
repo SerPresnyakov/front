@@ -1,3 +1,4 @@
+import {FilterTemplateProvider} from "../../FilterTemplateConfig";
 class fieldCtrl{
     data = {};
     wrapper = "FilterWrapper";
@@ -79,7 +80,7 @@ class Ctrl {
                 this.filter.savedFilters = this.filter.savedFilters.filter((item)=>{
                     return item.name != filter.name;
                 })
-            })
+            });
         this.cancelFilter();
     }
 
@@ -187,6 +188,14 @@ export const filterFieldsDirective: ak.config<ng.IComponentOptions> = {
         },
         controller: Ctrl,
         controllerAs: "filterFieldsVM",
-        template: require<string>("./filterFields.html")
+        template: ["FilterModuleTemplate",  (filterModuleTemplate: FilterTemplateProvider) => { return getTemplate(filterModuleTemplate)}]
     }
 };
+
+function getTemplate(filterModuleTemplate: FilterTemplateProvider):string {
+    if (filterModuleTemplate.getFramework() == "material") {
+        return require<string>("./MaterialFilterFields.html")
+    } else if (filterModuleTemplate.getFramework() == "inspinia") {
+        return require<string>("./InspiniaFilterFields.html")
+    }
+}

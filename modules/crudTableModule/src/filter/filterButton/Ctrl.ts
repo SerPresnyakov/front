@@ -1,6 +1,7 @@
 import IComponentOptions = angular.IComponentOptions;
 import iTableField = ak.crudTableModule.TableField;
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
+import {FilterTemplateProvider} from "../../FilterTemplateConfig";
 
 class Ctrl {
 
@@ -84,6 +85,15 @@ export const filterButtonDirective: ak.config<IComponentOptions> = {
         },
         controller: Ctrl,
         controllerAs: "filterButtonVM",
-        template: require<string>("./filterButton.html")
+        template: ["FilterModuleTemplate",  (filterModuleTemplate: FilterTemplateProvider) => { return getTemplate(filterModuleTemplate)}]
     }
 };
+
+
+function getTemplate(filterModuleTemplate: FilterTemplateProvider):string {
+    if (filterModuleTemplate.getFramework() == "material") {
+        return require<string>("./MaterialFilterButton.html")
+    } else if (filterModuleTemplate.getFramework() == "inspinia") {
+        return require<string>("./InspiniaFilterButton.html")
+    }
+}

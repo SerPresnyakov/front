@@ -14,6 +14,7 @@ import {DefaultField} from "./fieldTypes/DefaultField";
 import iTableRelType = ak.crudTableModule.filters.iTableRelType;
 import {TableRel} from "./models/TableRel";
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
+import {FilterTemplateProvider} from "./FilterTemplateConfig";
 const crudTableModule : ak.crudTableModule = {
     name: "crudTableModule",
     CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string, allowedMethods: ak.crudTableModule.AllowedMethods): CrudTableConfig => {
@@ -68,5 +69,5 @@ let module = ak.utils.angularModule(ak.crudTableModule.name, [
 module.directive("akCrudTable", ["$compile", ($compile => CrudTableDirective($compile))]);
 module.registerComponent([{name:filterButtonDirective.name, config: filterButtonDirective.config},{ name:filterFieldsDirective.name, config: filterFieldsDirective.config}]);
 module.registerFilter(ak.utils.Domain);
-
+module.module.provider("FilterModuleTemplate", FilterTemplateProvider);
 module.run(Run);

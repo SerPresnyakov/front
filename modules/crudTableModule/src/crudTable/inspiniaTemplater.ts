@@ -12,6 +12,7 @@ export class inspiniaTemplater{
         if (this.config.tab.tabs.length){
             return"" +
                 `<div class='ibox'>` +
+                `<filter-button filter="${this.ctrlAs}.filters"  refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
                 this.getTabs() +
                 this.getTitle() +
                 this.getContent() +

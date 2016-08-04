@@ -17,11 +17,10 @@ export class Model {
                 }
             }
         });
-
         return model;
     }
 
-    static getChilds(f: TableField){
+    static getChilds(f: TableField) {
         let res = {};
         f.childs.forEach((f:TableField)=>{
             if(f.fieldType.type == "obj"){
@@ -33,5 +32,4 @@ export class Model {
         });
         return res;
     }
-
 }

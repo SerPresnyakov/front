@@ -11,8 +11,18 @@ export class inspiniaTemplater{
     getTemplate(): string {
         if (this.config.tab.tabs.length){
             return"" +
-                `<div class='ibox'>` +
-                `<filter-button filter="${this.ctrlAs}.filters"  refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
+                this.getFilters() +
+                //`<div class='ibox'>` +
+                //    `<div class="ibox-title">` +
+                //        `Фильтры` +
+                //        `<div class="ibox-tools">` +
+                //            `<filter-button filter="${this.ctrlAs}.filters"  refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
+                //        `</div>` +
+                //    `</div>` +
+                //    `<div class="ibox-content">` +
+                //        `<filter-fields filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' rest="${this.ctrlAs}.config.rest"></filter-fields>`+
+                //    `</div>` +
+                //`</div>` +
                 this.getTabs() +
                 this.getTitle() +
                 this.getContent() +
@@ -23,10 +33,28 @@ export class inspiniaTemplater{
         } else {
             return "" +
                 `<div class='ibox'>` +
+                    `<div class="ibox-title">` +
+                        `Фильтры` +
+                        `<div class="ibox-tools">` +
+                            `<filter-button filter="${this.ctrlAs}.filters"  refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
+                        `</div>` +
+                    `</div>` +
+                    `<div class="ibox-content">` +
+                        `<filter-fields filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' rest="${this.ctrlAs}.config.rest"></filter-fields>`+
+                    `</div>` +
+                `</div>` +
+                `<div class='ibox'>` +
                 this.getTitle() +
                 this.getContent() +
                 `</div>` +
                 this.getPager()
+        }
+    }
+
+    getFilters(){
+        if(this.config.sourceName=="Обьявления"){
+            return "" +
+                    `<main-filter-cmpn filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' rest="${this.ctrlAs}.config.rest"></main-filter-cmpn>`
         }
     }
 

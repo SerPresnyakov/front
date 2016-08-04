@@ -1,1 +1,8 @@
-<p>Test</p>
+
+<form novalidate>
+    <formly-form model="filterFieldsVM.filter.model" fields="filterFieldsVM.filter.schema" options="filterFieldsVM.options" >
+        <button ng-if="filterFieldsVM.filter.exist()" ng-click="filterFieldsVM.cancelFilter()">Отменить</button>
+        <button ng-if="filterFieldsVM.filter.exist()" type="submit" class="md-primary md-raised" ng-click="filterFieldsVM.submit()" ng-disabled="vm.form.$invalid">Применить</button>
+        <!--<md-button ng-if="!filterFieldsVM.filter.saveFilter.selectedItem"  class="md-primary md-raised" ng-click="filterFieldsVM.saveFilter()">Сохранить фильтр</md-button>-->
+    </formly-form>
+</form>

@@ -32,7 +32,7 @@ class Ctrl {
         public $scope: ng.IScope,
         public $q: ng.IQService,
         public daoFactory: ak.jsonDaoModule.iDAOFactoryService,
-        public $state : ng.ui.IStateProvider,
+        public $state : ng.ui.IState,
         public $uibModal: ng.ui.bootstrap.IModalService,
         public $confirm: ng.confirm.IConfirmService
     ) {
@@ -162,12 +162,12 @@ class Ctrl {
         let res:ak.jsonDaoModule.iFilter = {
             fields:[]
         };
-        if(this.filters.hasOwnProperty('model')){
+        if(this.$state.params["filters"]){
+            this.filters.getParamsFilters(this.$state.params["filters"]);
             Object.getOwnPropertyNames(this.filters.model).forEach( (f)=> {
                 res.fields.push({field:f,op:"eq",value:this.filters.model[f]})
                 console.log(f, this.filters.model[f])
             });
-
         } else {
             res = null;
         }

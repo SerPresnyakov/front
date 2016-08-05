@@ -12,17 +12,6 @@ export class inspiniaTemplater{
         if (this.config.tab.tabs.length){
             return"" +
                 this.getFilters() +
-                //`<div class='ibox'>` +
-                //    `<div class="ibox-title">` +
-                //        `Фильтры` +
-                //        `<div class="ibox-tools">` +
-                //            `<filter-button filter="${this.ctrlAs}.filters"  refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
-                //        `</div>` +
-                //    `</div>` +
-                //    `<div class="ibox-content">` +
-                //        `<filter-fields filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' rest="${this.ctrlAs}.config.rest"></filter-fields>`+
-                //    `</div>` +
-                //`</div>` +
                 this.getTabs() +
                 this.getTitle() +
                 this.getContent() +
@@ -32,18 +21,7 @@ export class inspiniaTemplater{
 
         } else {
             return "" +
-                `<div class='ibox'>` +
-                    `<div class="ibox-title">` +
-                        `Фильтры` +
-                        `<div class="ibox-tools">` +
-                            `<filter-button filter="${this.ctrlAs}.filters"  refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
-                        `</div>` +
-                    `</div>` +
-                    `<div class="ibox-content">` +
-                        `<filter-fields filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' rest="${this.ctrlAs}.config.rest"></filter-fields>`+
-                    `</div>` +
-                `</div>` +
-                `<div class='ibox'>` +
+                this.getFilters() +
                 this.getTitle() +
                 this.getContent() +
                 `</div>` +
@@ -52,10 +30,18 @@ export class inspiniaTemplater{
     }
 
     getFilters(){
-        if(this.config.sourceName=="Обьявления"){
-            return "" +
-                    `<main-filter-cmpn filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' rest="${this.ctrlAs}.config.rest"></main-filter-cmpn>`
-        }
+        return '' +
+        `<div class='ibox'>` +
+            `<div class="ibox-title">` +
+                `Фильтры` +
+                `<div class="ibox-tools">` +
+                    `<filter-button filter="${this.ctrlAs}.filters"  refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
+                `</div>` +
+            `</div>` +
+            `<div class="ibox-content">` +
+                `<filter-fields filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' rest="${this.ctrlAs}.config.rest"></filter-fields>`+
+            `</div>` +
+        `</div>`
     }
 
     getTabs():string{

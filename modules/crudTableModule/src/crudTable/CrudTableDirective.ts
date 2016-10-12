@@ -20,7 +20,6 @@ class Ctrl {
     static $inject = ["$mdEditDialog", "$mdDialog", "$http", "$scope", "$q", ak.jsonDaoModule.Deps.daoFactoryService, "$state", '$uibModal' , '$confirm'];
 
     config: iCrudTableConfig;
-
     source: ak.jsonDaoModule.iSource<any>;
     pager: ak.jsonDaoModule.iPager;
     filters: ak.crudTableModule.filters.iFilterClass;

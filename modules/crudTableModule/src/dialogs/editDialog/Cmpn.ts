@@ -17,8 +17,7 @@ class Ctrl {
         this.res = angular.copy(original);
     }
 
-    submit():void{
-        //this.source.update();
+    submit():void {
         this.$mdDialog.hide(this.res);
         //this.source.patch(this.res.id, this.res).then((res)=>{
         //    console.log(res);

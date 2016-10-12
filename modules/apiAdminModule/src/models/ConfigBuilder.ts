@@ -64,12 +64,14 @@ export class ConfigBuilder {
                 editable = false;
             }
 
-            switch(f.valType.variant) {
+            switch(f.fieldType.dbType) {
+                case 'int2':
+                case 'int8':
                 case 'number':
                     fieldType = ak.crudTableModule.fieldTypes.IntField;
                     formly = 'input';
                     break;
-                case 'str':
+                case 'varchar':
                     fieldType = ak.crudTableModule.fieldTypes.StrField;
                     formly = 'input';
                     break;

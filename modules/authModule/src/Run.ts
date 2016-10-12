@@ -18,8 +18,6 @@ export class Run {
 
     if (token != null && isTokenForm(token)) {
       $http.defaults.headers.common['token'] = token
-    } else {
-      $state.go("login");
     }
 
     $rootScope.$on("$stateChangeError", (e: ng.IAngularEvent, toState:IState, p1: any, fromState:IState, p2: any, error: any) => {

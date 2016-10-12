@@ -27,10 +27,13 @@ export abstract class AbstractSource<M> {
         this.$http
             .post(this.crudUrl, {
                 method: "get",
-                table: this.tableName,
                 pager: page,
                 filters: filters,
-                rels: rels
+                $:{rels: rels}
+            },{
+                params:{
+                    table: this.tableName
+                }
             })
             .then((res: ng.IHttpPromiseCallbackArg<iPageResponse<M>>) => result.resolve(res.data))
             .catch((err) => result.reject(err));
@@ -63,8 +66,11 @@ export abstract class AbstractSource<M> {
         this.$http
             .post(`${this.crudUrl}`, {
                 method: method,
-                table: this.tableName,
                 data: doc
+            },{
+                params:{
+                    table: this.tableName
+                }
             })
             .then((res: ng.IHttpPromiseCallbackArg<any>) => result.resolve(res.data))
             .catch((err: ng.IHttpPromiseCallbackArg<string>) => result.reject(err));

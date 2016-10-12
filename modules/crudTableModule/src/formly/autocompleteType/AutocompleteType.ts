@@ -14,15 +14,15 @@ class Ctrl {
         public daoFactory: ak.jsonDaoModule.iDAOFactoryService,
         public $q
     ) {
-        this.RelSource = this.daoFactory.build(scope.options.data.rels, scope.options.data.dao);
+        this.RelSource = this.daoFactory.build(scope.options.data.dao.tableName, scope.options.data.dao.crudUrl);
 
         this.getDefaultValue(scope).then((res)=>{
                 scope.searchText = res.name;
-            }).catch((err)=>{err})
+            }).catch((err)=>{err});
         scope.querySearch=(value:string)=>{
             if (value) {
                 let defer = this.$q.defer();
-                this.RelSource.getFullPage({fields:[{field: "name", op: "eq", value: value}]},[])
+                this.RelSource.getFullPage({fields:[{field: scope.options.data.dao.fieldName, op: "eq", value: value}]},[])
                     .then((res)=> {
                         defer.resolve(res.data)
                     })

@@ -62,7 +62,7 @@ export class Schema {
                     if (field.formly == "autocomplete") {
                         angular.forEach(rels, (r:TableRel) => {
                             if (r.name == field.name) {
-                                res["data"]["rels"] = r.field;
+                                res["data"]["dao"] = r.dao;
                             }
                         });
                     }

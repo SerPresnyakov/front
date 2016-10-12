@@ -13,7 +13,6 @@ export class Config {
     ) {
         $url.when("", ['localStorageService', '$state',(localStorage: ng.local.storage.ILocalStorageService, state:ng.ui.IStateService)=>{
             state.transitionTo("index", {connName: localStorage.get<string>("connName") ? JSON.parse(localStorage.get<string>("connName")).name : null})
-
         }]);
     }
 

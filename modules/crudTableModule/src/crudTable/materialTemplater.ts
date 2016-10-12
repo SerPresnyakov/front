@@ -35,27 +35,42 @@ export class materialTemplater {
     getToolbar(): string {
         return "" +
             '<md-toolbar class="md-table-toolbar md-default">' +
-            '<div class="md-toolbar-tools">' +
-            `<span>${this.config.sourceName}</span>` +
-            '<span flex></span>' +
-            `<filter-button filter="${this.ctrlAs}.filters"  refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
-            `<md-button class="md-raised md-primary" ng-if='${this.config.allowedMethods.create}' ng-click="${this.ctrlAs}.create()">Создать</md-button>` +
-            '</div>' +
+                '<div class="md-toolbar-tools">' +
+                    `<span>${this.config.sourceName}</span>` +
+                    '<span flex></span>' +
+                    this.getAddFunc() +
+                    `<filter-button filter="${this.ctrlAs}.filters"  refresh-page='${this.ctrlAs}.refreshPage()'></filter-button>` +
+                    `<md-button class="md-raised md-primary" ng-if='${this.config.allowedMethods.create}' ng-click="${this.ctrlAs}.create()">Создать</md-button>` +
+                '</div>' +
             '</md-toolbar>' +
             `<md-content class="layout-padding flex" ng-show='${this.ctrlAs}.filters.exist()'>` +
-            `<filter-fields class="layout-padding flex" filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' rest="${this.ctrlAs}.config.rest"></filter-fields>`+
-            `<md-button ng-if='${this.ctrlAs}.filters.length>0' ng-click="${this.ctrlAs}.refreshPage()">Применить</md-button>` +
+                `<filter-fields class="layout-padding flex" filter="${this.ctrlAs}.filters" refresh-page='${this.ctrlAs}.refreshPage()' rest="${this.ctrlAs}.config.rest"></filter-fields>`+
+                `<md-button ng-if='${this.ctrlAs}.filters.length>0' ng-click="${this.ctrlAs}.refreshPage()">Применить</md-button>` +
             `</md-content>`
+    }
+
+    getAddFunc(){
+        let res = "";
+
+        if(this.config.addFunc.length>0){
+            for(let addFunc of this.config.addFunc){
+                if(addFunc.type.type == 'button'){
+                    res = res + addFunc.tds
+                }
+            }
+        }
+
+        return res;
     }
 
     getTable(): string {
 
         return '' +
             '<md-table-container>' +
-            '<table md-table>' +
-            this.getThead() +
-            this.getTBody() +
-            '</table>' +
+                '<table md-table>' +
+                    this.getThead() +
+                    this.getTBody() +
+                '</table>' +
             '</md-table-container>'
 
     }
@@ -68,18 +83,23 @@ export class materialTemplater {
 
     getThs(): string {
         let res = [];
+
         angular.forEach(this.config.fields, (f:TableField<FieldType>) => {
             res.push(`<th md-column>${f.title}</th>`)
         });
-        if(this.config.allowedMethods.patch||this.config.allowedMethods.delete) {
-            res.push("<th md-column>Действия</th>");
-        }
+
         if(this.config.addFunc.length>0){
             angular.forEach(this.config.addFunc, (f) => {
                 res.push(`<th md-column>${f.ths}</th>`)
             });
         }
+
+        if(this.config.allowedMethods.patch||this.config.allowedMethods.delete) {
+            res.push("<th md-column>Действия</th>");
+        }
+
         return res.join("\n")
+
     }
 
     getThead(): string {

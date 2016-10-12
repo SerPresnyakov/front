@@ -17,7 +17,7 @@ class Ctrl {
         this.res = angular.copy(original);
     }
 
-    cancel():void{
+    cancel() :void {
         //this.source.update();
         this.$uibModalInstance.dismiss('cancel');
         //this.source.patch(this.res.id, this.res).then((res)=>{

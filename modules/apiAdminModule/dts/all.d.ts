@@ -22,14 +22,14 @@ declare module ak.apiAdminModule {
         tableId: number
         name: string
         alias: string
-        valType: IValType
+        fieldType: IValType
         nullable: boolean
         hasDefault: boolean
         table?: iTable
     }
 
     interface IValType {
-        variant: string
+        dbType: string
     }
 
     interface iRelation {

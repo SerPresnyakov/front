@@ -8,13 +8,17 @@ import {IntField} from "./fieldTypes/IntField";
 import {ObjField} from "./fieldTypes/ObjField";
 import {StrField} from "./fieldTypes/StrField";
 import {TableField} from "./models/TableField";
-import {AddFunc} from "./crudTable/AddFunc";
+import {AddFunc} from "./crudTable/AddFunc/AddFunc";
 import {TimestampField} from "./fieldTypes/TimestampField";
 import {DefaultField} from "./fieldTypes/DefaultField";
 import iTableRelType = ak.crudTableModule.filters.iTableRelType;
 import {TableRel} from "./models/TableRel";
 import FieldType = ak.crudTableModule.fieldTypes.FieldType;
 import {FilterTemplateProvider} from "./FilterTemplateConfig";
+import {ButtonType} from "./crudTable/AddFunc/ButtonType";
+import {CellType} from "./crudTable/AddFunc/CellType";
+import iTableRelDao = ak.crudTableModule.iTableRelDao;
+
 const crudTableModule : ak.crudTableModule = {
     name: "crudTableModule",
     CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string, allowedMethods: ak.crudTableModule.AllowedMethods): CrudTableConfig => {
@@ -45,16 +49,22 @@ const crudTableModule : ak.crudTableModule = {
         field: string,
         include : TableRel[],
         type: iTableRelType,
+        dao: iTableRelDao,
         displayField: string = "name"):TableRel=>{
-        return new TableRel(name, field, include, type, displayField)
+        return new TableRel(name, field, include, type, dao, displayField)
     },
     AddFunc:(
-        type:string,
+        type:ak.crudTableModule.AddFuncType,
         ths:string,
         getTds:(obj)=>string):AddFunc=>{
         return new AddFunc(type, ths, getTds)
+    },
+    AddFuncTypes:{
+        ButtonType: new ButtonType(),
+        CellType: new CellType()
     }
 };
+
 window["ak"]["crudTableModule"] = crudTableModule;
 let module = ak.utils.angularModule(ak.crudTableModule.name, [
     ak.utils.Deps.localStorage,
@@ -63,7 +73,8 @@ let module = ak.utils.angularModule(ak.crudTableModule.name, [
     ak.utils.Deps.angularFormly,
     ak.utils.Deps.formlyBootstrap,
     ak.utils.Deps.uiBootstrap,
-    ak.utils.Deps.ngMessages
+    ak.utils.Deps.ngMessages,
+    ak.utils.Deps.confirm
 ]);
 
 module.directive("akCrudTable", ["$compile", ($compile => CrudTableDirective($compile))]);

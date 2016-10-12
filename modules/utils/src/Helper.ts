@@ -36,10 +36,20 @@ export class Helper {
     }
   }
 
-  getArrElementByName(arr:any[],name:string):{}{
+  getArrElementByKey(arr:any[],name:string):{}{
     let res;
     arr.forEach((element)=>{
       if(element.key == name){
+        res = element;
+      }
+    });
+    return res;
+  }
+
+  getArrElementByName(arr:any[],name:string):{}{
+    let res;
+    arr.forEach((element)=>{
+      if(element.name == name){
         res = element;
       }
     });

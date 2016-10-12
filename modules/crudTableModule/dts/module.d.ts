@@ -14,12 +14,25 @@ declare namespace ak.crudTableModule {
         childs?: ak.crudTableModule.TableField<FieldType>[]
         options?: any
     }
+    interface iTableRelDao {
+        tableName: string
+        crudUrl: string
+        fieldName : string
+    }
+
     interface TableRel {
         name: string
         field: string
         include: TableRel[]
         type: ak.crudTableModule.filters.iTableRelType
+        dao: iTableRelDao
         displayField: string
+    }
+
+    interface Tab {
+        title:string
+        url:string
+        selected?:boolean
     }
 
     interface CrudTableConfig {
@@ -42,7 +55,7 @@ declare namespace ak.crudTableModule {
         getField(fieldName: string): ak.crudTableModule.TableField<FieldType>
         getRelsName(rels: ak.crudTableModule.filters.iTableRel[]):ak.jsonDaoModule.iRelation[]
         setFields(fields: ak.crudTableModule.TableField<FieldType>[]):CrudTableConfig
-        setTabs(tabs: any): CrudTableConfig
+        setTabs(tabs: Tab[]): CrudTableConfig
         setRels(rels: ak.crudTableModule.filters.iTableRel[]): CrudTableConfig
         setFramework(framework:string):CrudTableConfig
         setAddFunc(addFunc: ak.crudTableModule.AddFunc[]): CrudTableConfig
@@ -50,10 +63,19 @@ declare namespace ak.crudTableModule {
     }
 
     interface AddFunc{
-        type:string
+        type:AddFuncType
         ths:string
         tds(obj:string):string
 
+    }
+
+    interface AddFuncType{
+        type:string
+    }
+
+    interface AddFuncTypes {
+        ButtonType: AddFuncType
+        CellType: AddFuncType
     }
 
     interface AllowedMethods{
@@ -120,9 +142,9 @@ declare namespace ak.crudTableModule {
             field: string
             include: iTableRel[]
             type: ak.crudTableModule.filters.iTableRelType
+            dao: ak.crudTableModule.iTableRelDao
             displayField: string
         }
-
 
         interface iFilter {
             name: string
@@ -193,9 +215,10 @@ declare module ak {
     import iTableRelType = ak.crudTableModule.filters.iTableRelType;
     interface crudTableModule {
         name:string
-        AddFunc:(type:string, ths:string, getTds:(obj:string)=>string) =>ak.crudTableModule.AddFunc;
+        AddFunc:(type:ak.crudTableModule.AddFuncType, ths:string, getTds:(obj:string)=>string) =>ak.crudTableModule.AddFunc;
         CrudTableConfig:(sourceName: string, url: string, tableName: string, connName: string, allowedMethods:ak.crudTableModule.AllowedMethods) => ak.crudTableModule.CrudTableConfig,
         fieldTypes: ak.crudTableModule.fieldTypes
+        AddFuncTypes: ak.crudTableModule.AddFuncTypes
         TableField:(name: string,
                     title: string,
                     fieldType: ak.crudTableModule.fieldTypes.FieldType,
@@ -210,6 +233,7 @@ declare module ak {
             field: string,
             include: ak.crudTableModule.TableRel[],
             type: iTableRelType,
+            dao: ak.crudTableModule.iTableRelDao,
             displayField?: string)=>ak.crudTableModule.TableRel
     }
     let crudTableModule:crudTableModule;

@@ -46,9 +46,9 @@ export class CrudTableConfig implements ak.crudTableModule.CrudTableConfig {
         let res:ak.jsonDaoModule.iRelation[]=[];
         rels.forEach((r:TableRel)=>{
             if(r.include){
-                res.push({name:r.field, include:this.getRelsName(r.include)})
+                res.push({name:r.name, include:this.getRelsName(r.include)})
             }else{
-                res.push({name:r.field})
+                res.push({name:r.name})
             }
         });
         return res;

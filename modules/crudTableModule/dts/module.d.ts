@@ -9,7 +9,8 @@ declare namespace ak.crudTableModule {
         fieldType: T
         nullable: boolean
         editable: boolean
-        showInTemplate: boolean
+        showInTemplate: boolean,
+        showInFilter: boolean,
         formly: string
         childs?: ak.crudTableModule.TableField<FieldType>[]
         options?: any
@@ -205,6 +206,7 @@ declare namespace ak.crudTableModule {
             resetFilter():void
             getFilterByName(name):INewFilter
             remove?(index:number, name:string):void
+            resetUnappliedFilter():void
         }
     }
 }
@@ -225,6 +227,7 @@ declare module ak {
                     nullable: boolean,
                     editable: boolean,
                     showInTemplate: boolean,
+                    showInFilter: boolean,
                     formly: string,
                     childs?: ak.crudTableModule.TableField<FieldType>[],
                     options?: any) => ak.crudTableModule.TableField<FieldType>

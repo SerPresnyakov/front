@@ -4,5 +4,5 @@ import {TableField} from "../../../src/models/TableField";
 
 export const table = new CrudTableConfig("Регионы", "/api/crud", "public.regions", "majorAdmin", {patch:true, delete:true, create:true})
     .setFields([
-        new TableField("name", 'Название', new StrField(), false, false, true, "input"),
+        new TableField("name", 'Название', new StrField(), false, false, true, true, "input")
     ]);

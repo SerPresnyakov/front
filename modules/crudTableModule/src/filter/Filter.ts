@@ -26,17 +26,18 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
         let schema = Schema.getSchemaWhitEditable(fields,rels);
         let res:  ak.crudTableModule.filters.INewFilter[] = [];
         fields.forEach((f:TableField)=>{
-            let filter: ak.crudTableModule.filters.INewFilter = {
-                name:f.name,
-                applied:false,
-                field:f,
-                schema:[ak.utils.Helper.getArrElementByName(schema,f.name)]
-            };
-            res.push(filter);
+            if(f.showInFilter){
+                let filter: ak.crudTableModule.filters.INewFilter = {
+                    name: ak.utils.Helper.getArrElementByKey(rels, "field", f.name) ? ak.utils.Helper.getArrElementByKey(rels, "field", f.name).dao.fieldName : f.name ,
+                    applied:false,
+                    field:f,
+                    schema:[ak.utils.Helper.getArrElementByKey(schema, "key", f.name)]
+                };
+                res.push(filter);
+            }
         });
         return res;
     }
-
 
     apply(filter: ak.crudTableModule.filters.INewFilter):void {
         filter.applied = true;
@@ -46,7 +47,7 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
 
     unapply(name:string):void {
         this.filters.forEach((f: ak.crudTableModule.filters.INewFilter)=>{
-            if(f.name==name){
+            if(f.name==name || f.field.name == name){
                 f.applied = false;
             }
         });
@@ -54,8 +55,6 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
 
     removeField(index:number, name:string):void{
         if(index>=0) {
-            console.log("index: ",index);
-            console.log("name: ",name);
             this.unapply(name);
             delete this.model[name];
             this.applyedFilters.splice(index, 1);
@@ -88,17 +87,18 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
     };
 
     getParamsFilters(params: any):void{
-        console.log(params);
+
         if(typeof params=='string'){
             this.model = JSON.parse(params);
         }else if(typeof params=='object'){
             this.model = params;
         }
+        console.log("model: ",this.model);
         this.schema = [];
         this.applyedFilters = [];
         Object.getOwnPropertyNames(this.model).forEach(r =>{
             angular.forEach(this.filters,(f: ak.crudTableModule.filters.INewFilter)=>{
-                if(r === f.name){
+                if(r === f.name || r === f.field.name){
                     this.apply(f);
                 }
             });
@@ -124,6 +124,17 @@ export class Filters implements ak.crudTableModule.filters.iFilterClass{
             f.applied = false;
         });
         this.model = {};
+    }
+
+    resetUnappliedFilter():void {
+        for(let filter of this.filters){
+            if(filter.applied){
+                if (this.model[filter.name] || this.model[filter.field.name]){
+                }else{
+                    this.unapply(filter.name);
+                }
+            }
+        }
     }
 
     getFilterByName(name): ak.crudTableModule.filters.INewFilter{

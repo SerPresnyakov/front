@@ -39,10 +39,11 @@ const crudTableModule : ak.crudTableModule = {
         nullable: boolean,
         editable: boolean,
         showInTemplate: boolean,
+        showInFilter: boolean,
         formly: string,
         childs: ak.crudTableModule.TableField<FieldType>[] = null,
         options: any = null):TableField=>{
-        return new TableField(name, title, fieldType, nullable, editable,showInTemplate, formly, childs, options)
+        return new TableField(name, title, fieldType, nullable, editable,showInTemplate, showInFilter, formly, childs, options)
     },
     TableRel:(
         name: string,

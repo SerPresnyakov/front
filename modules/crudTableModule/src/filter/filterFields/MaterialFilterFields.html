@@ -11,9 +11,5 @@
         <formly-form model="filterFieldsVM.filter.model" fields="filterFieldsVM.filter.schema" options="filterFieldsVM.options" >
             <md-button ng-if="filterFieldsVM.filter.exist()" ng-click="filterFieldsVM.cancelFilter()">Отменить</md-button>
             <md-button ng-if="filterFieldsVM.filter.exist()" type="submit" class="md-primary md-raised" ng-click="filterFieldsVM.submit()" ng-disabled="vm.form.$invalid">Применить</md-button>
-            <!--<md-button ng-if="!filterFieldsVM.filter.saveFilter.selectedItem"  class="md-primary md-raised" ng-click="filterFieldsVM.saveFilter()">Сохранить фильтр</md-button>-->
         </formly-form>
  </form>
-
- <!--<input ng-model="filterFieldsVM.test.name">-->
-<!--<md-button ng-click="filterFieldsVM.saveFilter()">Сохранить фильтр</md-button>-->

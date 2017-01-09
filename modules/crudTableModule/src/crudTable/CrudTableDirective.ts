@@ -36,11 +36,6 @@ class Ctrl {
         public $confirm: ng.confirm.IConfirmService
     ) {
         this.pager = ak.jsonDaoModule.iPager(1, 15, this.$q);
-        //$scope.$watchCollection((scope) => { return scope["vm"].pager; } ,(newVal, oldVal, scope) => {
-        //    if (newVal.page!=oldVal.page || newVal.per!=oldVal.per) {
-        //        this.refreshPage();
-        //    }
-        //});
     }
 
     init(config: iCrudTableConfig):void {
@@ -96,8 +91,9 @@ class Ctrl {
             this.$mdDialog.show(createDialog($event, this.config))
                 .then((res)=> {
                     console.log(res);
-                    this.source.create(res);
-                    this.refreshPage()
+                    this.source.create(res).then(()=>{
+                        this.refreshPage()
+                    })
                 })
         }else if(this.config.framework=="inspinia"){
             this.$uibModal.open(getBootstrapCreateDialog(this.config)).result.then((res)=>{
@@ -150,7 +146,7 @@ class Ctrl {
 
     refreshPage():void {
         let filter = this.setFilters();
-        this.source.getPage(ak.jsonDaoModule.iPage().setPage(1,15),filter,this.config.getRelsName(this.config.rels))
+        this.source.getPage(ak.jsonDaoModule.iPage().setPage(1,15), filter, this.config.getRelsName(this.config.rels))
             .then((res) => {
                 this.pager.data = res.data;
                 this.pager.total = 1;
@@ -164,8 +160,16 @@ class Ctrl {
         if(this.$state.params["filters"]){
             this.filters.getParamsFilters(this.$state.params["filters"]);
             Object.getOwnPropertyNames(this.filters.model).forEach( (f)=> {
-                res.fields.push({field:f,op:"eq",value:this.filters.model[f]})
-                console.log(f, this.filters.model[f])
+                switch (typeof this.filters.model[f]) {
+                    case "number":
+                        res.fields.push({field: f, op: "eq", value: this.filters.model[f]});
+                        break;
+                    case "string":
+                        res.fields.push({field: f, op: "like", value: this.filters.model[f]});
+                        break;
+                    default:
+                        res.fields.push({field: f, op: "eq", value: this.filters.model[f]})
+                }
             });
         } else {
             res = null;

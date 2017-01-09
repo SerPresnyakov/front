@@ -1,10 +1,10 @@
 class Ctrl {
 
-    static $inject = [ "$http", "$scope","localStorageService", ak.jsonDaoModule.Deps.daoFactoryService, "$q"];
+    static $inject = [ "$http", "$scope", "localStorageService", ak.jsonDaoModule.Deps.daoFactoryService, "$q"];
 
     selectedItem: any;
     searchText: string;
-    token:string;
+    token: string;
     RelSource: ak.jsonDaoModule.iSource<any>;
 
     constructor(
@@ -16,13 +16,28 @@ class Ctrl {
     ) {
         this.RelSource = this.daoFactory.build(scope.options.data.dao.tableName, scope.options.data.dao.crudUrl);
 
+        scope.getItemByName=(item)=>{
+            return item[scope.options.data.dao.fieldName]
+        };
+
         this.getDefaultValue(scope).then((res)=>{
-                scope.searchText = res.name;
+                scope.searchText = res[scope.options.data.dao.fieldName];
             }).catch((err)=>{err});
+
         scope.querySearch=(value:string)=>{
             if (value) {
                 let defer = this.$q.defer();
-                this.RelSource.getFullPage({fields:[{field: scope.options.data.dao.fieldName, op: "eq", value: value}]},[])
+                this.RelSource.getFullPage({fields:[{field: scope.options.data.dao.fieldName, op: "like", value: value}]},[])
+                    .then((res)=> {
+                        defer.resolve(res.data)
+                    })
+                    .catch((err)=> {
+                        defer.reject(err)
+                    });
+                return defer.promise;
+            }else{
+                let defer = this.$q.defer();
+                this.RelSource.getFullPage(null,[])
                     .then((res)=> {
                         defer.resolve(res.data)
                     })

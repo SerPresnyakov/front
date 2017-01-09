@@ -1,17 +1,7 @@
 import {FilterTemplateProvider} from "../../FilterTemplateConfig";
-class fieldCtrl{
-    data = {};
-    wrapper = "FilterWrapper";
-
-    constructor(private filters){
-        this.data = {scope:filters};
-        delete(this.filters)
-    }
-}
-
 class Ctrl {
 
-    static $inject = ["$scope", "$state", "localStorageService", "$mdDialog", ak.jsonDaoModule.Deps.daoFactoryService, "$q", ak.authModule.authServiceName, "$mdToast" ];
+    static $inject = ["$scope", "$state", "$mdDialog", ak.jsonDaoModule.Deps.daoFactoryService, "$q", ak.authModule.authServiceName, "$mdToast" ];
 
     filter : ak.crudTableModule.filters.iFilterClass;
     refreshPage:()=>void;
@@ -19,21 +9,20 @@ class Ctrl {
         data:this.filter,
         wrapper:"FilterWrapper"
     };
-    savedFilter:ak.crudTableModule.filters.ISavedFilters;
+    savedFilter: ak.crudTableModule.filters.ISavedFilters;
     savedFilters: ak.crudTableModule.filters.ISavedFilters[]=[];
-    filtersSource:ak.jsonDaoModule.iSource<any>;
-    tables:ak.jsonDaoModule.iSource<any>;
+    filtersSource: ak.jsonDaoModule.iSource<any>;
+    tables: ak.jsonDaoModule.iSource<any>;
 
     constructor(public $scope: ng.IScope,
                 public state:ng.ui.IStateService,
-                public localStorage:angular.local.storage.ILocalStorageService,
                 public $mdDialog:angular.material.IDialogService,
                 public daoFactory: ak.jsonDaoModule.iDAOFactoryService,
                 public $q:ng.IQService,
                 public auth,
                 public $mdToast:ng.material.IToastService
     ){
-        this.filtersSource = daoFactory.build("savedFilter", "/api/admin/table");
+        this.filtersSource = daoFactory.build("public.saved_filter", "api/db/table/api");
         this.tables =  daoFactory.build("table", "/api/admin/table");
         this.getSavedFilters().then((res)=>this.filter.savedFilters=res);
 
@@ -59,6 +48,7 @@ class Ctrl {
     }
 
     submit():void {
+        this.filter.resetUnappliedFilter();
         this.state.params["filters"] = JSON.stringify(this.filter.model);
         this.state.go(this.state.current.name, this.state.params);
         this.refreshPage();
@@ -66,7 +56,7 @@ class Ctrl {
 
     getSavedFilters():ng.IPromise<ak.crudTableModule.filters.ISavedFilters[]>{
         let defer = this.$q.defer<ak.crudTableModule.filters.ISavedFilters[]>();
-        this.filtersSource.getFullPage({fields:[{field:"base.table.url", op:"eq",value:this.filter.tableUrl}]},[{name:"table"}])
+        this.filtersSource.getFullPage({fields:[]},[{name:"table"}])
             .then((res)=>defer.resolve(res.data));
         return defer.promise;
     }
@@ -121,7 +111,7 @@ class Ctrl {
                                     userId: userId,
                                     name: name,
                                     filters: this.getFilter(this.filter.model)
-                                }
+                                };
                                 toast = "создан";
                             }
                         }else{
@@ -165,12 +155,15 @@ class Ctrl {
         this.filter.saveFilter.searchText = null;
         this.filter.saveFilter.selectedItem = null;
         this.filter.saveFilterName = null;
+        this.state.params["filters"] = null;
+        this.state.go(this.state.current.name, this.state.params);
+        this.refreshPage();
     }
 
     getFilter(model:{}):any[]{
         let res = [];
         Object.getOwnPropertyNames(model).forEach((f)=>{
-            res.push({field:f,op:"eq",value:model[f]});
+            res.push({field:f, op:"eq", value:model[f]});
         });
         return res;
     }

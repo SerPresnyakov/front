@@ -1,0 +1,9 @@
+{
+  "globalDependencies": {
+    "angular": "registry:dt/angular#1.5.0+20161208205636",
+    "angular-formly": "registry:dt/angular-formly#7.2.3+20160316171810",
+    "angular-material": "registry:dt/angular-material#1.1.0-rc5.0+20161208205836",
+    "angular-ui-router": "registry:dt/angular-ui-router#1.1.5+20161110053620",
+    "jquery": "registry:dt/jquery#1.10.0+20160929162922"
+  }
+}

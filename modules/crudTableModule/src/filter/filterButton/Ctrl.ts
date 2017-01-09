@@ -38,13 +38,6 @@ class Ctrl {
         }
     }
 
-    //selectText(){
-    //    console.log("set");
-    //    var quest = angular.element(document.querySelector(".md-virtual-repeat-container"));
-    //    quest.css('height','120px');
-    //    console.log(quest)
-    //}
-
     getModel(model:any[]):{}{
         let res = {};
         model.forEach((f)=>{

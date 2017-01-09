@@ -85,7 +85,9 @@ export class materialTemplater {
         let res = [];
 
         angular.forEach(this.config.fields, (f:TableField<FieldType>) => {
-            res.push(`<th md-column>${f.title}</th>`)
+            if(f.showInTemplate) {
+                res.push(`<th md-column>${f.title}</th>`)
+            }
         });
 
         if(this.config.addFunc.length>0){
@@ -123,34 +125,35 @@ export class materialTemplater {
         let obj1= obj;
         let res = [];
         angular.forEach(this.config.fields, (f:TableField<FieldType>) => {
-            if(f.editable){
-                switch(f.formly){
-                    case "switch" :
-                        res.push(`<td md-cell ><md-switch ng-model="o.${f.name}" ng-change="${this.ctrlAs}.onChange(o.${f.name},o.id,'${f.name}')" aria-label="Switch 1"></md-switch></td>`);
-                        break;
+            if(f.showInTemplate) {
+                if (f.editable) {
+                    switch (f.formly) {
+                        case "switch" :
+                            res.push(`<td md-cell ><md-switch ng-model="o.${f.name}" ng-change="${this.ctrlAs}.onChange(o.${f.name},o.id,'${f.name}')" aria-label="Switch 1"></md-switch></td>`);
+                            break;
 
-                    case "autocomplete" :
-                        res.push(`<td md-cell><a ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")' class="editable-click" >{{o.${f.name} || 'Не указано'}}</a></td>`);
-                        break;
+                        case "autocomplete" :
+                            res.push(`<td md-cell><a ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")' class="editable-click" >{{o.${f.name} || 'Не указано'}}</a></td>`);
+                            break;
 
-                    case "input" :
-                        res.push(`<td md-cell ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")'><a class="editable-click">{{o.${f.name} || 'Не указано'}}</a></td>`);
-                        break;
+                        case "input" :
+                            res.push(`<td md-cell ng-click='${this.ctrlAs}.editProp($event,o, "${f.name}")'><a class="editable-click">{{o.${f.name} || 'Не указано'}}</a></td>`);
+                            break;
+                    }
+                }
+                else {
+                    if (f.fieldType.type == "obj") {
+                        let childs = "";
+                        angular.forEach(f.childs, (n:TableField<FieldType>) => {
+                            childs = childs + `${this.getObjCell(obj, n, f)}`;
+                        });
+                        res.push(`<td md-cell>${childs}</td>`);
+
+                    } else {
+                        res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
+                    }
                 }
             }
-            else{
-                if (f.fieldType.type=="obj") {
-                    let childs = "";
-                    angular.forEach(f.childs, (n: TableField<FieldType>) => {
-                        childs = childs + `${this.getObjCell(obj, n, f)}`;
-                    });
-                    res.push(`<td md-cell>${childs}</td>`);
-
-                } else{
-                    res.push(`<td md-cell>${this.getCell(obj, f)}</td>`);
-                }
-            }
-
         });
 
         if(this.config.addFunc.length>0){
@@ -174,8 +177,8 @@ export class materialTemplater {
     }
 
     getCell(obj: string, f: iTableField<FieldType>): string {
-        if(f.formly=="switch"){
-            res =`<md-button ng-if="${obj}.${f.name}" class="md-raised md-primary md-button">Дa</md-button><md-button ng-if="!${obj}.${f.name}" class="md-raised md-accent md-button">Нет</md-button>`
+        if (f.formly == "switch") {
+            res = `<md-button ng-if="${obj}.${f.name}" class="md-raised md-primary md-button">Дa</md-button><md-button ng-if="!${obj}.${f.name}" class="md-raised md-accent md-button">Нет</md-button>`
         } else {
             let rel = this.config.getRel(f.name);
             var res:string;

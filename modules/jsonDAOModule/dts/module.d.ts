@@ -33,17 +33,17 @@ declare namespace ak.jsonDaoModule {
 
     interface iRelation {
         name:string
-        include?:iRelation[]
+        rels?:iRelation[]
     }
 
     interface iSource<M> {
         crudUrl: string
         tableName: string
         pager: iPager
-        getFullPage(filters: iFilter, rels:iRelation[]): ng.IPromise<iPageResponse<M>>
-        getPage(page: iPage, filters: iFilter, rels:iRelation[]): ng.IPromise<iPageResponse<M>>
-        getOne(filters: iFilter): ng.IPromise<M>
-        getById(id: number): ng.IPromise<M>
+        getFullPage(filters: iFilter, rels:iRelation[]): ng.IPromise<M>
+        getPage(page: iPage, filters: iFilter, rels:iRelation[]): ng.IPromise<M>
+        getOne(filters: iFilter, rels:iRelation[]): ng.IPromise<M>
+        getById(id: number, rels?:iRelation[]): ng.IPromise<M>
         create(doc: M): ng.IPromise<any>
         upsert(doc: M): ng.IPromise<any>
         update(doc: Object): ng.IPromise<any>

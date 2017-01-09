@@ -1,0 +1,5 @@
+{
+  "name": "ak.major_extension",
+  "version": "0.0.1",
+  "typings":"dts/module.d.ts"
+}

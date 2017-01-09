@@ -17,42 +17,43 @@ export abstract class AbstractSource<M> {
         this.$q = this.inj.get<ng.IQService>("$q");
     }
 
-    getFullPage(filters: iFilter, rels: iRelation[] = []): ng.IPromise<iPageResponse<M>> {
+    getFullPage(filters: iFilter, rels: iRelation[] = []): ng.IPromise<M> {
         return this.getPage(new Page().setPage(1, 100), filters, rels)
     }
 
-    getPage(page:Page, filters: iFilter, rels: iRelation[] = []): ng.IPromise<iPageResponse<M>> {
-        let result = this.$q.defer<iPageResponse<M>>();
+    getPage(page:Page, filters: iFilter, rels: iRelation[] = []): ng.IPromise<M> {
+        let result = this.$q.defer<M>();
         //noinspection TypeScriptValidateTypes
         this.$http
             .post(this.crudUrl, {
-                method: "get",
-                pager: page,
-                filters: filters,
-                $:{rels: rels}
+                get:{
+                    pager: page,
+                    filters: filters,
+                    $:{rels: rels}
+                },
             },{
                 params:{
                     table: this.tableName
                 }
             })
-            .then((res: ng.IHttpPromiseCallbackArg<iPageResponse<M>>) => result.resolve(res.data))
+            .then((res: ng.IHttpPromiseCallbackArg<M>) => result.resolve(res.data))
             .catch((err) => result.reject(err));
 
         return result.promise
     };
 
-    getOne(filters: iFilter): ng.IPromise<M> {
+    getOne(filters: iFilter, rels: iRelation[] = []): ng.IPromise<M> {
         let deffer = this.$q.defer<M>();
-        this.getPage(new Page().setPage(1, 1), filters)
-            .then((res: iPageResponse<M>) => {
-                if (res.data[0]) deffer.resolve(res.data[0]);
+        this.getPage(new Page().setPage(1, 1), filters, rels)
+            .then((res) => {
+                if (res) deffer.resolve(res[0]);
                 else deffer.reject("Not found") })
             .catch((err) => deffer.reject(err));
         return deffer.promise
     };
 
-    getById(id: number): ng.IPromise<M> {
-        return this.getOne({fields:[{field: "base.id", op: "eq", value: id}]})
+    getById(id: number, rels: iRelation[] = []): ng.IPromise<M> {
+        return this.getOne({fields:[{field: "base.id", op: "eq", value: id}]}, rels)
     }
 
     create(doc: M): ng.IPromise<any> { return this.modify(doc, "insert") }
@@ -65,8 +66,9 @@ export abstract class AbstractSource<M> {
 
         this.$http
             .post(`${this.crudUrl}`, {
-                method: method,
-                data: doc
+                [method]:{
+                    data: doc
+                },
             },{
                 params:{
                     table: this.tableName

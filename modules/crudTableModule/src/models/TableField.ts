@@ -8,6 +8,7 @@ export class TableField implements ak.crudTableModule.TableField<any> {
         public nullable: boolean,
         public editable: boolean,
         public showInTemplate: boolean,
+        public showInFilter: boolean,
         public formly: string,
         public childs: ak.crudTableModule.TableField<FieldType>[] = null,
         public options: any = null

@@ -53,6 +53,7 @@ declare module ak.utils {
         nullObj(obj:{})
         assignegValueOfObjElement(data, obj)
         handleNull(o:() => any): string
+        getArrElementByKey(arr:any[], key:string, value:string)
         getArrElementByName?(arr:any[], name:string)
     }
 

@@ -44,9 +44,7 @@ export class Schema {
                             label: field.title
                         },
                         data: {
-                            test: ()=> {
-                                console.log("test!")
-                            }
+                            dao: {}
                         }
                     };
 
@@ -54,15 +52,14 @@ export class Schema {
                         case 'int':
                             res.templateOptions["type"] = "number";
                             break;
-                        case 'bool':
-                            res.templateOptions["type"] = "boolean";
-                            break;
+
                     }
 
                     if (field.formly == "autocomplete") {
                         angular.forEach(rels, (r:TableRel) => {
-                            if (r.name == field.name) {
-                                res["data"]["dao"] = r.dao;
+                            if (r.field == field.name) {
+                                res.data["dao"] = r.dao;
+                                console.log("res.data:", r.dao)
                             }
                         });
                     }

@@ -6,12 +6,12 @@ import {BoolField} from "../../../../src/fieldTypes/BoolField";
 
 export const table = new CrudTableConfig("Кампании", "/api/crud", "direct.campaigns", "majorAdmin", {patch:true, delete:true, create:true})
     .setFields([
-        new TableField("id", 'ID', new IntField(), false, false,true, "input"),
-        new TableField("name", 'Имя', new StrField(), false, false, true,"input"),
-        new TableField("status", 'Статус', new StrField(), false, false,true, "input"),
-        new TableField("isActive", "Активна", new BoolField(), true, false,true, "switch"),
-        new TableField("statusShow", "Медиаплан", new BoolField(), true, false,true, "switch"),
-        new TableField("track", "Отслеживать", new BoolField(), true, true, true,"switch"),
-    ])
+        new TableField("id", 'ID', new IntField(), false, false,true, true, "input"),
+        new TableField("name", 'Имя', new StrField(), false, false, true, true,"input"),
+        new TableField("status", 'Статус', new StrField(), false, false,true, true, "input"),
+        new TableField("isActive", "Активна", new BoolField(), true, false,true, true, "switch"),
+        new TableField("statusShow", "Медиаплан", new BoolField(), true, false,true, true, "switch"),
+        new TableField("track", "Отслеживать", new BoolField(), true, true, true, true,"switch"),
+    ]);
     //.setTabs([{title:"Direct",url:"index.directCampaigs",selected:true},{title:"Adwords",url:"index.adwordsCampaigs"}]);
 
